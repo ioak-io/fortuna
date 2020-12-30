@@ -1,0 +1,57 @@
+a {
+  &.oak-link {
+    user-select: none;
+    white-space: nowrap;
+
+    // Initialize colors based on theme
+    &.default {
+      --color-fg: var(--color-default-1);
+      --color-fg-hover: var(--color-default-2);
+    }
+
+    &.primary {
+      --color-fg: var(--color-primary-1);
+      --color-fg-hover: var(--color-primary-2);
+    }
+
+    &.secondary {
+      --color-fg: var(--color-secondary-1);
+      --color-fg-hover: var(--color-secondary-2);
+    }
+
+    &.tertiary {
+      --color-fg: var(--color-tertiary-1);
+      --color-fg-hover: var(--color-tertiary-2);
+    }
+
+    cursor: pointer;
+    transition: 0.4s cubic-bezier(0.5, 1.6, 0.4, 0.7);
+
+    text-decoration: none;
+    font-size: 1em;
+
+    .link-label-container {
+      display: grid;
+      grid-auto-flow: column;
+      align-items: center;
+      column-gap: 4px;
+      .link-label-container--icon {
+        .material-icons {
+          display: flex;
+          font-size: 2em;
+        }
+      }
+      &:hover {
+        .link-label-container--text {
+          text-decoration: underline;
+          color: var(--color-fg);
+        }
+        .link-label-container--icon {
+          .material-icons {
+            color: var(--color-fg) !important;
+          }
+        }
+      }
+    }
+  }
+}

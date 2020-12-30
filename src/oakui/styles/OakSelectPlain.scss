@@ -1,0 +1,42 @@
+.oak-select-plain {
+  .select {
+    width: 100%;
+    background-color: transparent;
+    padding: 5px 5px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    color: var(--color-foreground-1);
+    border-radius: 2px;
+    border: 1px solid var(--color-foreground-5);
+    &:focus {
+      border: 1px solid var(--color-primary-1);
+    }
+
+    &.underline {
+      border: none;
+      border-radius: 0px;
+      border-bottom: 1px solid var(--color-foreground-5);
+      &:focus {
+        border-bottom: 1px solid var(--color-primary-1);
+      }
+    }
+    // padding: 10px 0;
+    font-size: 16px;
+    option {
+      background-color: var(--color-background-4);
+    }
+  }
+  
+  text-align: left;
+  label {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    display: block;
+    font-size: 11px;
+    margin-bottom: 2px;
+    color: var(--color-foreground-3);
+    text-transform: capitalize;
+    word-break: keep-all;
+  }
+}

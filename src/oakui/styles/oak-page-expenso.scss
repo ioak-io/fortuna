@@ -1,0 +1,14 @@
+.oak-page {
+  // height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-background-1);
+  padding: 10px 10px;
+  @media (max-width: 767px) {
+    padding: 0px;
+  }
+  .oak-page-container {
+    // margin-top: 10px;
+    // height: calc(100vh - var(--height-nav));
+    // overflow: auto;
+  }
+}

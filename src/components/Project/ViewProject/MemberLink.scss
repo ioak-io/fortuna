@@ -1,0 +1,27 @@
+.project-member-link {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 60px;
+  border-bottom: 1px solid var(--color-background-3);
+  align-items: center;
+  &:hover {
+    background-color: var(--color-background-3);
+  }
+
+  i {
+    display: flex;
+  }
+
+  .project-member-link--action {
+    display: none;
+  }
+  &:hover {
+    .project-member-link--action {
+      display: grid;
+      grid-auto-flow: column;
+      column-gap: 10px;
+    }
+  }
+}

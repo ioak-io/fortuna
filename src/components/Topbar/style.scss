@@ -1,0 +1,31 @@
+.topbar {
+  background-color: var(--color-background-2);
+  // background-color: #8e4162;
+  display: grid;
+  height: 100%;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  padding: 0 10px 0 10px;
+  .topbar--left {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    column-gap: 10px;
+    .left-nav-container {
+      margin-left: 20px;
+    }
+  }
+  .topbar--right {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-end;
+    justify-items: flex-end;
+  }
+  .logo-container {
+    margin-left: 20px;
+  }
+}

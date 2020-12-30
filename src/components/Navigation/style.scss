@@ -1,0 +1,188 @@
+.nav-header {
+  z-index: 3;
+  width: 100%;
+  height: var(--height-nav);
+  position: fixed;
+  .nav-header-container {
+    padding: 0 20px;
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    img.logo {
+      height: 40px;
+      width: auto;
+      @media (max-width: 767px) {
+        height: 32px;
+      }
+      cursor: pointer;
+    }
+    .nav-header-container--left {
+      display: grid;
+      grid-auto-flow: column;
+      align-items: center;
+      justify-items: flex-start;
+      column-gap: 60px;
+    }
+    .nav-header-container--right {
+      display: grid;
+      grid-auto-flow: column;
+      align-items: center;
+      column-gap: 20px;
+    }
+  }
+
+  &.nav-header-expanded {
+    .nav-header-container {
+      .nav-header-container--left {
+        visibility: hidden;
+        transition: visibility 0.4s;
+        animation: opacityAnimateNoDelayRev 0.4s ease;
+      }
+    }
+  }
+
+  &.nav-header-collapsed {
+    .nav-header-container {
+      .nav-header-container--left {
+        visibility: visible;
+        transition: visibility 0.4s;
+        animation: opacityAnimateNoDelay 0.4s ease;
+      }
+    }
+  }
+}
+.nav {
+  // Dimension constants
+  $logoHeight: 30px;
+  $logoHeightMobile: 20px;
+  $signinIconHeight: 25px;
+  position: fixed;
+  z-index: 1;
+
+  &:before,
+  .nav-after {
+    content: '';
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    // background: rgba(#eaeaea, 0.2);
+    background: var(--color-background-2);
+    // background: #e0c8a4;
+    transition: transform cubic-bezier(0.77, 0, 0.175, 1) 0.4s;
+    transform: translateX(0%) translateY(-100%);
+  }
+  .nav-after {
+    // background: rgba(#ffffff, 1);
+    background: var(--color-nav);
+    // background: url('../../images/login_bg.jpg') no-repeat center center;
+    // background-size: cover;
+    // background: #d4b483;
+    transition-delay: 0s;
+  }
+  &:before {
+    transition-delay: 0.1s;
+  }
+
+  &.active {
+    width: 100vw;
+    height: 100vh;
+    &:before,
+    .nav-after {
+      transform: translateX(0%) translateY(0%);
+    }
+    .nav-after {
+      transition-delay: 0.1s;
+    }
+    &:before {
+      transition-delay: 0s;
+    }
+  }
+}
+
+.nav-container {
+  visibility: hidden;
+  position: fixed;
+  z-index: 2;
+  height: 100vh;
+  &.inactive {
+    transition: visibility 0.2s;
+  }
+  &.active {
+    visibility: visible;
+    animation: opacityAnimate 0.4s ease-in;
+  }
+  width: 100vw;
+}
+
+img.logo {
+  height: 50px;
+  width: auto;
+}
+
+@keyframes opacityAnimate {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacityAnimateNoDelay {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacityAnimateNoDelayRev {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.videoTag {
+  position: fixed;
+  // z-index: -1;
+  height: 100%;
+  width: auto;
+}
+
+.dark-mode-icon, .nav-account-icon {
+  display: flex;
+  i {
+    cursor: pointer;
+    font-size: 1.6em;
+  }
+}
+
+.nav-account-icon {
+  i {
+    &:hover {
+      color: var(--color-failure);
+    }
+  }
+
+  .nav-account-icon--username {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 10px;
+  }
+}
+
+.dark-mode-icon {
+  i {
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

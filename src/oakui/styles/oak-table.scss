@@ -1,0 +1,103 @@
+.oak-table {
+  border-radius: 4px;
+
+  .oak-table--nav-top {
+    @media (min-width: 768px) {
+      background-color: var(--color-background-3);
+      border-radius: 4px 4px 0 0;
+      padding: 0 10px;
+      .oak-table--nav-top--container {
+        border-bottom: 2px solid var(--color-background-4);
+      }
+    }
+  }
+  .oak-table--nav-bottom {
+    @media (min-width: 768px) {
+      background-color: var(--color-background-3);
+      border-radius: 0 0 4px 4px;
+      padding: 0 10px;
+      .oak-table--nav-bottom--container {
+        border-top: 2px solid var(--color-background-4);
+      }
+    }
+  }
+
+  .desktop-view {
+    .table-container {
+      padding: 0 10px;
+      background-color: var(--color-background-3);
+      overflow-x: auto;
+      .table-container--label {
+        word-break: keep-all;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .material-icons {
+          font-size: 16px;
+          display: flex;
+        }
+      }
+    }
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+  .mobile-view {
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    padding: 10px;
+    td {
+      text-align: left;
+    }
+
+    thead {
+      td {
+        padding: 10px 6px;
+        font-weight: bold;
+      }
+    }
+
+    tbody {
+      tr {
+        border-top: 2px solid var(--color-background-4);
+        td {
+          padding: 6px 6px;
+        }
+        // &:hover {
+        //   background-color: var(--color-background-4);
+        // }
+      }
+    }
+  }
+
+  .card-container {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 15px;
+    word-break: break-word;
+    .card-container--card {
+      background-color: var(--color-background-3);
+      // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      // margin: 0px 0px 10px 0px;
+      padding: 10px;
+      display: grid;
+      grid-auto-flow: row;
+      row-gap: 10px;
+      .card-container--card--column--label {
+        color: var(--color-foreground-4);
+      }
+    }
+  }
+}
+
+.datagrid-list {
+  padding: 10px 0;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
+}

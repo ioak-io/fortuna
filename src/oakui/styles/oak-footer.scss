@@ -1,0 +1,15 @@
+.oak-footer {
+  padding: 10px 0;
+  .oak-footer--container {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 20px;
+    justify-content: right;
+    &.left {
+      justify-content: left;
+    }
+    &.center {
+      justify-content: center;
+    }
+  }
+}

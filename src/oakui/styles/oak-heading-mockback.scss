@@ -1,0 +1,40 @@
+.oak-heading {
+  margin-bottom: 20px;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 4px;
+  justify-content: flex-start;
+  position: relative;
+  .heading-children {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .heading-highlight {
+    display: none;
+  }
+  .heading-links {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: flex-start;
+    column-gap: 20px;
+    align-items: center;
+  }
+}
+
+.oak-heading-link {
+  cursor: pointer;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  &:hover {
+    .material-icons {
+      color: var(--color-primary-1);
+    }
+  }
+  .heading-link-label {
+    color: var(--color-primary-1);
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

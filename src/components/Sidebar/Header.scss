@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  line-height: 60px;
+  margin: 0px 10px;
+  .material-icons {
+    cursor: pointer;
+    // line-height: 60px;
+    color: #fcfcfc;
+  }
+}

@@ -1,0 +1,57 @@
+.field-element {
+  .material-icons,
+  .material-icons-outlined {
+    cursor: pointer;
+    &:hover {
+      color: var(--color-primary-1);
+    }
+    font-size: 1em;
+  }
+
+  .field-element-action {
+    margin: 0 4px;
+  }
+  .field-element-parent {
+    .field-element-parent--title {
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: flex-start;
+      column-gap: 4px;
+      align-items: center;
+    }
+    .field-element-parent--subtitle {
+      color: var(--color-foreground-4);
+    }
+    .field-element-parent--action {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .field-element-parent--action {
+      visibility: hidden;
+    }
+    &:hover > .field-element-parent--action {
+      visibility: visible;
+    }
+    //   margin-bottom: -10px;
+    //   padding: 10px 0;
+  }
+
+  .field-element-children {
+    display: grid;
+    grid-auto-flow: row;
+    justify-content: flex-start;
+    // margin: 10px 0;
+    row-gap: 8px;
+    margin-top: 8px;
+    .field-element-children--element {
+      margin: 0 0 0 4px;
+      padding: 0 0 0 4px;
+      // padding: 4px;
+      border-left: 4px solid var(--color-foreground-4);
+      &:hover {
+        border-left: 4px solid var(--color-primary-1);
+      }
+    }
+  }
+}

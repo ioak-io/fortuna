@@ -1,0 +1,25 @@
+.nav-item {
+  a {
+    text-decoration: none;
+    background-color: var(--color-nav);
+    color: var(--color-nav-text);
+    padding: 8px 10px 8px 15px;
+    // min-height: 28px;
+    // line-height: 28px;
+    font-size: 14px;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    word-break: break-all;
+    // width: 100%;
+    transition: background-color 20ms ease-in-out;
+    &.active {
+      background-color: var(--color-nav-active);
+      color: var(--color-nav-active-text);
+    }
+    &:hover {
+      background-color: var(--color-nav-hover);
+      color: var(--color-nav-hover-text);      
+    }
+  }
+}

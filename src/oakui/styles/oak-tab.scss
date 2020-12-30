@@ -1,0 +1,123 @@
+.oak-tab {
+  display: flex;
+  flex-direction: column;
+  .oak-tab--header {
+    .oak-tab--header--button {
+      background-color: transparent;
+      cursor: pointer;
+    }
+    a,
+    button {
+      outline: none;
+      border: 1px solid transparent;
+      color: var(--color-foreground-3);
+      &:focus {
+        border: 1px solid var(--color-foreground-3);
+      }
+      &:hover {
+        color: var(--color-forerground-1);
+      }
+      &.active {
+        color: var(--color-primary-1);
+      }
+    }
+    user-select: none;
+    // display: grid;
+    // grid-template-columns: repeat(auto-fit, minmax(25px, 200px));
+    // @media (max-width: 767px) {
+    //   grid-template-columns: repeat(auto-fit, minmax(25px, 50px));
+    // }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow-y: hidden;
+    .tab {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      white-space: nowrap;
+      .material-icons {
+        &.active {
+          @media (max-width: 767px) {
+            background-color: var(--color-background-3);
+          }
+        }
+        padding: 0 10px;
+      }
+    }
+    .label {
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+  }
+  .content {
+    overflow-y: hidden;
+    &.active {
+      display: block;
+      animation: slide-up 0.3s ease;
+    }
+    &.inactive {
+      display: none;
+    }
+  }
+
+  &.fullpage {
+    .oak-tab--header {
+      justify-content: center;
+      background-color: var(--color-background-3);
+      box-shadow: var(--bs-sm);
+      a,
+      button {
+        border: none;
+        // padding: 10px;
+        border-bottom: 4px solid transparent;
+        font-size: 1.25em;
+        transition: color 0.2s;
+        border-left: 1px solid var(--color-background-1);
+        color: var(--color-primary-1);
+        height: 40px;
+        line-height: 40px;
+        padding: 0 20px;
+        @media (max-width: 767px) {
+          height: 40px;
+          line-height: 40px;
+          padding: 0;
+        }
+        &:last-child {
+          border-right: 1px solid var(--color-background-1);
+        }
+        &.active {
+          border-bottom: 4px solid var(--color-primary-1);
+          color: var(--color-foreground-3);
+        }
+        &:hover,
+        &:focus {
+          color: var(--color-foreground-3);
+        }
+        .material-icons {
+          padding: 0 10px 0 0;
+          @media (max-width: 767px) {
+            padding: 0 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    // transform: translateY(100px);
+  }
+  // 50% {
+  //   opacity: 0.2;
+  // }
+  100% {
+    opacity: 1;
+    // transform: translateY(0px);
+  }
+}
