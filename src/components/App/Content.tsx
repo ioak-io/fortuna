@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 
+import Chart from 'chart.js';
+
 import './style.scss';
 import { HashRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { withCookies } from 'react-cookie';
@@ -29,7 +31,6 @@ const themes = {
 };
 
 function getTheme(color: string) {
-
   return createMuiTheme({
     palette: {
       primary: {
@@ -77,6 +78,11 @@ const Content = (props: Props) => {
     dispatch(fetchAllAssets());
   }, []);
 
+  useEffect(() => {
+    Chart.defaults.global.defaultFontColor =
+      profile.theme === 'theme_dark' ? '#e0e0e0' : '#626262';
+  }, [profile]);
+
   return (
     <div
       className={`App ${props.profile.theme} ${props.profile.textSize} ${props.profile.themeColor}`}
@@ -86,18 +92,38 @@ const Content = (props: Props) => {
           <Init />
           <Notification />
           <MuiThemeProvider theme={themes.themecolor1}>
-            <div className={`app-container--sidebar ${profile.sidebar && authorization.isAuth ? 'show' : 'hide'}`}>
-            <div className={`app-container--sidebar--content ${profile.hideSidebarOnDesktop ? 'mobile-only' : ''}`}>
+            <div
+              className={`app-container--sidebar ${
+                profile.sidebar && authorization.isAuth ? 'show' : 'hide'
+              }`}
+            >
+              <div
+                className={`app-container--sidebar--content ${
+                  profile.hideSidebarOnDesktop ? 'mobile-only' : ''
+                }`}
+              >
                 <Sidebar />
               </div>
             </div>
             <div className="app-container--main">
-              <div className={`app-container--main--topbar ${profile.sidebar ? 'sidebar-shown' : 'sidebar-hidden'}`}>
+              <div
+                className={`app-container--main--topbar ${
+                  profile.sidebar ? 'sidebar-shown' : 'sidebar-hidden'
+                }`}
+              >
                 {/* <Navigation {...props} /> */}
-                <Topbar space={space} cookies={props.cookies} hideSidebarOnDesktop={profile.hideSidebarOnDesktop} />
+                <Topbar
+                  space={space}
+                  cookies={props.cookies}
+                  hideSidebarOnDesktop={profile.hideSidebarOnDesktop}
+                />
               </div>
-              <div className={`app-container--main--body ${profile.sidebar ? 'sidebar-shown' : 'sidebar-hidden'}`}>
-                <RouterView {...props}/>
+              <div
+                className={`app-container--main--body ${
+                  profile.sidebar ? 'sidebar-shown' : 'sidebar-hidden'
+                }`}
+              >
+                <RouterView {...props} />
               </div>
             </div>
           </MuiThemeProvider>

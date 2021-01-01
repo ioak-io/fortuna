@@ -8,20 +8,18 @@
     color: var(--color-foreground-1);
     font-size: 14px;
     outline: none;
-    border: 1px solid var(--color-foreground-5);
-    background-color: transparent;
-    // margin-bottom: 20px;
+    border: 1px solid var(--color-border-1);
+    background-color: var(--color-background-3);
     box-sizing: border-box;
     padding: 5px 5px;
     border-radius: 2px;
-    // border: 2px solid;
-    // border-color: var(--color-background-2);
 
     &:focus {
-      // background-color: var(--color-foreground-2);
-      // border-color: var(--color-foreground-2);
-      // color: var(--color-background-1);
       border: 1px solid var(--color-primary-1);
+      background-color: var(--color-foreground-1);
+      background-color: white;
+      color: var(--color-background-1);
+      color: black;
     }
 
     &.error {
@@ -34,8 +32,8 @@
     }
 
     &.disabled {
-      background-color: var(--color-formelement-bg-2);
-      color: var(--color-foreground-4);
+      background-color: var(--color-background-3);
+      color: var(--color-foreground-3);
     }
   }
 
@@ -44,6 +42,7 @@
 
   textarea {
     // height: 500px;
+    height: 100px;
     overflow-y: auto;
     resize: none;
     max-height: 200px;
@@ -52,9 +51,9 @@
   label {
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     display: block;
-    font-size: 11px;
-    margin-bottom: 2px;
-    color: var(--color-foreground-3);
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: var(--color-foreground-2);
     text-transform: capitalize;
     word-break: keep-all;
   }

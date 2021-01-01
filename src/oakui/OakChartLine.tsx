@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector, connect, useDispatch } from 'react-redux';
 import './styles/OakChartLine.scss';
 import Chart from 'chart.js';
 import { newId, receiveMessage } from '../events/MessageService';
 import { findStepSize } from './ChartUtils';
 
 interface Props {
+  title?: string;
   stacked?: boolean;
   type: 'linear' | 'category';
   datasets: any;
@@ -14,6 +16,7 @@ interface Props {
 const OakChartLine = (props: Props) => {
   const chartRef = useRef(null);
   const [refId, setRefId] = useState(newId());
+  const profile = useSelector(state => state.profile);
 
   useEffect(() => {
     renderChart(findStepSize(props.datasets, props.type, props.stacked));
@@ -26,15 +29,22 @@ const OakChartLine = (props: Props) => {
       options: {
         responsive: true,
         maintainAspectRatio: true,
-        //Customize chart options
+        //Customize chart options,
+        title: {
+          display: props.title,
+          text: props.title
+        },
         scales: {
           yAxes: [
             {
               stacked: props.stacked,
               gridLines: {
+                color: profile.theme === 'theme_dark' ? "#000" : "#d6e0ea",
+                lineWidth: 0.5
               },
               ticks: {
                 stepSize: stepSize,
+                // fontColor: profile.theme === 'theme_dark' ? "#e0e0e0" : "#828282",
               },
             },
           ],

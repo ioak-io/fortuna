@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import OakSection from '../../oakui/OakSection';
 import OakTable from '../../oakui/OakTable';
 import './TableDemo.scss';
 
@@ -215,6 +216,7 @@ const TableDemo = () => {
 
   return (
     <div className="table-demo">
+      <OakSection>
       <OakTable
         header={header}
         data={data}
@@ -222,6 +224,7 @@ const TableDemo = () => {
         handleCellDataChange={handleCellDataChange}
         actionColumn={actionColumn}
       />
+      </OakSection>
     </div>
   );
 };

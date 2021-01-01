@@ -137,11 +137,11 @@
   .ql-syntax {
     border-radius: 4px;
     padding: 4px;
-    background-color: var(--color-background-transparent-5);
+    // background-color: var(--color-background-transparent-5);
   }
 
   blockquote {
-    background-color: var(--color-background-transparent-5);
+    // background-color: var(--color-background-transparent-5);
   }
 
   .ql-snow .ql-stroke {
@@ -159,7 +159,7 @@
   }
   .ql-strike.ql-active {
     // border: 1px solid var(--color-foreground-3);
-    background-color: var(--color-foreground-5);
+    background-color: var(--color-foreground-2);
     color: var(--color-foreground-1);
   }
 }

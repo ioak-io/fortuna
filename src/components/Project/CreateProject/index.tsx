@@ -12,6 +12,7 @@ import OakFooter from '../../../oakui/OakFooter';
 import OakButton from '../../../oakui/OakButton';
 import { saveProject } from '../service';
 import { sendMessage, newMessageId } from '../../../events/MessageService';
+import OakTextPlain from '../../../oakui/OakTextPlain';
 
 interface Props {
   space: string;
@@ -74,7 +75,6 @@ const CreateProject = (props: Props) => {
 
   return (
     <OakPage>
-      <OakSection>
         <OakHeading
           title="Create new project"
           links={[
@@ -86,15 +86,16 @@ const CreateProject = (props: Props) => {
           ]}
           linkSize="large"
         />
+      <OakSection>
         <div className="create-project">
           <OakForm>
-            <OakText
+            <OakTextPlain
               data={state}
               id="name"
               handleChange={handleNameChange}
               label="Project name"
             />
-            <OakText
+            <OakTextPlain
               data={{
                 ...state,
                 reference: state.reference
@@ -105,12 +106,14 @@ const CreateProject = (props: Props) => {
               id="reference"
               handleChange={handleChange}
               label="Reference word for URL path prefix"
+              placeholder="Reference word for URL path prefix"
             />
-            <OakText
+            <OakTextPlain
               data={state}
               id="description"
               handleChange={handleChange}
               label="Short description about the project"
+              placeholder="Short description about the project"
               multiline
             />
           </OakForm>

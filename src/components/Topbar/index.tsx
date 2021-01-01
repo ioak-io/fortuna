@@ -10,6 +10,7 @@ import RightNav from './RightNav';
 import ExpandIcon from './ExpandIcon';
 import Logo from '../Logo';
 import ChangeAsset from './ChangeAsset';
+import Header from '../Sidebar/Header';
 
 interface Props {
     space: string;

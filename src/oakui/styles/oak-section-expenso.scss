@@ -1,10 +1,11 @@
 .oak-section {
   margin: 10px;
+  border-radius: 6px;
   // padding: 40px 60px;
   animation: pageTransition 500ms cubic-bezier(0, 1, 0.5, 1);
   @media (max-width: 767px) {
     //   padding: 10px;
-    margin: 0px;
+    margin: 5px;
   }
   .app-text {
     margin: auto;
@@ -14,7 +15,7 @@
     }
     word-break: break-word;
   }
-  box-shadow: var(--bs-sm);
+  box-shadow: var(--bs-card);
 
   background-color: var(--color-background-2);
   padding: 10px 10px;

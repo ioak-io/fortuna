@@ -2,13 +2,12 @@
   user-select: none;
   // margin-bottom: 20px;
   font-size: 14px;
-  --color-bg: var(--color-formelement-bg-2);
-  --color-fg: var(--color-formelement-fg-1);
-  --color-fg-hover: var(--color-formelement-fg-1);
+  --color-fg: var(--color-foreground-3);
+  --color-fg-hover: var(--color-foreground-3);
   &.default {
-    --color-bg: var(--color-formelement-bg-2);
-    --color-fg: var(--color-formelement-fg-1);
-    --color-fg-hover: var(--color-formelement-fg-1);
+    --color-bg: var(--color-background-3);
+    --color-fg: var(--color-foreground-3);
+    --color-fg-hover: var(--color-foreground-3);
   }
 
   &.primary {
@@ -33,8 +32,8 @@
     // min-width: 200px;
     border-radius: 3px;
     cursor: pointer;
-    background-color: var(--color-formelement-bg-1);
-    color: var(--color-formelement-fg);
+    background-color: var(--color-background-3);
+    color: var(--color-foreground-3);
     padding: var(--metric-formelement-padding);
     height: var(--metric-formelement-height);
     line-height: var(--metric-formelement-height);
@@ -63,8 +62,8 @@
 
   &.outline {
     .select-button {
-      background-color: var(--color-formelement-bg-1);
-      color: var(--color-formelement-fg);
+      background-color: var(--color-background-3);
+      color: var(--color-foreground-3);
       border: 1.5px solid var(--color-bg);
     }
   }
@@ -78,8 +77,8 @@
 
   &.normal {
     .select-button {
-      background-color: var(--color-formelement-bg-1);
-      color: var(--color-formelement-fg);
+      background-color: var(--color-background-3);
+      color: var(--color-foreground-3);
     }
   }
 
@@ -102,8 +101,8 @@
       position: absolute;
       //   position: relative;
       width: fit-content;
-      background-color: var(--color-formelement-bg-1);
-      color: var(--color-formelement-fg);
+      background-color: var(--color-background-3);
+      color: var(--color-foreground-3);
       // box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.15),
       //   0 5px 20px 0 rgba(21, 27, 38, 0.08);
       box-shadow: var(--bs-lg);

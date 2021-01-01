@@ -1,8 +1,8 @@
 .nav-item {
   a {
     text-decoration: none;
-    background-color: var(--color-nav);
-    color: var(--color-nav-text);
+    background-color: var(--color-sidebar);
+    color: var(--color-sidebar-text);
     padding: 8px 10px 8px 15px;
     // min-height: 28px;
     // line-height: 28px;
@@ -14,12 +14,12 @@
     // width: 100%;
     transition: background-color 20ms ease-in-out;
     &.active {
-      background-color: var(--color-nav-active);
-      color: var(--color-nav-active-text);
+      background-color: var(--color-sidebar-active);
+      color: var(--color-sidebar-active-text);
     }
     &:hover {
-      background-color: var(--color-nav-hover);
-      color: var(--color-nav-hover-text);      
+      background-color: var(--color-sidebar-hover);
+      color: var(--color-sidebar-hover-text);      
     }
   }
 }

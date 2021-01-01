@@ -26,12 +26,10 @@ const Home = (props: Props) => {
     // </div>
 
     <OakPage>
-      <OakSection>
         <OakHeading title="Table demo" subtitle="Laudantium eius fugit alias a iure consequatur accusantium dolores nam quasi sapiente vitae eum id aut" />
         {demoType === 'table' && <TableDemo />}
         {demoType === 'chart' && <ChartDemo />}
         <TableDemo />
-      </OakSection>
     </OakPage>
   );
 };

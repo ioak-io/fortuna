@@ -19,7 +19,6 @@
     top: 0;
     background-color: var(--color-background-3);
     position: fixed;
-    // box-shadow: 0 19px 38px var(--color-box-shadow), 0 15px 12px var(--color-box-shadow);
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
       0px 4px 5px 0px rgba(0, 0, 0, 0.24), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 
@@ -92,7 +91,7 @@
       }
 
       .dialog-footer {
-        border-top: 1px solid var(--color-background-5);
+        border-top: 1px solid var(--color-border-1);
         background-color: var(--color-background-3);
         height: 50px;
         display: grid;

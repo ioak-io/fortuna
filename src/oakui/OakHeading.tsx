@@ -17,9 +17,9 @@ interface Props {
 const OakHeading = (props: Props) => {
   return (
     <div className="oak-heading">
-      <div className="heading-title typography-10">{props.title}</div>
+      <div className="oak-heading--heading-title">{props.title}</div>
       {props.subtitle && (
-        <div className="heading-subtitle typography-4">{props.subtitle}</div>
+        <div className="oak-heading--heading-subtitle">{props.subtitle}</div>
       )}
       <div className="heading-links">
         {props.links?.map((item, index) => (

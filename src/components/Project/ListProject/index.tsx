@@ -19,29 +19,31 @@ const ListProject = (props: Props) => {
     props.history.push(`/${props.space}/project/create`);
   return (
     <OakPage>
-      <OakSection>
-        <OakHeading
-          title="List of projects"
-          links={[
-            {
-              label: 'New project',
-              icon: 'playlist_add',
-              action: gotoCreatePage,
-            },
-          ]}
-          linkSize="large"
-        />
-        <div className="list-project">
-          {projects?.map(item => (
-            <ProjectLink
-              key={item.id}
-              space={props.space}
-              history={props.history}
-              project={item}
-            />
-          ))}
-        </div>
-      </OakSection>
+      <OakHeading
+        title="List of projects"
+        links={[
+          {
+            label: 'New project',
+            icon: 'playlist_add',
+            action: gotoCreatePage,
+          },
+        ]}
+        linkSize="large"
+      />
+      {projects && projects.length > 0 && (
+        <OakSection>
+          <div className="list-project">
+            {projects.map(item => (
+              <ProjectLink
+                key={item.id}
+                space={props.space}
+                history={props.history}
+                project={item}
+              />
+            ))}
+          </div>
+        </OakSection>
+      )}
     </OakPage>
   );
 };

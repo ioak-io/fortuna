@@ -2,9 +2,8 @@
   margin-top: 16px;
   .select {
     width: 100%;
-    // background-color: var(--color-formelement-bg-1);
     background-color: transparent;
-    color: var(--color-formelement-fg);
+    color: var(--color-foreground-3);
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -19,7 +18,7 @@
     font-size: 16px;
     option {
       font-size: 1.2em;
-      background-color: var(--color-formelement-bg-1);
+      background-color: var(--color-background-3);
     }
   }
   // margin-top: 16px;
