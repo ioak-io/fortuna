@@ -103,6 +103,11 @@
     --color-background-3: #383838;//2c2c2c;
     --color-background-4: #4c4c4c;
     --color-background-5: #575757;
+    --color-background-1: #13192f;
+    --color-background-2: #1e2742;//242424;
+    --color-background-3: #11141c;//2c2c2c;
+    --color-background-4: #4c4c4c;
+    --color-background-5: #575757;
     --color-background-theme: var(--color-dark-background-theme);
 
     --color-foreground-1: #ffffff;
@@ -148,7 +153,18 @@
     --color-nav-submenu-active: var(--color-nav-active);
     --color-nav-submenu-active-text: var(--color-nav-active-text);
     
-    --color-nav-slider: var(--color-background-1);
+    --color-nav: #1e2742;
+    --color-nav-text: #fff;
+    --color-nav-hover: #e5e5e5;
+    --color-nav-hover-text: #000;
+    --color-nav-active: #B8B8B8;
+    --color-nav-active-text: #000;
+    --color-nav-submenu: #5c6085;
+    --color-nav-submenu-text: #fff;
+    --color-nav-submenu-hover: var(--color-nav-hover);
+    --color-nav-submenu-hover-text: var(--color-nav-hover-text);
+    --color-nav-submenu-active: var(--color-nav-active);
+    --color-nav-submenu-active-text: var(--color-nav-active-text);
 
     --color-btn-action-danger-bg: #dc758f;
 

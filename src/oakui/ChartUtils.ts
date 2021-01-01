@@ -1,0 +1,54 @@
+export const findStepSize = (datasets, type, stacked) => {
+  let valueList: number[] = [];
+  let valueListNegative: number[] = [];
+  if (stacked) {
+    datasets.forEach(item => {
+      const localValueList =
+        type === 'category' ? item.data : item.data.map(i => i.y);
+      if (valueList.length > localValueList.length) {
+        valueList = valueList.map(
+          (val, index) =>
+            val +
+            (localValueList[index] && localValueList[index] > 0
+              ? localValueList[index]
+              : 0)
+        );
+        valueListNegative = valueListNegative.map(
+          (val, index) =>
+            val +
+            (localValueList[index] && localValueList[index] < 0
+              ? localValueList[index]
+              : 0)
+        );
+      } else {
+        valueList = localValueList.map(
+          (val, index) => (val && val > 0 ? val : 0) + (valueList[index] || 0)
+        );
+        valueListNegative = localValueList.map(
+          (val, index) =>
+            (val && val < 0 ? val : 0) + (valueListNegative[index] || 0)
+        );
+      }
+    });
+  } else {
+    datasets.forEach(item => {
+      valueList = [
+        ...valueList,
+        ...(type === 'category' ? item.data : item.data.map(i => i.y)),
+      ];
+    });
+  }
+  let minValue = Math.min(...valueList, ...valueListNegative);
+  const maxValue = Math.max(...valueList, ...valueListNegative);
+  if (minValue > 0) {
+    minValue = 0;
+  }
+  console.log(
+    valueList,
+    valueListNegative,
+    maxValue,
+    minValue,
+    Math.ceil((maxValue - minValue) / 4)
+  );
+  return Math.ceil((maxValue - minValue) / 4);
+};

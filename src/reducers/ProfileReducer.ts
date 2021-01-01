@@ -1,4 +1,5 @@
 import { GET_PROFILE, SET_PROFILE } from '../actions/types';
+import { sendMessage } from '../events/MessageService';
 
 const initialState = {
   theme: 'theme_dark',
@@ -17,6 +18,9 @@ export default function(state = initialState, action) {
       };
     case SET_PROFILE:
       console.log('SET_PROFILE reducer');
+      if (state.sidebar !== action.payload.sidebar) {
+        sendMessage("sidebar-toggled", true);
+      }
       return {
         ...state,
         ...action.payload,

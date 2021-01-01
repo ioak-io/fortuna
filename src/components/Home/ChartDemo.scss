@@ -1,0 +1,14 @@
+.chart-demo {
+    // width: 100%;
+    position: static;
+    .chart-demo-container {
+        display: grid;  
+        overflow: hidden;
+        @media (max-width: 767px) {
+            grid-auto-flow: row;
+        }
+        @media (min-width: 768px) {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}
