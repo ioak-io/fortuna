@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { receiveMessage } from '../../events/MessageService';
 import OakChartBar from '../../oakui/OakChartBar';
+import OakChartDoughnut from '../../oakui/OakChartDoughnut';
 import OakChartLine from '../../oakui/OakChartLine';
 import OakSection from '../../oakui/OakSection';
 import OakTable from '../../oakui/OakTable';
@@ -89,6 +90,27 @@ const ChartDemo = () => {
     },
   ];
 
+  
+  const doughnutData = [
+    {
+      label: 'Sales',
+      data: [86, 67, 91, 80],
+      backgroundColor: ['#2bf062d9', '#00f2f2d9', '#0bf002d9', '#d0f2f2d9'],
+      borderColor: '#61c8c8',
+      // hoverBackgroundColor: "#61c8c870",
+      showLine: true,
+      cubicInterpolationMode: 'monotone',
+      borderWidth: 1,
+    },
+    {
+      labels: 'Purchases',
+      data: [36, 57, -90, -8],
+      backgroundColor: ['#0bd062d9', '#0702f2d9', '#7b2002d9', '#20f0f2d9'],
+      borderColor: '#ff8ca4',
+      borderWidth: 1,
+    },
+  ];
+
   return (
     <div className="chart-demo">
       <div className="chart-demo-container" id="chart-demo-container">
@@ -96,6 +118,45 @@ const ChartDemo = () => {
       <OakChartBar />
       <OakChartBar />
       <OakChartBar /> */}
+        <div>
+          {show && (
+            <OakSection>
+              <OakChartDoughnut
+                datasets={doughnutData}
+                type="doughnut"
+                categoryLabels={['Jan', 'Feb', 'March', 'April']}
+                stacked
+                title="Doughnut chart - concentric"
+              />
+            </OakSection>
+          )}
+        </div>
+        <div>
+          {show && (
+            <OakSection>
+              <OakChartDoughnut
+                datasets={[doughnutData[1]]}
+                type="doughnut"
+                categoryLabels={['Jan', 'Feb', 'March', 'April']}
+                stacked
+                title="Doughtnut chart"
+              />
+            </OakSection>
+          )}
+        </div>
+        <div>
+          {show && (
+            <OakSection>
+              <OakChartDoughnut
+                datasets={[doughnutData[1]]}
+                type="pie"
+                categoryLabels={['Jan', 'Feb', 'March', 'April']}
+                stacked
+                title="Piechart"
+              />
+            </OakSection>
+          )}
+        </div>
         <div>
           {show && (
             <OakSection>
