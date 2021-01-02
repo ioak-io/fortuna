@@ -1,3 +1,10 @@
+.oak-section-outer {
+  margin: 10px;
+  @media (max-width: 767px) {
+    margin: 5px;
+  }
+}
+
 .oak-section {
   margin: 10px;
   border-radius: 6px;
@@ -7,7 +14,24 @@
     //   padding: 10px;
     margin: 5px;
   }
-  .app-text {
+  display: grid;
+  grid-auto-flow: row;
+  .oak-section--header-basic, .oak-section--header-highlight {
+    overflow: hidden;
+    display: grid;
+    grid-auto-flow: column;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    border-radius: 0 6px 0 0;
+  }
+  .oak-section--header-highlight {
+    background-color: var(--color-background-1);
+    border-left: 3px solid var(--color-primary-1);
+  }
+  .oak-section--body {
+     padding: 10px 10px;
+  .oak-section--app-text {
     margin: auto;
     width: 100%;
     @media (max-width: 767px) {
@@ -15,10 +39,11 @@
     }
     word-break: break-word;
   }
+}
   box-shadow: var(--bs-card);
 
   background-color: var(--color-background-2);
-  padding: 10px 10px;
+  // padding: 10px 10px;
 }
 
 @keyframes pageTransition {

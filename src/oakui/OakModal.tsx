@@ -71,9 +71,9 @@ const OakModal = (props: Props) => {
                   {/* <div className="container" data-test="toggle-visibility"> */}
 
                   <div className="left">
-                    <div className="icon">
-                      {/* <i className="material-icons">blur_on</i> */}N
-                    </div>
+                    {/* <div className="icon">
+                      <i className="material-icons">blur_on</i>
+                    </div> */}
                     <div className="label one-liner">{props.label}</div>
                   </div>
                   <div className="right">

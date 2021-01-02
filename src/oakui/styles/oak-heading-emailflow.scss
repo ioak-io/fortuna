@@ -1,7 +1,6 @@
 .oak-heading {
   $highlightWidth: 6px;
   margin-bottom: 20px;
-  padding-left: calc(6px + #{$highlightWidth});
   display: grid;
   grid-auto-flow: row;
   row-gap: 4px;
@@ -13,14 +12,6 @@
   .oak-heading--heading-subtitle {
     font-size: 14px;
   }
-  // &:before {
-  //   content: '';
-  //   background-color: var(--color-primary-1);
-  //   width: $highlightWidth;
-  //   height: 100%;
-  //   top: 0;
-  //   position: absolute;
-  // }
   .heading-children {
     display: flex;
     justify-content: flex-start;

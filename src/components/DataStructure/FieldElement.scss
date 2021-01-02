@@ -20,7 +20,7 @@
       align-items: center;
     }
     .field-element-parent--subtitle {
-      color: var(--color-foreground-4);
+      color: var(--color-foreground-3);
     }
     .field-element-parent--action {
       display: flex;
@@ -48,7 +48,7 @@
       margin: 0 0 0 4px;
       padding: 0 0 0 4px;
       // padding: 4px;
-      border-left: 4px solid var(--color-foreground-4);
+      border-left: 4px solid var(--color-border-1);
       &:hover {
         border-left: 4px solid var(--color-primary-1);
       }

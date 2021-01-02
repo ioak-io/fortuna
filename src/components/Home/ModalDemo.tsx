@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import OakButton from '../../oakui/OakButton';
+import OakModal from '../../oakui/OakModal';
 import OakSection from '../../oakui/OakSection';
 import OakTable from '../../oakui/OakTable';
 import './ModalDemo.scss';
 
 const ModalDemo = () => {
   const authorization = useSelector(state => state.authorization);
+  const [visible, setVisible] = useState(false);
   const header = [
     {
       key: 'category',
@@ -215,17 +218,20 @@ const ModalDemo = () => {
   };
 
   return (
+    <>
     <div className="modal-demo">
-      <OakSection>
-      <OakTable
-        header={header}
-        data={data}
-        navPlacement="top"
-        handleCellDataChange={handleCellDataChange}
-        actionColumn={actionColumn}
-      />
-      </OakSection>
+      <OakModal visible={visible} toggleVisibility={() => setVisible(!visible)} label="Modal test dialog">
+        <div className="modal-body">
+          modal body slot
+        </div>
+        <div className="modal-footer">
+        <OakButton action={() => setVisible(true)} theme="primary" variant="regular">Open modal</OakButton>
+        <OakButton action={() => setVisible(true)} theme="primary" variant="regular">Open modal</OakButton>
+        </div>
+      </OakModal>
     </div>
+    <OakButton action={() => setVisible(true)} theme="primary" variant="regular">Open modal</OakButton>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import OakHeading from '../../oakui/OakHeading';
 import OakPage from '../../oakui/OakPage';
 import OakSection from '../../oakui/OakSection';
 import ChartDemo from './ChartDemo';
+import ModalDemo from './ModalDemo';
 import './style.scss';
 import TableDemo from './TableDemo';
 
@@ -26,10 +27,12 @@ const Home = (props: Props) => {
     // </div>
 
     <OakPage>
+      <OakSection outer>
         <OakHeading title="Table demo" subtitle="Laudantium eius fugit alias a iure consequatur accusantium dolores nam quasi sapiente vitae eum id aut" />
-        {demoType === 'table' && <TableDemo />}
-        {demoType === 'chart' && <ChartDemo />}
+        </OakSection>
+        <ModalDemo />
         <TableDemo />
+        <ChartDemo />
     </OakPage>
   );
 };

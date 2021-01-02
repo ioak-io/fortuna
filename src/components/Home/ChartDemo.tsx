@@ -14,18 +14,18 @@ const ChartDemo = () => {
   useEffect(() => {
     receiveMessage().subscribe(message => {
       if (message.name === 'sidebar-toggled') {
-        handleResize();
+        handleResize(400);
       }
     });
-    window.addEventListener('resize', handleResize);
-    handleResize();
+    window.addEventListener('resize', () => handleResize(0));
+    handleResize(400);
   }, []);
 
-  const handleResize = () => {
+  const handleResize = (delay: number) => {
     setTimeout(() => {
       setShow(false);
       setShow(true);
-    }, 300);
+    }, delay);
   };
 
   const data = [
@@ -120,112 +120,109 @@ const ChartDemo = () => {
       <OakChartBar /> */}
         <div>
           {show && (
-            <OakSection>
+            <OakSection title="Doughnut chart - concentric">
               <OakChartDoughnut
                 datasets={doughnutData}
                 type="doughnut"
                 categoryLabels={['Jan', 'Feb', 'March', 'April']}
                 stacked
-                title="Doughnut chart - concentric"
               />
             </OakSection>
           )}
         </div>
         <div>
           {show && (
-            <OakSection>
+            <OakSection subtitle="Doughnut chart">
               <OakChartDoughnut
                 datasets={[doughnutData[1]]}
                 type="doughnut"
                 categoryLabels={['Jan', 'Feb', 'March', 'April']}
                 stacked
-                title="Doughtnut chart"
               />
             </OakSection>
           )}
         </div>
         <div>
           {show && (
-            <OakSection>
+            <OakSection title="Piechart">
               <OakChartDoughnut
                 datasets={[doughnutData[1]]}
                 type="pie"
                 categoryLabels={['Jan', 'Feb', 'March', 'April']}
                 stacked
-                title="Piechart"
               />
             </OakSection>
           )}
         </div>
         <div>
           {show && (
-            <OakSection>
+            <OakSection
+            title="Bar chart, by category - stacked">
               <OakChartBar
                 datasets={data}
                 type="category"
                 categoryLabels={['Jan', 'Feb', 'March', 'April']}
                 stacked
-                title="Bar chart, by category - stacked"
               />
             </OakSection>
           )}
         </div>
         <div>
           {show && (
-            <OakSection>
+            <OakSection
+            title="Bar chart, by category">
               <OakChartBar
                 datasets={data}
                 type="category"
                 categoryLabels={['Jan', 'Feb', 'March', 'April']}
-                title="Bar chart, by category"
               />
             </OakSection>
           )}
         </div>
         <div>
           {show && (
-            <OakSection>
+            <OakSection
+            title="Line chart, by category - stacked">
               <OakChartLine
                 datasets={data}
                 type="category"
                 categoryLabels={['Jan', 'Feb', 'March', 'April']}
                 stacked
-                title="Line chart, by category - stacked"
               />
             </OakSection>
           )}
         </div>
         <div>
           {show && (
-            <OakSection>
+            <OakSection
+            title="Line chart, by category">
               <OakChartLine
                 datasets={data}
                 type="category"
                 categoryLabels={['Jan', 'Feb', 'March', 'April']}
-                title="Line chart, by category"
               />
             </OakSection>
           )}
         </div>
         <div>
           {show && (
-            <OakSection>
+            <OakSection
+            title="Linear line chart - stacked">
               <OakChartLine
                 datasets={dataPoint}
                 type="linear"
                 stacked
-                title="Linear line chart - stacked"
               />
             </OakSection>
           )}
         </div>
         <div>
           {show && (
-            <OakSection>
+            <OakSection
+            title="Linear line chart">
               <OakChartLine
                 datasets={dataPoint}
                 type="linear"
-                title="Linear line chart"
               />
             </OakSection>
           )}
