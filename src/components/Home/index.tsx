@@ -28,10 +28,10 @@ const Home = (props: Props) => {
 
     <OakPage>
       <OakSection outer>
-        <OakHeading title="Table demo" subtitle="Laudantium eius fugit alias a iure consequatur accusantium dolores nam quasi sapiente vitae eum id aut" />
+        <OakHeading title="Table demo"/>
         </OakSection>
-        <ModalDemo />
         <TableDemo />
+        <ModalDemo />
         <ChartDemo />
     </OakPage>
   );

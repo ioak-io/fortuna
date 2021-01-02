@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import OakButton from '../../oakui/OakButton';
+import OakFooter from '../../oakui/OakFooter';
 import OakModal from '../../oakui/OakModal';
 import OakSection from '../../oakui/OakSection';
 import OakTable from '../../oakui/OakTable';
@@ -220,7 +221,7 @@ const ModalDemo = () => {
   return (
     <>
     <div className="modal-demo">
-      <OakModal visible={visible} toggleVisibility={() => setVisible(!visible)} label="Modal test dialog">
+      <OakModal visible={visible} toggleVisibility={() => setVisible(!visible)} label="Modal test dialog" fullscreen>
         <div className="modal-body">
           modal body slot
         </div>
@@ -230,7 +231,11 @@ const ModalDemo = () => {
         </div>
       </OakModal>
     </div>
+    <OakSection outer>
+    <OakFooter>
     <OakButton action={() => setVisible(true)} theme="primary" variant="regular">Open modal</OakButton>
+    </OakFooter>
+    </OakSection>
     </>
   );
 };
