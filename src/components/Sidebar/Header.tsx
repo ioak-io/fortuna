@@ -25,10 +25,10 @@ const Header = () => {
 
   return (
     <div className="header">
+    <i className="material-icons mobile-only" onClick={toggleSidebar}>
+      menu_open
+    </i>
       <Logo />
-      <i className="material-icons" onClick={toggleSidebar}>
-        menu_open
-      </i>
     </div>
   );
 };

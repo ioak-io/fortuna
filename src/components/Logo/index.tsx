@@ -13,7 +13,7 @@ const Logo = () => {
 
   return (
     <div className="logo">
-      {profile.theme === 'theme_light' && <img className="logo--image" src={expensoBlack} alt="Expenso logo" />}
+      {profile.theme === 'theme_light' && <img className="logo--image" src={expensoWhite} alt="Expenso logo" />}
       {profile.theme !== 'theme_light' && <img className="logo--image" src={expensoWhite} alt="Expenso logo" />}
     </div>
   );

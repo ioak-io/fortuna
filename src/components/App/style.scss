@@ -89,7 +89,7 @@ a {
       background-color: var(--color-sidebar);
       color: var(--color-foreground-1);
       width: 250px;
-      border-right: 1px solid var(--color-border-1);
+      // border-right: 1px solid var(--color-border-1);
       @media (max-width: 767px) {
         width: 90vw;
       }
@@ -120,8 +120,8 @@ a {
       flex-direction: column;
       grid-template-rows: auto auto;
       .app-container--main--topbar {
-  height: 60px;
-        // border-bottom: 1px solid var(--color-background-3);
+        height: var(--height-nav);
+        // border-bottom: 1px solid var(--color-border-1);
       }
       .app-container--main--topbar,
       .app-container--main--body {

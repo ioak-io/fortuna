@@ -17,11 +17,9 @@ const ExpandIcon = () => {
 
   return (
     <div className="expand-icon">
-      {!profile.sidebar && (
-        <i className="material-icons" onClick={toggleSidebar}>
-          menu_open
-        </i>
-      )}
+      <i className={`material-icons ${profile.sidebar ? 'sidebar-shown' : 'sidebar-hidden'}`} onClick={toggleSidebar}>
+        menu_open
+      </i>
     </div>
   );
 };
