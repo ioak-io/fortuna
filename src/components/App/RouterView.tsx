@@ -5,7 +5,6 @@ import './style.scss';
 import Home from '../Home';
 import OaLogin from '../Auth/OaLogin';
 import Landing from '../Landing';
-import { Authorization } from '../Types/GeneralTypes';
 import Tenant from '../Tenant';
 import OakRoute from '../Auth/OakRoute';
 import Unauthorized from '../Auth/Unauthorized';
@@ -22,23 +21,12 @@ import CreateEmailServer from '../EmailServer/CreateEmailServer';
 import ViewEmailServer from '../EmailServer/ViewEmailServer';
 
 interface Props {
-  getProfile: Function;
-  setProfile: Function;
-  getAuth: Function;
-  addAuth: Function;
-  removeAuth: Function;
-  getUser: Function;
-  addUser: Function;
   cookies: any;
-
-  // event: PropTypes.object,
-  profile: any;
-  authorization: Authorization;
 }
 
 const RouterView = (props: Props) => {
   return (
-    <div className="app-container--main--body">
+    <div className="router-view">
       <Route
         path="/login"
         render={propsLocal => (

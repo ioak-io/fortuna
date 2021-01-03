@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { receiveMessage } from '../../events/MessageService';
 import { fetchAllProjects } from '../../actions/ProjectActions';
-import { fetchAllDomains } from '../../actions/DomainActions';
-import { fetchAllUsers } from '../../actions/UserActions';
-import { fetchAllCustomEndpoints } from '../../actions/CustomEndpointActions';
 import { allTemplates } from '../../actions/TemplateActions';
 import { allEmailServers } from '../../actions/EmailServerActions';
 

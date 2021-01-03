@@ -1,0 +1,28 @@
+.body-container {
+  display: flex;
+  right: 0;
+  // width: calc(100vw - 250px);
+  background-color: var(--color-background-1);
+  padding-top: var(--height-nav);
+  height: calc(100vh - var(--height-nav));
+
+  .body-container--content {
+    position: absolute;
+    right: 0;
+    // display: flex;
+    transition: width 250ms ease-in-out;
+    // transition: margin 250ms ease-in-out;
+    // width: 100%;
+    width: calc(100vw - 250px - (100vw - 100%));
+    &.sidebar-hidden {
+      width: calc(100vw - (100vw - 100%));
+    }
+    &.sidebar-shown {
+      @media (max-width: 767px) {
+        // width: calc(100vw - 250px);
+        // margin-left: 0px;
+        visibility: hidden;
+      }
+    }
+  }
+}

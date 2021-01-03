@@ -1,0 +1,19 @@
+.topbar-container {
+  position: fixed;
+  height: var(--height-nav);
+  transition: left 250ms ease-in-out;
+  right: 0;
+  z-index: 1;
+  &.sidebar-hidden {
+    left: 0px;
+    // margin-left: -250px;
+  }
+  &.sidebar-shown {
+    left: 250px;
+    @media (max-width: 767px) {
+      // width: calc(100vw - 250px);
+      // margin-left: 0px;
+      visibility: hidden;
+    }
+  }
+}

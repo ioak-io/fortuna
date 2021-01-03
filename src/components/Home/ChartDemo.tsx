@@ -18,7 +18,7 @@ const ChartDemo = () => {
       }
     });
     window.addEventListener('resize', () => handleResize(0));
-    handleResize(400);
+    // handleResize(400);
   }, []);
 
   const handleResize = (delay: number) => {

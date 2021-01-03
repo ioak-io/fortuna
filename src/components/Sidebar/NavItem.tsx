@@ -21,6 +21,7 @@ const NavItem = (props: Props) => {
   const dispatch = useDispatch();
 
   const routeChanged = () => {
+    window.scrollTo(0, 0);
     if (props.closeAfterRouteChange) {
       dispatch(setProfile({ ...profile, sidebar: false }));
     }

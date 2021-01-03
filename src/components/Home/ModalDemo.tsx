@@ -221,7 +221,7 @@ const ModalDemo = () => {
   return (
     <>
     <div className="modal-demo">
-      <OakModal visible={visible} toggleVisibility={() => setVisible(!visible)} label="Modal test dialog" fullscreen>
+      <OakModal visible={visible} toggleVisibility={() => setVisible(!visible)} label="Modal test dialog">
         <div className="modal-body">
           modal body slot
         </div>

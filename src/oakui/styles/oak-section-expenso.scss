@@ -17,7 +17,7 @@
   display: grid;
   grid-auto-flow: row;
   .oak-section--header-basic, .oak-section--header-highlight {
-    overflow: hidden;
+    // overflow: hidden;
     display: grid;
     grid-auto-flow: column;
     padding: 15px 20px;

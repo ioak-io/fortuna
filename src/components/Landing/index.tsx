@@ -9,6 +9,7 @@ import ListAssets from './ListAssets';
 import ListSpaces from './ListSpaces';
 import GettingStartedAsset from './GettingStartedAsset';
 import OakFooter from '../../oakui/OakFooter';
+import OakPage from '../../oakui/OakPage';
 
 interface Props {
   history: any;
@@ -22,6 +23,7 @@ const Landing = (props: Props) => {
   }
 
   return (
+    <OakPage>
     <div className="landing">
       {authorization.isAuth && (
         <>
@@ -30,10 +32,11 @@ const Landing = (props: Props) => {
           <GettingStartedAsset history={props.history} />
         </>
       )}
-      {!authorization.isAuth && <OakFooter>
+      {!authorization.isAuth && <OakFooter align="center">
         <OakButton theme="primary" variant="appear" action={goToLogin}>Login</OakButton>
         </OakFooter>}
     </div>
+    </OakPage>
   );
 };
 

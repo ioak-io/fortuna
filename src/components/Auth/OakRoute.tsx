@@ -6,7 +6,6 @@ import { sendMessage } from '../../events/MessageService';
 import { httpGet } from '../Lib/RestTemplate';
 
 interface Props {
-  authorization: Authorization;
   path?: string;
   render?: any;
   component: any;
