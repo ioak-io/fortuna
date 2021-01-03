@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Route } from 'react-router-dom';
-import './style.scss';
+import './RouterView.scss';
 import Home from '../Home';
 import OaLogin from '../Auth/OaLogin';
 import Landing from '../Landing';

@@ -43,12 +43,5 @@ export const findStepSize = (datasets, type, stacked) => {
   if (minValue > 0) {
     minValue = 0;
   }
-  console.log(
-    valueList,
-    valueListNegative,
-    maxValue,
-    minValue,
-    Math.ceil((maxValue - minValue) / 4)
-  );
   return Math.ceil((maxValue - minValue) / 4);
 };
