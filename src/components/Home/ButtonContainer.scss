@@ -1,0 +1,24 @@
+.button-container {
+  .button-container--wrapper {
+    @media (min-width: 768px) {
+      display: grid;
+      grid-auto-flow: column;
+      &.left {
+        justify-content: left;
+      }
+      &.center {
+        justify-content: center;
+      }
+    }
+    align-items: center;
+    justify-items: center;
+
+    @media (max-width: 767px) {
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-content: center;
+    }
+    column-gap: 20px;
+    row-gap: 20px;
+  }
+}

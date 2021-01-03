@@ -29,13 +29,13 @@ const OakIcon = (props: Props) => {
         chosenColor = 'var(--color-tertiary-1)';
         break;
       case 'success':
-        chosenColor = 'var(--color-success)';
+        chosenColor = 'var(--color-success-1)';
         break;
       case 'failure':
-        chosenColor = 'var(--color-failure)';
+        chosenColor = 'var(--color-danger-1)';
         break;
       case 'warning':
-        chosenColor = 'var(--color-warning)';
+        chosenColor = 'var(--color-warning-1)';
         break;
       default:
         chosenColor = colorVar || 'var(--color-foreground-1)';

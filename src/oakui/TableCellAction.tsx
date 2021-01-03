@@ -20,8 +20,8 @@ const TableCellAction = (props: Props) => {
             theme={item.theme || 'default'}
             action={() => handleClick(item)}
             variant={item.variant || 'block'}
-            icon={item.icon || undefined}
           >
+            {item.icon && <i className="material-icons">{item.icon}</i>}
             {item.label}
           </OakButton>
         </div>

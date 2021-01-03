@@ -52,7 +52,6 @@ const OakPrompt = (props: Props) => {
               theme="default"
               variant="appear"
               align="left"
-              fa="fas fa-times"
             >
               No
             </OakButton>
@@ -62,7 +61,6 @@ const OakPrompt = (props: Props) => {
               theme="primary"
               variant="disappear"
               align="right"
-              fa="fas fa-check"
             >
               Yes
             </OakButton>

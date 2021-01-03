@@ -27,13 +27,13 @@
 
     --color-notification-type: var(--color-tertiary-1);
     &.success {
-      --color-notification-type: var(--color-success);
+      --color-notification-type: var(--color-success-1);
     }
     &.warning {
-      --color-notification-type: var(--color-warning);
+      --color-notification-type: var(--color-warning-1);
     }
     &.failure {
-      --color-notification-type: var(--color-failure);
+      --color-notification-type: var(--color-danger-1);
     }
     .material-icons {
       vertical-align: middle;

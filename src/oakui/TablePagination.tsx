@@ -29,7 +29,6 @@ const TablePagination = (props: Props) => {
         name: 'text', value: ''
       }
     })
-    props.doSearch();
   }
 
   return (
@@ -53,8 +52,12 @@ const TablePagination = (props: Props) => {
               placeholder="Search"
             />
             <div className="table-pagination--filter--search--action">
-            <OakButton theme={props.searchPref.text ? "primary" : "default"} variant="regular" action={search} icon="search" />
-            <OakButton theme="default" variant={props.searchPref.text ? "regular" : "disabled"} action={clearSearch} icon="close" />
+            <OakButton theme={props.searchPref.text ? "primary" : "default"} variant="regular" action={search} size="xsmall">
+            <i className="material-icons">search</i>
+            </OakButton>
+            <OakButton theme="default" variant={props.searchPref.text ? "regular" : "disabled"} action={clearSearch} size="xsmall">
+              <i className="material-icons">close</i>
+            </OakButton>
             </div>
           </form>
           </div>

@@ -37,7 +37,7 @@
     }
 
     &.error {
-      // border-color: var(--color-failure);
+      // border-color: var(--color-danger-1);
       background-color: var(--color-failure-dim);
 
       &:focus {

@@ -5,6 +5,7 @@
     grid-auto-flow: column;
     column-gap: 20px;
     justify-content: right;
+    align-items: center;
     &.left {
       justify-content: left;
     }

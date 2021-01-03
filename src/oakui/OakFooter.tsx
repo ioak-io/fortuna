@@ -9,7 +9,7 @@ interface Props {
 const OakFooter = (props: Props) => {
   return (
     <div className={`oak-footer ${props.align || 'right'}`}>
-      <div className="oak-footer--container">{props.children}</div>
+      <div className={`oak-footer--container ${props.align || 'right'}`}>{props.children}</div>
     </div>
   );
 };

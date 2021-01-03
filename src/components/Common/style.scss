@@ -18,13 +18,13 @@
       background-color: var(--color-tertiary-1);
     }
     &.success {
-      background-color: var(--color-success);
+      background-color: var(--color-success-1);
     }
     &.warning {
-      background-color: var(--color-warning);
+      background-color: var(--color-warning-1);
     }
     &.failure {
-      background-color: var(--color-failure);
+      background-color: var(--color-danger-1);
     }
   }
 }

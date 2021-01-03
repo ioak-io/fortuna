@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './styles/oak-subheading-infinite-reserve.scss';
+import './styles/oak-subheading-emailflow.scss';
 import OakHeadingLink from './OakHeadingLink';
 
 interface Props {
@@ -17,9 +17,9 @@ interface Props {
 const OakSubheading = (props: Props) => {
   return (
     <div className="oak-subheading">
-      <div className="heading-title typography-8">{props.title}</div>
+      <div className="oak-subheading--heading-title">{props.title}</div>
       {props.subtitle && (
-        <div className="heading-subtitle typography-4">{props.subtitle}</div>
+        <div className="oak-subheading--heading-subtitle">{props.subtitle}</div>
       )}
       <div className="heading-links">
         {props.links?.map((item, index) => (

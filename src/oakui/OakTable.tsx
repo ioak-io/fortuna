@@ -385,8 +385,7 @@ const OakTable = (props: Props) => {
             theme="default"
             variant="appear"
             align="left"
-            icon="close"
-          >
+          ><i className="material-icons">close</i>
             Close
           </OakButton>
         </div>

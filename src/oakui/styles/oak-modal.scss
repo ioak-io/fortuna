@@ -39,7 +39,7 @@
       margin: auto;
       border-top: 2px solid var(--color-transparent);
       &.error {
-        border-top: 2px solid var(--color-failure);
+        border-top: 2px solid var(--color-danger-1);
       }
 
       .container {
@@ -110,7 +110,7 @@
             color: var(--color-foreground-2);
             &:hover {
               color: var(--color-foreground-1);
-              color: var(--color-failure);
+              color: var(--color-danger-1);
             }
           }
         }
