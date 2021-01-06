@@ -13,8 +13,8 @@ import ChangeAsset from './ChangeAsset';
 import Header from '../Sidebar/Header';
 
 interface Props {
-    space: string;
-    cookies: any;
+  space: string;
+  cookies: any;
   //   location: any;
   //   match: any;
   hideSidebarOnDesktop?: boolean;
@@ -34,8 +34,16 @@ const Topbar = (props: Props) => {
   return (
     <div className="topbar">
       <div className="topbar--left">
-        {authorization.isAuth && <div className={`${props.hideSidebarOnDesktop ? 'mobile-only' : ''}`}><ExpandIcon /></div>}
-        {props.hideSidebarOnDesktop && <div className="desktop-only"><Logo /></div>}
+        {/* {authorization.isAuth && ( */}
+          <div className={`${props.hideSidebarOnDesktop ? 'mobile-only' : ''}`}>
+            <ExpandIcon />
+          </div>
+        {/* )} */}
+        {props.hideSidebarOnDesktop && (
+          <div className="desktop-only">
+            <Logo />
+          </div>
+        )}
         <div className="topbar--left--nav desktop-only">
           {/* <Links space={props.space}/> */}
           <ChangeAsset space={props.space} />
