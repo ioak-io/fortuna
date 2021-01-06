@@ -1,4 +1,5 @@
 import React from 'react';
+import { isEmptyOrSpaces } from '../components/Utils';
 import './styles/oak-text-slide.scss';
 
 interface Props {
@@ -55,7 +56,7 @@ const OakText = (props: Props) => {
       )}
       <label
         htmlFor={props.id}
-        className={props.data[props.id] ? 'active' : ''}
+        className={!isEmptyOrSpaces(props.data[props.id]) ? 'active' : ''}
       >
         {props.label}
       </label>
