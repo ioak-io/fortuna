@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './styles/oak-view-resolver.scss';
 import { sendMessage, receiveMessage } from '../events/MessageService';
 import OakButton from './OakButton';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 interface Props {
   sideLabel?: string;
@@ -81,13 +82,13 @@ const OakViewResolver = (props: Props) => {
                 >
                   {!showSide && (
                     <>
-                      <i className="material-icons">expand_more</i>
+                      <ExpandMore />
                       {props.sideLabel ? props.sideLabel : 'Menu'}
                     </>
                   )}
                   {showSide && (
                     <>
-                      <i className="material-icons">expand_less</i>Collapse
+                      <ExpandLess />Collapse
                     </>
                   )}
                 </OakButton>

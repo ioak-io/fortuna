@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './styles/oak-popover-menu.scss';
 import { newId } from '../events/MessageService';
-import OakIcon from './OakIcon';
 
 interface Props {
   label?: string;
@@ -68,12 +67,12 @@ const OakPopoverMenu = (props: Props) => {
         <div className={`label ${labelStyle()}`} onClick={toggle}>
           {props.iconLeft && (
             <div className="left-icon">
-              <OakIcon mat={props.iconLeft} />
+              left icon
             </div>
           )}
           <div className="label-text">{props.label}</div>
           <div className="right-icon">
-            <OakIcon mat={props.iconRight} />
+            right icon
           </div>
         </div>
       )}
@@ -93,7 +92,6 @@ const OakPopoverMenu = (props: Props) => {
             className="element"
             onClick={element.action}
           >
-            <OakIcon mat={element.icon} />
             {element.label}
           </div>
         ))}

@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill';
 import './styles/oak-editor.scss';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
+import { Warning } from '@material-ui/icons';
 
 interface Props {
   id: string;
@@ -102,7 +103,7 @@ const OakEditor = (props: Props) => {
       />
       {props.errorData && props.errorData[props.id] && (
         <div className="text-field-error">
-          <i className="material-icons">warning</i>
+          <Warning />
           {props.errorData[props.id]}
         </div>
       )}

@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import './styles/oak-button.scss';
-import OakIcon from './OakIcon';
 
 interface Props {
   action?: any;
@@ -13,12 +12,20 @@ interface Props {
     | 'regular'
     | 'disabled'
     | 'drama';
-  theme?: 'primary' | 'secondary' | 'tertiary' | 'default' | 'danger' | 'warning' | 'success' | 'info';
+  theme?:
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'default'
+    | 'danger'
+    | 'warning'
+    | 'success'
+    | 'info';
   size?: 'xsmall' | 'small' | 'medium' | 'large';
   shape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf' | 'icon';
   align?: 'left' | 'right' | 'center';
   children?: ReactNode;
-  type?: 'button' | 'submit';
+  type?: 'button' | 'submit' | 'link';
 }
 
 const OakButton = (props: Props) => {
@@ -35,7 +42,7 @@ const OakButton = (props: Props) => {
     style += props.align ? ` align-${props.align}` : '';
 
     style += props.size ? ` size-${props.size}` : ' size-small';
-    
+
     style += props.shape ? ` shape-${props.shape}` : ' shape-rectangle';
 
     return style;
@@ -46,7 +53,7 @@ const OakButton = (props: Props) => {
     <button
       className={`oak-button ${getStyle()}`}
       onClick={props.action}
-      disabled={props.variant === "disabled"}
+      disabled={props.variant === 'disabled'}
     >
       <div className="button-label-container">
         {props.children && props.children}

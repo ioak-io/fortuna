@@ -1,3 +1,7 @@
+import { faCalendar, faHourglass } from '@fortawesome/free-regular-svg-icons';
+import { faChartPie, faCogs, faGlassCheers, faGlasses, faGlassMartini, faGlassWhiskey, faRoad, faWineGlass, faWineGlassAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { BlurOn, CalendarToday, Schedule, ShoppingCart, AccountBalance, Drafts } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import OakButton from '../../oakui/OakButton';
@@ -18,7 +22,7 @@ const ButtonDemoIcon = () => {
           shape="rectangle"
           size="small"
         >
-          <i className="material-icons">blur_on</i>
+          <Drafts />
           Icon in button
         </OakButton>
         <OakButton
@@ -26,18 +30,10 @@ const ButtonDemoIcon = () => {
           theme="primary"
           variant="disappear"
           shape="rectangle"
-          size="large"
+          size="small"
         >
-          <i className="material-icons">blur_on</i>
-        </OakButton>
-        <OakButton
-          action={dummyAction}
-          theme="primary"
-          variant="disappear"
-          shape="rectangle"
-          size="medium"
-        >
-          <i className="material-icons">blur_on</i>
+          <BlurOn />
+          Material icon
         </OakButton>
         <OakButton
           action={dummyAction}
@@ -46,7 +42,35 @@ const ButtonDemoIcon = () => {
           shape="rectangle"
           size="small"
         >
-          <i className="material-icons">blur_on</i>
+          <FontAwesomeIcon icon={faCalendar} />
+          Font awesome
+        </OakButton>
+        <OakButton
+          action={dummyAction}
+          theme="primary"
+          variant="disappear"
+          shape="rectangle"
+          size="large"
+        >
+          <CalendarToday />
+        </OakButton>
+        <OakButton
+          action={dummyAction}
+          theme="primary"
+          variant="disappear"
+          shape="rectangle"
+          size="medium"
+        >
+          <Schedule />
+        </OakButton>
+        <OakButton
+          action={dummyAction}
+          theme="primary"
+          variant="disappear"
+          shape="rectangle"
+          size="small"
+        >
+          <FontAwesomeIcon icon={faChartPie} />
         </OakButton>
         <OakButton
           action={dummyAction}
@@ -55,7 +79,7 @@ const ButtonDemoIcon = () => {
           shape="rectangle"
           size="xsmall"
         >
-          <i className="material-icons">blur_on</i>
+          <FontAwesomeIcon icon={faRoad} />
         </OakButton>
         <OakButton
           action={dummyAction}
@@ -64,7 +88,7 @@ const ButtonDemoIcon = () => {
           shape="icon"
           size="large"
         >
-          <i className="material-icons">blur_on</i>
+          <FontAwesomeIcon icon={faWineGlass} />
         </OakButton>
         <OakButton
           action={dummyAction}
@@ -73,7 +97,7 @@ const ButtonDemoIcon = () => {
           shape="icon"
           size="medium"
         >
-          <i className="material-icons">blur_on</i>
+          <ShoppingCart />
         </OakButton>
         <OakButton
           action={dummyAction}
@@ -82,7 +106,7 @@ const ButtonDemoIcon = () => {
           shape="icon"
           size="small"
         >
-          <i className="material-icons">blur_on</i>
+          <FontAwesomeIcon icon={faCogs} />
         </OakButton>
         <OakButton
           action={dummyAction}
@@ -91,7 +115,7 @@ const ButtonDemoIcon = () => {
           shape="icon"
           size="xsmall"
         >
-          <i className="material-icons">blur_on</i>
+          <AccountBalance />
         </OakButton>
       </ButtonContainer>
     </>

@@ -1,6 +1,6 @@
 import React, { useEffect, ReactNode, useState } from 'react';
 import './styles/oak-modal.scss';
-import OakIcon from './OakIcon';
+import { Close } from '@material-ui/icons';
 
 interface Props {
   visible: boolean;
@@ -62,32 +62,23 @@ const OakModal = (props: Props) => {
         >
           <div className="backdrop-fade" onClick={props.toggleVisibility} />
           <div className="oak-modal">
-            {/* {visible && ( */}
             <div className="modal">
               <div
                 className={props.visible ? 'container' : 'container hidetext'}
               >
                 <div className="modal-header">
-                  {/* <div className="container" data-test="toggle-visibility"> */}
-
                   <div className="left">
-                    {/* <div className="icon">
-                      <i className="material-icons">blur_on</i>
-                    </div> */}
                     <div className="label one-liner">{props.label}</div>
                   </div>
                   <div className="right">
                     <div onClick={props.toggleVisibility}>
-                      <i className="material-icons modal-close-icon">close</i>
-                      {/* <div className="text-esc">esc</div> */}
+                      <Close className="modal-close-icon" />
                     </div>
                   </div>
-                  {/* </div> */}
                 </div>
                 {props.children}
               </div>
             </div>
-            {/* )} */}
           </div>
         </div>
       )}

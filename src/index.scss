@@ -71,14 +71,8 @@ code {
 
   .hyperlink-container {
     cursor: pointer;
-    .material-icons {
-      color: var(--color-foreground-3);
-    }
     &:hover {
       color: var(--color-primary-1);
-      .material-icons {
-        color: var(--color-primary-1);
-      }
     }
   }
 
@@ -149,5 +143,9 @@ code {
     @media (max-width: 767px) {
       display: none !important;
     }
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
   }
 }

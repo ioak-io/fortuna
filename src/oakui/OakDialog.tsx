@@ -1,6 +1,7 @@
 import React, { useEffect, ReactNode, useState } from 'react';
 import './styles/oak-dialog.scss';
 import { sendMessage } from '../events/MessageService';
+import { Close, CloseSharp } from '@material-ui/icons';
 
 interface Props {
   visible: boolean;
@@ -79,7 +80,7 @@ const OakDialog = (props: Props) => {
                 data-test="toggle-visibility"
                 onClick={props.toggleVisibility}
               >
-                <i className="material-icons">close</i>
+                <Close />
                 <div className="text-esc">esc</div>
               </div>
             </div>

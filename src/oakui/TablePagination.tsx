@@ -7,6 +7,7 @@ import OakText from './OakText';
 import OakPagination from './OakPagination';
 import OakTextPlain from './OakTextPlain';
 import OakButton from './OakButton';
+import { Close, FilterList, Search } from '@material-ui/icons';
 
 interface Props {
   onChangePage: any;
@@ -38,7 +39,7 @@ const TablePagination = (props: Props) => {
         totalRows={props.totalRows}
       >
         <div className="table-pagination--filter">
-          <i className="material-icons" onClick={props.openDatagrid}>filter_list</i>
+          <FilterList onClick={props.openDatagrid} />
           <form
             method="GET"
             onSubmit={search}
@@ -53,10 +54,10 @@ const TablePagination = (props: Props) => {
             />
             <div className="table-pagination--filter--search--action">
             <OakButton theme={props.searchPref.text ? "primary" : "default"} variant="regular" action={search} size="xsmall">
-            <i className="material-icons">search</i>
+            <Search />
             </OakButton>
             <OakButton theme="default" variant={props.searchPref.text ? "regular" : "disabled"} action={clearSearch} size="xsmall">
-              <i className="material-icons">close</i>
+              <Close />
             </OakButton>
             </div>
           </form>

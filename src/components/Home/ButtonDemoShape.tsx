@@ -1,3 +1,5 @@
+import { faGlassMartini } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import OakButton from '../../oakui/OakButton';
@@ -48,7 +50,7 @@ const ButtonDemoShape = () => {
         variant="regular"
         shape="icon"
       >
-        <i className="material-icons">blur_on</i>
+        <FontAwesomeIcon icon={faGlassMartini} />
       </OakButton>
     </ButtonContainer>
   );

@@ -1,3 +1,4 @@
+import { Warning } from '@material-ui/icons';
 import React from 'react';
 import { isEmptyOrSpaces } from '../components/Utils';
 import './styles/oak-text-slide.scss';
@@ -63,7 +64,7 @@ const OakText = (props: Props) => {
       {props.subtitle && <div className="typography-3">{props.subtitle}</div>}
       {props.errorData && props.errorData[props.id] && (
         <div className="text-field-error">
-          <i className="material-icons">warning</i>
+          <Warning />
           {props.errorData[props.id]}
         </div>
       )}

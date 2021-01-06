@@ -1,3 +1,4 @@
+import { ExpandMore } from '@material-ui/icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -66,11 +67,9 @@ const NavGroup = (props: Props) => {
       >
         <div>{props.label}</div>
         <div>
-          <i
+          <ExpandMore
             className={`material-icons ${isExpanded ? 'showless' : 'showmore'}`}
-          >
-            expand_more
-          </i>
+          />
         </div>
       </a>
       <div className={`nav-group--container`} id={instanceId}>

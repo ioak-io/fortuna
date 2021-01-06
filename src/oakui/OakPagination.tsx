@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './styles/oak-pagination.scss';
 import OakSelect from './OakSelect';
 import OakSelectPlain from './OakSelectPlain';
+import { KeyboardArrowLeft, KeyboardArrowRight } from '@material-ui/icons';
 
 interface Props {
   onChangePage: any;
@@ -68,28 +69,22 @@ const OakPagination = (props: Props) => {
         </div>
         <div className="page-nav">
           <div>
-            <i
-              data-test="action-page-previous"
+            <KeyboardArrowLeft
               className={
-                data.pageNo === 1 ? 'material-icons disabled' : 'material-icons'
+                data.pageNo === 1 ? 'disabled' : ''
               }
               onClick={previousPage}
-            >
-              keyboard_arrow_left
-            </i>
+            />
           </div>
           <div>
-            <i
-              data-test="action-page-next"
+            <KeyboardArrowRight
               className={
                 Math.ceil(props.totalRows / data.rowsPerPage) === data.pageNo
-                  ? 'material-icons disabled'
-                  : 'material-icons'
+                  ? 'disabled'
+                  : ''
               }
               onClick={nextPage}
-            >
-              keyboard_arrow_right
-            </i>
+            />
           </div>
         </div>
       </div>

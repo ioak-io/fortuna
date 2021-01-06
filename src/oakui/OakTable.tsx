@@ -12,6 +12,7 @@ import OakLink from './OakLink';
 import OakText from './OakText';
 import TablePagination from './TablePagination';
 import { isEmptyOrSpaces, match } from '../components/Utils';
+import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 
 interface Props {
   header: {
@@ -123,23 +124,28 @@ const OakTable = (props: Props) => {
       let dataLocal = [...props.data];
       if (!isEmptyOrSpaces(searchPref.text)) {
         dataLocal = dataLocal.filter(item => {
-          let outcome  = false;
+          let outcome = false;
           props.header.forEach(headerItem => {
             let value = item[headerItem.key];
             if (headerItem.dtype === 'input_select') {
               console.log(value, headerItem);
-              value = headerItem.elements.find(item => item.key === value)?.value;
-              console.log(match(value, searchPref.text), value, searchPref.text);
+              value = headerItem.elements.find(item => item.key === value)
+                ?.value;
+              console.log(
+                match(value, searchPref.text),
+                value,
+                searchPref.text
+              );
             }
             if (match(value, searchPref.text)) {
               outcome = true;
             }
-          })
+          });
           return outcome;
-        })
+        });
       }
       if (paginationPref.sortField) {
-        dataLocal = dataLocal.sort((a: any, b: any) => compare(a, b))
+        dataLocal = dataLocal.sort((a: any, b: any) => compare(a, b));
       }
       setData(dataLocal);
     }
@@ -236,17 +242,9 @@ const OakTable = (props: Props) => {
                           >
                             {item.label}
                             {paginationPref.sortField === item.key &&
-                              paginationPref.sortAsc && (
-                                <i className="material-icons">
-                                  keyboard_arrow_up
-                                </i>
-                              )}
+                              paginationPref.sortAsc && <KeyboardArrowUp />}
                             {paginationPref.sortField === item.key &&
-                              !paginationPref.sortAsc && (
-                                <i className="material-icons">
-                                  keyboard_arrow_down
-                                </i>
-                              )}
+                              !paginationPref.sortAsc && <KeyboardArrowDown />}
                           </div>
                         </td>
                       )}
@@ -307,9 +305,7 @@ const OakTable = (props: Props) => {
               <div className="oak-table--nav-bottom">
                 <OakPagination
                   onChangePage={onChangePage}
-                  totalRows={
-                    props.totalRows ? props.totalRows : data.length
-                  }
+                  totalRows={props.totalRows ? props.totalRows : data.length}
                 />
               </div>
             )}
@@ -385,7 +381,8 @@ const OakTable = (props: Props) => {
             theme="default"
             variant="appear"
             align="left"
-          ><i className="material-icons">close</i>
+          >
+            <Close />
             Close
           </OakButton>
         </div>

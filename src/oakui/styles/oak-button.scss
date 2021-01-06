@@ -63,6 +63,14 @@ button {
       grid-auto-flow: column;
       align-items: center;
       column-gap: 10px;
+
+      .svg-inline--fa {
+        font-size: 14px;
+      }
+
+      .MuiSvgIcon-root {
+        font-size: 18px;
+      }
     }
 
     // Initialize colors based on theme
@@ -322,42 +330,22 @@ button {
       padding: 0;
       // padding: 4px 4px;
       border-radius: 50%;
-      .material-icons {
-        margin: 0;
-      }
       &.size-xsmall {
         height: 25px;
         width: 25px;
-        .material-icons {
-          font-size: 17px;
-        }
       }
       &.size-small {
         height: 35px;
         width: 35px;
-        .material-icons {
-          font-size: 17px;
-        }
       }
       &.size-medium {
         height: 40px;
         width: 40px;
-        .material-icons {
-          font-size: 17px;
-        }
       }
       &.size-large {
         height: 55px;
         width: 55px;
-        .material-icons {
-          font-size: 17px;
-        }
       }
-    }
-
-    .material-icons {
-      vertical-align: middle;
-      font-size: 17px;
     }
   }
 }

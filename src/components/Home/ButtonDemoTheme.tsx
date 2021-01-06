@@ -1,3 +1,5 @@
+import { faExclamationTriangle, faRss } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import OakButton from '../../oakui/OakButton';
@@ -40,6 +42,7 @@ const ButtonDemoTheme = () => {
         variant="regular"
         shape="rectangle"
       >
+        <FontAwesomeIcon icon={faRss} />
         Default
       </OakButton>
       <OakButton
@@ -56,6 +59,7 @@ const ButtonDemoTheme = () => {
         variant="regular"
         shape="rectangle"
       >
+        <FontAwesomeIcon icon={faExclamationTriangle} />
         Warning
       </OakButton>
       <OakButton

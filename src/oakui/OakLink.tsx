@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import './styles/oak-link.scss';
-import OakIcon from './OakIcon';
 
 interface Props {
   icon?: string; // points to "mat" material icon
@@ -53,11 +52,6 @@ const OakLink = (props: Props) => {
       onClick={props.action}
     >
       <div className="link-label-container">
-        <div className="link-label-container--icon">
-          {props.icon && <OakIcon mat={props.icon} size="1.2em" />}
-          {props.fa && <OakIcon fa={props.fa} size="1.2em" />}
-          {props.svg && <OakIcon svg={props.svg} size="1.2em" />}
-        </div>
         {props.children && (
           <div className="link-label-container--text">{props.children}</div>
         )}

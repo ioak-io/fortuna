@@ -1,3 +1,4 @@
+import { KeyboardArrowDown } from '@material-ui/icons';
 import React, { useState } from 'react';
 import './styles/oak-select-styled.scss';
 
@@ -80,7 +81,7 @@ const OakSelectStyled = (props: Props) => {
           )}
           {/* {this.props.objects && <div>{this.props.objects[0].value}</div>} */}
           <div>
-            <i className="material-icons">keyboard_arrow_down</i>
+            <KeyboardArrowDown />
           </div>
         </div>
         <div className={show ? 'dropdown show' : 'dropdown hide'}>

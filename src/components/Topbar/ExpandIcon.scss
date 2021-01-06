@@ -1,9 +1,7 @@
 .expand-icon {
   // margin-left: 10px;
-  .material-icons {
+  .menu-icon {
     cursor: pointer;
-    font-size: 1.6em;
-    display: block;
     transition: transform 250ms ease-in-out;
     &.sidebar-hidden {
       transform: scaleX(-1);

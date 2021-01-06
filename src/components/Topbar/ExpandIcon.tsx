@@ -1,3 +1,4 @@
+import { MenuOpen } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 
@@ -17,9 +18,7 @@ const ExpandIcon = () => {
 
   return (
     <div className="expand-icon">
-      <i className={`material-icons ${profile.sidebar ? 'sidebar-shown' : 'sidebar-hidden'}`} onClick={toggleSidebar}>
-        menu_open
-      </i>
+      <MenuOpen className={profile.sidebar ? 'menu-icon sidebar-shown' : 'menu-icon sidebar-hidden'} onClick={toggleSidebar} />
     </div>
   );
 };

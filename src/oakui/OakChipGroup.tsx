@@ -3,6 +3,7 @@ import './styles/oak-chip-group.scss';
 import OakText from './OakText';
 import { newId } from '../events/MessageService';
 import { isEmptyOrSpaces } from '../components/Utils';
+import { Close } from '@material-ui/icons';
 
 interface Props {
   label?: string;
@@ -84,12 +85,9 @@ const OakChipGroup = (props: Props) => {
           {props.data[props.id].map(item => (
             <div className="chip" key={item}>
               {item}
-              <i
-                className="material-icons"
+              <Close
                 onClick={() => props.handleRemoval(item)}
-              >
-                close
-              </i>
+              />
             </div>
           ))}
         </div>
