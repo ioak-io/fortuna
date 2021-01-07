@@ -45,7 +45,8 @@ const NavElements = (props: Props) => {
         label="UI Elements"
         context="sidebar-group"
       >
-      <NavItem to={`/${props.space}/play-button`} label="Button" />
+        <NavItem to={`/${props.space}/play-button`} label="Button" />
+        <NavItem to={`/${props.space}/play-form-elements`} label="Form elements" />
         <NavItem to={`/${props.space}/play-table`} label="Table" />
         <NavItem to={`/${props.space}/play-chart`} label="Chart" />
         <NavItem to={`/${props.space}/play-spinner`} label="Spinner" />

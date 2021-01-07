@@ -15,6 +15,7 @@ import PlayButton from '../PlayButton';
 import PlayModal from '../PlayModal';
 import PlayChart from '../PlayChart';
 import PlayTable from '../PlayTable';
+import PlayFormElements from '../PlayFormElements';
 
 interface Props {
   cookies: any;
@@ -128,6 +129,17 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={PlayTable}
+            middleware={['readAuthentication']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/play-form-elements"
+        render={propsLocal => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={PlayFormElements}
             middleware={['readAuthentication']}
           />
         )}
