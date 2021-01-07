@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { receiveMessage } from '../../events/MessageService';
-import { fetchAllProjects } from '../../actions/ProjectActions';
-import { allTemplates } from '../../actions/TemplateActions';
-import { allEmailServers } from '../../actions/EmailServerActions';
 
 const Init = () => {
   const authorization = useSelector(state => state.authorization);
@@ -36,12 +33,6 @@ const Init = () => {
 
   const initialize = () => {
     console.log('Initialization logic here');
-    // dispatch(fetchAllUsers(space, authorization));
-    dispatch(fetchAllProjects(space, authorization));
-    // dispatch(fetchAllDomains(space, authorization));
-    // dispatch(fetchAllCustomEndpoints(space, authorization));
-    dispatch(allTemplates(space, authorization));
-    dispatch(allEmailServers(space, authorization));
   };
   return <></>;
 };

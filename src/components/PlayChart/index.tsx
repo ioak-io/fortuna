@@ -1,6 +1,7 @@
 import React from 'react';
 import OakHeading from '../../oakui/OakHeading';
 import OakSection from '../../oakui/OakSection';
+import ChartDemo from './ChartDemo';
 import './style.scss';
 
 interface Props {
@@ -8,12 +9,15 @@ interface Props {
   history: any;
 }
 
-const Home = (props: Props) => {
+const PlayChart = (props: Props) => {
   return (
-      <OakSection>
-        <OakHeading title="Welcome home" />
+    <>
+      <OakSection outer>
+        <OakHeading title="Chart" />
       </OakSection>
+      <ChartDemo />
+    </>
   );
 };
 
-export default Home;
+export default PlayChart;

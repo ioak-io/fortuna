@@ -10,7 +10,7 @@ interface Props {
   history: any;
 }
 
-const Playground = (props: Props) => {
+const PlaySpinner = (props: Props) => {
   return (
     // <div className="home full">
     //   <div className="space-bottom-4">
@@ -31,4 +31,4 @@ const Playground = (props: Props) => {
   );
 };
 
-export default Playground;
+export default PlaySpinner;

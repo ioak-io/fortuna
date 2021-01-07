@@ -30,76 +30,26 @@ const NavElements = (props: Props) => {
         closeAfterRouteChange={props.closeAfterRouteChange}
       />
       <NavItem
-        to={`/${props.space}/playground`}
-        label="Oak UI Playground"
+        to={`/${props.space}/play-button`}
+        label="Button"
         closeAfterRouteChange={props.closeAfterRouteChange}
       />
       <NavItem
-        to={`/${props.space}/project`}
-        label="Projects"
-        closeAfterRouteChange={props.closeAfterRouteChange}
-      />
-      <NavItem
-        to={`/${props.space}/email-server`}
-        label="Email Servers"
-        closeAfterRouteChange={props.closeAfterRouteChange}
-      />
-      <NavItem
-        to={`/${props.space}/template`}
-        label="Templates"
+        to={`/${props.space}/play-spinner`}
+        label="Spinner"
         closeAfterRouteChange={props.closeAfterRouteChange}
       />
       <NavGroup
         space={props.space}
         closeAfterRouteChange={props.closeAfterRouteChange}
-        label="group one"
+        label="UI Elements"
         context="sidebar-group"
       >
-        <NavItem to={`/${props.space}/project`} label="test label" />
-      </NavGroup>
-      <NavGroup
-        space={props.space}
-        closeAfterRouteChange={props.closeAfterRouteChange}
-        label="group two"
-        context="sidebar-group"
-      >
-        <NavItem to={`/${props.space}/project`} label="lorem ipsum" />
-        <NavItem to={`/${props.space}/project`} label="dolor sit" />
-        <NavItem to={`/${props.space}/project`} label="iwer dsfsdf" />
-      </NavGroup>
-
-
-
-      
-      <NavGroup
-        space={props.space}
-        closeAfterRouteChange={props.closeAfterRouteChange}
-        label="group two"
-        context="sidebar-group"
-      >
-        <NavItem to={`/${props.space}/project`} label="lorem ipsum" />
-        <NavItem to={`/${props.space}/project`} label="dolor sit" />
-        <NavItem to={`/${props.space}/project`} label="iwer dsfsdf" />
-      </NavGroup>
-      <NavGroup
-        space={props.space}
-        closeAfterRouteChange={props.closeAfterRouteChange}
-        label="group two"
-        context="sidebar-group"
-      >
-        <NavItem to={`/${props.space}/project`} label="lorem ipsum" />
-        <NavItem to={`/${props.space}/project`} label="dolor sit" />
-        <NavItem to={`/${props.space}/project`} label="iwer dsfsdf" />
-      </NavGroup>
-      <NavGroup
-        space={props.space}
-        closeAfterRouteChange={props.closeAfterRouteChange}
-        label="group two"
-        context="sidebar-group"
-      >
-        <NavItem to={`/${props.space}/project`} label="lorem ipsum" />
-        <NavItem to={`/${props.space}/project`} label="dolor sit" />
-        <NavItem to={`/${props.space}/project`} label="iwer dsfsdf" />
+      <NavItem to={`/${props.space}/play-button`} label="Button" />
+        <NavItem to={`/${props.space}/play-table`} label="Table" />
+        <NavItem to={`/${props.space}/play-chart`} label="Chart" />
+        <NavItem to={`/${props.space}/play-spinner`} label="Spinner" />
+        <NavItem to={`/${props.space}/play-modal`} label="Modal" />
       </NavGroup>
     </div>
   );

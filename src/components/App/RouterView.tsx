@@ -10,16 +10,11 @@ import OakRoute from '../Auth/OakRoute';
 import Unauthorized from '../Auth/Unauthorized';
 import OneAuth from '../Login/OneAuth/index';
 import Login from '../Login/index';
-import ListProject from '../Project/ListProject';
-import CreateProject from '../Project/CreateProject';
-import ViewProject from '../Project/ViewProject';
-import ListTemplate from '../Template/ListTemplate';
-import CreateTemplate from '../Template/CreateTemplate';
-import ViewTemplate from '../Template/ViewTemplate';
-import ListEmailServer from '../EmailServer/ListEmailServer';
-import CreateEmailServer from '../EmailServer/CreateEmailServer';
-import ViewEmailServer from '../EmailServer/ViewEmailServer';
-import Playground from '../Playground';
+import PlaySpinner from '../PlaySpinner';
+import PlayButton from '../PlayButton';
+import PlayModal from '../PlayModal';
+import PlayChart from '../PlayChart';
+import PlayTable from '../PlayTable';
 
 interface Props {
   cookies: any;
@@ -83,12 +78,56 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
-        path="/:space/playground"
+        path="/:space/play-spinner"
         render={propsLocal => (
           <OakRoute
             {...propsLocal}
             {...props}
-            component={Playground}
+            component={PlaySpinner}
+            middleware={['readAuthentication']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/play-button"
+        render={propsLocal => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={PlayButton}
+            middleware={['readAuthentication']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/play-modal"
+        render={propsLocal => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={PlayModal}
+            middleware={['readAuthentication']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/play-chart"
+        render={propsLocal => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={PlayChart}
+            middleware={['readAuthentication']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/play-table"
+        render={propsLocal => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={PlayTable}
             middleware={['readAuthentication']}
           />
         )}
@@ -111,112 +150,6 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={OneAuth}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/project"
-        exact
-        render={propsLocal => (
-          <OakRoute
-            {...propsLocal}
-            {...props}
-            component={ListProject}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/project/view"
-        render={propsLocal => (
-          <OakRoute
-            {...propsLocal}
-            {...props}
-            component={ViewProject}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/project/create"
-        render={propsLocal => (
-          <OakRoute
-            {...propsLocal}
-            {...props}
-            component={CreateProject}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/template"
-        exact
-        render={propsLocal => (
-          <OakRoute
-            {...propsLocal}
-            {...props}
-            component={ListTemplate}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/template/create"
-        exact
-        render={propsLocal => (
-          <OakRoute
-            {...propsLocal}
-            {...props}
-            component={CreateTemplate}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/template/view"
-        exact
-        render={propsLocal => (
-          <OakRoute
-            {...propsLocal}
-            {...props}
-            component={ViewTemplate}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/email-server"
-        exact
-        render={propsLocal => (
-          <OakRoute
-            {...propsLocal}
-            {...props}
-            component={ListEmailServer}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/email-server/create"
-        exact
-        render={propsLocal => (
-          <OakRoute
-            {...propsLocal}
-            {...props}
-            component={CreateEmailServer}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/email-server/view"
-        exact
-        render={propsLocal => (
-          <OakRoute
-            {...propsLocal}
-            {...props}
-            component={ViewEmailServer}
             middleware={['readAuthentication']}
           />
         )}

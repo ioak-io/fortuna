@@ -2,11 +2,11 @@
   display: flex;
   right: 0;
   // width: calc(100vw - 250px);
-  background-color: var(--color-background-1);
   padding-top: var(--height-nav);
   height: calc(100vh - var(--height-nav));
 
   .body-container--content {
+    background-color: var(--color-background-1);
     position: absolute;
     right: 0;
     // display: flex;
