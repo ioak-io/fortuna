@@ -1,10 +1,10 @@
 import React from 'react';
-import './styles/oak-spinner.scss';
+import './OakSpinnerMirror.scss';
 
-const OakSpinner = () => {
+const OakSpinnerMirror = () => {
   return (
     <div>
-      <div className="oak-spinner">
+      <div className="oak-spinner-mirror">
         <div className="spinner-wrapper">
           <span />
           <span />
@@ -17,4 +17,4 @@ const OakSpinner = () => {
   );
 };
 
-export default OakSpinner;
+export default OakSpinnerMirror;

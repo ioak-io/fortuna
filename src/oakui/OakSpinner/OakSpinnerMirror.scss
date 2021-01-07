@@ -1,16 +1,16 @@
-.oak-spinner,
-.spinner-wrapper {
-  z-index: 999;
-  position: relative;
-  // top: 50%;
-  // left: 25%;
-  // transform: translate(-50%, -50%);
-  // transform: translateX(-50%);
+// .oak-spinner-mirror,
+// .spinner-wrapper {
+//   z-index: 999;
+//   position: relative;
+//   // top: 50%;
+//   // left: 25%;
+//   // transform: translate(-50%, -50%);
+//   // transform: translateX(-50%);
 
-  :nth-child(1) {
-    animation-delay: 500ms;
-  }
-}
+//   :nth-child(1) {
+//     animation-delay: 500ms;
+//   }
+// }
 
 .oak-spinner {
   display: flex;

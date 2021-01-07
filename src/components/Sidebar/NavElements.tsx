@@ -30,6 +30,11 @@ const NavElements = (props: Props) => {
         closeAfterRouteChange={props.closeAfterRouteChange}
       />
       <NavItem
+        to={`/${props.space}/playground`}
+        label="Oak UI Playground"
+        closeAfterRouteChange={props.closeAfterRouteChange}
+      />
+      <NavItem
         to={`/${props.space}/project`}
         label="Projects"
         closeAfterRouteChange={props.closeAfterRouteChange}

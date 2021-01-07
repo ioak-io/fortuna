@@ -19,6 +19,7 @@ import ViewTemplate from '../Template/ViewTemplate';
 import ListEmailServer from '../EmailServer/ListEmailServer';
 import CreateEmailServer from '../EmailServer/CreateEmailServer';
 import ViewEmailServer from '../EmailServer/ViewEmailServer';
+import Playground from '../Playground';
 
 interface Props {
   cookies: any;
@@ -77,6 +78,17 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={Home}
+            middleware={['readAuthentication']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/playground"
+        render={propsLocal => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={Playground}
             middleware={['readAuthentication']}
           />
         )}

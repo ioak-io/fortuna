@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import './style.scss';
 import { NavLink } from 'react-router-dom';
 import OakButton from '../../oakui/OakButton';
-import OakSpinner from '../../oakui/OakSpinner';
 import AssetItem from './AssetItem';
 import ListAssets from './ListAssets';
 import ListSpaces from './ListSpaces';

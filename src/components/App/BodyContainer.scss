@@ -21,7 +21,8 @@
       @media (max-width: 767px) {
         // width: calc(100vw - 250px);
         // margin-left: 0px;
-        visibility: hidden;
+        // visibility: hidden;
+        display: none;
       }
     }
   }

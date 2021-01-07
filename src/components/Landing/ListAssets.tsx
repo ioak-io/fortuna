@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './style.scss';
-import OakSpinner from '../../oakui/OakSpinner';
 import AssetItem from './AssetItem';
 import OakHeading from '../../oakui/OakHeading';
 

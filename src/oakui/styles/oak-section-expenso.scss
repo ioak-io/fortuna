@@ -1,4 +1,5 @@
 .oak-section-outer {
+  position: relative;
   margin: 10px;
   @media (max-width: 767px) {
     margin: 5px;
@@ -6,6 +7,7 @@
 }
 
 .oak-section {
+  position: relative;
   margin: 10px;
   border-radius: 6px;
   // padding: 40px 60px;
