@@ -51,6 +51,42 @@ const SpinnerDemo = () => {
           {staticText}
         </div>
       </OakSection>
+      <OakSection subtitle="Rotating plane">
+        <div className="spinner-demo--section">
+          <OakSpinner style="rotating-plane" />
+          {staticText}
+        </div>
+      </OakSection>
+      <OakSection subtitle="Stretching bars">
+        <div className="spinner-demo--section">
+          <OakSpinner style="stretching-bars" />
+          {staticText}
+        </div>
+      </OakSection>
+      <OakSection subtitle="Circling dots">
+        <div className="spinner-demo--section">
+          <OakSpinner style="circling-dots" />
+          {staticText}
+        </div>
+      </OakSection>
+      <OakSection subtitle="Circling and bouncing dots">
+        <div className="spinner-demo--section">
+          <OakSpinner style="circling-and-bouncing-dots" />
+          {staticText}
+        </div>
+      </OakSection>
+      <OakSection subtitle="Checker grid">
+        <div className="spinner-demo--section">
+          <OakSpinner style="checker-grid" />
+          {staticText}
+        </div>
+      </OakSection>
+      <OakSection subtitle="Folding cube">
+        <div className="spinner-demo--section">
+          <OakSpinner style="folding-cube" />
+          {staticText}
+        </div>
+      </OakSection>
     </div>
   );
 };

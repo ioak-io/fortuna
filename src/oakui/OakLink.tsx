@@ -44,12 +44,17 @@ const OakLink = (props: Props) => {
     return style;
   };
 
+  const action = event => {
+    event.preventDefault();
+    props.action();
+  }
+
   return (
     // eslint-disable-next-line react/button-has-type
     <a
-      href="javascript:undefined;"
+      href=""
       className={`oak-link ${getStyle()}`}
-      onClick={props.action}
+      onClick={action}
     >
       <div className="link-label-container">
         {props.children && (

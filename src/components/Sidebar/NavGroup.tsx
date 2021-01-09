@@ -49,7 +49,8 @@ const NavGroup = (props: Props) => {
     }
   };
 
-  const toggleExpansion = () => {
+  const toggleExpansion = event => {
+    event.preventDefault();
     if (!isExpanded) {
       setIsExpanded(!isExpanded);
       setTimeout(() => {sendMessage('nav-group-expanded', true, {instanceId, context: props.context})}, 100);
@@ -61,7 +62,7 @@ const NavGroup = (props: Props) => {
   return (
     <div className="nav-group">
       <a
-        href="javascript:undefined;"
+        href=""
         className={`nav-group--headline ${isExpanded ? 'expanded' : 'collapsed'}`}
         onClick={toggleExpansion}
       >

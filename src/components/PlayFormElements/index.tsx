@@ -2,6 +2,7 @@ import React from 'react';
 import OakHeading from '../../oakui/OakHeading';
 import OakSection from '../../oakui/OakSection';
 import FileInput from './FileInput';
+import SelectInput from './SelectInput';
 import './style.scss';
 
 interface Props {
@@ -21,6 +22,7 @@ const PlayFormElements = (props: Props) => {
       <OakSection outer>
         <OakHeading title="Form Elements" />
       </OakSection>
+      <SelectInput />
       <FileInput />
     </>
   );
