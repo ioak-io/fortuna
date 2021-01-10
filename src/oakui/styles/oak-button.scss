@@ -34,28 +34,60 @@ button {
       font-size: 10.5px;
       padding: 0 10px;
       height: 25px;
+      .button-label-container {
+        .svg-inline--fa {
+          font-size: 10px;
+        }
+
+        .MuiSvgIcon-root {
+          font-size: 14px;
+        }
+      }
     }
 
     &.size-small {
       font-size: 12.25px;
       padding: 4px 15px;
       height: 35px;
+      .button-label-container {
+        .svg-inline--fa {
+          font-size: 12px;
+        }
+
+        .MuiSvgIcon-root {
+          font-size: 16px;
+        }
+      }
     }
 
     &.size-medium {
       font-size: 12.25px;
       padding: 5px 20px;
       height: 40px;
+      .button-label-container {
+        .svg-inline--fa {
+          font-size: 14px;
+        }
+
+        .MuiSvgIcon-root {
+          font-size: 18px;
+        }
+      }
     }
 
     &.size-large {
       font-size: 15.75px;
       padding: 15px 30px;
       height: 55px;
-    }
+      .button-label-container {
+        .svg-inline--fa {
+          font-size: 14px;
+        }
 
-    &.size-xsmall {
-      font-size: 10.5px;
+        .MuiSvgIcon-root {
+          font-size: 18px;
+        }
+      }
     }
 
     .button-label-container {
@@ -63,14 +95,6 @@ button {
       grid-auto-flow: column;
       align-items: center;
       column-gap: 10px;
-
-      .svg-inline--fa {
-        font-size: 14px;
-      }
-
-      .MuiSvgIcon-root {
-        font-size: 18px;
-      }
     }
 
     // Initialize colors based on theme
@@ -119,7 +143,6 @@ button {
     }
 
     background: none;
-    outline: none;
     color: var(--btn-text-color);
     // text-transform: uppercase;
     cursor: pointer;
@@ -165,7 +188,7 @@ button {
           color: var(--btn-text-color);
         }
 
-        &.default { 
+        &.default {
           color: var(--btn-text-color);
         }
       }
@@ -174,7 +197,7 @@ button {
         &.info {
           color: var(--btn-text-color-dark);
         }
-        
+
         &.info {
           color: var(--btn-text-color-dark);
           &:hover {
@@ -206,7 +229,7 @@ button {
         &:hover {
           color: var(--btn-text-color);
         }
-        
+
         &.info {
           color: var(--btn-text-color);
           &:hover {
@@ -222,7 +245,6 @@ button {
         background-color: transparent;
       }
 
-
       &.default {
         color: var(--btn-text-color);
         &:hover {
@@ -234,7 +256,7 @@ button {
         &:hover {
           color: var(--btn-text-color-dark);
         }
-        
+
         &.info {
           color: var(--btn-text-color);
           &:hover {
@@ -262,7 +284,7 @@ button {
         &:hover {
           color: var(--btn-text-color);
         }
-        
+
         &.info {
           color: var(--btn-text-color);
           &:hover {
@@ -287,7 +309,7 @@ button {
 
       &.light {
         color: var(--btn-text-color-dark);
-        
+
         &.info {
           color: var(--btn-text-color);
           &:hover {
@@ -300,7 +322,6 @@ button {
     &.disabled {
       opacity: 0.5;
 
-
       &.default {
         color: var(--btn-text-color-dark);
         &:hover {
@@ -310,7 +331,7 @@ button {
 
       &.light {
         color: var(--btn-text-color-dark);
-        
+
         &.info {
           color: var(--btn-text-color);
           &:hover {

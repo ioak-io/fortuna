@@ -39,7 +39,10 @@ const TablePagination = (props: Props) => {
         totalRows={props.totalRows}
       >
         <div className="table-pagination--filter">
-          <FilterList onClick={props.openDatagrid} />
+          {/* <FilterList onClick={props.openDatagrid} /> */}
+          <OakButton action={props.openDatagrid} theme="default" variant="appear" shape="icon" size="xsmall">
+            <FilterList />
+          </OakButton>
           <form
             method="GET"
             onSubmit={search}
@@ -53,10 +56,10 @@ const TablePagination = (props: Props) => {
               placeholder="Search"
             />
             <div className="table-pagination--filter--search--action">
-            <OakButton theme={props.searchPref.text ? "primary" : "default"} variant="regular" action={search} size="xsmall">
+            <OakButton theme={props.searchPref.text ? "primary" : "default"} variant="appear" action={search} size="xsmall" shape="icon">
             <Search />
             </OakButton>
-            <OakButton theme="default" variant={props.searchPref.text ? "regular" : "disabled"} action={clearSearch} size="xsmall">
+            <OakButton theme="default" variant={props.searchPref.text ? "appear" : "disabled"} action={clearSearch} size="xsmall" shape="icon">
               <Close />
             </OakButton>
             </div>

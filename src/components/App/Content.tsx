@@ -14,6 +14,7 @@ import { fetchAllAssets } from '../../actions/AssetActions';
 import TopbarContainer from './TopbarContainer';
 import SidebarContainer from './SidebarContainer';
 import BodyContainer from './BodyContainer';
+import { receiveMessage } from '../../events/MessageService';
 
 interface Props {
   cookies: any;
@@ -22,8 +23,16 @@ interface Props {
 const Content = (props: Props) => {
   const profile = useSelector(state => state.profile);
   const dispatch = useDispatch();
+  const [usingMouse, setUsingMouse] = useState(false);
 
   useEffect(() => {
+
+    receiveMessage().subscribe(message => {
+      if (message.name === 'usingMouse') {
+        setUsingMouse(message.signal);
+      }
+    })
+
     dispatch(fetchAllSpaces());
     dispatch(fetchAllAssets());
   }, []);
@@ -35,7 +44,7 @@ const Content = (props: Props) => {
 
   return (
     <div
-      className={`App ${profile.theme} ${profile.textSize} ${profile.themeColor}`}
+      className={`App ${profile.theme} ${profile.textSize} ${profile.themeColor} ${usingMouse ? 'using-mouse' : ''}`}
     >
       <HashRouter>
         <Init />

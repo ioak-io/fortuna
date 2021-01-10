@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { receiveMessage } from '../../events/MessageService';
+import { setProfile } from '../../actions/ProfileActions';
+import { receiveMessage, sendMessage } from '../../events/MessageService';
 
 const Init = () => {
   const authorization = useSelector(state => state.authorization);
+  const profile = useSelector(state => state.profile);
   const [previousAuthorizationState, setPreviousAuthorizationState] = useState<
     any
   >();
@@ -30,6 +32,19 @@ const Init = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    document.body.addEventListener('mousedown', () => {
+      sendMessage('usingMouse', true);
+    });
+
+    // Re-enable focus styling when Tab is pressed
+    document.body.addEventListener('keydown', (event) => {
+      if (event.keyCode === 9) {
+        sendMessage('usingMouse', false);
+      }
+    });
+  }, [profile]);
 
   const initialize = () => {
     console.log('Initialization logic here');
