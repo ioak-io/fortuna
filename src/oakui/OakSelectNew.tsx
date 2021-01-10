@@ -27,57 +27,37 @@ const OakSelectNew = (props: Props) => {
   const change = event => {
     event.preventDefault();
     console.log(1);
-  }
+  };
 
   return (
     <div className={`oak-select-new ${getStyle()}`}>
-      <OakButton
-        theme="primary"
-        variant="regular"
-        action={() => setShow(!show)}
-      >
-        Choose from below
-      </OakButton>
-      <div className="cursor-pointer">
-      <Code onClick={() => setShow(!show)} />
-      </div>
-      <ul className={`dropdown ${show ? 'visible' : 'hidden'}`}>
-        
-          <li>lorem start</li>
-        {props.elements?.map(item => (
-          <li><a href="" onClick={change}>lorem</a></li>
-        ))}
-        {props.elements?.map(item => (
-          <li><a href="">lorem ipsum dolor sit lorem ipsum dolor sit lorem ipsum dolor sit lorem ipsum dolor sit lorem ipsum dolor sit lorem ipsum dolor sit lorem ipsum dolor sit </a></li>
-        ))}
-        {props.elements?.map(item => (
-          <li><a href="">lorem</a></li>
-        ))}
-        {props.elements?.map(item => (
-          <li><a href="">lorem</a></li>
-        ))}
-        {props.elements?.map(item => (
-          <li><a href="">lorem</a></li>
-        ))}
-        {props.elements?.map(item => (
-          <li><a href="">lorem</a></li>
-        ))}
-        {props.elements?.map(item => (
-          <li><a href="">lorem</a></li>
-        ))}
-        {props.elements?.map(item => (
-          <li><a href="">lorem</a></li>
-        ))}
-        {props.elements?.map(item => (
-          <li><a href="">lorem</a></li>
-        ))}
-        {props.elements?.map(item => (
-          <li><a href="">lorem</a></li>
-        ))}
-        {props.elements?.map(item => (
-          <li><a href="">lorem</a></li>
-        ))}
-          <li>lorem end</li>
+      <ul className="dropdown">
+        <li className="dropdown__label">Label</li>
+
+        <li role="button" id="dropdown__selected" tabIndex={0}>
+          Option 1
+        </li>
+
+        <svg
+          className="dropdown__arrow"
+          width="10"
+          height="5"
+          viewBox="0 0 10 5"
+          fill-rule="evenodd"
+        >
+          <path d="M10 0L5 5 0 0z"></path>
+        </svg>
+
+        <li className="dropdown__list-container">
+          <ul className="dropdown__list">
+            <li className="dropdown__list-item" id="option-1">
+              Option 1
+            </li>
+            <li className="dropdown__list-item" id="option-2">
+              Option 2
+            </li>
+          </ul>
+        </li>
       </ul>
     </div>
   );
