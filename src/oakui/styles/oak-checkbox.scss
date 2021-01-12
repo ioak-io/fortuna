@@ -67,7 +67,6 @@
        *to vertically center it.
        */
       top: 3px;
-      // background-color: var(--color-background-1);
     }
 
     /*Checkmark of the fake checkbox*/
@@ -91,7 +90,7 @@
     /*Unhide on the checked state*/
     .checkbox input[type='checkbox']:checked + label::after {
       content: '';
-      color: var(--color-foreground-1);
+      color: var(--global-color-fg);
     }
 
     /*Adding focus styles on the outer-box of the fake checkbox*/

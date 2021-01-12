@@ -8,7 +8,7 @@
     align-items: center;
 
     hr {
-      border: 1px solid var(--color-border-1);
+      border: 1px solid var(--global-color-border);
       border-radius: 10px;
       height: 80%;
     }
@@ -20,7 +20,7 @@
     // align-items: center;
 
     hr {
-      border: 1px solid var(--color-border-1);
+      border: 1px solid var(--global-color-border);
       border-radius: 10px;
       width: 80%;
       margin: auto;
@@ -64,9 +64,9 @@
 }
 
 .asset-list-item, .space-list-item {
-  background-color: var(--color-background-3);
+  // background-color: ;
   padding: 20px 40px;
-  box-shadow: var(--bs-lg);
+  // box-shadow: ;
   .asset-list-item--link, .space-list-item--link {
     display: flex;
   }

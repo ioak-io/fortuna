@@ -17,7 +17,7 @@
     right: 0;
     // top: var(--height-nav);
     top: 0;
-    background-color: var(--color-background-3);
+    background-color: var(--container-color-bg);
     position: fixed;
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
       0px 4px 5px 0px rgba(0, 0, 0, 0.24), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
@@ -62,9 +62,9 @@
         justify-content: flex-end;
         .container {
           cursor: pointer;
-          color: var(--color-foreground-2);
+          color: var(--global-color-fg);
           &:hover {
-            color: var(--color-foreground-1);
+            color: var(--global-color-fg);
           }
           .material-icons {
             vertical-align: middle;
@@ -91,8 +91,8 @@
       }
 
       .dialog-footer {
-        border-top: 1px solid var(--color-border-1);
-        background-color: var(--color-background-3);
+        border-top: 1px solid var(--global-color-border);
+        // background-color: ;
         height: 50px;
         display: grid;
         grid-auto-flow: column;
@@ -104,7 +104,7 @@
         //     position: fixed;
         //     display: inline-block;
         //     content: "";
-        //     border-top: 2px solid var(--color-foreground-2);
+        //     border-top: 2px solid var(--global-color-fg);
         //     width: 90%;
         //     // margin: 0 1rem;
         //     // transform: translateY(-1rem);

@@ -46,6 +46,14 @@ const Init = () => {
     });
   }, [profile]);
 
+  useEffect(() => {
+    if (profile.theme === 'theme_light') {
+      document.body.style.backgroundColor = "var(--color-light-bg-1)";
+    } else {
+      document.body.style.backgroundColor = "var(--color-dark-bg-1)";
+    }
+  }, [profile.theme]);
+
   const initialize = () => {
     console.log('Initialization logic here');
   };

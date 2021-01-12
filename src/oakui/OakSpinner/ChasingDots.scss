@@ -22,7 +22,7 @@
     display: block;
     width: 25%;
     height: 25%;
-    background-color: var(--color-foreground-1);
+    background-color: var(--global-color-fg);
     border-radius: 100%;
     animation: chasing-dots-dot-before 2.0s infinite ease-in-out both; 
   }

@@ -1,6 +1,7 @@
 import React from 'react';
+import OakContainer from '../../oakui/OakContainer';
 import OakHeading from '../../oakui/OakHeading';
-import OakSection from '../../oakui/OakSection';
+import OakCard from '../../oakui/OakCard';
 import ChartDemo from './ChartDemo';
 import './style.scss';
 
@@ -11,12 +12,10 @@ interface Props {
 
 const PlayChart = (props: Props) => {
   return (
-    <>
-      <OakSection outer>
-        <OakHeading title="Chart" />
-      </OakSection>
+    <OakContainer paddingHorizontal={2} paddingVertical={2} elevation={10}>
+      <OakHeading title="Chart" />
       <ChartDemo />
-    </>
+    </OakContainer>
   );
 };
 

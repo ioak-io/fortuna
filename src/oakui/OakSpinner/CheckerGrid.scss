@@ -10,7 +10,7 @@
   .checker-grid--item {
     width: 33%;
     height: 33%;
-    background-color: var(--color-foreground-1);
+    background-color: var(--global-color-fg);
     float: left;
     -webkit-animation: checker-grid-delay 1.3s infinite ease-in-out;
     animation: checker-grid-delay 1.3s infinite ease-in-out;

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
+import './oak-styles/index.scss';
 import { CookiesProvider } from 'react-cookie';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';

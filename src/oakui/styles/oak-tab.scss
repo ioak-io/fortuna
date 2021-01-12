@@ -9,9 +9,9 @@
     a,
     button {
       border: 1px solid transparent;
-      color: var(--color-foreground-3);
+      color: var(--global-color-fg);
       &:focus {
-        border: 1px solid var(--color-foreground-3);
+        border: 1px solid var(--global-color-fg);
       }
       &:hover {
         color: var(--color-forerground-1);
@@ -40,7 +40,7 @@
       .material-icons {
         &.active {
           @media (max-width: 767px) {
-            background-color: var(--color-background-3);
+            // background-color: ;
           }
         }
         padding: 0 10px;
@@ -66,8 +66,8 @@
   &.fullpage {
     .oak-tab--header {
       justify-content: center;
-      background-color: var(--color-background-3);
-      box-shadow: var(--bs-sm);
+      // background-color: ;
+      // box-shadow: ;
       a,
       button {
         border: none;
@@ -75,7 +75,7 @@
         border-bottom: 4px solid transparent;
         font-size: 1.25em;
         transition: color 0.2s;
-        border-left: 1px solid var(--color-background-1);
+        border-left: 1px solid var(--global-color-border);
         color: var(--color-primary-1);
         height: 40px;
         line-height: 40px;
@@ -86,15 +86,15 @@
           padding: 0;
         }
         &:last-child {
-          border-right: 1px solid var(--color-background-1);
+          border-right: 1px solid var(--global-color-border);
         }
         &.active {
           border-bottom: 4px solid var(--color-primary-1);
-          color: var(--color-foreground-3);
+          color: var(--global-color-fg);
         }
         &:hover,
         &:focus {
-          color: var(--color-foreground-3);
+          color: var(--global-color-fg);
         }
         .material-icons {
           padding: 0 10px 0 0;

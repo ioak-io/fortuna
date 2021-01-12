@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import OakButton from '../../oakui/OakButton';
 import OakFooter from '../../oakui/OakFooter';
 import OakModal from '../../oakui/OakModal';
-import OakSection from '../../oakui/OakSection';
+import OakCard from '../../oakui/OakCard';
 import OakTable from '../../oakui/OakTable';
 import './ModalDemo.scss';
 
@@ -220,22 +220,40 @@ const ModalDemo = () => {
 
   return (
     <>
-    <div className="modal-demo">
-      <OakModal visible={visible} toggleVisibility={() => setVisible(!visible)} label="Modal test dialog">
-        <div className="modal-body">
-          modal body slot
-        </div>
-        <div className="modal-footer">
-        <OakButton action={() => setVisible(true)} theme="primary" variant="regular">Open modal</OakButton>
-        <OakButton action={() => setVisible(true)} theme="primary" variant="regular">Open modal</OakButton>
-        </div>
-      </OakModal>
-    </div>
-    <OakSection outer>
-    <OakFooter>
-    <OakButton action={() => setVisible(true)} theme="primary" variant="regular">Open modal</OakButton>
-    </OakFooter>
-    </OakSection>
+      <div className="modal-demo">
+        <OakModal
+          visible={visible}
+          toggleVisibility={() => setVisible(!visible)}
+          label="Modal test dialog"
+        >
+          <div className="modal-body">modal body slot</div>
+          <div className="modal-footer">
+            <OakButton
+              action={() => setVisible(true)}
+              theme="primary"
+              variant="regular"
+            >
+              Open modal
+            </OakButton>
+            <OakButton
+              action={() => setVisible(true)}
+              theme="primary"
+              variant="regular"
+            >
+              Open modal
+            </OakButton>
+          </div>
+        </OakModal>
+      </div>
+      <OakFooter align="left">
+        <OakButton
+          action={() => setVisible(true)}
+          theme="primary"
+          variant="regular"
+        >
+          Open modal
+        </OakButton>
+      </OakFooter>
     </>
   );
 };

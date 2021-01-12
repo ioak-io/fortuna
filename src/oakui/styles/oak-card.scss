@@ -1,0 +1,51 @@
+.oak-card-outer {
+  position: relative;
+  margin: 10px;
+  @media (max-width: 767px) {
+    margin: 5px;
+  }
+}
+
+.oak-card {
+  position: relative;
+  margin: 10px;
+  border-radius: 6px;
+  // padding: 40px 60px;
+  max-width: 100%;
+  overflow-x: auto;
+  // overflow-x: hidden;
+  @media (max-width: 767px) {
+    //   padding: 10px;
+    margin: 5px;
+  }
+  display: grid;
+  grid-auto-flow: row;
+  .oak-card--header-subtle,
+  .oak-card--header-apparent {
+    // overflow: hidden;
+    display: grid;
+    grid-auto-flow: column;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    font-weight: 500;
+    border-radius: 0 6px 0 0;
+  }
+  .oak-card--header-apparent {
+    // border-left: 3px solid var(--color-primary-1);
+    background-color: var(--color-primary-1);
+  }
+  .oak-card--body {
+    padding: 10px 10px;
+    .oak-card--app-text {
+      margin: auto;
+      width: 100%;
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+      word-break: break-word;
+    }
+  }
+
+  background-color: var(--surface-color-bg);
+  // padding: 10px 10px;
+}

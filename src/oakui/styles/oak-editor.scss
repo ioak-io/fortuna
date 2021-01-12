@@ -3,7 +3,7 @@
     font-size: 13px;
   }
   &.bubble {
-    border-bottom: 1px solid var(--color-foreground-1);
+    border-bottom: 1px solid var(--global-color-fg);
   }
 
   .text-field-error {
@@ -51,36 +51,36 @@
 
   .ql-toolbar.ql-snow {
     border: none;
-    color: var(--color-foreground-1);
+    color: var(--global-color-fg);
     padding: 0px;
     display: flex;
     justify-content: center;
   }
   .ql-container.ql-snow {
     border: none;
-    border-bottom: 1px solid var(--color-foreground-1);
+    border-bottom: 1px solid var(--global-color-fg);
   }
   .ql-editor {
     padding: 10px 0;
     font-size: 16px;
   }
   .ql-snow .ql-stroke {
-    stroke: var(--color-foreground-3);
+    stroke: var(--global-color-fg);
   }
   .ql-snow .ql-fill,
   .ql-snow .ql-stroke.ql-fill {
-    fill: var(--color-foreground-3);
+    fill: var(--global-color-fg);
   }
   .ql-picker-label {
-    color: var(--color-foreground-3);
+    color: var(--global-color-fg);
     &:hover {
       color: green;
     }
   }
   .ql-strike.ql-active {
-    // border: 1px solid var(--color-foreground-3);
-    background-color: var(--color-foreground-2);
-    color: var(--color-foreground-1);
+    // border: 1px solid var(--global-color-fg);
+    background-color: var(--global-color-fg);
+    color: var(--global-color-fg);
   }
 
   h1 {
@@ -103,8 +103,8 @@
   }
 
   .ql-snow .ql-picker.ql-expanded .ql-picker-options {
-    background-color: var(--color-background-2);
-    color: var(--color-foreground-1);
+    // background-color: ;
+    color: var(--global-color-fg);
     .ql-picker-item {
       &:hover {
         color: var(--color-primary-1) !important;
@@ -117,7 +117,7 @@
       height: auto !important;
       width: auto !important;
       &:hover {
-        background-color: var(--color-background-3) !important;
+        // background-color: var(--color-background-3) !important;
         border-radius: 2px;
       }
     }
@@ -132,24 +132,24 @@
     .ql-active {
       // border: 1px solid var(--color-primary-1) !important;
       border-radius: 2px;
-      background-color: var(--color-background-2) !important;
+      // background-color: var(--color-background-2) !important;
       &:hover {
-        background-color: var(--color-background-2) !important;
+        // background-color: var(--color-background-2) !important;
       }
-      color: var(--color-foreground-1) !important;
+      color: var(--global-color-fg) !important;
       .ql-fill {
-        fill: var(--color-foreground-3) !important;
+        fill: var(--global-color-fg) !important;
       }
       .ql-stroke {
-        stroke: var(--color-foreground-3) !important;
+        stroke: var(--global-color-fg) !important;
       }
     }
     &:hover {
       .ql-fill {
-        fill: var(--color-foreground-3) !important;
+        fill: var(--global-color-fg) !important;
       }
       .ql-stroke {
-        stroke: var(--color-foreground-1) !important;
+        stroke: var(--global-color-fg) !important;
       }
     }
   }

@@ -4,7 +4,7 @@ import OakPagination from './OakPagination';
 import TableCell from './TableCell';
 import TableCellAction from './TableCellAction';
 import OakModal from './OakModal';
-import OakSection from './OakSection';
+import OakCard from './OakCard';
 import OakForm from './OakForm';
 import OakCheckbox from './OakCheckbox';
 import OakButton from './OakButton';
@@ -231,30 +231,34 @@ const OakTable = (props: Props) => {
           <div className="table-container">
             <table>
               <thead>
-                {props.header &&
-                  props.header.map(item => (
-                    <>
-                      {datagrid[item.key] !== 0 && (
-                        <td key={item.key}>
-                          <div
-                            className="table-container--label"
-                            onClick={() => sort(item.key)}
-                          >
-                            {item.label}
-                            {paginationPref.sortField === item.key &&
-                              paginationPref.sortAsc && <KeyboardArrowUp />}
-                            {paginationPref.sortField === item.key &&
-                              !paginationPref.sortAsc && <KeyboardArrowDown />}
-                          </div>
-                        </td>
-                      )}
-                    </>
-                  ))}
-                {props.actionColumn && (
-                  <td>
-                    <div className="label">{props.actionColumn.label}</div>
-                  </td>
-                )}
+                <tr>
+                  {props.header &&
+                    props.header.map(item => (
+                      <>
+                        {datagrid[item.key] !== 0 && (
+                          <th key={item.key}>
+                            <div
+                              className="table-container--label"
+                              onClick={() => sort(item.key)}
+                            >
+                              {item.label}
+                              {paginationPref.sortField === item.key &&
+                                paginationPref.sortAsc && <KeyboardArrowUp />}
+                              {paginationPref.sortField === item.key &&
+                                !paginationPref.sortAsc && (
+                                  <KeyboardArrowDown />
+                                )}
+                            </div>
+                          </th>
+                        )}
+                      </>
+                    ))}
+                  {props.actionColumn && (
+                    <th>
+                      <div className="label">{props.actionColumn.label}</div>
+                    </th>
+                  )}
+                </tr>
               </thead>
               <tbody>
                 {view &&
@@ -318,9 +322,6 @@ const OakTable = (props: Props) => {
                 <div className="card-container--card" key={(key += 1)}>
                   {props.header &&
                     props.header.map(column => (
-                      // <div key={(key += 1)}>
-                      //   <b>{column.label}</b>: {row[column.key]}
-                      // </div>
                       <div
                         className="card-container--card--column"
                         key={(key += 1)}

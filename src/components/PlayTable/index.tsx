@@ -1,6 +1,6 @@
 import React from 'react';
 import OakHeading from '../../oakui/OakHeading';
-import OakSection from '../../oakui/OakSection';
+import OakCard from '../../oakui/OakCard';
 import './style.scss';
 import TableDemo from './TableDemo';
 
@@ -18,9 +18,11 @@ const PlayTable = (props: Props) => {
     //   <div className="auth-token">{authorization.token}</div>
     // </div>
     <>
-      <OakSection outer>
         <OakHeading title="Table" />
-      </OakSection>
+      <TableDemo />
+      <TableDemo />
+      <TableDemo />
+      <TableDemo />
       <TableDemo />
     </>
   );

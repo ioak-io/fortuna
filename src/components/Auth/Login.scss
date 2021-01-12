@@ -23,8 +23,7 @@
 
     .container {
         position: absolute;
-        background: var(--color-background-1);
-        color: var(--color-foreground-1);
+        color: var(--global-color-fg);
 
         .form {
             width: 15rem;

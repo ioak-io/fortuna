@@ -5,7 +5,6 @@ import './RouterView.scss';
 import Home from '../Home';
 import OaLogin from '../Auth/OaLogin';
 import Landing from '../Landing';
-import Tenant from '../Tenant';
 import OakRoute from '../Auth/OakRoute';
 import Unauthorized from '../Auth/Unauthorized';
 import OneAuth from '../Login/OneAuth/index';
@@ -58,13 +57,6 @@ const RouterView = (props: Props) => {
         exact
         render={propsLocal => (
           <OakRoute {...propsLocal} {...props} component={Landing} />
-        )}
-      />
-      <Route
-        path="/tenant"
-        exact
-        render={propsLocal => (
-          <OakRoute {...propsLocal} {...props} component={Tenant} />
         )}
       />
       <Route

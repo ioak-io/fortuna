@@ -2,11 +2,11 @@
   display: flex;
   right: 0;
   // width: calc(100vw - 250px);
-  padding-top: var(--height-nav);
+  padding-top: calc(var(--height-nav));
   height: calc(100vh - var(--height-nav));
+  background-color: var(--global-color-bg);
 
   .body-container--content {
-    background-color: var(--color-background-1);
     position: absolute;
     right: 0;
     // display: flex;
@@ -14,6 +14,8 @@
     // transition: margin 250ms ease-in-out;
     // width: 100%;
     width: calc(100vw - 250px - (100vw - 100%));
+    min-height: calc(100vh - var(--height-nav));
+    // overflow-x: auto;
     &.sidebar-hidden {
       width: calc(100vw - (100vw - 100%));
     }

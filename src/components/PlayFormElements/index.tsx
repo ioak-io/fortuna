@@ -1,6 +1,6 @@
 import React from 'react';
 import OakHeading from '../../oakui/OakHeading';
-import OakSection from '../../oakui/OakSection';
+import OakCard from '../../oakui/OakCard';
 import FileInput from './FileInput';
 import SelectInput from './SelectInput';
 import './style.scss';
@@ -19,9 +19,13 @@ const PlayFormElements = (props: Props) => {
     //   <div className="auth-token">{authorization.token}</div>
     // </div>
     <>
-      <OakSection outer>
+      <OakCard outer>
         <OakHeading title="Form Elements" />
-      </OakSection>
+      </OakCard>
+      <SelectInput />
+      <SelectInput />
+      <SelectInput />
+      <SelectInput />
       <SelectInput />
       <FileInput />
     </>

@@ -4,7 +4,7 @@ import './style.scss';
 import LoginMethod from './LoginMethod';
 import OakHeading from '../../oakui/OakHeading';
 import OakPage from '../../oakui/OakPage';
-import OakSection from '../../oakui/OakSection';
+import OakCard from '../../oakui/OakCard';
 import oaBlack from '../../images/oneauth_black_small.svg';
 import oaWhite from '../../images/oneauth_white_small.svg';
 
@@ -50,7 +50,7 @@ const Login = (props: Props) => {
 
   return (
     <OakPage>
-      <OakSection>
+      <OakCard>
         <OakHeading
           title="Sign in"
           subtitle="Choose the preferred authentication method to continue"
@@ -76,7 +76,7 @@ const Login = (props: Props) => {
             </div>
           </div>
         </div>
-      </OakSection>
+      </OakCard>
     </OakPage>
   );
 };

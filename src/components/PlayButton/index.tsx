@@ -1,6 +1,6 @@
 import React from 'react';
 import OakHeading from '../../oakui/OakHeading';
-import OakSection from '../../oakui/OakSection';
+import OakCard from '../../oakui/OakCard';
 import ButtonDemo from './ButtonDemo';
 import './style.scss';
 
@@ -12,9 +12,7 @@ interface Props {
 const PlayButton = (props: Props) => {
   return (
     <>
-      <OakSection outer>
-        <OakHeading title="Button demo" />
-      </OakSection>
+      <OakHeading title="Button demo" />
       <ButtonDemo />
     </>
   );

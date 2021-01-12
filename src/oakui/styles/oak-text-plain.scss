@@ -5,20 +5,18 @@
   textarea {
     font-family: 'Roboto', sans-serif;
     width: 100%;
-    color: var(--color-foreground-1);
     font-size: 14px;
-    border: 1px solid var(--color-border-1);
-    background-color: var(--color-background-3);
+    border: 1px solid var(--global-color-border);
+    background-color: var(--formelement-color-bg);
+    color: var(--formelement-color-fg);
     box-sizing: border-box;
     padding: 5px 5px;
     border-radius: 2px;
 
     &:focus {
       border: 1px solid var(--color-primary-1);
-      background-color: var(--color-foreground-1);
-      background-color: white;
-      color: var(--color-background-1);
-      color: black;
+      background-color: var(--formelement-color-bg-active);
+      color: var(--formelement-color-fg-active);
     }
 
     &.error {
@@ -26,13 +24,12 @@
       background-color: var(--color-failure-dim);
 
       &:focus {
-        color: var(--color-foreground-1);
       }
     }
 
     &.disabled {
-      background-color: var(--color-background-3);
-      color: var(--color-foreground-3);
+      background-color: var(--formelement-color-bg-disabled);
+      color: var(--formelement-color-fg-disabled);
     }
   }
 
@@ -52,7 +49,7 @@
     display: block;
     font-size: 14px;
     margin-bottom: 4px;
-    color: var(--color-foreground-2);
+    color: var(--formelement-color-label);
     text-transform: capitalize;
     word-break: keep-all;
   }

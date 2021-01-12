@@ -1,6 +1,6 @@
 import { KeyboardArrowDown } from '@material-ui/icons';
 import React, { useState } from 'react';
-import './styles/oak-select-styled.scss';
+import './styles/oak-select.scss';
 
 interface Props {
   id: string;

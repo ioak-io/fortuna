@@ -4,6 +4,7 @@
     .chart-demo-container {
         display: grid;  
         overflow: hidden;
+        justify-content: center;
         @media (max-width: 767px) {
             grid-auto-flow: row;
         }

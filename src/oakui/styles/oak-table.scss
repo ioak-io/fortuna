@@ -1,13 +1,15 @@
 .oak-table {
   border-radius: 4px;
-
+  background-color: var(--surface-color-bg);
+  box-shadow: var(--oak-bs-elevation1);
+  
   .oak-table--nav-top {
     @media (min-width: 768px) {
       // background-color: var(--color-background-3);
       border-radius: 4px 4px 0 0;
-      padding: 0 10px;
+      // padding: 0 10px;
       .oak-table--nav-top--container {
-        border-bottom: 1px solid var(--color-border-1);
+        border-bottom: 1px solid var(--global-color-border);
       }
     }
   }
@@ -15,18 +17,20 @@
     @media (min-width: 768px) {
       // background-color: var(--color-background-3);
       border-radius: 0 0 4px 4px;
-      padding: 0 10px;
+      // padding: 0 10px;
       .oak-table--nav-bottom--container {
-        border-top: 1px solid var(--color-border-1);
+        border-top: 1px solid var(--global-color-border);
       }
     }
   }
 
   .desktop-view {
     .table-container {
-      padding: 0 10px;
+      // padding: 0 10px;
       // background-color: var(--color-background-3);
       overflow-x: auto;
+      overflow-y: visible;
+      display: block;
       .table-container--label {
         word-break: keep-all;
         display: flex;
@@ -50,21 +54,24 @@
   table {
     border-collapse: collapse;
     width: 100%;
-    padding: 10px;
+    white-space: nowrap;
+    // padding: 10px;
     td {
       text-align: left;
     }
 
     thead {
-      td {
-        padding: 10px 6px;
-        font-weight: 500;
+      tr {
+        th {
+          padding: 10px 6px;
+          font-weight: 500;
+        }
       }
     }
 
     tbody {
       tr {
-        border-top: 1px solid var(--color-border-1);
+        border-top: 1px solid var(--global-color-border);
         td {
           padding: 6px 6px;
         }
@@ -89,7 +96,7 @@
       grid-auto-flow: row;
       row-gap: 10px;
       .card-container--card--column--label {
-        color: var(--color-foreground-3);
+        color: var(--global-color-fg);
       }
     }
   }

@@ -1,7 +1,7 @@
 import { Warning } from '@material-ui/icons';
 import React from 'react';
 import { isEmptyOrSpaces } from '../components/Utils';
-import './styles/oak-text-slide.scss';
+import './styles/oak-text.scss';
 
 interface Props {
   label?: string;

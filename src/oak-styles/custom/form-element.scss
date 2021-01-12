@@ -1,0 +1,23 @@
+* {
+  .theme_dark {
+    --formelement-color-bg: #2b3858;
+    --formelement-color-bg-active: #37466b;
+    --formelement-color-bg-disabled: #3c455c;
+    --formelement-color-fg: #fff;
+    --formelement-color-fg-active: #fff;
+    --formelement-color-fg-disabled: #ccc;
+    --formelement-color-label: #f1f1f1;
+    --formelement-color-placeholder: #f1f1f1;
+  }
+
+  .theme_light {    
+    --formelement-color-bg: #f7f8f9;
+    --formelement-color-bg-active: #f7f8f9f0;
+    --formelement-color-bg-disabled: #f7f8f9;
+    --formelement-color-fg: #000;
+    --formelement-color-fg-active: #000;
+    --formelement-color-fg-disabled: #2f3136;
+    --formelement-color-label: #292b2f;
+    --formelement-color-placeholder: #292b2f;
+  }
+}

@@ -33,7 +33,7 @@ const OakTextPlain = (props: Props) => {
           }
           type={props.type ? props.type : 'text'}
           name={props.id}
-          id={props.id}
+          // id={props.id}
           value={props.data[props.id]}
           onChange={props.handleChange}
           onFocus={handleFocus}

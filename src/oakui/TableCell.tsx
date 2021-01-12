@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { formatDate } from '../components/Lib/DateUtils';
 import OakSelect from './OakSelect';
+import OakSelectNew from './OakSelectNew';
 import OakSelectPlain from './OakSelectPlain';
 import OakTextPlain from './OakTextPlain';
 import './styles/TableCell.scss';
@@ -75,7 +76,8 @@ const TableCell = (props: Props) => {
           data={props.row}
           handleChange={handleChange}
           id={props.columnKey}
-          objects={elements}
+          // objects={elements}
+          elements={["fr", "gr", "lorem ipsum dolor sit", "dolor"]}
         />
       )}
       {!['date', 'input', 'input_text', 'input_textarea', 'input_number', 'input_select'].includes(dtype) &&
