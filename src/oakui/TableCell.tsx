@@ -8,19 +8,12 @@ import './styles/TableCell.scss';
 
 interface Props {
   row: any;
-  headerMap: any;
+  header: any;
   columnKey: string;
   handleCellDataChange: any;
 }
 
 const TableCell = (props: Props) => {
-  const [dtype, setDtype] = useState('text');
-  const [elements, setElements] = useState<any>([]);
-
-  useEffect(() => {
-    setDtype(props.headerMap[props.columnKey]?.dtype);
-    setElements(props.headerMap[props.columnKey]?.elements);
-  }, [props.headerMap, props.columnKey]);
 
   const handleChange = event => {
     // setState({
@@ -47,15 +40,15 @@ const TableCell = (props: Props) => {
 
   return (
     <div className="table-cell">
-      {dtype === 'date' && formatDate(props.row[props.columnKey])}
-      {['input', 'input_text'].includes(dtype) && (
+      {props.header.dtype === 'date' && formatDate(props.row[props.columnKey])}
+      {['input', 'input_text'].includes(props.header.dtype) && (
         <OakTextPlain
           data={props.row}
           handleChange={handleChange}
           id={props.columnKey}
         />
       )}
-      {['input_textarea'].includes(dtype) && (
+      {['input_textarea'].includes(props.header.dtype) && (
         <OakTextPlain
           data={props.row}
           handleChange={handleChange}
@@ -63,7 +56,7 @@ const TableCell = (props: Props) => {
           multiline
         />
       )}
-      {dtype === 'input_number' && (
+      {props.header.dtype === 'input_number' && (
         <OakTextPlain
           type="number"
           data={props.row}
@@ -71,16 +64,16 @@ const TableCell = (props: Props) => {
           id={props.columnKey}
         />
       )}
-      {dtype === 'input_select' && (
+      {props.header.dtype === 'input_select' && (
         <OakSelectPlain
           data={props.row}
           handleChange={handleChange}
           id={props.columnKey}
-          // objects={elements}
+          objects={props.header.elements}
           elements={["fr", "gr", "lorem ipsum dolor sit", "dolor"]}
         />
       )}
-      {!['date', 'input', 'input_text', 'input_textarea', 'input_number', 'input_select'].includes(dtype) &&
+      {!['date', 'input', 'input_text', 'input_textarea', 'input_number', 'input_select'].includes(props.header.dtype) &&
         props.row[props.columnKey]}
     </div>
   );

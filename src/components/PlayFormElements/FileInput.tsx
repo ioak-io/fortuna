@@ -16,7 +16,7 @@ const FileInput = () => {
   }
 
   return (
-      <OakCard subtitle="File input">
+      <OakCard title="File input">
         <OakInputFile data={state} id="testFiles" handleChange={handleChange} placeholder="Custom placeholder" label="File one" multiple />
         <OakInputFile data={state} id="testFiles" handleChange={handleChange} label="File two lorem ipsum"/>
         <OakInputFile data={state} id="testFiles" handleChange={handleChange} label="File two lorem ipsum">

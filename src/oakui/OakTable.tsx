@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './styles/oak-table.scss';
-import OakPagination from './OakPagination';
-import TableCell from './TableCell';
-import TableCellAction from './TableCellAction';
-import OakModal from './OakModal';
-import OakCard from './OakCard';
-import OakForm from './OakForm';
-import OakCheckbox from './OakCheckbox';
-import OakButton from './OakButton';
-import OakLink from './OakLink';
-import OakText from './OakText';
 import TablePagination from './TablePagination';
 import { isEmptyOrSpaces, match } from '../components/Utils';
-import { Close, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
+import OakTableContainer from './OakTableContainer';
 
 interface Props {
   header: {
@@ -46,7 +36,6 @@ const OakTable = (props: Props) => {
   const [searchPref, setSearchPref] = useState({
     text: '',
   });
-  const [showDatagrid, setShowDatagrid] = useState(false);
   const [paginationPref, setPaginationPref] = useState({
     pageNo: 1,
     rowsPerPage: 6,
@@ -75,22 +64,22 @@ const OakTable = (props: Props) => {
 
   useEffect(() => {
     let viewLocal: any[] = data;
-    if (!props.showAll && data && props.totalRows) {
-      viewLocal = data;
-    } else if (!props.showAll && data && !props.totalRows) {
-      viewLocal = data.slice(
-        (paginationPref.pageNo - 1) * paginationPref.rowsPerPage,
-        paginationPref.pageNo * paginationPref.rowsPerPage
-      );
-    } else if (props.showAll) {
-      viewLocal = data;
-    }
+    // if (!props.showAll && data && props.totalRows) {
+    //   viewLocal = data;
+    // } else if (!props.showAll && data && !props.totalRows) {
+    //   viewLocal = data.slice(
+    //     (paginationPref.pageNo - 1) * paginationPref.rowsPerPage,
+    //     paginationPref.pageNo * paginationPref.rowsPerPage
+    //   );
+    // } else if (props.showAll) {
+    //   viewLocal = data;
+    // }
     setView(viewLocal);
   }, [data]);
 
-  useEffect(() => {
-    pageChanged();
-  }, [paginationPref]);
+  // useEffect(() => {
+  //   pageChanged();
+  // }, [paginationPref]);
 
   const handleGridChange = event => {
     setDatagrid({
@@ -107,10 +96,13 @@ const OakTable = (props: Props) => {
   };
 
   const pageChanged = () => {
+    console.log(123);
+    console.log(props.data);
     setData(props.data || []);
-    if (!props.data) {
+    if (!props.data || props.data.length === 0) {
       return;
     }
+    console.log('********');
 
     if (props.onChangePage) {
       props.onChangePage(
@@ -121,8 +113,9 @@ const OakTable = (props: Props) => {
         searchPref.text
       );
     } else {
-      let dataLocal = [...props.data];
+      let dataLocal = props.data;
       if (!isEmptyOrSpaces(searchPref.text)) {
+        console.log('&&&&&&&&&');
         dataLocal = dataLocal.filter(item => {
           let outcome = false;
           props.header.forEach(headerItem => {
@@ -145,6 +138,7 @@ const OakTable = (props: Props) => {
         });
       }
       if (paginationPref.sortField) {
+        console.log('%%%%%%%%%%');
         dataLocal = dataLocal.sort((a: any, b: any) => compare(a, b));
       }
       setData(dataLocal);
@@ -194,42 +188,53 @@ const OakTable = (props: Props) => {
   };
 
   const sort = fieldName => {
+    console.log('***sort');
+    let _sortField = '';
+    let _sortAsc = true;
+    if (paginationPref.sortField === fieldName) {
+      if (paginationPref.sortAsc) {
+        _sortField = paginationPref.sortField;
+        _sortAsc = false;
+      }
+    } else {
+      _sortField = fieldName;
+      _sortAsc = true;
+    }
     setPaginationPref({
       ...paginationPref,
-      sortField: fieldName,
-      sortAsc:
-        paginationPref.sortField === fieldName ? !paginationPref.sortAsc : true,
+      sortField: _sortField,
+      sortAsc: _sortAsc,
     });
   };
-
-  const openDatagrid = () => {
-    setShowDatagrid(true);
-  };
-
-  let key = 0;
 
   return (
     <>
       <div className="oak-table">
         {!props.showAll &&
-          props.navPlacement &&
-          ['both', 'top'].includes(props.navPlacement) && (
+          ((props.navPlacement &&
+            props.navPlacement === 'top') ||
+            !props.navPlacement) && (
             <div className="oak-table--nav-top">
-              <div className="oak-table--nav-top--container">
-                <TablePagination
-                  searchPref={searchPref}
-                  handleSearchPrefChange={handleSearchPrefChange}
-                  onChangePage={onChangePage}
-                  openDatagrid={openDatagrid}
-                  totalRows={props.totalRows ? props.totalRows : data.length}
-                  doSearch={pageChanged}
-                />
-              </div>
+              <TablePagination
+                searchPref={searchPref}
+                handleSearchPrefChange={handleSearchPrefChange}
+                onChangePage={onChangePage}
+                totalRows={props.totalRows ? props.totalRows : data.length}
+                doSearch={pageChanged}
+                datagrid={datagrid}
+                handleGridChange={handleGridChange}
+                header={props.header}
+              />
             </div>
           )}
-        <div className="desktop-view">
-          <div className="table-container">
-            <table>
+        <OakTableContainer
+          header={props.header?.filter(item => datagrid[item.key] !== 0)}
+          data={props.data}
+          handleSort={sort}
+          sortAsc={paginationPref.sortAsc}
+          sortBy={paginationPref.sortField}
+        />
+        {/* <table>
               <thead>
                 <tr>
                   {props.header &&
@@ -264,31 +269,6 @@ const OakTable = (props: Props) => {
                 {view &&
                   view.map(row => (
                     <tr key={(key += 1)}>
-                      {props.header &&
-                        props.header.map(column => (
-                          <>
-                            {datagrid[column.key] !== 0 && (
-                              <td
-                                key={(key += 1)}
-                                className={
-                                  headerMap[column.key]?.dtype
-                                    ? headerMap[column.key]?.dtype
-                                    : ''
-                                }
-                              >
-                                <TableCell
-                                  key={(key += 1)}
-                                  columnKey={column.key}
-                                  headerMap={headerMap}
-                                  row={row}
-                                  handleCellDataChange={
-                                    props.handleCellDataChange || undefined
-                                  }
-                                />
-                              </td>
-                            )}
-                          </>
-                        ))}
                       {props.actionColumn && (
                         <td>
                           <TableCellAction
@@ -300,94 +280,25 @@ const OakTable = (props: Props) => {
                     </tr>
                   ))}
               </tbody>
-            </table>
-          </div>
-          {!props.showAll &&
-            ((props.navPlacement &&
-              ['bottom', 'both'].includes(props.navPlacement)) ||
-              !props.navPlacement) && (
-              <div className="oak-table--nav-bottom">
-                <OakPagination
-                  onChangePage={onChangePage}
-                  totalRows={props.totalRows ? props.totalRows : data.length}
-                />
-              </div>
-            )}
-        </div>
-
-        <div className="mobile-view">
-          <div className="card-container">
-            {view &&
-              view.map(row => (
-                <div className="card-container--card" key={(key += 1)}>
-                  {props.header &&
-                    props.header.map(column => (
-                      <div
-                        className="card-container--card--column"
-                        key={(key += 1)}
-                      >
-                        <div className="card-container--card--column--label typography-3">
-                          {column.label}
-                        </div>
-                        <TableCell
-                          key={(key += 1)}
-                          columnKey={column.key}
-                          headerMap={headerMap}
-                          row={row}
-                          handleCellDataChange={
-                            props.handleCellDataChange || undefined
-                          }
-                        />
-                      </div>
-                    ))}
-                </div>
-              ))}
-          </div>
-          {!props.showAll && (
-            <OakPagination
-              onChangePage={onChangePage}
-              totalRows={props.totalRows ? props.totalRows : data.length}
-              label="Rows"
-            />
+            </table> */}
+        {!props.showAll &&
+          ((props.navPlacement &&
+            props.navPlacement === 'bottom') ||
+            !props.navPlacement) && (
+            <div className="oak-table--nav-bottom">
+              <TablePagination
+                searchPref={searchPref}
+                handleSearchPrefChange={handleSearchPrefChange}
+                onChangePage={onChangePage}
+                totalRows={props.totalRows ? props.totalRows : data.length}
+                doSearch={pageChanged}
+                datagrid={datagrid}
+                handleGridChange={handleGridChange}
+                header={props.header}
+              />
+            </div>
           )}
-        </div>
       </div>
-      <OakModal
-        visible={showDatagrid}
-        toggleVisibility={() => setShowDatagrid(!showDatagrid)}
-        label="Choose columns"
-      >
-        <div className="modal-body">
-          <div className="datagrid-list">
-            {props.header &&
-              props.header.map(item => (
-                <>
-                  {datagrid[item.key] !== -1 && (
-                    <OakCheckbox
-                      data={datagrid}
-                      id={item.key}
-                      label={item.label}
-                      handleChange={handleGridChange}
-                      theme="primary"
-                      variant="circle"
-                    />
-                  )}
-                </>
-              ))}
-          </div>
-        </div>
-        <div className="modal-footer">
-          <OakButton
-            action={() => setShowDatagrid(false)}
-            theme="default"
-            variant="appear"
-            align="left"
-          >
-            <Close />
-            Close
-          </OakButton>
-        </div>
-      </OakModal>
     </>
   );
 };

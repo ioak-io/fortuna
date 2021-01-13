@@ -3,6 +3,7 @@ import OakHeading from '../../oakui/OakHeading';
 import OakCard from '../../oakui/OakCard';
 import './style.scss';
 import TableDemo from './TableDemo';
+import OakContainer from '../../oakui/OakContainer';
 
 interface Props {
   match: any;
@@ -18,12 +19,15 @@ const PlayTable = (props: Props) => {
     //   <div className="auth-token">{authorization.token}</div>
     // </div>
     <>
-        <OakHeading title="Table" />
-      <TableDemo />
-      <TableDemo />
-      <TableDemo />
-      <TableDemo />
-      <TableDemo />
+      <OakHeading title="Table" />
+      <div className="play-table--list">
+        <div className="play-table--list--item">
+          <TableDemo />
+        </div>
+        <div className="play-table--list--item">
+          <TableDemo />
+        </div>
+      </div>
     </>
   );
 };

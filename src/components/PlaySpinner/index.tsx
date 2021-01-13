@@ -20,7 +20,7 @@ const PlaySpinner = (props: Props) => {
     // </div>
     <>
     {/* <OakSpinner style="bouncing-dots" /> */}
-      <OakCard outer>
+      <OakCard>
         <OakHeading
           title="Oak UI Playground"
           subtitle="Demo on how the newly created OAK UI components work"

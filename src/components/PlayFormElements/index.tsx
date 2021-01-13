@@ -19,7 +19,7 @@ const PlayFormElements = (props: Props) => {
     //   <div className="auth-token">{authorization.token}</div>
     // </div>
     <>
-      <OakCard outer>
+      <OakCard>
         <OakHeading title="Form Elements" />
       </OakCard>
       <SelectInput />

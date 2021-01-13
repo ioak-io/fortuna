@@ -215,7 +215,6 @@ const TableDemo = () => {
   };
 
   return (
-    <div className="table-demo">
       <OakTable
         header={header}
         data={data}
@@ -223,7 +222,6 @@ const TableDemo = () => {
         handleCellDataChange={handleCellDataChange}
         actionColumn={actionColumn}
       />
-    </div>
   );
 };
 

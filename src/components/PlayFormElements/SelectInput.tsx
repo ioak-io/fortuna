@@ -19,7 +19,7 @@ const SelectInput = () => {
   };
 
   return (
-    <OakCard subtitle="Select input">
+    <OakCard title="Select input">
       <OakSelectNew
         data={state}
         id="testField"
