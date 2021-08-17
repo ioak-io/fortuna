@@ -1,29 +1,11 @@
 .sidebar-container {
-  // overflow: hidden;
-  position: fixed;
-  z-index: 1;
-  grid-row: 1/3;
   background-color: var(--color-sidebar);
-  color: var(--global-color-fg);
-  width: 250px;
+  color: var(--color-1);
+  // width: 250px;
+  height: 100%;
+  overflow-y: auto;
   // border-right: 1px solid var(--global-border-color);
-  @media (max-width: 767px) {
-    width: 90vw;
-  }
-  // transition: margin 250ms ease-in-out;
-  transition: margin-left 250ms ease-in-out, transform 250ms ease-in-out;
-  // width: 100%;
-  &.hide {
-    // width: 100vw;
-    margin-left: -250px;
-    @media (max-width: 767px) {
-      margin-left: -90vw;
-    }
-  }
-  &.show {
-    @media (min-width: 768px) {
-      // width: calc(100vw - 250px);
-      margin-left: 0px;
-    }
-  }
+  // @media (max-width: 767px) {
+  //   width: 90vw;
+  // }
 }

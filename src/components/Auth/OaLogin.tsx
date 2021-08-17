@@ -13,8 +13,9 @@ const OaLogin = (props: Props) => {
   useEffect(() => {
     if (props.location.search) {
       const query = queryString.parse(props.location.search);
-      props.cookies.set(`expenso_${query.appspace}`, query.authKey);
-      props.history.push(query.from ? query.from : '');
+      props.cookies.set(`expenso-access_token`, query.access_token);
+      props.cookies.set(`expenso-refresh_token`, query.refresh_token);
+      props.history.push(query.from ? query.from : `/companyname/home`);
     }
   }, []);
 

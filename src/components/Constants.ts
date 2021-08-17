@@ -1,6 +1,5 @@
 const constants = {
   API_URL_TENANT: '/tenant',
-  API_URL_ASSET: '/asset',
   API_URL_TENANT_BANNER: '/tenant/banner',
   API_URL_TENANT_CREATE: '/tenant/create',
   API_TENANT_URL: '/tenant/sendURL',
@@ -10,6 +9,8 @@ const constants = {
   API_URL_CODE: '/auth/sendResetCode',
   API_URL_USER_DETAILS: '/user/details',
 
+  API_URL_ASSET: '/asset',
+
   API_URL_STAGE: '/stage',
   API_URL_PREDICT: '/model/predict',
 
@@ -17,6 +18,7 @@ const constants = {
   API_URL_FAQ: '/faq',
   API_URL_SR: '/servicerequests',
   API_URL_USER: '/user',
+  API_URL_ROLE: '/role',
   API_URL: '/auth/',
   API_SIGNIN: '/signin',
   API_SIGNUP: '/signup',
@@ -27,8 +29,7 @@ const constants = {
   API_URL_PROJECTMEMBER: '/projectmember',
   API_URL_ENDPOINT_DOMAIN: '/endpoint/domain',
   API_URL_ENDPOINT_CUSTOM: '/endpoint/custom',
-  API_URL_TEMPLATE: '/template',
-  API_URL_EMAIL_SERVER: '/email-server',
+  API_URL_ENDPOINT: '/endpoint',
 };
 
 export default constants;

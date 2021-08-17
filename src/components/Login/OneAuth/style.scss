@@ -13,9 +13,9 @@
 }
 
 .space-list-item {
-  // background-color: ;
+  background-color: var(--color-background-5);
   padding: 20px 40px;
-  // box-shadow: ;
+  box-shadow: var(--bs-lg);
   .space-list-item--link {
     display: flex;
   }

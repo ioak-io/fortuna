@@ -10,7 +10,7 @@
 //   }
 
 //   ::-webkit-scrollbar-thumb {
-//     background: var(--global-color-fg);
+//     background: var(--color-1);
 //     border-radius: 10px;
 //   }
 // }
@@ -19,3 +19,12 @@
 //   width: 100%;
 //   margin: auto;
 // }
+
+.drawer-left,
+.drawer-right {
+  height: 100%;
+}
+
+.tab-playground {
+  margin-top: 20px;
+}

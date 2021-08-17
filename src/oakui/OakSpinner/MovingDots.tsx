@@ -4,13 +4,13 @@ import './MovingDots.scss';
 const MovingDots = () => {
   return (
     // <div className="moving-dots--wrapper">
-      <div className="moving-dots">
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-      </div>
+    <div className="moving-dots">
+      <span />
+      <span />
+      <span />
+      <span />
+      <span />
+    </div>
     // </div>
   );
 };

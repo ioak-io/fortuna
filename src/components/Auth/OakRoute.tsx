@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addAuth } from '../../actions/AuthActions';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage } from '../../events/MessageService';
-import { httpGet } from '../Lib/RestTemplate';
+import { httpPost } from '../Lib/RestTemplate';
 
 interface Props {
   path?: string;
@@ -16,12 +16,12 @@ interface Props {
 }
 
 const OakRoute = (props: Props) => {
-  const authorization = useSelector(state => state.authorization);
-  const profile = useSelector(state => state.profile);
+  const authorization = useSelector((state: any) => state.authorization);
+  const profile = useSelector((state: any) => state.profile);
   const dispatch = useDispatch();
 
   const middlewares = () => {
-    props.middleware?.forEach(middlewareName => {
+    props.middleware?.forEach((middlewareName) => {
       if (!runMidleware(middlewareName)) {
         return false;
       }
@@ -29,7 +29,7 @@ const OakRoute = (props: Props) => {
     return true;
   };
 
-  const runMidleware = middlewareName => {
+  const runMidleware = (middlewareName: string) => {
     sendMessage('spaceChange', true, '');
     switch (middlewareName) {
       case 'readAuthentication':
@@ -50,35 +50,38 @@ const OakRoute = (props: Props) => {
     return authenticate('space', false);
   };
 
-  const authenticate = async (type, redirect = true) => {
+  const authenticate = async (type: string, redirect = true) => {
     sendMessage('spaceChange', true, props.match.params.space);
     if (authorization.isAuth) {
       return true;
     }
-    const cookieKey = `expenso_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`;
-    const authKey = props.cookies.get(cookieKey);
-    const baseAuthUrl = `/auth/${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`;
-    if (authKey) {
-      console.log(`${baseAuthUrl}/session/appspace/${authKey}`);
-      httpGet(`${baseAuthUrl}/session/appspace/${authKey}`, null)
-        .then(sessionResponse => {
-          if (sessionResponse.status === 200) {
+    const accessToken = props.cookies.get(`expenso-access_token`);
+    const refreshToken = props.cookies.get(`expenso-refresh_token`);
+    if (accessToken && refreshToken) {
+      httpPost(
+        `/user/${props.match.params.space}/authorize_user`,
+        { accessToken, refreshToken },
+        null
+      )
+        .then((response) => {
+          if (response.status === 200) {
+            let newAccessToken = accessToken;
+            if (response.data.access_token) {
+              newAccessToken = response.data.access_token;
+              props.cookies.set(`expenso-access_token`, newAccessToken);
+            }
             dispatch(
               addAuth({
                 isAuth: true,
-                token: sessionResponse.data.data.token,
-                secret: '',
-                firstName: sessionResponse.data.data.firstName,
-                lastName: sessionResponse.data.data.lastName,
-                email: sessionResponse.data.data.email,
-                type: sessionResponse.data.data.type,
-                userId: sessionResponse.data.data.userId,
+                ...response.data.claims,
+                access_token: newAccessToken,
               })
             );
           }
         })
         .catch((error: any) => {
-          props.cookies.remove(cookieKey);
+          props.cookies.remove(`expenso-access_token`);
+          props.cookies.remove(`expenso-refresh_token`);
           if (redirect && error.response.status === 404) {
             sendMessage('notification', true, {
               type: 'failure',
@@ -107,8 +110,8 @@ const OakRoute = (props: Props) => {
     return false;
   };
 
-  const redirectToLogin = space => {
-    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/appspace/${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}`;
+  const redirectToLogin = (space: string) => {
+    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${props.match.params.space}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
     // props.history.push(`/${space}/login/home`);
   };
 

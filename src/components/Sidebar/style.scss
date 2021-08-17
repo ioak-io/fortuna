@@ -1,7 +1,6 @@
 .sidebar {
   display: grid;
   grid-auto-flow: row;
-  height: 100vh;
   align-content: flex-start;
   align-items: flex-end;
   // row-gap: 10px;
@@ -9,8 +8,7 @@
     // height: 70px;
   }
   .sidebar--nav {
-    height: calc(100vh - 70px);
-    overflow-y: auto;
-    overflow-x: hidden;
+    // overflow-y: auto;
+    // overflow-x: hidden;
   }
 }

@@ -4,7 +4,7 @@ const initialState = {
   assets: [],
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action: any) {
   switch (action.type) {
     case REFRESH_SPACES:
       console.log('GET_AUTH reducer');

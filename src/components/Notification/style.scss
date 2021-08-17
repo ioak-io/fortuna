@@ -25,15 +25,15 @@
     margin-top: 6px;
     // box-shadow: ;
 
-    --color-notification-type: var(--color-tertiary-1);
+    --color-notification-type: var(--color-tertiary);
     &.success {
-      --color-notification-type: var(--color-success-1);
+      --color-notification-type: var(--color-success);
     }
     &.warning {
-      --color-notification-type: var(--color-warning-1);
+      --color-notification-type: var(--color-warning);
     }
     &.failure {
-      --color-notification-type: var(--color-danger-1);
+      --color-notification-type: var(--color-danger);
     }
     .material-icons {
       vertical-align: middle;
@@ -119,8 +119,8 @@
   height: 46px;
   margin: 1px;
   border-radius: 50%;
-  border: 5px solid var(--color-primary-1);
-  border-color: var(--color-primary-1) transparent var(--color-primary-1)
+  border: 5px solid var(--color-primary);
+  border-color: var(--color-primary) transparent var(--color-primary)
     transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
@@ -154,7 +154,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--color-primary-1);
+  background: var(--color-primary);
   margin: -3px 0 0 -3px;
 }
 .lds-roller div:nth-child(1) {
@@ -236,7 +236,7 @@
   position: absolute;
   left: 6px;
   width: 13px;
-  background: var(--color-primary-1);
+  background: var(--color-primary);
   animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
 .lds-facebook div:nth-child(1) {

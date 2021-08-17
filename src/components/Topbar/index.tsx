@@ -5,12 +5,10 @@ import { getProfile, setProfile } from '../../actions/ProfileActions';
 
 import './style.scss';
 
-import Links from '../Navigation/Links';
 import RightNav from './RightNav';
 import ExpandIcon from './ExpandIcon';
 import Logo from '../Logo';
 import ChangeAsset from './ChangeAsset';
-import Header from '../Sidebar/Header';
 
 interface Props {
   space: string;
@@ -21,9 +19,9 @@ interface Props {
 }
 
 const Topbar = (props: Props) => {
-  const authorization = useSelector(state => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
 
-  const profile = useSelector(state => state.profile);
+  const profile = useSelector((state: any) => state.profile);
 
   const dispatch = useDispatch();
 
@@ -34,21 +32,7 @@ const Topbar = (props: Props) => {
   return (
     <div className="topbar">
       <div className="topbar--left">
-        {/* {authorization.isAuth && ( */}
-          <div className={`${props.hideSidebarOnDesktop ? 'mobile-only' : ''}`}>
-            <ExpandIcon />
-          </div>
-        {/* )} */}
-        {props.hideSidebarOnDesktop && (
-          <div className="desktop-only">
-            <Logo />
-          </div>
-        )}
-        <div className="topbar--left--nav desktop-only">
-          {/* <Links space={props.space}/> */}
-          <ChangeAsset space={props.space} />
-        </div>
-        {/* <div className="mobile-only"><Logo /></div> */}
+        <Logo />
       </div>
       <div className="topbar--right">
         <RightNav cookies={props.cookies} />

@@ -1,60 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import OakButton from '../../../oakui/OakButton';
-import OakText from '../../../oakui/OakText';
-import { isEmptyOrSpaces, isEmptyAttributes } from '../../Utils';
-import OakHeading from '../../../oakui/OakHeading';
-import OakPage from '../../../oakui/OakPage';
-import OakCard from '../../../oakui/OakCard';
+import { isEmptyOrSpaces } from '../../Utils';
 import { fetchSpace } from '../../Auth/AuthService';
 import SpaceItem from './SpaceItem';
 import './style.scss';
+import OakSpinner from '../../../oakui/OakSpinner';
+import OakInput from '../../../oakui/wc/OakInput';
+import OakSection from '../../../oakui/wc/OakSection';
 
 interface Props {
   history: any;
   location: any;
-  space: string;
+  asset: string;
 }
 
 const queryString = require('query-string');
 
 const OneAuth = (props: Props) => {
-  const authorization = useSelector(state => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
   const [view, setView] = useState<Array<any> | undefined>(undefined);
   const [searchCriteria, setSearchCriteria] = useState({ text: '' });
+  const [loading, setLoading] = useState(false);
+  const [queryParam, setQueryParam] = useState<any>();
 
   useEffect(() => {
     const queryParam = queryString.parse(props.location.search);
     if (queryParam.space) {
-      window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/space/${queryParam.space}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}&from=${queryParam.from}`;
+      window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/space/${queryParam.space}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}&asset=${props.asset}&from=${queryParam.from}`;
     }
+    setQueryParam(queryParam);
   }, []);
 
   useEffect(() => {
-    fetchSpace().then(response => {
-      setView(search(response.data, searchCriteria.text));
+    setLoading(true);
+    fetchSpace().then((response) => {
+      setView(search(response, searchCriteria.text));
+      setLoading(false);
     });
   }, [searchCriteria]);
 
-  const search = (existingSpace, criteria) => {
+  const search = (existingSpace: any, criteria: string) => {
     if (isEmptyOrSpaces(criteria)) {
       return existingSpace;
     }
     return existingSpace.filter(
-      item => item.name.toLowerCase().indexOf(criteria.toLowerCase()) !== -1
+      (item: any) =>
+        item.name.toLowerCase().indexOf(criteria.toLowerCase()) !== -1
     );
   };
 
-  const handleSearchCriteria = event => {
+  const handleSearchCriteria = (detail: any) => {
     setSearchCriteria({
       ...searchCriteria,
-      [event.target.name]: event.target.value,
+      [detail.name]: detail.value,
     });
   };
 
   useEffect(() => {
     if (authorization.isAuth) {
-      props.history.push(`/${props.space}/article`);
+      props.history.push(`/${props.asset}/article`);
     }
   }, [authorization]);
 
@@ -75,48 +79,48 @@ const OneAuth = (props: Props) => {
   };
 
   return (
-    <OakPage>
-      <OakCard>
-        <div className="view-space-item">
-          <div className="page-header">
-            <OakHeading
-              title="Login via Oneauth"
-              subtitle="You will be redirected to oneauth for signing in to your space"
-              links={getHeadingLinks()}
-              linkSize="large"
-            />
-            {/* <div className="action-header position-right">
-              {props.history.length > 2 && (
-                <OakButton
-                  action={() => cancelCreation()}
-                  theme="default"
-                  variant="appear"
-                >
-                  <i className="material-icons">close</i>Back
-                </OakButton>
-              )}
-            </div> */}
-          </div>
-          <OakText
+    <OakSection>
+      <div className="view-asset-item">
+        <div className="page-header">
+          Login via Oneauth
+          <br />
+          You will be redirected to oneauth for signing in to your space
+          {getHeadingLinks()?.map((item: any) => (
+            <>{item.name}</>
+          ))}
+        </div>
+
+        {/* {loading && <OakSpinner />} */}
+
+        {!loading && view && view.length > 0 && (
+          <OakInput
             label="Type company name to filter"
-            handleChange={handleSearchCriteria}
-            id="text"
-            data={searchCriteria}
+            handleInput={handleSearchCriteria}
+            name="text"
+            value={searchCriteria.text}
           />
-          <div className="list-spaces">
-            <div className="list-spaces--content">
-              {view?.map(space => (
-                <SpaceItem
-                  history={props.history}
-                  space={space}
-                  key={space._id}
-                />
-              ))}
-            </div>
+        )}
+
+        {!loading &&
+          view &&
+          view.length === 0 &&
+          'No space found. Check with Oneauth administrator.'}
+
+        <div className="list-spaces">
+          <div className="list-spaces--content">
+            {view?.map((space) => (
+              <SpaceItem
+                history={props.history}
+                space={space}
+                key={space._id}
+                asset={props.asset}
+                from={queryParam && queryParam.from ? queryParam.from : null}
+              />
+            ))}
           </div>
         </div>
-      </OakCard>
-    </OakPage>
+      </div>
+    </OakSection>
   );
 };
 

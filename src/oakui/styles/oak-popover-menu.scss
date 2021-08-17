@@ -1,13 +1,13 @@
 .oak-popover-menu {
   --color-popover-theme: var(--color-default);
   &.primary {
-    --color-popover-theme: var(--color-primary-1);
+    --color-popover-theme: var(--color-primary);
   }
   &.secondary {
-    --color-popover-theme: var(--color-secondary-1);
+    --color-popover-theme: var(--color-secondary);
   }
   &.tertiary {
-    --color-popover-theme: var(--color-tertiary-1);
+    --color-popover-theme: var(--color-tertiary);
   }
   --color-label-normal: none;
   &.on {

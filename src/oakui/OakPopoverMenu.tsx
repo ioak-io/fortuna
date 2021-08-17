@@ -65,15 +65,9 @@ const OakPopoverMenu = (props: Props) => {
     <div className={`oak-popover-menu ${getStyle()}`} id={id}>
       {!slots.label && (
         <div className={`label ${labelStyle()}`} onClick={toggle}>
-          {props.iconLeft && (
-            <div className="left-icon">
-              left icon
-            </div>
-          )}
+          {props.iconLeft && <div className="left-icon">left icon</div>}
           <div className="label-text">{props.label}</div>
-          <div className="right-icon">
-            right icon
-          </div>
+          <div className="right-icon">right icon</div>
         </div>
       )}
       {slots.label && (
@@ -85,7 +79,7 @@ const OakPopoverMenu = (props: Props) => {
         className={`dropdown-content ${dropdownContentStyle()}`}
         onClick={toggle}
       >
-        {props.elements.map(element => (
+        {props.elements.map((element: { label: string; action: any }) => (
           <div
             v-for="element in elements"
             key={element.label}

@@ -10,7 +10,7 @@
   .checker-grid--item {
     width: 33%;
     height: 33%;
-    background-color: var(--global-color-fg);
+    background-color: var(--color-1);
     float: left;
     -webkit-animation: checker-grid-delay 1.3s infinite ease-in-out;
     animation: checker-grid-delay 1.3s infinite ease-in-out;
@@ -53,22 +53,28 @@
   }
 
   @-webkit-keyframes checker-grid-delay {
-    0%, 70%, 100% {
+    0%,
+    70%,
+    100% {
       -webkit-transform: scale3D(1, 1, 1);
-              transform: scale3D(1, 1, 1);
-    } 35% {
+      transform: scale3D(1, 1, 1);
+    }
+    35% {
       -webkit-transform: scale3D(0, 0, 1);
-              transform: scale3D(0, 0, 1); 
+      transform: scale3D(0, 0, 1);
     }
   }
-  
+
   @keyframes checker-grid-delay {
-    0%, 70%, 100% {
+    0%,
+    70%,
+    100% {
       -webkit-transform: scale3D(1, 1, 1);
-              transform: scale3D(1, 1, 1);
-    } 35% {
+      transform: scale3D(1, 1, 1);
+    }
+    35% {
       -webkit-transform: scale3D(0, 0, 1);
-              transform: scale3D(0, 0, 1);
-    } 
+      transform: scale3D(0, 0, 1);
+    }
   }
 }

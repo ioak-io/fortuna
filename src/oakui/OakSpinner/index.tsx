@@ -45,7 +45,9 @@ const OakSpinner = (props: Props) => {
       {props.style === 'bouncing-dots' && <BouncingDots />}
       {props.style === 'rotating-plane' && <RotatingPlane />}
       {props.style === 'stretching-bars' && <StretchingBars />}
-      {props.style === 'circling-and-bouncing-dots' && <CirclingAndBouncingDots />}
+      {props.style === 'circling-and-bouncing-dots' && (
+        <CirclingAndBouncingDots />
+      )}
       {props.style === 'circling-dots' && <CirclingDots />}
       {props.style === 'checker-grid' && <CheckerGrid />}
       {props.style === 'folding-cube' && <FoldingCube />}

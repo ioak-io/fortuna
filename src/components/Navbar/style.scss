@@ -1,0 +1,26 @@
+.navbar {
+  display: grid;
+  height: 100%;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  column-gap: 10px;
+  margin: 0 20px;
+  @media (max-width: 767px) {
+    margin: 0 16px;
+  }
+  .navbar--left,
+  .navbar--right {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-end;
+    justify-items: flex-end;
+  }
+  .navbar--left {
+    justify-content: flex-start;
+  }
+  .logo-container {
+    margin-left: 20px;
+  }
+}

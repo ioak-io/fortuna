@@ -1,7 +1,7 @@
 * {
   :focus {
     outline: none;
-    box-shadow: 0 0 1px 1px var(--color-primary-1);
+    box-shadow: 0 0 1px 1px var(--color-primary);
   }
 
   .using-mouse {
@@ -9,5 +9,41 @@
       outline: none;
       box-shadow: none;
     }
+  }
+  --oak-global-outline-style: dotted;
+  --oak-global-outline-width: 1px;
+  --oak-global-outline-offset: -4px;
+  --oak-global-outline-color: invert;
+
+  // --oak-userinput-outline-style: dotted;
+  // --oak-userinput-outline-width: 1px;
+  // --oak-userinput-outline-offset: -4px;
+  // --oak-userinput-outline-color: invert;
+
+  .theme_dark {
+    // Defines focus styles for accessibility
+    // --oak-userinput-box-shadow-focus: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    // --oak-userinput-box-shadow-error-focus: 0 0 0 0.2rem rgba(167, 40, 40, 0.25);
+    --oak-userinput-border: 1px solid var(--global-border-color);
+    --oak-userinput-border-focus: 1px solid rgba(0, 123, 255, 1);
+    --oak-userinput-border-error: 1px solid var(--color-danger);
+    --oak-userinput-border-error-focus: 1px solid var(--color-danger);
+    --oak-userinput-underline-color: var(--global-border-color);
+    --oak-userinput-underline-color-focus: rgba(0, 123, 255, 1);
+    --oak-userinput-underline-color-error: var(--color-danger);
+    --oak-userinput-underline-color-error-focus: var(--color-danger);
+  }
+
+  .theme_light {
+    // Defines focus styles for accessibility
+    // --oak-userinput-box-shadow-focus: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    // --oak-userinput-box-shadow-error-focus: 0 0 0 0.2rem rgba(167, 40, 40, 0.25);
+    --oak-userinput-border: 1px solid var(--global-border-color);
+    --oak-userinput-border-focus: 1px solid rgba(0, 123, 255, 1);
+    --oak-userinput-border-error: 1px solid var(--color-danger);
+    --oak-userinput-underline-color: var(--global-border-color);
+    --oak-userinput-underline-color-focus: rgba(0, 123, 255, 1);
+    --oak-userinput-underline-color-error: var(--color-danger);
+    --oak-userinput-underline-color-error-focus: var(--color-danger);
   }
 }

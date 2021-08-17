@@ -16,7 +16,7 @@ interface Props {
 }
 
 const NavItem = (props: Props) => {
-  const profile = useSelector(state => state.profile);
+  const profile = useSelector((state: any) => state.profile);
 
   const dispatch = useDispatch();
 

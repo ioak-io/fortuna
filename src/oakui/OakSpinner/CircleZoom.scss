@@ -4,13 +4,13 @@
   left: calc(50% - 20px);
   top: calc(50% - 20px);
 
-    width: 40px;
-    height: 40px;
-    background-color: var(--global-color-fg);
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-1);
 
-    border-radius: 100%;
-    -webkit-animation: circle-zoom 1s infinite ease-in-out;
-    animation: circle-zoom 1s infinite ease-in-out;
+  border-radius: 100%;
+  -webkit-animation: circle-zoom 1s infinite ease-in-out;
+  animation: circle-zoom 1s infinite ease-in-out;
 
   @-webkit-keyframes circle-zoom {
     0% {

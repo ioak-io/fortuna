@@ -1,0 +1,25 @@
+.tag-editor__content__chips {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.tag-editor__content__form__newtag {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 10px;
+  align-items: flex-end;
+}
+.tag-editor__content__form__newtag__action {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  align-items: center;
+}
+.tag-editor__content__form__newtag__action__icon {
+  color: var(--color-1);
+  cursor: pointer;
+  transition: color 250ms ease-in-out;
+  &:hover {
+    color: var(--color-primary);
+  }
+}

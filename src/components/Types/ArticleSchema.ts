@@ -8,11 +8,18 @@ export const LIST_ARTICLES = gql`
         title
         description
         views
+        comments
+        isAnswered
+        answeredOn
         helpful
         notHelpful
         createdAt
         updatedAt
         tags {
+          id
+          name
+        }
+        category {
           id
           name
         }
@@ -31,11 +38,59 @@ export const SEARCH_ARTICLES = gql`
         title
         description
         views
+        comments
+        isAnswered
+        answeredOn
         helpful
         notHelpful
         createdAt
         updatedAt
         tags {
+          id
+          name
+        }
+        category {
+          id
+          name
+        }
+      }
+      pageNo
+      hasMore
+      total
+    }
+  }
+`;
+
+export const GET_ARTICLES = gql`
+  query GetArticles(
+    $text: String
+    $categoryId: String
+    $pageNo: Int
+    $pageSize: Int
+  ) {
+    getArticles(
+      text: $text
+      categoryId: $categoryId
+      pageNo: $pageNo
+      pageSize: $pageSize
+    ) {
+      results {
+        id
+        title
+        description
+        views
+        comments
+        isAnswered
+        answeredOn
+        helpful
+        notHelpful
+        createdAt
+        updatedAt
+        tags {
+          id
+          name
+        }
+        category {
           id
           name
         }
@@ -54,6 +109,9 @@ export const GET_ARTICLE = gql`
       title
       description
       views
+      comments
+      isAnswered
+      answeredOn
       helpful
       notHelpful
       createdAt
@@ -64,6 +122,7 @@ export const GET_ARTICLE = gql`
       }
       category {
         id
+        name
       }
       feedback {
         type
@@ -83,11 +142,18 @@ export const ARTICLES_BY_TAG = gql`
           title
           description
           views
+          comments
+          isAnswered
+          answeredOn
           helpful
           notHelpful
           createdAt
           updatedAt
           tags {
+            id
+            name
+          }
+          category {
             id
             name
           }
@@ -106,11 +172,18 @@ export const UPDATE_ARTICLE = gql`
       title
       description
       views
+      comments
+      isAnswered
+      answeredOn
       helpful
       notHelpful
       createdAt
       updatedAt
       tags {
+        id
+        name
+      }
+      category {
         id
         name
       }
@@ -131,7 +204,6 @@ export const LIST_ARTICLE_CATEGORIES = gql`
     articleCategories {
       id
       name
-      parentCategoryId
       articles
     }
   }
@@ -142,7 +214,6 @@ export const UPDATE_ARTICLE_CATEGORY = gql`
     addArticleCategory(payload: $payload) {
       id
       name
-      parentCategoryId
       articles
     }
   }
@@ -157,6 +228,9 @@ export const ADD_ARTICLE_FEEDBACK = gql`
         title
         description
         views
+        comments
+        isAnswered
+        answeredOn
         helpful
         notHelpful
         createdAt
@@ -185,6 +259,9 @@ export const REMOVE_ARTICLE_FEEDBACK = gql`
         title
         description
         views
+        comments
+        isAnswered
+        answeredOn
         helpful
         notHelpful
         createdAt
@@ -209,6 +286,131 @@ export const ARTICLE_TAG_CLOUD = gql`
     articleTagCloud {
       name
       count
+    }
+  }
+`;
+
+export const ARTICLE_COMMENTS = gql`
+  query ArticleComments($articleId: String!, $pageNo: Int, $pageSize: Int) {
+    articleComments(
+      articleId: $articleId
+      pageNo: $pageNo
+      pageSize: $pageSize
+    ) {
+      results {
+        id
+        text
+        parentId
+        helpful
+        notHelpful
+        isAnswer
+        createdBy
+        updatedBy
+        createdAt
+        updatedAt
+        feedback {
+          type
+        }
+      }
+      pageNo
+      hasMore
+    }
+  }
+`;
+
+export const ARTICLE_COMMENT = gql`
+  query ArticleComment($id: ID!) {
+    articleComment(id: $id) {
+      id
+      text
+      parentId
+      helpful
+      notHelpful
+      isAnswer
+      createdBy
+      updatedBy
+      createdAt
+      updatedAt
+      feedback {
+        type
+      }
+    }
+  }
+`;
+
+export const UPDATE_ARTICLE_COMMENT = gql`
+  mutation UpdateArticleComment($payload: ArticleCommentPayload!) {
+    updateArticleComment(payload: $payload) {
+      id
+      text
+      parentId
+      helpful
+      notHelpful
+      isAnswer
+      createdBy
+      updatedBy
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const ADD_ARTICLE_COMMENT_FEEDBACK = gql`
+  mutation AddArticleCommentFeedback($commentId: String!, $type: String!) {
+    addArticleCommentFeedback(commentId: $commentId, type: $type) {
+      id
+      articleComment {
+        id
+        helpful
+        notHelpful
+        feedback {
+          type
+        }
+      }
+    }
+  }
+`;
+
+export const REMOVE_ARTICLE_COMMENT_FEEDBACK = gql`
+  mutation RemoveArticleCommentFeedback($commentId: String!, $type: String!) {
+    removeArticleCommentFeedback(commentId: $commentId, type: $type) {
+      id
+      articleComment {
+        id
+        helpful
+        notHelpful
+        feedback {
+          type
+        }
+      }
+    }
+  }
+`;
+
+export const MARK_ARTICLECOMMENT_AS_ANSWER = gql`
+  mutation MarkArticleCommentAsAnswer($id: ID!) {
+    markArticleCommentAsAnswer(id: $id) {
+      id
+      isAnswer
+      article {
+        id
+        isAnswered
+        answeredOn
+      }
+    }
+  }
+`;
+
+export const UNMARK_ARTICLECOMMENT_AS_ANSWER = gql`
+  mutation UnmarkArticleCommentAsAnswer($id: ID!) {
+    unmarkArticleCommentAsAnswer(id: $id) {
+      id
+      isAnswer
+      article {
+        id
+        isAnswered
+        answeredOn
+      }
     }
   }
 `;

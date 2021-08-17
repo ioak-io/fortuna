@@ -1,5 +1,22 @@
 import gql from 'graphql-tag';
 
+export const authorizeUserQuery = gql`
+  query authorizeUser(
+    $accessToken: String
+    $refreshToken: String
+    $space: String
+  ) {
+    authorizeUser(
+      accessToken: $accessToken
+      refreshToken: $refreshToken
+      space: $space
+    ) {
+      accessToken
+      claims
+    }
+  }
+`;
+
 export const GET_SESSION = gql`
   query Session($key: ID!, $asset: String) {
     session(key: $key, asset: $asset) {
@@ -42,7 +59,10 @@ export const LIST_ASSETS = gql`
     assets {
       id
       name
-      description
+      section
+      featuredTitle
+      featuredSubtitle
+      hero
       jwtPassword
       productionMode
       assetId
@@ -55,7 +75,10 @@ export const GET_ASSET = gql`
     asset(assetId: $assetId) {
       id
       name
-      description
+      section
+      featuredTitle
+      featuredSubtitle
+      hero
       jwtPassword
       productionMode
       assetId
@@ -71,7 +94,10 @@ export const CREATE_ASSET = gql`
     createAsset(payload: $payload, addition: $addition) {
       id
       name
-      description
+      section
+      featuredTitle
+      featuredSubtitle
+      hero
       jwtPassword
       productionMode
       assetId
@@ -84,7 +110,10 @@ export const UPDATE_ASSET = gql`
     updateAsset(payload: $payload) {
       id
       name
-      description
+      section
+      featuredTitle
+      featuredSubtitle
+      hero
       jwtPassword
       productionMode
       assetId

@@ -1,10 +1,15 @@
-export const findStepSize = (datasets, type, stacked) => {
+/* eslint-disable import/prefer-default-export */
+export const findStepSize = (
+  datasets: any[],
+  type: string,
+  stacked: boolean | undefined
+) => {
   let valueList: number[] = [];
   let valueListNegative: number[] = [];
   if (stacked) {
-    datasets.forEach(item => {
+    datasets.forEach((item: { data: any[] }) => {
       const localValueList =
-        type === 'category' ? item.data : item.data.map(i => i.y);
+        type === 'category' ? item.data : item.data.map((i) => i.y);
       if (valueList.length > localValueList.length) {
         valueList = valueList.map(
           (val, index) =>
@@ -31,10 +36,12 @@ export const findStepSize = (datasets, type, stacked) => {
       }
     });
   } else {
-    datasets.forEach(item => {
+    datasets.forEach((item) => {
       valueList = [
         ...valueList,
-        ...(type === 'category' ? item.data : item.data.map(i => i.y)),
+        ...(type === 'category'
+          ? item.data
+          : item.data.map((i: { y: any }) => i.y)),
       ];
     });
   }

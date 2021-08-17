@@ -23,11 +23,11 @@ const OakInputFile = (props: Props) => {
   const [dragClass, setDragClass] = useState('');
   const [id, setId] = useState(newId());
 
-  const chooseFiles = event => {
+  const chooseFiles = (event: { target: { files: any } }) => {
     processFiles(event.target.files);
   };
 
-  const processFiles = filesLocal => {
+  const processFiles = (filesLocal: Iterable<unknown> | ArrayLike<unknown>) => {
     let filesToProcess = Array.from(filesLocal);
     if (!props.multiple && filesToProcess.length > 1) {
       filesToProcess = [filesToProcess[0]];
@@ -36,18 +36,21 @@ const OakInputFile = (props: Props) => {
     props.handleChange(filesToProcess);
   };
 
-  const dragOver = event => {
+  const dragOver = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setDragClass('dropping');
   };
 
-  const drop = event => {
+  const drop = (event: {
+    preventDefault: () => void;
+    dataTransfer: { files: any };
+  }) => {
     event.preventDefault();
     setDragClass('');
     processFiles(event.dataTransfer.files);
   };
 
-  const dragLeave = event => {
+  const dragLeave = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     setDragClass('');
   };
@@ -72,27 +75,33 @@ const OakInputFile = (props: Props) => {
         onDrop={drop}
         onDragLeave={dragLeave}
       >
-        {!props.children && <div className={`drop-container ${dragClass}`}>
-          {(!files || files.length === 0) && (
-            <>
-              <CloudUploadOutlined />
-              <div>{props.placeholder || 'Drop files / Browse'}</div>
-            </>
-          )}
-          {files && files.length > 0 && (
-            <>
-              <CloudUpload />
-              <div>{`${files.length} file${
-                files.length > 1 ? 's' : ''
-              } selected`}</div>
-            </>
-          )}
-        </div>}
-        {props.children && <div className="oak-input-file--label--custom">{props.children}</div>}
+        {!props.children && (
+          <div className={`drop-container ${dragClass}`}>
+            {(!files || files.length === 0) && (
+              <>
+                <CloudUploadOutlined />
+                <div>{props.placeholder || 'Drop files / Browse'}</div>
+              </>
+            )}
+            {files && files.length > 0 && (
+              <>
+                <CloudUpload />
+                <div>
+                  {`${files.length} file${
+                    files.length > 1 ? 's' : ''
+                  } selected`}
+                </div>
+              </>
+            )}
+          </div>
+        )}
+        {props.children && (
+          <div className="oak-input-file--label--custom">{props.children}</div>
+        )}
       </label>
       <div className="oak-input-file--list">
         {files &&
-          files.map(item => (
+          files.map((item: any) => (
             <div key={item.name} className="oak-input-file--list--item">
               {item.name}
             </div>

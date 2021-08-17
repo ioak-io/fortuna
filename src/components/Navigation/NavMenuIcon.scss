@@ -11,7 +11,7 @@
     height: 2px;
     width: $size;
     display: block;
-    background-color: var(--global-color-fg);
+    background-color: var(--color-1);
     margin-bottom: 4px;
     transition: transform 0.2s ease, background-color 0.5s ease;
   }
@@ -25,7 +25,7 @@
 
   &.close {
     .__line {
-      background-color: var(--global-color-fg);
+      background-color: var(--color-1);
       transform: translateX(0px) rotate(-45deg);
     }
     .__line-left {

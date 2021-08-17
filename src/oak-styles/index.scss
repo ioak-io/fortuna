@@ -1,16 +1,27 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Montserrat|Lato|Open+Sans|Open+Sans+Condensed:300|Source+Sans+Pro&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
 
-@import './_internal/_box-shadow.scss';
-@import './_internal/_border.scss';
-@import './_internal/_padding.scss';
+@import '../../node_modules/@oakui/core-stage/style/index.css';
 
 @import './custom/theme.scss';
+@import './custom/border.scss';
+@import './custom/box-shadow.scss';
 @import './custom/outline.scss';
+@import './custom/nav.scss';
 @import './custom/topbar.scss';
 @import './custom/sidebar.scss';
-@import './custom/grey-shades.scss';
+@import './custom/toolbar.scss';
 @import './custom/form-element.scss';
+@import './custom/table.scss';
+@import './custom/menu.scss';
+@import './custom/padding.scss';
+@import './custom/typography.css';
+@import './custom/oak-app-layout.css';
 
 body {
   -webkit-font-smoothing: antialiased;
@@ -25,9 +36,11 @@ body.oak-dialog-open {
 }
 
 .App {
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  color: var(--global-color-fg);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--color-1);
 }
 
 code {
@@ -39,7 +52,7 @@ code {
   .section-close {
     // margin: auto;
     margin-top: 20px;
-    background-color: var(--global-color-fg);
+    background-color: var(--color-1);
     height: 1px;
     width: 80%;
     border-radius: 4px;
@@ -69,13 +82,13 @@ code {
   .user-form {
     display: grid;
     grid-auto-flow: row;
-    row-gap: 20px;
+    // row-gap: 20px;
   }
 
   .hyperlink-container {
     cursor: pointer;
     &:hover {
-      color: var(--color-primary-1);
+      color: var(--color-primary);
     }
   }
 
@@ -88,7 +101,7 @@ code {
   .hyperlink {
     cursor: pointer;
     user-select: none;
-    color: var(--color-primary-1);
+    color: var(--color-primary);
     &:hover {
       text-decoration: underline;
     }
@@ -97,7 +110,7 @@ code {
   .hyperlink-drama {
     cursor: pointer;
     &:hover {
-      color: var(--color-primary-1);
+      color: var(--color-primary);
     }
   }
 
@@ -150,5 +163,74 @@ code {
 
   .cursor-pointer {
     cursor: pointer;
+  }
+
+  .tab-section {
+    margin: 20px 0;
+  }
+
+  .section__heading {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .section__form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    row-gap: 20px;
+    column-gap: 20px;
+  }
+
+  .sidepane-section-title {
+    margin-bottom: 20px;
+    // line-height: 1;
+    // position: relative;
+    // &::before {
+    //   content: '';
+    //   height: 1px;
+    //   border-top: 1px solid var(--color-float-darker);
+    //   width: 100%;
+    //   display: block;
+    //   position: absolute;
+    //   top: 16px;
+    // }
+    // span {
+    //   position: relative;
+    //   padding-right: 8px;
+    //   background-color: var(--color-global);
+    // }
+  }
+
+  .one-sided-page {
+    margin-top: calc(50px + 1px + 30px);
+    padding: 4em;
+    @media (max-width: 767px) {
+      padding: 16px;
+    }
+  }
+  .one-sided-page__container {
+    width: 1000px;
+    max-width: 100%;
+    margin: auto;
+  }
+
+  .two-sided-page {
+    margin-top: calc(50px + 1px + 30px);
+    @media (min-width: 1100px) {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: 60px;
+      padding: 0 20px;
+    }
+    @media (max-width: 1099px) {
+      display: grid;
+      grid-template-rows: auto auto;
+      row-gap: 60px;
+      padding: 0 16px;
+    }
+  }
+  .two-sided-page__right {
+    @media (min-width: 1100px) {
+      width: 350px;
+    }
   }
 }

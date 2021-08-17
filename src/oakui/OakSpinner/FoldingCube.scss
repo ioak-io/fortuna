@@ -6,9 +6,9 @@
 
   width: 40px;
   height: 40px;
-  
+
   -webkit-transform: rotateZ(45deg);
-          transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
 
   .folding-cube--child {
     float: left;
@@ -26,7 +26,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--global-color-fg);
+    background-color: var(--color-1);
     -webkit-animation: folding-cube 2.4s infinite linear both;
     animation: folding-cube 2.4s infinite linear both;
     -webkit-transform-origin: 100% 100%;

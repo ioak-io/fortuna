@@ -4,7 +4,7 @@ const initialState = {
   users: [],
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action: any) {
   switch (action.type) {
     case GET_USER:
       console.log('GET_USER reducer');

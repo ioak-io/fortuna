@@ -1,23 +1,46 @@
 .oak-viewer {
-  font-size: 16px;
+  font-size: var(--oak-typography-body1-font-size);
+  font-weight: 300;
+  line-height: var(--oak-typography-body1-line-height);
+  letter-spacing: var(--oak-typography-body1-letter-spacing);
 
+  img {
+    width: 100%;
+  }
+  p {
+    margin-bottom: 24px;
+  }
   h1 {
-    font-size: 2em !important;
+    font-size: var(--oak-typography-h1-font-size);
+    font-weight: var(--oak-typography-h1-font-weight);
+    line-height: var(--oak-typography-h1-line-height);
+    letter-spacing: var(--oak-typography-h1-letter-spacing);
+    margin-bottom: 24px;
   }
   h2 {
-    font-size: 1.5em !important;
+    font-size: var(--oak-typography-h2-font-size);
+    font-weight: var(--oak-typography-h2-font-weight);
+    line-height: var(--oak-typography-h2-line-height);
+    letter-spacing: var(--oak-typography-h2-letter-spacing);
+    margin-bottom: 24px;
   }
   h3 {
-    font-size: 1.17em;
+    font-size: var(--oak-typography-h3-font-size);
+    font-weight: var(--oak-typography-h3-font-weight);
+    line-height: var(--oak-typography-h3-line-height);
+    letter-spacing: var(--oak-typography-h3-letter-spacing);
+    margin-bottom: 24px;
   }
   h4 {
-    font-size: 1.12em;
+    font-size: var(--oak-typography-h4-font-size);
+    font-weight: var(--oak-typography-h4-font-weight);
+    line-height: var(--oak-typography-h4-line-height);
+    letter-spacing: var(--oak-typography-h4-letter-spacing);
+    margin-bottom: 24px;
   }
-  h5 {
-    font-size: 0.83em;
-  }
-  h6 {
-    font-size: 0.75em;
+  ol,
+  ul {
+    margin-bottom: 24px;
   }
   ol,
   ul {
@@ -36,31 +59,31 @@
       }
 
       &.ql-indent-1 {
-        padding-left: 4.5em;
+        padding-left: 3em;
       }
 
       &.ql-indent-2 {
-        padding-left: 7.5em;
+        padding-left: 4.5em;
       }
 
       &.ql-indent-3 {
-        padding-left: 10.5em;
+        padding-left: 6em;
       }
 
       &.ql-indent-4 {
-        padding-left: 13.5em;
+        padding-left: 7.5em;
       }
 
       &.ql-indent-5 {
-        padding-left: 16.5em;
+        padding-left: 9em;
       }
 
       &.ql-indent-6 {
-        padding-left: 19.5em;
+        padding-left: 10.5em;
       }
 
       &.ql-indent-7 {
-        padding-left: 22.5em;
+        padding-left: 12em;
       }
     }
   }
@@ -85,36 +108,35 @@
         counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
         counter-increment: list-2;
         &::before {
-          content: counter(list-0) '.' counter(list-1) '.' counter(list-2) '. ';
+          content: counter(list-2, lower-alpha) '. ';
         }
       }
       &.ql-indent-3 {
         counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
         counter-increment: list-3;
         &::before {
-          content: counter(list-0) '.' counter(list-1) '.' counter(list-2) '.'
-            counter(list-3) '. ';
+          content: counter(list-3, lower-roman) '. ';
         }
       }
       &.ql-indent-4 {
         counter-reset: list-5 list-6 list-7 list-8 list-9;
         counter-increment: list-4;
         &::before {
-          content: counter(list-4, lower-roman) '. ';
+          content: counter(list-4) '. ';
         }
       }
       &.ql-indent-5 {
         counter-reset: list-6 list-7 list-8 list-9;
         counter-increment: list-5;
         &::before {
-          content: counter(list-5, lower-roman) '. ';
+          content: counter(list-4) '.' counter(list-5) '. ';
         }
       }
       &.ql-indent-6 {
         counter-reset: list-7 list-8 list-9;
         counter-increment: list-6;
         &::before {
-          content: counter(list-6, lower-roman) '. ';
+          content: counter(list-6, lower-alpha) '. ';
         }
       }
       &.ql-indent-7 {
@@ -131,6 +153,8 @@
       list-style-type: none;
       &::before {
         content: '\2022';
+        // content: '\003e';
+        // content: url(chevron-right-solid.svg);
       }
     }
   }
@@ -145,21 +169,21 @@
   }
 
   .ql-snow .ql-stroke {
-    stroke: var(--global-color-fg);
+    stroke: var(--color-1);
   }
   .ql-snow .ql-fill,
   .ql-snow .ql-stroke.ql-fill {
-    fill: var(--global-color-fg);
+    fill: var(--color-1);
   }
   .ql-picker-label {
-    color: var(--global-color-fg);
+    color: var(--color-1);
     &:hover {
       color: green;
     }
   }
   .ql-strike.ql-active {
-    // border: 1px solid var(--global-color-fg);
-    background-color: var(--global-color-fg);
-    color: var(--global-color-fg);
+    // border: 1px solid var(--color-1);
+    background-color: var(--color-1);
+    color: var(--color-1);
   }
 }

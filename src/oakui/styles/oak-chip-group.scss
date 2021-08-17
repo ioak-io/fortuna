@@ -18,7 +18,7 @@
       height: var(--metric-formelement-height);
       line-height: var(--metric-formelement-height);
       &:hover {
-        background-color: var(--color-primary-1);
+        background-color: var(--color-primary);
       }
     }
   }
@@ -30,7 +30,7 @@
     align-items: center;
     justify-content: flex-start;
     .chip {
-      background-color: var(--color-primary-1);
+      background-color: var(--color-primary);
       &:hover {
         background-color: var(--color-primary-2);
       }
