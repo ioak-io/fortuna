@@ -1,3 +1,18 @@
 .expense-page {
-  margin-top: 60px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.expense-page__topbar {
+  background-color: var(--color-container);
+  height: 50px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 10px;
+  align-content: center;
+  padding: 0 20px;
+}
+.expense-page__main {
+  padding: 20px 20px;
 }

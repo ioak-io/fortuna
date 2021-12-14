@@ -3,7 +3,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import './RouterView.scss';
 import OaLogin from '../Auth/OaLogin';
-import OakRoute from '../Auth/OakRoute';
+import OakRouteApp from '../Auth/OakRouteApp';
 import Unauthorized from '../Auth/Unauthorized';
 import OakRouteGraph from '../Auth/OakRouteGraph';
 import Login from '../Login';
@@ -25,13 +25,13 @@ const RouterView = (props: Props) => {
       <Route
         path="/login"
         render={(propsLocal) => (
-          <OakRoute {...propsLocal} {...props} component={OaLogin} />
+          <OakRouteApp {...propsLocal} {...props} component={OaLogin} />
         )}
       />
       <Route
         path="/:space/unauthorized"
         render={(propsLocal) => (
-          <OakRoute
+          <OakRouteApp
             {...propsLocal}
             {...props}
             component={Unauthorized}
@@ -43,13 +43,13 @@ const RouterView = (props: Props) => {
         path="/"
         exact
         render={(propsLocal) => (
-          <OakRouteGraph {...propsLocal} {...props} component={Home} />
+          <OakRouteApp {...propsLocal} {...props} component={Home} />
         )}
       />
       <Route
         path="/:space/login/email"
         render={(propsLocal) => (
-          <OakRouteGraph
+          <OakRouteApp
             {...propsLocal}
             {...props}
             component={Email}
@@ -62,7 +62,7 @@ const RouterView = (props: Props) => {
         path="/:space/home"
         exact
         render={(propsLocal) => (
-          <OakRouteGraph
+          <OakRouteApp
             {...propsLocal}
             {...props}
             component={Home}
@@ -75,7 +75,7 @@ const RouterView = (props: Props) => {
         path="/:space/category"
         exact
         render={(propsLocal) => (
-          <OakRouteGraph
+          <OakRouteApp
             {...propsLocal}
             {...props}
             component={CategoryPage}
@@ -87,7 +87,7 @@ const RouterView = (props: Props) => {
         path="/:space/expense"
         exact
         render={(propsLocal) => (
-          <OakRouteGraph
+          <OakRouteApp
             {...propsLocal}
             {...props}
             component={ExpensePage}

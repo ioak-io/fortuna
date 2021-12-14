@@ -26,6 +26,7 @@ import { setProfile } from '../../actions/ProfileActions';
 import NavigationContainer from './NavigationContainer';
 import MakeNavBarTransparentCommand from '../../events/MakeNavBarTransparentCommand';
 import HideNavBarCommand from '../../events/HideNavBarCommand';
+import AddExpense from '../AddExpense';
 
 interface Props {
   cookies: any;
@@ -105,6 +106,7 @@ const Content = (props: Props) => {
       <div className={`App ${profile.theme} ${profile.textSize}`}>
         <HashRouter>
           <Init />
+          <AddExpense />
           {/* <Notification /> */}
           {/* <OakNotification
             indicator="fill"

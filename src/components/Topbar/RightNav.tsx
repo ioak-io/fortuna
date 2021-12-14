@@ -3,12 +3,16 @@ import { useSelector, connect, useDispatch } from 'react-redux';
 
 import { useHistory, withRouter } from 'react-router';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import './RightNav.scss';
 
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 import DarkModeIcon from '../Navigation/DarkModeIcon';
 import NavAccountIcon from '../Navigation/NavAccountIcon';
 import { removeAuth } from '../../actions/AuthActions';
+import OakButton from '../../oakui/wc/OakButton';
+import AddExpenseCommand from '../../events/AddExpenseCommand';
 
 interface Props {
   cookies: any;
@@ -42,10 +46,15 @@ const RightNav = (props: Props) => {
     window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
   };
 
+  const openAddExpense = () => {
+    AddExpenseCommand.next(true);
+  };
+
   return (
     <div className="right-nav">
-      {/* <OakButton theme="primary" variant="appear" action={() => {}} icon="add">Income</OakButton>
-      <OakButton theme="primary" variant="appear" action={() => {}} icon="add">Bill</OakButton> */}
+      <OakButton theme="info" variant="regular" handleClick={openAddExpense}>
+        <FontAwesomeIcon icon={faPlus} /> Expense
+      </OakButton>
       <DarkModeIcon />
       <NavAccountIcon logout={logout} login={login} />
     </div>
