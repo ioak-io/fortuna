@@ -12,8 +12,20 @@ interface Props {
 
 const ListExpense = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
+  const categories = useSelector((state: any) => state.category.categories);
 
   const [data, setData] = useState<any[]>([]);
+  const [categoryMap, setCategoryMap] = useState<any>({});
+
+  useEffect(() => {
+    if (categories) {
+      const _categoryMap: any = {};
+      categories.forEach((category: any) => {
+        _categoryMap[category._id] = category;
+      });
+      setCategoryMap(_categoryMap);
+    }
+  }, [categories]);
 
   useEffect(() => {
     if (authorization.isAuth) {
@@ -36,7 +48,7 @@ const ListExpense = (props: Props) => {
           <tr>
             <th>Date</th>
             <th>Category</th>
-            <th>Kakeibo quadrant</th>
+            <th>Kakeibo</th>
             <th>Description</th>
             <th>Amount</th>
           </tr>
@@ -45,8 +57,16 @@ const ListExpense = (props: Props) => {
           {data.map((record) => (
             <tr>
               <td>{record.billDate}</td>
-              <td>{record.category}</td>
-              <td>{record.category}</td>
+              <td>
+                {categoryMap[record.category]
+                  ? categoryMap[record.category].name
+                  : ''}
+              </td>
+              <td>
+                {categoryMap[record.category]
+                  ? categoryMap[record.category].kakeibo
+                  : ''}
+              </td>
               <td>{record.description}</td>
               <td>{record.amount}</td>
             </tr>

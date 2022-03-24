@@ -27,6 +27,7 @@ import NavigationContainer from './NavigationContainer';
 import MakeNavBarTransparentCommand from '../../events/MakeNavBarTransparentCommand';
 import HideNavBarCommand from '../../events/HideNavBarCommand';
 import AddExpense from '../AddExpense';
+import AddCategory from '../AddCategory';
 
 interface Props {
   cookies: any;
@@ -107,6 +108,7 @@ const Content = (props: Props) => {
         <HashRouter>
           <Init />
           <AddExpense />
+          <AddCategory />
           {/* <Notification /> */}
           {/* <OakNotification
             indicator="fill"

@@ -13,6 +13,7 @@ import NavAccountIcon from '../Navigation/NavAccountIcon';
 import { removeAuth } from '../../actions/AuthActions';
 import OakButton from '../../oakui/wc/OakButton';
 import AddExpenseCommand from '../../events/AddExpenseCommand';
+import AddCategoryCommand from '../../events/AddCategoryCommand';
 
 interface Props {
   cookies: any;
@@ -50,10 +51,17 @@ const RightNav = (props: Props) => {
     AddExpenseCommand.next(true);
   };
 
+  const openAddCategory = () => {
+    AddCategoryCommand.next(true);
+  };
+
   return (
     <div className="right-nav">
       <OakButton theme="info" variant="regular" handleClick={openAddExpense}>
         <FontAwesomeIcon icon={faPlus} /> Expense
+      </OakButton>
+      <OakButton theme="info" variant="regular" handleClick={openAddCategory}>
+        <FontAwesomeIcon icon={faPlus} /> Category
       </OakButton>
       <DarkModeIcon />
       <NavAccountIcon logout={logout} login={login} />

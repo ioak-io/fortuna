@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllCategories } from '../../actions/CategoryActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 
 const Init = () => {
   const authorization = useSelector((state: any) => state.authorization);
   const profile = useSelector((state: any) => state.profile);
-  const [
-    previousAuthorizationState,
-    setPreviousAuthorizationState,
-  ] = useState<any>();
+  const [previousAuthorizationState, setPreviousAuthorizationState] =
+    useState<any>();
   const [space, setSpace] = useState<string>();
   const dispatch = useDispatch();
 
@@ -58,10 +57,9 @@ const Init = () => {
 
   const initialize = () => {
     console.log('Initialization logic here');
-    // if (space) {
-    //   dispatch(fetchAllUsers(space, authorization));
-    //   dispatch(fetchAllRoles(space, authorization));
-    // }
+    if (space) {
+      dispatch(fetchAllCategories(space, authorization));
+    }
   };
   return <></>;
 };
