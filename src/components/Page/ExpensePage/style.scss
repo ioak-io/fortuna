@@ -14,5 +14,22 @@
   padding: 0 20px;
 }
 .expense-page__main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.expense-page__main__left {
   padding: 20px 20px;
+}
+
+.expense-page__main__right {
+  width: 0px;
+  overflow-x: hidden;
+  transition: width 250ms ease-in-out;
+  visibility: hidden;
+}
+
+.expense-page__main__right--active {
+  width: 400px;
+  visibility: visible;
 }

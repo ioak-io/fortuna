@@ -69,6 +69,14 @@ const Navbar = (props: Props) => {
         >
           Category
         </OakButton>
+        <OakButton
+          theme="default"
+          shape="sharp"
+          variant="outline"
+          handleClick={goToCategoryPage}
+        >
+          Report
+        </OakButton>
       </div>
       <div className="navbar--right">
         <RightNav cookies={props.cookies} />

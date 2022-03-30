@@ -31,15 +31,14 @@ const AddExpense = () => {
   const [stepNumber, setStepNumber] = useState(1);
   const [state, setState] = useState({
     description: '',
-    billDate: new Date(),
-    billDateString: format(addDays(new Date(), 1), 'yyyy-MM-dd'),
+    billDateString: format(new Date(), 'yyyy-MM-dd'),
     amount: 0.0,
     category: '',
   });
   const [anotherDay, setAnotherDay] = useState(false);
   const [todayDate, setTodayDate] = useState(format(new Date(), 'yyyy-MM-dd'));
   const [yesterdayDate, setYesterdayDate] = useState(
-    format(addDays(new Date(), 1), 'yyyy-MM-dd')
+    format(addDays(new Date(), -1), 'yyyy-MM-dd')
   );
 
   useEffect(() => {
@@ -82,7 +81,11 @@ const AddExpense = () => {
 
   const save = () => {
     console.log('save');
-    saveExpense('companyname', state, authorization);
+    saveExpense(
+      'companyname',
+      { ...state, billDate: state.billDateString },
+      authorization
+    );
     AddExpenseCommand.next(false);
   };
 
@@ -170,12 +173,12 @@ const AddExpense = () => {
                       state.billDateString !== yesterdayDate && (
                         <button
                           className="add-expense__form__chips__chip add-expense__form__chips__chip--selected"
-                          onClick={toggleAnotherDay}
+                          onClick={() => {}}
                         >
                           {state.billDateString}
                         </button>
                       )}
-                    {(state.billDateString === todayDate ||
+                    {/* {(state.billDateString === todayDate ||
                       state.billDateString === yesterdayDate) && (
                       <button
                         className="add-expense__form__chips__chip"
@@ -183,22 +186,22 @@ const AddExpense = () => {
                       >
                         ...
                       </button>
-                    )}
+                    )} */}
                   </div>
-                  {anotherDay && (
-                    <OakInput
-                      name="billDateString"
-                      value={state.billDateString}
-                      formGroupName={`3-${formId}`}
-                      type="date"
-                      gutterBottom
-                      handleInput={handleChange}
-                      size="large"
-                      color="container"
-                      placeholder="Bill date"
-                      shape="underline"
-                    />
-                  )}
+                  {/* {anotherDay && ( */}
+                  <OakInput
+                    name="billDateString"
+                    value={state.billDateString}
+                    formGroupName={`3-${formId}`}
+                    type="date"
+                    gutterBottom
+                    handleInput={handleChange}
+                    size="large"
+                    color="container"
+                    placeholder="Bill date"
+                    shape="underline"
+                  />
+                  {/* )} */}
                 </div>
               </OakForm>
             )}
@@ -208,7 +211,10 @@ const AddExpense = () => {
                   <div className="add-expense__form__question">
                     What category does it belong to?
                   </div>
-                  <CategorySelection handleChange={handleCategoryChange} />
+                  <CategorySelection
+                    handleChange={handleCategoryChange}
+                    categoryId={state.category}
+                  />
                 </div>
               </OakForm>
             )}

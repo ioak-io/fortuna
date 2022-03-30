@@ -5,6 +5,7 @@ import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTab
 import './ListExpense.scss';
 import OakTypography from '../../../oakui/wc/OakTypography';
 import { getExpense } from './service';
+import { format } from 'date-fns';
 
 interface Props {
   data?: any;
@@ -56,7 +57,7 @@ const ListExpense = (props: Props) => {
         <tbody>
           {data.map((record) => (
             <tr>
-              <td>{record.billDate}</td>
+              <td>{format(new Date(record.billDate), 'yyyy-MM-dd')}</td>
               <td>
                 {categoryMap[record.category]
                   ? categoryMap[record.category].name
