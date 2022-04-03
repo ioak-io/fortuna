@@ -119,7 +119,7 @@ const Content = (props: Props) => {
           /> */}
 
           <OakAppLayout
-            topbarVariant="none"
+            topbarVariant="auto"
             sidebarVariant="none"
             topbarColor="custom"
             topbarElevation={0}

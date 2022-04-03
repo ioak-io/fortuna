@@ -49,6 +49,7 @@ code {
 }
 
 * {
+  box-sizing: border-box;
   .section-close {
     // margin: auto;
     margin-top: 20px;

@@ -24,7 +24,7 @@ const TopbarContainer = (props: Props) => {
 
   return (
     <div
-      className={`oak-bg-global topbar-container ${
+      className={`topbar-container ${
         props.transparent ? 'topbar-container--transparent' : ''
       } ${profile.sidebar ? 'sidebar-shown' : 'sidebar-hidden'}`}
     >

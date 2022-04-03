@@ -1,11 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { format } from 'date-fns';
 import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
 
 import './ListExpense.scss';
 import OakTypography from '../../../oakui/wc/OakTypography';
 import { getExpense } from './service';
-import { format } from 'date-fns';
 
 interface Props {
   data?: any;
@@ -41,7 +41,7 @@ const ListExpense = (props: Props) => {
     <div className="list-expense">
       <table
         className={tableCompose({
-          color: 'container',
+          color: 'surface',
           dense: true,
         })}
       >

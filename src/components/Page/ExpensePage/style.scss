@@ -1,35 +1,50 @@
 .expense-page {
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
 }
 
+.expense-page {
+  // display: grid;
+  // grid-template-columns: 1fr auto;
+  margin-right: 27em;
+}
 .expense-page__topbar {
-  background-color: var(--color-container);
-  height: 50px;
+  background-color: var(--color-surface);
+  height: 100px;
   display: grid;
   grid-template-columns: 1fr auto;
   column-gap: 10px;
   align-content: center;
+  align-items: center;
   padding: 0 20px;
 }
-.expense-page__main {
+.expense-page__topbar__left {
+  font-size: 28px;
+}
+.expense-page__topbar__right {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-auto-flow: column;
+  column-gap: 20px;
 }
 
-.expense-page__main__left {
-  padding: 20px 20px;
+.expense-page__main {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--color-global-darkest);
 }
 
-.expense-page__main__right {
-  width: 0px;
-  overflow-x: hidden;
-  transition: width 250ms ease-in-out;
-  visibility: hidden;
+.expense-page__main__list {
+  background-color: var(--color-surface);
+  // margin-top: 100px;
+  padding: 14px 28px;
+  // padding-top: 14px;
 }
 
-.expense-page__main__right--active {
-  width: 400px;
-  visibility: visible;
+.expense-page__filter {
+  width: 27em;
+  overflow-y: auto;
+  position: fixed;
+  right: 0;
+  top: var(--oak-app-layout-topbar-height);
+  bottom: 0;
+  height: calc(100vh - var(--oak-app-layout-topbar-height));
+  background-color: var(--color-global);
 }

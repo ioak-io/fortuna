@@ -1,17 +1,18 @@
-.category-selection {
+.kakeibo-selection-filter {
+  // margin-bottom: calc(var(--oak-gutter-bottom) - 10px);
 }
 
-.category-selection__list {
+.kakeibo-selection-filter__list {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
 }
 
-.category-selection__list__chip {
+.kakeibo-selection-filter__list__chip {
   box-shadow: none;
   border: 1px solid var(--color-container-i);
   border-radius: 100px;
-  padding: 10px 30px;
+  padding: 6px 12px;
   color: inherit;
   margin: 0 10px 10px 0;
 
@@ -28,9 +29,18 @@
   }
 }
 
-.category-selection__list__chip--selected,
-.category-selection__list__chip--selected:focus,
-.category-selection__list__chip--selected:hover {
+.kakeibo-selection-filter__list__chip--selected,
+.kakeibo-selection-filter__list__chip--selected:focus,
+.kakeibo-selection-filter__list__chip--selected:hover {
   background-color: var(--color-default);
   color: var(--color-default-i);
+}
+
+label {
+  display: block;
+  font-size: var(--oak-label-size);
+  margin-bottom: 4px;
+  color: var(--formelement-color-label);
+  text-transform: capitalize;
+  word-break: keep-all;
 }
