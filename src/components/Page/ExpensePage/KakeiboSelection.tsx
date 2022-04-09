@@ -46,6 +46,7 @@ const KakeiboSelection = (props: Props) => {
         {categoriesFiltered &&
           categoriesFiltered.map((category: any) => (
             <button
+              key={category}
               className={`kakeibo-selection-filter__list__chip ${
                 props.kakeiboList.includes(category)
                   ? 'kakeibo-selection-filter__list__chip--selected'

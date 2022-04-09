@@ -1,0 +1,45 @@
+.aggregate-tile {
+  display: flex;
+  justify-content: center;
+  padding: 40px 10px;
+  background-color: var(--color-float);
+  box-shadow: none;
+  border: none;
+  color: var(--color-float-i);
+  border-radius: 6px;
+  position: relative;
+  transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    background-color: var(--color-float-semitransparent2);
+  }
+}
+
+.aggregate-tile--active,
+.aggregate-tile--active:hover,
+.aggregate-tile--active:focus {
+  background-color: var(--color-secondary-semitransparent2);
+  color: var(--color-secondary-semitransparent2-i);
+}
+
+.aggregate-tile__metric {
+  position: relative;
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.aggregate-tile .aggregate-tile__definition {
+  position: absolute;
+  text-transform: capitalize;
+  bottom: 5px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-float-darkest);
+}
+
+.aggregate-tile--active .aggregate-tile__definition {
+  color: var(--color-secondary-i);
+}

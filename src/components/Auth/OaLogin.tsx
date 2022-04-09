@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { httpGet, httpPost } from '../Lib/RestTemplate';
 import './Login.scss';
 
 const queryString = require('query-string');
@@ -9,13 +10,29 @@ interface Props {
   location: any;
 }
 
+const appRealm = process.env.REACT_APP_ONEAUTH_APPSPACE_ID || '';
+
 const OaLogin = (props: Props) => {
   useEffect(() => {
     if (props.location.search) {
       const query = queryString.parse(props.location.search);
-      props.cookies.set(`expenso-access_token`, query.access_token);
-      props.cookies.set(`expenso-refresh_token`, query.refresh_token);
-      props.history.push(query.from ? query.from : `/companyname/home`);
+      httpGet('/user/token/local', {
+        headers: {
+          Authorization: query.access_token,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            console.log('**', response.data.token);
+            props.cookies.set(`expenso-access_token`, response.data.token);
+            props.cookies.set(`expenso-refresh_token`, query.refresh_token);
+            props.history.push(query.from ? query.from : '/home');
+          }
+          return Promise.resolve({});
+        })
+        .catch((error) => {
+          return Promise.resolve({});
+        });
     }
   }, []);
 

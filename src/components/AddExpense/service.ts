@@ -6,17 +6,18 @@ export const saveExpense = (
   payload: any,
   authorization: any
 ) => {
-  httpPut(`/expense/${space}/`, payload, {
+  return httpPut(`/expense/${space}/`, payload, {
     headers: {
       Authorization: authorization.access_token,
     },
   })
     .then((response) => {
       if (response.status === 200) {
-        console.log(response);
+        return Promise.resolve(response.data);
       }
+      return Promise.resolve({});
     })
     .catch((error) => {
-      console.log(error);
+      return Promise.resolve({});
     });
 };

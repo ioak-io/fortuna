@@ -60,6 +60,7 @@ const CategorySelection = (props: Props) => {
         {categoriesFiltered &&
           categoriesFiltered.map((category: any) => (
             <button
+              key={category._id}
               className={`category-selection-filter__list__chip ${
                 props.categoryIdList.includes(category._id)
                   ? 'category-selection-filter__list__chip--selected'

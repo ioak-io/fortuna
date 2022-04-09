@@ -8,6 +8,7 @@ import { isEmptyOrSpaces } from '../Utils';
 interface Props {
   categoryId: string;
   handleChange: any;
+  error: boolean;
 }
 
 const CategorySelection = (props: Props) => {
@@ -37,22 +38,26 @@ const CategorySelection = (props: Props) => {
 
   return (
     <div className="category-selection">
-      <div className="category-selection__search">
-        <OakInput
-          name="searchText"
-          value={searchText}
-          gutterBottom
-          handleInput={handleChange}
-          size="large"
-          color="container"
-          placeholder="Search category"
-          shape="underline"
-        />
-      </div>
+      <label>Category</label>
+      {categories && categories.length > 10 && (
+        <div className="category-selection__search">
+          <OakInput
+            name="searchText"
+            value={searchText}
+            gutterBottom
+            handleInput={handleChange}
+            size="large"
+            color="container"
+            placeholder="Search category"
+            shape="underline"
+          />
+        </div>
+      )}
       <div className="category-selection__list">
         {categoriesFiltered &&
           categoriesFiltered.map((category: any) => (
             <button
+              key={category._id}
               className={`category-selection__list__chip ${
                 props.categoryId === category._id
                   ? 'category-selection__list__chip--selected'
@@ -64,6 +69,7 @@ const CategorySelection = (props: Props) => {
             </button>
           ))}
       </div>
+      {props.error && <div className="error">Choose category</div>}
     </div>
   );
 };

@@ -8,8 +8,6 @@ import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from '@apollo/client';
 
-import Chart from 'chart.js';
-
 import './style.scss';
 import { withCookies } from 'react-cookie';
 
@@ -84,10 +82,10 @@ const Content = (props: Props) => {
     cache: new InMemoryCache(),
   });
 
-  useEffect(() => {
-    Chart.defaults.global.defaultFontColor =
-      profile.theme === 'theme_dark' ? '#e0e0e0' : '#626262';
-  }, [profile]);
+  // useEffect(() => {
+  //   Chart.defaults.global.defaultFontColor =
+  //     profile.theme === 'theme_dark' ? '#e0e0e0' : '#626262';
+  // }, [profile]);
 
   const handleClose = (detail: any) => {
     switch (detail.name) {
@@ -107,8 +105,6 @@ const Content = (props: Props) => {
       <div className={`App ${profile.theme} ${profile.textSize}`}>
         <HashRouter>
           <Init />
-          <AddExpense />
-          <AddCategory />
           {/* <Notification /> */}
           {/* <OakNotification
             indicator="fill"

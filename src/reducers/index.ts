@@ -5,12 +5,20 @@ import UserReducer from './UserReducer';
 import RoleReducer from './RoleReducer';
 import SpaceReducer from './SpaceReducer';
 import CategoryReducer from './CategoryReducer';
+import ExpenseReducer from './ExpenseReducer';
+import CompanyReducer from './CompanyReducer';
+import FilterExpenseReducer from './FilterExpenseReducer';
+import TagReducer from './TagReducer';
 
 export default combineReducers({
   authorization: AuthReducer,
   profile: ProfileReducer,
   user: UserReducer,
   role: RoleReducer,
+  company: CompanyReducer,
   space: SpaceReducer,
   category: CategoryReducer,
+  tag: TagReducer,
+  expense: ExpenseReducer,
+  filterExpense: FilterExpenseReducer,
 });

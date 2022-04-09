@@ -41,6 +41,9 @@ interface Props {
   errorStyle?: 'outline' | 'fill';
   gutterBottom?: boolean;
   disabled?: boolean;
+  autofocus?: boolean;
+  required?: boolean;
+  nonzero?: boolean;
 }
 const OakInput = (props: Props) => {
   const elementRef = useRef();
@@ -132,6 +135,18 @@ const OakInput = (props: Props) => {
   }, [props.fill]);
 
   useEffect(() => {
+    (elementRef.current as any)!.isAutofocus = props.autofocus;
+  }, [props.autofocus]);
+
+  useEffect(() => {
+    (elementRef.current as any)!.required = props.required;
+  }, [props.required]);
+
+  useEffect(() => {
+    (elementRef.current as any)!.nonZero = props.nonzero;
+  }, [props.nonzero]);
+
+  useEffect(() => {
     (elementRef.current as any)!.validatorFunction = props.validatorFunction;
   }, [props.validatorFunction]);
 
@@ -153,6 +168,7 @@ const OakInput = (props: Props) => {
       shape={props.shape}
       color={props.color}
       errorStyle={props.errorStyle}
+      // autoFocus={props.autofocus}
     />
   );
 };

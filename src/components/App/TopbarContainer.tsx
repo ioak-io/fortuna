@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './TopbarContainer.scss';
-import Topbar from '../Topbar';
 import { receiveMessage } from '../../events/MessageService';
 
 interface Props {
@@ -28,11 +27,11 @@ const TopbarContainer = (props: Props) => {
         props.transparent ? 'topbar-container--transparent' : ''
       } ${profile.sidebar ? 'sidebar-shown' : 'sidebar-hidden'}`}
     >
-      <Topbar
+      {/* <Topbar
         space={space}
         cookies={props.cookies}
         hideSidebarOnDesktop={profile.hideSidebarOnDesktop}
-      />
+      /> */}
     </div>
   );
 };

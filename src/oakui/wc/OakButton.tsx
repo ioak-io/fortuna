@@ -65,12 +65,10 @@ const OakButton = (props: Props) => {
   const elementRef = useRef();
 
   const handleClick = (event: any) => {
-    console.log('**click');
     props.handleClick(event);
   };
 
   const handleSubmit = (event: any) => {
-    console.log('**submit');
     props.handleClick(event);
   };
 

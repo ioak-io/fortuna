@@ -58,6 +58,16 @@ const OakRouteApp = (props: Props) => {
   const authenticate = async (type: string, redirect = true) => {
     sendMessage('spaceChange', true, props.match.params.space);
     if (authorization.isAuth) {
+      if (
+        props.match.params.space &&
+        !authorization.space.includes(parseInt(props.match.params.space, 10))
+      ) {
+        console.log(
+          '**redirect to unauthorized page',
+          props.match.params.space
+        );
+        redirectToUnauthorized();
+      }
       return true;
     }
     const accessToken = props.cookies.get(`expenso-access_token`);
@@ -71,15 +81,17 @@ const OakRouteApp = (props: Props) => {
         .then((response) => {
           if (response.status === 200) {
             let newAccessToken = accessToken;
-            if (response.data.access_token) {
-              newAccessToken = response.data.access_token;
+            if (response.data.accessToken) {
+              newAccessToken = response.data.accessToken;
               props.cookies.set(`expenso-access_token`, newAccessToken);
             }
+            console.log(response.data);
             dispatch(
               addAuth({
                 isAuth: true,
                 ...response.data.claims,
                 access_token: newAccessToken,
+                space: response.data.space,
               })
             );
           }
@@ -121,7 +133,7 @@ const OakRouteApp = (props: Props) => {
   };
 
   const redirectToUnauthorized = () => {
-    props.history.push(`/${profile.space}/unauthorized`);
+    props.history.push(`/${props.match.params.space}/unauthorized`);
   };
 
   return (
@@ -130,7 +142,8 @@ const OakRouteApp = (props: Props) => {
         <props.component
           {...props}
           profile={profile}
-          space={appRealm}
+          // space={appRealm}
+          space={props.match.params.space}
           // getProfile={getProfile}
           // setProfile={props.setProfile}
         />

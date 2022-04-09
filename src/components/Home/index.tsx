@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import CategoryDistribution from '../DashboardElements/CategoryDistribution';
 import './style.scss';
 
 interface Props {
@@ -14,9 +15,12 @@ const Home = (props: Props) => {
   };
 
   return (
-    <div className="landing">
+    <div className="home page-width">
       {/* <ListSpaces history={props.history} /> */}
-      Welcome home
+      <div className="content-section">
+        <CategoryDistribution />
+        <div />
+      </div>
     </div>
   );
 };

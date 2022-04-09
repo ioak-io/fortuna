@@ -28,14 +28,18 @@
 .expense-page__main {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid var(--color-global-darkest);
 }
 
 .expense-page__main__list {
   background-color: var(--color-surface);
   // margin-top: 100px;
-  padding: 14px 28px;
+  // padding: 14px 28px;
   // padding-top: 14px;
+}
+
+.expense-page__main__summary {
+  border-bottom: 1px solid var(--color-global-darkest);
+  border-top: 1px solid var(--color-global-darkest);
 }
 
 .expense-page__filter {

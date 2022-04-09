@@ -17,7 +17,7 @@ const OakForm = (props: Props) => {
 
   const handleSubmit = (event: any) => {
     event.detail.validationResults.forEach((item: any) => {
-      console.log(item.formControlValue, typeof item.formControlValue);
+      // console.log(item.formControlValue, typeof item.formControlValue);
     });
     if (props.handleSubmit) {
       const { detail } = event;
@@ -26,7 +26,6 @@ const OakForm = (props: Props) => {
   };
 
   const handleReset = (event: any) => {
-    console.log(event);
     if (props.handleReset) {
       const { detail } = event;
       props.handleReset(detail);

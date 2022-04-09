@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
 import './style.scss';
 
-import OakButton from '../../oakui/wc/OakButton';
 import Logo from '../Logo';
-import RightNav from '../Topbar/RightNav';
-import { NavLink } from 'react-router-dom';
+import RightNav from './RightNav';
+// import RightNav from '../Topbar/RightNav';
 
 interface Props {
   space: string;
@@ -29,33 +29,11 @@ const Navbar = (props: Props) => {
 
   useEffect(() => {
     history.listen((_history: any) => {
-      console.log(currentpath, '((');
-      setCurrentpath(_history.location.pathname);
+      if (_history?.location?.pathname) {
+        setCurrentpath(_history.location.pathname);
+      }
     });
   }, []);
-
-  const goToHome = () => {
-    console.log(
-      history.location.pathname,
-      `navlink ${
-        history.location.pathname === `/${props.space}/expense`
-          ? 'navlink--active'
-          : ''
-      }`
-    );
-    history.push(`/${props.space}/home`);
-  };
-
-  const goToExpensePage = () => {
-    history.push(`/${props.space}/expense`);
-  };
-  const goToCategoryPage = () => {
-    history.push(`/${props.space}/category`);
-  };
-
-  const newArticle = () => {
-    history.push(`/${props.space}/article/create`);
-  };
 
   return (
     <div className="navbar">
@@ -65,34 +43,45 @@ const Navbar = (props: Props) => {
         </div>
 
         <div className="navbar__left__links">
-          <NavLink
-            to={`/${props.space}/home`}
-            className="navlink"
-            activeClassName="navlink--active"
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to={`/${props.space}/expense`}
-            className="navlink"
-            activeClassName="navlink--active"
-          >
-            Expense
-          </NavLink>
-          <NavLink
-            to={`/${props.space}/category`}
-            className="navlink"
-            activeClassName="navlink--active"
-          >
-            Category
-          </NavLink>
-          <NavLink
-            to={`/${props.space}/report`}
-            className="navlink"
-            activeClassName="navlink--active"
-          >
-            Report
-          </NavLink>
+          {props.space && (
+            <>
+              <NavLink
+                to={`/${props.space}/home`}
+                className="navlink"
+                activeClassName="navlink--active"
+              >
+                Home
+              </NavLink>
+              <NavLink
+                to={`/${props.space}/expense`}
+                className="navlink"
+                activeClassName="navlink--active"
+              >
+                Expense
+              </NavLink>
+              <NavLink
+                to={`/${props.space}/category`}
+                className="navlink"
+                activeClassName="navlink--active"
+              >
+                Category
+              </NavLink>
+              <NavLink
+                to={`/${props.space}/report`}
+                className="navlink"
+                activeClassName="navlink--active"
+              >
+                Report
+              </NavLink>
+              <NavLink
+                to={`/${props.space}/settings?link=general`}
+                className="navlink"
+                activeClassName="navlink--active"
+              >
+                Settings
+              </NavLink>
+            </>
+          )}
         </div>
       </div>
       <div className="navbar--right">

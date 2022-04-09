@@ -1,7 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import ExpenseFilterModel from '../../model/ExpenseFilterModel';
+import {
+  ExpenseFilterPaginationState,
+  ExpenseFilterState,
+} from '../../simplestates/ExpenseFilterState';
+import ExpenseListState from '../../simplestates/ExpenseListState';
 import { fetchAllCategories } from '../../actions/CategoryActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
+import { searchExpense } from '../Page/ExpensePage/service';
+import PaginationModel from '../../model/PaginationModel';
+import ExpenseStateActions from '../../simplestates/ExpenseStateActions';
+import { fetchAndSetCompanyItems } from '../../actions/CompanyActions';
+import { fetchAndSetUserItems } from '../../actions/UserActions';
+import { fetchAndSetFilterExpenseItems } from '../../actions/FilterExpenseActions';
+import { fetchAllTags } from '../../actions/TagActions';
 
 const Init = () => {
   const authorization = useSelector((state: any) => state.authorization);
@@ -12,18 +25,28 @@ const Init = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (
-      authorization?.isAuth &&
-      authorization?.isAuth !== previousAuthorizationState?.isAuth &&
-      space
-    ) {
+    if (authorization?.isAuth && space) {
       initialize();
-      setPreviousAuthorizationState(authorization);
+      dispatch(fetchAndSetUserItems(space, authorization));
+      dispatch(fetchAllCategories(space, authorization));
+      dispatch(fetchAllTags(space, authorization));
+      dispatch(fetchAndSetFilterExpenseItems(space, authorization));
     }
   }, [authorization, space]);
 
   useEffect(() => {
+    if (
+      authorization?.isAuth &&
+      authorization?.isAuth !== previousAuthorizationState?.isAuth
+    ) {
+      dispatch(fetchAndSetCompanyItems(authorization));
+      setPreviousAuthorizationState(authorization);
+    }
+  }, [authorization]);
+
+  useEffect(() => {
     receiveMessage().subscribe((event: any) => {
+      console.log(event);
       if (event.name === 'spaceChange') {
         setSpace(event.data);
       }
@@ -58,10 +81,15 @@ const Init = () => {
   const initialize = () => {
     console.log('Initialization logic here');
     if (space) {
-      dispatch(fetchAllCategories(space, authorization));
+      // dispatch(fetchAllCategories(space, authorization));
     }
   };
-  return <></>;
+
+  return (
+    <>
+      <ExpenseStateActions space={space} />
+    </>
+  );
 };
 
 export default Init;

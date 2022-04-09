@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import { addDays, format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronLeft,
   faChevronRight,
+  faMoneyBill,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import OakModal from '../../oakui/wc/OakModal';
-import AddExpenseCommand from '../../events/AddExpenseCommand';
+import QuickEditExpenseCommand from '../../events/QuickEditExpenseCommand';
 import {
   receiveMessage,
   sendMessage,
@@ -17,76 +20,127 @@ import OakForm from '../../oakui/wc/OakForm';
 import OakInput from '../../oakui/wc/OakInput';
 
 import './style.scss';
-import OakSelect from '../../oakui/wc/OakSelect';
 import OakButton from '../../oakui/wc/OakButton';
 
 import { saveExpense } from './service';
 import CategorySelection from './CategorySelection';
+import { isEmptyOrSpaces } from '../Utils';
+import OakCheckbox from '../../oakui/wc/OakCheckbox';
+import { EXPENSO_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageConstants';
+import TagSelection from './TagSelection';
+import ExpenseModel from '../../model/ExpenseModel';
 
-const AddExpense = () => {
-  const authorization = useSelector((state: any) => state.authorization);
-  const profile = useSelector((state: any) => state.profile);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [formId, setFormId] = useState(newId());
-  const [stepNumber, setStepNumber] = useState(1);
-  const [state, setState] = useState({
+interface Props {
+  space: string;
+}
+
+const AddExpense = (props: Props) => {
+  const history = useHistory();
+  const [emptyExpense, setEmptyExpense] = useState<any>({
+    _id: undefined,
     description: '',
     billDateString: format(new Date(), 'yyyy-MM-dd'),
-    amount: 0.0,
+    amount: undefined,
     category: '',
+    tagId: [],
+    billId: undefined,
   });
-  const [anotherDay, setAnotherDay] = useState(false);
-  const [todayDate, setTodayDate] = useState(format(new Date(), 'yyyy-MM-dd'));
-  const [yesterdayDate, setYesterdayDate] = useState(
-    format(addDays(new Date(), -1), 'yyyy-MM-dd')
-  );
+  const authorization = useSelector((state: any) => state.authorization);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [formId, setFormId] = useState(newId());
+  const [state, setState] = useState({ ...emptyExpense });
+  const [addAnother, setAddAnother] = useState(false);
+
+  const [categoryNotChosen, setCategoryNotChosen] = useState(false);
 
   useEffect(() => {
-    AddExpenseCommand.subscribe((message) => {
-      setIsOpen(message);
+    QuickEditExpenseCommand.subscribe((message) => {
+      if (message.open && message.record) {
+        setState({
+          description: message.record.description,
+          amount: message.record.amount,
+          billDateString: message.record.billDate,
+          _id: message.record._id,
+          category: message.record.category,
+          billId: message.record.billId,
+        });
+      }
+      setIsOpen(message.open);
     });
+
+    if (sessionStorage.getItem(EXPENSO_PREF_ADDEXPENSE_ANOTHER)) {
+      setAddAnother(
+        sessionStorage.getItem(EXPENSO_PREF_ADDEXPENSE_ANOTHER) === 'true'
+      );
+    }
   }, []);
 
   const handleClose = () => {
-    AddExpenseCommand.next(false);
+    setCategoryNotChosen(false);
+    setState({ ...emptyExpense });
+    QuickEditExpenseCommand.next({ open: false, record: null });
   };
 
   const handleChange = (detail: any) => {
+    console.log(emptyExpense);
     setState({ ...state, [detail.name]: detail.value });
-  };
-
-  const nextStep = () => {
-    setStepNumber(stepNumber + 1);
-  };
-
-  const previousStep = () => {
-    setStepNumber(stepNumber - 1);
-  };
-
-  const toggleAnotherDay = () => {
-    setAnotherDay(!anotherDay);
-  };
-
-  const setToday = () => {
-    setState({ ...state, billDateString: todayDate });
-  };
-
-  const setYesterday = () => {
-    setState({ ...state, billDateString: yesterdayDate });
+    if (detail.name === 'billDateString') {
+      setEmptyExpense({ ...emptyExpense, billDateString: detail.value });
+    }
   };
 
   const handleCategoryChange = (category: string) => {
     setState({ ...state, category });
+    setCategoryNotChosen(false);
+  };
+
+  const handleRemoveTag = (tagId: string) => {
+    console.log('remove', tagId);
+    setState({
+      ...state,
+      tagId: state.tagId.filter((_tagId: any) => _tagId !== tagId),
+    });
+  };
+
+  const handleAddTag = (tagId: string) => {
+    if (state.tagId) {
+      setState({ ...state, tagId: [...state.tagId, tagId] });
+    } else {
+      setState({ ...state, tagId: [tagId] });
+    }
+  };
+
+  const toggleAddAnother = () => {
+    sessionStorage.setItem(
+      EXPENSO_PREF_ADDEXPENSE_ANOTHER,
+      (!addAnother).toString()
+    );
+    setAddAnother(!addAnother);
   };
 
   const save = () => {
-    console.log('save');
-    saveExpense(
-      'companyname',
-      { ...state, billDate: state.billDateString },
-      authorization
-    );
-    AddExpenseCommand.next(false);
+    if (isEmptyOrSpaces(state.category)) {
+      setCategoryNotChosen(true);
+      return;
+    }
+    if (state.billDateString && state.amount && state.description) {
+      saveExpense(
+        props.space,
+        { ...state, billDate: state.billDateString },
+        authorization
+      ).then(() => {
+        if (!addAnother || state._id) {
+          QuickEditExpenseCommand.next({ open: false, record: null });
+        }
+        setState({ ...emptyExpense });
+        setCategoryNotChosen(false);
+      });
+    }
+  };
+
+  const goToEditBill = () => {
+    QuickEditExpenseCommand.next({ open: false, record: null });
+    history.push(`/${props.space}/bill/edit?id=${state.billId}`);
   };
 
   return (
@@ -97,219 +151,107 @@ const AddExpense = () => {
         backdropIntensity={3}
         animationStyle="slide"
         animationSpeed="normal"
-        height="small"
-        width="large"
+        height="auto"
+        width="auto"
         heading="New expense"
       >
         <div slot="body">
           <div className="add-expense">
-            {stepNumber === 1 && (
-              <OakForm formGroupName={`1-${formId}`} handleSubmit={nextStep}>
-                <div className="add-expense__form">
-                  <div className="add-expense__form__question">
-                    Details of the expenditure
+            {isOpen && (
+              <OakForm formGroupName={formId} handleSubmit={save}>
+                <div className="form">
+                  <div className="form-two-column">
+                    <OakInput
+                      name="billDateString"
+                      value={state.billDateString}
+                      formGroupName={formId}
+                      type="date"
+                      handleInput={handleChange}
+                      size="large"
+                      color="container"
+                      label="Bill date"
+                      shape="rectangle"
+                      required
+                      disabled={state.billId}
+                    />
+
+                    <OakInput
+                      name="amount"
+                      value={state.amount}
+                      type="number"
+                      formGroupName={formId}
+                      handleInput={handleChange}
+                      size="large"
+                      color="container"
+                      shape="rectangle"
+                      label="Amount"
+                      nonzero
+                      autofocus
+                    />
                   </div>
                   <OakInput
                     name="description"
                     value={state.description}
-                    formGroupName={`1-${formId}`}
-                    gutterBottom
+                    formGroupName={formId}
                     handleInput={handleChange}
                     size="large"
                     color="container"
                     shape="rectangle"
+                    label="Details of the expenditure"
+                    required
                   />
-                </div>
-              </OakForm>
-            )}
-            {stepNumber === 2 && (
-              <OakForm formGroupName={`2-${formId}`} handleSubmit={nextStep}>
-                <div className="add-expense__form">
-                  <div className="add-expense__form__question">
-                    How much was spent?
-                  </div>
-                  <OakInput
-                    name="amount"
-                    value={state.amount}
-                    type="number"
-                    formGroupName={`2-${formId}`}
-                    gutterBottom
-                    handleInput={handleChange}
-                    size="large"
-                    color="container"
-                    shape="rectangle"
-                  />
-                </div>
-              </OakForm>
-            )}
-            {stepNumber === 3 && (
-              <OakForm formGroupName={`3-${formId}`} handleSubmit={nextStep}>
-                <div className="add-expense__form">
-                  <div className="add-expense__form__question">
-                    When did it occur?
-                  </div>
-                  <div className="add-expense__form__chips">
-                    <button
-                      className={`add-expense__form__chips__chip ${
-                        state.billDateString === todayDate
-                          ? 'add-expense__form__chips__chip--selected'
-                          : ''
-                      }`}
-                      onClick={setToday}
-                    >
-                      Today
-                    </button>
-                    <button
-                      className={`add-expense__form__chips__chip ${
-                        state.billDateString === yesterdayDate
-                          ? 'add-expense__form__chips__chip--selected'
-                          : ''
-                      }`}
-                      onClick={setYesterday}
-                    >
-                      Yesterday
-                    </button>
-                    {state.billDateString !== todayDate &&
-                      state.billDateString !== yesterdayDate && (
-                        <button
-                          className="add-expense__form__chips__chip add-expense__form__chips__chip--selected"
-                          onClick={() => {}}
-                        >
-                          {state.billDateString}
-                        </button>
-                      )}
-                    {/* {(state.billDateString === todayDate ||
-                      state.billDateString === yesterdayDate) && (
-                      <button
-                        className="add-expense__form__chips__chip"
-                        onClick={toggleAnotherDay}
-                      >
-                        ...
-                      </button>
-                    )} */}
-                  </div>
-                  {/* {anotherDay && ( */}
-                  <OakInput
-                    name="billDateString"
-                    value={state.billDateString}
-                    formGroupName={`3-${formId}`}
-                    type="date"
-                    gutterBottom
-                    handleInput={handleChange}
-                    size="large"
-                    color="container"
-                    placeholder="Bill date"
-                    shape="underline"
-                  />
-                  {/* )} */}
-                </div>
-              </OakForm>
-            )}
-            {stepNumber === 4 && (
-              <OakForm formGroupName={`4-${formId}`} handleSubmit={save}>
-                <div className="add-expense__form">
-                  <div className="add-expense__form__question">
-                    What category does it belong to?
-                  </div>
                   <CategorySelection
                     handleChange={handleCategoryChange}
                     categoryId={state.category}
+                    error={categoryNotChosen}
+                  />
+                  <TagSelection
+                    addTag={handleAddTag}
+                    removeTag={handleRemoveTag}
+                    tagId={state.tagId}
                   />
                 </div>
               </OakForm>
             )}
           </div>
-          {/* <div className="add-expense">
-            <OakForm formGroupName={formId} handleSubmit={save}>
-              <div className="add-expense__form">
-                <OakInput
-                  name="billDate"
-                  value={state.billDate}
-                  formGroupName={formId}
-                  type="date"
-                  gutterBottom
-                  handleInput={handleChange}
-                  size="large"
-                  color="container"
-                  label="Bill date"
-                  placeholder="Bill date"
-                  shape="underline"
-                />
-                <OakSelect
-                  name="category"
-                  value={state.category}
-                  formGroupName={formId}
-                  options={['Grocery', 'Telephone']}
-                  gutterBottom
-                  handleInput={handleChange}
-                  size="large"
-                  color="container"
-                  label="Category"
-                  placeholder="Category of the expense"
-                  shape="underline"
-                  autocomplete
-                />
-                <OakInput
-                  name="description"
-                  value={state.description}
-                  formGroupName={formId}
-                  gutterBottom
-                  handleInput={handleChange}
-                  size="large"
-                  color="container"
-                  label="Description"
-                  placeholder="Detail of the expense"
-                  shape="underline"
-                />
-                <OakInput
-                  name="amount"
-                  value={state.amount}
-                  type="number"
-                  formGroupName={formId}
-                  gutterBottom
-                  handleInput={handleChange}
-                  size="large"
-                  color="container"
-                  label="Amount"
-                  placeholder="Price of the expense"
-                  shape="underline"
-                />
-              </div>
-            </OakForm>
-          </div> */}
         </div>
         <div slot="footer">
           <div className="add-expense-footer">
-            {stepNumber !== 1 && (
+            {!state._id && (
+              <OakCheckbox
+                name="addAnother"
+                value={addAnother}
+                handleChange={toggleAddAnother}
+              >
+                Add another
+              </OakCheckbox>
+            )}
+            <OakButton
+              formGroupName={formId}
+              theme="primary"
+              variant="regular"
+              type="submit"
+            >
+              <FontAwesomeIcon icon={faChevronRight} /> Save
+            </OakButton>
+            {state.billId && (
               <OakButton
                 formGroupName={formId}
-                theme="default"
-                variant="outline"
-                handleClick={previousStep}
-              >
-                <FontAwesomeIcon icon={faChevronLeft} /> Previous
-              </OakButton>
-            )}
-            {stepNumber !== 4 && (
-              <OakButton
-                formGroupName={`${stepNumber}-${formId}`}
-                type="submit"
-                theme="default"
-                variant="outline"
-              >
-                Next <FontAwesomeIcon icon={faChevronRight} />
-              </OakButton>
-            )}
-            {stepNumber === 4 && (
-              <OakButton
-                formGroupName={`${stepNumber}-${formId}`}
-                theme="primary"
+                theme="info"
                 variant="regular"
-                handleClick={save}
+                handleClick={goToEditBill}
               >
-                <FontAwesomeIcon icon={faChevronRight} /> Save
+                <FontAwesomeIcon icon={faMoneyBill} /> Go to bill
               </OakButton>
             )}
+            <OakButton
+              formGroupName={formId}
+              theme="info"
+              variant="regular"
+              handleClick={handleClose}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </OakButton>
           </div>
         </div>
       </OakModal>

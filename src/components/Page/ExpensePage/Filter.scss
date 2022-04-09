@@ -18,12 +18,6 @@
   row-gap: 20px;
 }
 
-.expense-filter__main__two-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 10px;
-}
-
 .expense-filter__action {
   height: 100px;
   display: grid;
@@ -32,4 +26,10 @@
   align-content: center;
   align-items: center;
   justify-content: flex-end;
+}
+
+.expense-filter__name {
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-size: 20px;
 }

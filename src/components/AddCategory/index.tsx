@@ -22,7 +22,11 @@ import OakButton from '../../oakui/wc/OakButton';
 
 import { saveCategory } from './service';
 
-const AddCategory = () => {
+interface Props {
+  space: string;
+}
+
+const AddCategory = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const profile = useSelector((state: any) => state.profile);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -55,7 +59,7 @@ const AddCategory = () => {
 
   const save = () => {
     console.log('save');
-    saveCategory('companyname', state, authorization);
+    saveCategory(props.space, state, authorization);
     AddCategoryCommand.next(false);
   };
 
