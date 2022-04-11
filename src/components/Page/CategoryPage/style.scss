@@ -1,3 +1,8 @@
 .category-page {
-  margin-top: 60px;
+}
+
+.category-page__main {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 20px;
 }

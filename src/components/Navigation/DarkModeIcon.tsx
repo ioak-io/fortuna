@@ -13,6 +13,11 @@ const DarkModeIcon = () => {
         theme: profile.theme === 'theme_dark' ? 'theme_light' : 'theme_dark',
       })
     );
+
+    sessionStorage.setItem(
+      'expenso_pref_profile_colormode',
+      profile.theme === 'theme_dark' ? 'theme_light' : 'theme_dark'
+    );
   };
   return (
     <div className={`dark-mode-icon ${profile.theme}`} onClick={toggleMode}>

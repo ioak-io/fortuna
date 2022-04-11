@@ -6,7 +6,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AddCategoryCommand from '../../../events/AddCategoryCommand';
 import OakButton from '../../../oakui/wc/OakButton';
 import ListExpense from './ListExpense';
 import './style.scss';
@@ -16,7 +15,7 @@ import AddExpense from '../../AddExpense';
 import { ExpenseFilterState } from '../../../simplestates/ExpenseFilterState';
 import { fetchAndSetExpenseItems } from '../../../actions/ExpenseActions';
 import Topbar from '../../../components/Topbar';
-import AddCategory from '../../../components/AddCategory';
+import EditCategory from '../../../components/EditCategory';
 import AddFilterExpense from '../../../components/AddFilterExpense';
 import ManageFilterExpense from '../../../components/ManageFilterExpense';
 
@@ -29,11 +28,10 @@ const ExpensePage = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const dispatch = useDispatch();
 
-  const [filterExpanded, setFilterExpanded] = useState(true);
-  // const [searchCriteria, setSearchCriteria] = useState<any>({});
+  const [filterExpanded, setFilterExpanded] = useState(false);
 
-  const openAddCategory = () => {
-    AddCategoryCommand.next(true);
+  const toggleFilter = () => {
+    setFilterExpanded(!filterExpanded);
   };
 
   const applyFilter = (searchCriteria: any) => {
@@ -49,34 +47,16 @@ const ExpensePage = (props: Props) => {
   return (
     <>
       <AddExpense space={props.space} />
-      <AddCategory space={props.space} />
+      <EditCategory space={props.space} />
       <AddFilterExpense space={props.space} />
       <ManageFilterExpense space={props.space} />
       <div className="expense-page">
         <Topbar title="Expense listing">
-          {/* <div className="expense-page__topbar__right">
-            <OakButton
-              theme="primary"
-              variant="regular"
-              handleClick={openAddExpense}
-            >
-              <FontAwesomeIcon icon={faPlus} /> Add
-            </OakButton>
-            <OakButton
-              theme="info"
-              variant="regular"
-              handleClick={openAddExpense}
-            >
-              <FontAwesomeIcon icon={faPlus} /> Quick add
-            </OakButton>
-            <OakButton
-              theme="info"
-              variant="regular"
-              handleClick={openAddCategory}
-            >
-              <FontAwesomeIcon icon={faPlus} /> Category
-            </OakButton>
-          </div> */}
+          <div className="expense-page__topbar__right">
+            <button className="button" onClick={toggleFilter}>
+              <FontAwesomeIcon icon={faFilter} />
+            </button>
+          </div>
         </Topbar>
         <div className="expense-page__main">
           <div className="expense-page__main__summary">
@@ -87,8 +67,12 @@ const ExpensePage = (props: Props) => {
           </div>
         </div>
       </div>
-      <div className="expense-page__filter">
-        <Filter applyFilter={applyFilter} />
+      <div
+        className={`expense-page__filter ${
+          filterExpanded ? 'expense-page__filter--active' : ''
+        }`}
+      >
+        <Filter applyFilter={applyFilter} closeFilter={toggleFilter} />
       </div>
     </>
   );

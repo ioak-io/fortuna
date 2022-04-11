@@ -1,6 +1,9 @@
 .list-expense {
   //   padding: 20px;
-  padding: 20px 20px;
+  // padding: 20px 20px;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .list-expense__action {
@@ -8,6 +11,7 @@
   grid-auto-flow: column;
   justify-content: space-between;
   padding: 20px 20px 0 20px;
+  background-color: var(--color-surface);
 }
 
 .list-expense__action__left,

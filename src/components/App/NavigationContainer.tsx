@@ -19,7 +19,11 @@ const NavigationContainer = (props: Props) => {
     <div
       className={`navigation-container ${
         props.transparent ? 'navigation-container--transparent' : ''
-      } ${profile.sidebar ? 'sidebar-shown' : 'sidebar-hidden'}`}
+      } ${
+        profile.sidebar
+          ? 'navigation-container__sidebar-active'
+          : 'navigation-container__sidebar-inactive'
+      }`}
     >
       <Navbar
         space={props.space}

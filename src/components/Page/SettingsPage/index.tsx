@@ -41,41 +41,18 @@ const SettingsPage = (props: Props) => {
   return (
     <div className="settings-page">
       <Topbar title="Settings" />
-      <div className="settings-page-container main-section page-width">
-        <div className="settings-page__left">
-          <SideNavLink
-            link={`#/${props.space}/settings?link=general`}
-            active={queryParam.link === 'general'}
-          >
-            <FontAwesomeIcon icon={faCog} />
-            General
-          </SideNavLink>
-          <SideNavLink
-            link={`/#/${props.space}/settings?link=permissions`}
-            active={queryParam.link === 'permissions'}
-          >
-            <FontAwesomeIcon icon={faShieldAlt} />
-            Permissions
-          </SideNavLink>
-          <SideNavLink
-            link={`/#/${props.space}/settings?link=backup`}
-            active={queryParam.link === 'backup'}
-          >
-            <FontAwesomeIcon icon={faDatabase} />
-            Backup and Restore
-          </SideNavLink>
-        </div>
-        <div className="settings-page__main">
-          {queryParam.link === 'general' && (
-            <EditCompany space={props.space} location={props.location} />
-          )}
-          {queryParam.link === 'permissions' && (
-            <Permissions space={props.space} location={props.location} />
-          )}
-          {queryParam.link === 'backup' && (
-            <BackupAndRestore space={props.space} location={props.location} />
-          )}
-        </div>
+      <div className="settings-page-container main-section">
+        {/* <div className="settings-page__main"> */}
+        {queryParam.link === 'general' && (
+          <EditCompany space={props.space} location={props.location} />
+        )}
+        {queryParam.link === 'permissions' && (
+          <Permissions space={props.space} location={props.location} />
+        )}
+        {queryParam.link === 'backup' && (
+          <BackupAndRestore space={props.space} location={props.location} />
+        )}
+        {/* </div> */}
       </div>
     </div>
   );

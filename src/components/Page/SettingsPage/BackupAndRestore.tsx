@@ -36,12 +36,6 @@ const BackupAndRestore = (props: Props) => {
     setState({ ...state, [detail.name]: detail.value });
   };
 
-  const save = () => {
-    // saveCompany(state, authorization).then((response: any) => {
-    //   console.log('company details updated');
-    // });
-  };
-
   const importExpenseFile = () => {
     if (state.expenseImportFile?.length > 0) {
       console.log(state.expenseImportFile[0]);
@@ -54,7 +48,7 @@ const BackupAndRestore = (props: Props) => {
   };
 
   return (
-    <div className="backup-and-restore">
+    <div className="backup-and-restore page-width">
       {/* <OakForm formGroupName={formId} handleSubmit={save}>
         <div className="form"> */}
       {/* <div className="form-two-column"> */}

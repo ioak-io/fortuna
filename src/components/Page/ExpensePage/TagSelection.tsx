@@ -4,6 +4,7 @@ import OakInput from '../../../oakui/wc/OakInput';
 
 import './TagSelection.scss';
 import { isEmptyOrSpaces } from '../../Utils';
+import TagChip from '../../../components/TagChip';
 
 interface Props {
   tagIdList: string[];
@@ -55,17 +56,12 @@ const TagSelection = (props: Props) => {
       <div className="tag-selection-filter__list">
         {tagsFiltered &&
           tagsFiltered.map((tag: any) => (
-            <button
+            <TagChip
               key={tag._id}
-              className={`tag-selection-filter__list__chip ${
-                props.tagIdList?.includes(tag._id)
-                  ? 'tag-selection-filter__list__chip--selected'
-                  : ''
-              }`}
-              onClick={() => handleTagChange(tag)}
-            >
-              {tag.name}
-            </button>
+              tag={tag}
+              handleClick={handleTagChange}
+              active={props.tagIdList.includes(tag._id)}
+            />
           ))}
       </div>
     </div>

@@ -55,7 +55,7 @@ const Permissions = (props: Props) => {
   };
 
   return (
-    <div className="permissions content-section">
+    <div className="permissions page-width content-section">
       <OakForm formGroupName={formId} handleSubmit={addUser}>
         <div className="permissions__form">
           <OakInput

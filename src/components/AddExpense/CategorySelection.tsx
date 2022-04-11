@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import OakInput from '../../oakui/wc/OakInput';
+import CategoryChip from '../CategoryChip';
 
 import './CategorySelection.scss';
 import { isEmptyOrSpaces } from '../Utils';
@@ -56,17 +57,12 @@ const CategorySelection = (props: Props) => {
       <div className="category-selection__list">
         {categoriesFiltered &&
           categoriesFiltered.map((category: any) => (
-            <button
+            <CategoryChip
               key={category._id}
-              className={`category-selection__list__chip ${
-                props.categoryId === category._id
-                  ? 'category-selection__list__chip--selected'
-                  : ''
-              }`}
-              onClick={() => handleCategoryChange(category)}
-            >
-              {category.name}
-            </button>
+              category={category}
+              handleClick={handleCategoryChange}
+              active={props.categoryId === category._id}
+            />
           ))}
       </div>
       {props.error && <div className="error">Choose category</div>}

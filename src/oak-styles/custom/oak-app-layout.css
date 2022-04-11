@@ -1,6 +1,13 @@
 * {
-  --oak-app-layout-sidebar-width: 250px;
+  --oak-app-layout-sidebar-width: 350px;
+  --oak-app-layout-sidebar-width-shrinked: 80px;
   --oak-app-layout-topbar-height: 70px;
+}
+
+@media (max-width: 767px) {
+  * {
+    --oak-app-layout-sidebar-width-shrinked: 0px;
+  }
 }
 
 * .theme_dark {

@@ -4,6 +4,7 @@ import OakInput from '../../../oakui/wc/OakInput';
 
 import './CategorySelection.scss';
 import { isEmptyOrSpaces } from '../../Utils';
+import CategoryChip from '../../../components/CategoryChip';
 
 interface Props {
   categoryIdList: string[];
@@ -59,17 +60,12 @@ const CategorySelection = (props: Props) => {
       <div className="category-selection-filter__list">
         {categoriesFiltered &&
           categoriesFiltered.map((category: any) => (
-            <button
+            <CategoryChip
               key={category._id}
-              className={`category-selection-filter__list__chip ${
-                props.categoryIdList.includes(category._id)
-                  ? 'category-selection-filter__list__chip--selected'
-                  : ''
-              }`}
-              onClick={() => handleCategoryChange(category)}
-            >
-              {category.name}
-            </button>
+              category={category}
+              handleClick={handleCategoryChange}
+              active={props.categoryIdList.includes(category._id)}
+            />
           ))}
       </div>
     </div>

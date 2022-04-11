@@ -9,7 +9,6 @@ import { receiveMessage, sendMessage } from '../../events/MessageService';
 import DarkModeIcon from '../Navigation/DarkModeIcon';
 import NavAccountIcon from '../Navigation/NavAccountIcon';
 import { removeAuth } from '../../actions/AuthActions';
-import AddCategoryCommand from '../../events/AddCategoryCommand';
 
 interface Props {
   cookies: any;
@@ -43,16 +42,12 @@ const RightNav = (props: Props) => {
     window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
   };
 
-  const openAddCategory = () => {
-    AddCategoryCommand.next(true);
-  };
-
   return (
     <div className="right-nav">
       {/* <OakButton theme="info" variant="regular" handleClick={openAddExpense}>
         <FontAwesomeIcon icon={faPlus} /> Expense
       </OakButton>
-      <OakButton theme="info" variant="regular" handleClick={openAddCategory}>
+      <OakButton theme="info" variant="regular" handleClick={openEditCategory}>
         <FontAwesomeIcon icon={faPlus} /> Category
       </OakButton> */}
       <DarkModeIcon />

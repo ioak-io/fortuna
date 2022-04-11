@@ -1,5 +1,22 @@
 .expense-filter {
   padding: 0 20px;
+  position: relative;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: flex-start;
+}
+
+.expense-filter__name {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  align-content: center;
+  height: var(--oak-app-layout-topbar-height);
+  font-size: 18px;
+  button {
+    font-size: 18px;
+  }
 }
 
 .expense-filter__topbar {
@@ -26,10 +43,5 @@
   align-content: center;
   align-items: center;
   justify-content: flex-end;
-}
-
-.expense-filter__name {
-  margin-bottom: 20px;
-  margin-top: 20px;
-  font-size: 20px;
+  padding: 0 20px;
 }

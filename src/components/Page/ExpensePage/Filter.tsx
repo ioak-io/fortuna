@@ -46,6 +46,7 @@ const EMPTY_FILTER: ExpenseFilterModel = {
 
 interface Props {
   applyFilter: any;
+  closeFilter: any;
 }
 
 const Filter = (props: Props) => {
@@ -100,22 +101,11 @@ const Filter = (props: Props) => {
   return (
     <div className="expense-filter">
       {/* <div className="expense-filter__topbar">Filter criteria</div> */}
-      <div className="expense-filter__action">
-        <OakButton theme="primary" variant="regular" handleClick={applyFilter}>
-          <FontAwesomeIcon icon={faCheck} /> Apply
-        </OakButton>
-        <OakButton theme="info" variant="regular" handleClick={saveFilter}>
-          <FontAwesomeIcon icon={faBookmark} /> Save
-        </OakButton>
-        <OakButton theme="info" variant="regular" handleClick={resetFilter}>
-          <FontAwesomeIcon icon={faTimes} />
-        </OakButton>
-        <OakButton theme="info" variant="regular" handleClick={manageFilter}>
-          <FontAwesomeIcon icon={faCog} />
-        </OakButton>
-      </div>
       <div className="expense-filter__name">
-        {state._id ? state.name : 'New filter'}
+        <div>{state._id ? state.name : 'New filter'}</div>
+        <button className="button" onClick={props.closeFilter}>
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
       </div>
       <div className="expense-filter__main">
         <OakInput
@@ -241,6 +231,20 @@ const Filter = (props: Props) => {
           handleChange={handleTagChange}
           tagIdList={state.tagIdList}
         />
+      </div>
+      <div className="expense-filter__action">
+        <OakButton theme="primary" variant="regular" handleClick={applyFilter}>
+          <FontAwesomeIcon icon={faCheck} /> Apply
+        </OakButton>
+        <OakButton theme="info" variant="regular" handleClick={saveFilter}>
+          <FontAwesomeIcon icon={faBookmark} /> Save
+        </OakButton>
+        <OakButton theme="info" variant="regular" handleClick={resetFilter}>
+          <FontAwesomeIcon icon={faTimes} />
+        </OakButton>
+        <OakButton theme="info" variant="regular" handleClick={manageFilter}>
+          <FontAwesomeIcon icon={faCog} />
+        </OakButton>
       </div>
     </div>
   );

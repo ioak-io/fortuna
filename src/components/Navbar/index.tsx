@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useHistory } from 'react-router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faHamburger } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 
 import Logo from '../Logo';
 import RightNav from './RightNav';
+import { setProfile } from '../../actions/ProfileActions';
 // import RightNav from '../Topbar/RightNav';
 
 interface Props {
@@ -35,12 +38,21 @@ const Navbar = (props: Props) => {
     });
   }, []);
 
+  const toggleSidebar = () => {
+    dispatch(setProfile({ ...profile, sidebar: !profile.sidebar }));
+  };
+
   return (
     <div className="navbar">
       <div className="navbar__left">
         <div>
-          <Logo />
+          <button className="button" onClick={toggleSidebar}>
+            <FontAwesomeIcon icon={faBars} />
+          </button>
         </div>
+        {/* <div>
+          <Logo />
+        </div> */}
 
         <div className="navbar__left__links">
           {props.space && (

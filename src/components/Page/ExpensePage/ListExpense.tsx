@@ -23,7 +23,6 @@ import ExpenseListState from '../../../simplestates/ExpenseListState';
 import ExpenseListLoadMoreCommand from '../../../simplestates/ExpenseListLoadMoreCommand';
 import ExpenseModel from '../../../model/ExpenseModel';
 import { fetchAndAppendExpenseItems } from '../../../actions/ExpenseActions';
-import AddCategoryCommand from '../../../events/AddCategoryCommand';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
 
 interface Props {
@@ -107,10 +106,6 @@ const ListExpense = (props: Props) => {
     history.push(`/${props.space}/bill/edit`);
   };
 
-  const openAddCategoryPage = () => {
-    AddCategoryCommand.next(true);
-  };
-
   const openAddExpense = () => {
     QuickEditExpenseCommand.next({ open: true, record: null });
   };
@@ -178,34 +173,30 @@ const ListExpense = (props: Props) => {
             handleClick={openAddExpense}
             size="small"
           >
-            <FontAwesomeIcon icon={faPlus} /> Line item
+            <FontAwesomeIcon icon={faPlus} /> Item
           </OakButton>
-          <OakButton
-            theme="info"
-            variant="regular"
-            handleClick={openAddCategoryPage}
-            size="small"
-          >
-            <FontAwesomeIcon icon={faPlus} /> Category
-          </OakButton>
-          <OakButton
-            theme="info"
-            variant="regular"
-            handleClick={() => {}}
-            size="small"
-          >
-            <FontAwesomeIcon icon={faFileExport} />
-          </OakButton>
-          <OakButton
-            theme="info"
-            variant="regular"
-            handleClick={() => {
-              setDenseView(!denseView);
-            }}
-            size="small"
-          >
-            <FontAwesomeIcon icon={denseView ? faExpandAlt : faCompressAlt} />
-          </OakButton>
+          <div className="desktop-only">
+            <OakButton
+              theme="info"
+              variant="regular"
+              handleClick={() => {}}
+              size="small"
+            >
+              <FontAwesomeIcon icon={faFileExport} />
+            </OakButton>
+          </div>
+          <div className="desktop-only">
+            <OakButton
+              theme="info"
+              variant="regular"
+              handleClick={() => {
+                setDenseView(!denseView);
+              }}
+              size="small"
+            >
+              <FontAwesomeIcon icon={denseView ? faExpandAlt : faCompressAlt} />
+            </OakButton>
+          </div>
         </div>
         {/* <div className="list-expense__action__right">
           <OakButton
@@ -224,7 +215,7 @@ const ListExpense = (props: Props) => {
           </OakButton>
         </div> */}
       </div>
-      <div className="list-expense">
+      <div className="content-section list-expense">
         <table
           className={tableCompose({
             color: 'surface',

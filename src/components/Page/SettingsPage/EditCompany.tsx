@@ -53,7 +53,7 @@ const EditCompany = (props: Props) => {
   };
 
   return (
-    <div className="edit-company content-section">
+    <div className="edit-company page-width content-section">
       {company && (
         <OakForm formGroupName={formId} handleSubmit={save}>
           <div className="form">

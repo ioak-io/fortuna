@@ -19,15 +19,15 @@
   height: var(--oak-app-layout-topbar-height);
   box-shadow: none;
   //   box-shadow: 0 2px 4px RGB(45 62 80 / 12%);
-  // background-color: var(--color-global);
-  background-image: linear-gradient(
-    to right,
-    #4354a1,
-    #5155ab,
-    #6055b5,
-    #7154bd,
-    #8352c4
-  );
+  background-color: var(--color-global);
+  // background-image: linear-gradient(
+  //   to right,
+  //   #4354a1,
+  //   #5155ab,
+  //   #6055b5,
+  //   #7154bd,
+  //   #8352c4
+  // );
   // background-image: linear-gradient(
   //   to right,
   //   #60bebe,
@@ -36,12 +36,21 @@
   //   #c2be6a,
   //   #f0b268
   // );
-  border-bottom: 1px solid var(--color-global-dark);
-  transition: background-color 250ms ease-in-out, border-color 250ms ease-in-out;
+  // border-bottom: 1px solid var(--color-global-dark);
+  transition: background-color 250ms ease-in-out, border-color 250ms ease-in-out,
+    margin-left 250ms ease-in-out;
 }
 
 .navigation-container.navigation-container--transparent {
   transition: background-color 250ms ease-in-out, border-color 250ms ease-in-out;
   background-color: var(--color-global-semitransparent2);
   border-bottom: 1px solid transparent;
+}
+
+.navigation-container__sidebar-inactive {
+  margin-left: 75px;
+  margin-left: var(--oak-app-layout-sidebar-width-shrinked);
+}
+.navigation-container__sidebar-active {
+  margin-left: var(--oak-app-layout-sidebar-width);
 }

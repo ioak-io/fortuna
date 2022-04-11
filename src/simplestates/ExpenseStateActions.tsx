@@ -14,8 +14,24 @@ const ExpenseStateActions = (props: Props) => {
     if (authorization?.isAuth && props.space) {
       dispatch(
         fetchAndSetExpenseItems(props.space, authorization, {
-          ...expenseState.filter,
-          pagination: expenseState.pagination,
+          name: '',
+          from: '',
+          to: '',
+          description: '',
+          moreThan: null,
+          lessThan: null,
+          days: null,
+          months: null,
+          monthNumber: null,
+          yearNumber: null,
+          categoryIdList: [],
+          kakeiboList: [],
+          tagIdList: [],
+          pagination: {
+            pageSize: 20,
+            pageNo: 0,
+            hasMore: true,
+          },
         })
       );
     }

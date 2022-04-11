@@ -15,6 +15,7 @@ import { fetchAndSetCompanyItems } from '../../actions/CompanyActions';
 import { fetchAndSetUserItems } from '../../actions/UserActions';
 import { fetchAndSetFilterExpenseItems } from '../../actions/FilterExpenseActions';
 import { fetchAllTags } from '../../actions/TagActions';
+import { setProfile } from '../../actions/ProfileActions';
 
 const Init = () => {
   const authorization = useSelector((state: any) => state.authorization);
@@ -45,6 +46,7 @@ const Init = () => {
   }, [authorization]);
 
   useEffect(() => {
+    initializeProfileFromSession();
     receiveMessage().subscribe((event: any) => {
       console.log(event);
       if (event.name === 'spaceChange') {
@@ -82,6 +84,20 @@ const Init = () => {
     console.log('Initialization logic here');
     if (space) {
       // dispatch(fetchAllCategories(space, authorization));
+    }
+  };
+
+  const initializeProfileFromSession = () => {
+    const colorMode = sessionStorage.getItem('expenso_pref_profile_colormode');
+    const sidebarStatus = sessionStorage.getItem('expenso_pref_sidebar_status');
+
+    if (colorMode || sidebarStatus) {
+      dispatch(
+        setProfile({
+          theme: colorMode || 'theme_dark',
+          sidebar: sidebarStatus === 'expanded',
+        })
+      );
     }
   };
 

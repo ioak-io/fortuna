@@ -25,7 +25,8 @@ import NavigationContainer from './NavigationContainer';
 import MakeNavBarTransparentCommand from '../../events/MakeNavBarTransparentCommand';
 import HideNavBarCommand from '../../events/HideNavBarCommand';
 import AddExpense from '../AddExpense';
-import AddCategory from '../AddCategory';
+import EditCategory from '../EditCategory';
+import MainContent from '../MainContent';
 
 interface Props {
   cookies: any;
@@ -114,32 +115,33 @@ const Content = (props: Props) => {
             displayCount={5}
           /> */}
 
-          <OakAppLayout
+          {/* <OakAppLayout
             topbarVariant="auto"
             sidebarVariant="none"
             topbarColor="custom"
             topbarElevation={0}
             sidebarElevation={2}
             sidebarToggleIconVariant="chevron"
-          >
-            <div slot="sidebar">
+          > */}
+          {/* <div slot="sidebar">
               <SidebarContainer />
-            </div>
-            <div slot="toolbar">
+            </div> */}
+          {/* <div slot="toolbar">
               <TopbarContainer cookies={props.cookies} />
-            </div>
-            <div slot="main">
-              {/* <TopbarContainer cookies={props.cookies} /> */}
-              {!hideNav && (
+            </div> */}
+          {/* <div slot="main"> */}
+          {/* <TopbarContainer cookies={props.cookies} /> */}
+          {/* {!hideNav && (
                 <NavigationContainer
                   cookies={props.cookies}
                   space={space}
                   transparent={transparentNav}
                 />
               )}
-              <BodyContainer {...props} />
-            </div>
-          </OakAppLayout>
+              <BodyContainer {...props} /> */}
+          <MainContent cookies={props.cookies} space={space} />
+          {/* </div> */}
+          {/* </OakAppLayout> */}
         </HashRouter>
       </div>
     </ApolloProvider>
