@@ -14,51 +14,38 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
 
-import './Filter.scss';
-import OakTypography from '../../../oakui/wc/OakTypography';
-import OakInput from '../../../oakui/wc/OakInput';
-import { newId } from '../../../events/MessageService';
+import './style.scss';
+import OakTypography from '../../oakui/wc/OakTypography';
+import OakInput from '../../oakui/wc/OakInput';
+import { newId } from '../../events/MessageService';
 import CategorySelection from './CategorySelection';
 import KakeiboSelection from './KakeiboSelection';
-import OakButton from '../../../oakui/wc/OakButton';
-import ExpenseFilterModel from '../../../model/ExpenseFilterModel';
-import AddFilterExpenseCommand from '../../../events/AddFilterExpenseCommand';
-import ManageFilterExpenseCommand from '../../../events/ManageFilterExpenseCommand';
+import OakButton from '../../oakui/wc/OakButton';
+import ExpenseFilterModel from '../../model/ExpenseFilterModel';
+import AddFilterExpenseCommand from '../../events/AddFilterExpenseCommand';
+import ManageFilterExpenseCommand from '../../events/ManageFilterExpenseCommand';
 import TagSelection from './TagSelection';
 
-const EMPTY_FILTER: ExpenseFilterModel = {
-  name: '',
-  showInDashboard: false,
-  showInSummary: false,
-  from: '',
-  to: '',
-  description: '',
-  moreThan: null,
-  lessThan: null,
-  days: null,
-  months: null,
-  monthNumber: null,
-  yearNumber: null,
-  categoryIdList: [],
-  kakeiboList: [],
-  tagIdList: [],
-};
-
 interface Props {
+  emptyFilter: any;
   applyFilter: any;
   closeFilter: any;
+  saveFilter: any;
+  manageFilter: any;
+  filterFromState: any;
 }
 
-const Filter = (props: Props) => {
+const GridFilter = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
-  const expenseState: any = useSelector((state: any) => state.expense);
   const [formId, setFormId] = useState(newId());
 
-  const [state, setState] = useState<ExpenseFilterModel>({ ...EMPTY_FILTER });
+  const [state, setState] = useState<ExpenseFilterModel>({
+    ...props.emptyFilter,
+  });
 
   useEffect(() => {
-    setState({ ...expenseState.filter });
-  }, [expenseState.filter]);
+    setState({ ...props.filterFromState });
+  }, [props.filterFromState]);
 
   const handleChange = (detail: any) => {
     setState({
@@ -86,28 +73,28 @@ const Filter = (props: Props) => {
   };
 
   const resetFilter = () => {
-    props.applyFilter({ ...EMPTY_FILTER });
-    setState({ ...EMPTY_FILTER });
+    props.applyFilter({ ...props.emptyFilter });
+    setState({ ...props.emptyFilter });
   };
 
   const saveFilter = () => {
-    AddFilterExpenseCommand.next({ open: true, payload: { ...state } });
+    props.saveFilter({ ...state });
   };
 
   const manageFilter = () => {
-    ManageFilterExpenseCommand.next(true);
+    props.manageFilter();
   };
 
   return (
-    <div className="expense-filter">
-      {/* <div className="expense-filter__topbar">Filter criteria</div> */}
-      <div className="expense-filter__name">
+    <div className="grid-filter">
+      {/* <div className="grid-filter__topbar">Filter criteria</div> */}
+      <div className="grid-filter__name">
         <div>{state._id ? state.name : 'New filter'}</div>
         <button className="button" onClick={props.closeFilter}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
-      <div className="expense-filter__main">
+      <div className="grid-filter__main">
         <OakInput
           name="description"
           value={state.description}
@@ -232,7 +219,7 @@ const Filter = (props: Props) => {
           tagIdList={state.tagIdList}
         />
       </div>
-      <div className="expense-filter__action">
+      <div className="grid-filter__action">
         <OakButton theme="primary" variant="regular" handleClick={applyFilter}>
           <FontAwesomeIcon icon={faCheck} /> Apply
         </OakButton>
@@ -250,4 +237,4 @@ const Filter = (props: Props) => {
   );
 };
 
-export default Filter;
+export default GridFilter;

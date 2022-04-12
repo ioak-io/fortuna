@@ -16,6 +16,7 @@ import { fetchAndSetUserItems } from '../../actions/UserActions';
 import { fetchAndSetFilterExpenseItems } from '../../actions/FilterExpenseActions';
 import { fetchAllTags } from '../../actions/TagActions';
 import { setProfile } from '../../actions/ProfileActions';
+import ReceiptStateActions from '../../simplestates/ReceiptStateActions';
 
 const Init = () => {
   const authorization = useSelector((state: any) => state.authorization);
@@ -104,6 +105,7 @@ const Init = () => {
   return (
     <>
       <ExpenseStateActions space={space} />
+      <ReceiptStateActions space={space} />
     </>
   );
 };

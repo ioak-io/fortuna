@@ -5,7 +5,7 @@ import { addDays, format } from 'date-fns';
 import { faCheck, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
-import BillModel from '../../../model/BillModel';
+import ReceiptModel from '../../../model/ReceiptModel';
 import ExpenseModel from '../../../model/ExpenseModel';
 import Topbar from '../../../components/Topbar';
 
@@ -18,7 +18,7 @@ const EMPTY_EXPENSE: ExpenseModel = {
   description: '',
 };
 
-const EMPTY_BILL: BillModel = {
+const EMPTY_BILL: ReceiptModel = {
   billDate: format(new Date(), 'yyyy-MM-dd'),
   items: [{ ...EMPTY_EXPENSE }],
   number: '',

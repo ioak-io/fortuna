@@ -17,6 +17,7 @@ import LandingPage from '../Page/LandingPage';
 import EditCompanyPage from '../Page/EditCompanyPage';
 import SettingsPage from '../Page/SettingsPage';
 import UnauthorizedPage from '../Page/UnauthorizedPage';
+import ReceiptPage from '../Page/ReceiptPage';
 
 interface Props {
   cookies: any;
@@ -121,7 +122,19 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
-        path="/:space/bill/edit"
+        path="/:space/receipt"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={ReceiptPage}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/receipt/edit"
         exact
         render={(propsLocal) => (
           <OakRouteApp

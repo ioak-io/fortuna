@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import OakInput from '../../../oakui/wc/OakInput';
+import OakInput from '../../oakui/wc/OakInput';
 
 import './TagSelection.scss';
-import { isEmptyOrSpaces } from '../../Utils';
-import TagChip from '../../../components/TagChip';
+import { isEmptyOrSpaces } from '../Utils';
+import TagChip from '../../components/TagChip';
 
 interface Props {
   tagIdList: string[];

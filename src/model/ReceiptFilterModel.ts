@@ -1,4 +1,4 @@
-export default interface ExpenseFilterModel {
+export default interface ReceiptFilterModel {
   _id?: string;
   name?: string | null;
   showInSummary?: boolean;

@@ -63,6 +63,7 @@ const AddExpense = (props: Props) => {
           _id: message.record._id,
           category: message.record.category,
           billId: message.record.billId,
+          tagId: message.record.tagId,
         });
       }
       setIsOpen(message.open);

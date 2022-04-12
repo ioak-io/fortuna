@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import OakInput from '../../../oakui/wc/OakInput';
+import OakInput from '../../oakui/wc/OakInput';
 
 import './KakeiboSelection.scss';
-import { isEmptyOrSpaces } from '../../Utils';
+import { isEmptyOrSpaces } from '../Utils';
 
 interface Props {
   kakeiboList: string[];

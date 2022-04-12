@@ -1,6 +1,6 @@
 import ExpenseModel from './ExpenseModel';
 
-export default interface BillModel {
+export default interface ReceiptModel {
   _id?: string;
   number: string;
   description?: string;

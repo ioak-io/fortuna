@@ -5,7 +5,7 @@ import { addDays, format } from 'date-fns';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
-import BillModel from '../../../model/BillModel';
+import ReceiptModel from '../../../model/ReceiptModel';
 import ExpenseModel from '../../../model/ExpenseModel';
 import BillDetails from './BillDetails';
 import ExpenseItems from './ExpenseItems';
@@ -30,7 +30,7 @@ const EMPTY_EXPENSE: ExpenseModel = {
   description: '',
 };
 
-const EMPTY_BILL: BillModel = {
+const EMPTY_BILL: ReceiptModel = {
   billDate: format(new Date(), 'yyyy-MM-dd'),
   items: [{ ...EMPTY_EXPENSE }],
   number: '',
@@ -44,7 +44,7 @@ interface Props {
 }
 
 const EditBillPage = (props: Props) => {
-  const getEmptyBill = (): BillModel => {
+  const getEmptyBill = (): ReceiptModel => {
     return {
       ...EMPTY_BILL,
       billDate:
@@ -58,7 +58,7 @@ const EditBillPage = (props: Props) => {
   const [formId, setFormId] = useState(newId());
   const [errorInItemList, setErrorInItemList] = useState<boolean[]>([]);
   const [errorInBillDetails, setErrorInBillDetails] = useState<boolean>(false);
-  const [state, setState] = useState<BillModel>({ ...getEmptyBill() });
+  const [state, setState] = useState<ReceiptModel>({ ...getEmptyBill() });
   const [addAnother, setAddAnother] = useState(false);
 
   useEffect(() => {
@@ -99,7 +99,7 @@ const EditBillPage = (props: Props) => {
     setState({ ...state, total: total || state.total, items });
   };
 
-  const handleBillChange = (_bill: BillModel) => {
+  const handleBillChange = (_bill: ReceiptModel) => {
     setState(_bill);
   };
 

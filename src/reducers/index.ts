@@ -9,6 +9,7 @@ import ExpenseReducer from './ExpenseReducer';
 import CompanyReducer from './CompanyReducer';
 import FilterExpenseReducer from './FilterExpenseReducer';
 import TagReducer from './TagReducer';
+import ReceiptReducer from './ReceiptReducer';
 
 export default combineReducers({
   authorization: AuthReducer,
@@ -20,5 +21,6 @@ export default combineReducers({
   category: CategoryReducer,
   tag: TagReducer,
   expense: ExpenseReducer,
+  receipt: ReceiptReducer,
   filterExpense: FilterExpenseReducer,
 });

@@ -1,4 +1,4 @@
-.expense-filter {
+.grid-filter {
   padding: 0 20px;
   position: relative;
   height: 100%;
@@ -7,7 +7,7 @@
   align-items: flex-start;
 }
 
-.expense-filter__name {
+.grid-filter__name {
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
@@ -19,7 +19,7 @@
   }
 }
 
-.expense-filter__topbar {
+.grid-filter__topbar {
   height: 100px;
   display: grid;
   grid-auto-flow: column;
@@ -29,13 +29,13 @@
   font-size: 28px;
 }
 
-.expense-filter__main {
+.grid-filter__main {
   display: grid;
   grid-auto-flow: row;
   row-gap: 20px;
 }
 
-.expense-filter__action {
+.grid-filter__action {
   height: 100px;
   display: grid;
   grid-auto-flow: column;

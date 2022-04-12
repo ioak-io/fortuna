@@ -13,16 +13,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
 
-import './ListExpense.scss';
-import OakTypography from '../../../oakui/wc/OakTypography';
-import { searchExpense } from './service';
+import './ListReceipt.scss';
+import { searchReceipt } from './service';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import OakButton from '../../../oakui/wc/OakButton';
-import QuickEditExpenseCommand from '../../../events/QuickEditExpenseCommand';
-import ExpenseListState from '../../../simplestates/ExpenseListState';
-import ExpenseListLoadMoreCommand from '../../../simplestates/ExpenseListLoadMoreCommand';
-import ExpenseModel from '../../../model/ExpenseModel';
-import { fetchAndAppendExpenseItems } from '../../../actions/ExpenseActions';
+import { fetchAndAppendReceiptItems } from '../../../actions/ReceiptActions';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
 
 interface Props {
@@ -30,12 +25,12 @@ interface Props {
   data?: any;
 }
 
-const ListExpense = (props: Props) => {
+const ListReceipt = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const authorization = useSelector((state: any) => state.authorization);
   const categories = useSelector((state: any) => state.category.categories);
-  const expenseState: any = useSelector((state: any) => state.expense);
+  const receiptState: any = useSelector((state: any) => state.receipt);
   const company = useSelector((state: any) =>
     state.company.items.find(
       (item: any) => item.reference === parseInt(props.space, 10)
@@ -59,14 +54,14 @@ const ListExpense = (props: Props) => {
   }, [categories]);
 
   // useEffect(() => {
-  //   ExpenseListState.asObservable().subscribe((items) => {
+  //   ReceiptListState.asObservable().subscribe((items) => {
   //     setData(items);
   //   });
   // }, []);
 
   // useEffect(() => {
   //   if (authorization.isAuth) {
-  //     searchExpense('companyname', authorization, props.searchCriteria).then(
+  //     searchReceipt('companyname', authorization, props.searchCriteria).then(
   //       (_data: any) => {
   //         setData(_data);
   //         console.log(_data);
@@ -94,60 +89,36 @@ const ListExpense = (props: Props) => {
   // };
   const toggleAll = () => {
     const _checkedRecords: string[] = [];
-    if (expenseState.items.length > checkedRecords.length) {
-      expenseState.items.forEach((item: any) => {
+    if (receiptState.items.length > checkedRecords.length) {
+      receiptState.items.forEach((item: any) => {
         _checkedRecords.push(item._id);
       });
     }
     setCheckedRecords(_checkedRecords);
   };
 
-  const openAddBillPage = () => {
+  const openAddReceipt = () => {
     history.push(`/${props.space}/receipt/edit`);
   };
 
-  const openAddExpense = () => {
-    QuickEditExpenseCommand.next({ open: true, record: null });
-  };
-
   const openRecord = (record: any) => {
-    QuickEditExpenseCommand.next({ open: true, record });
+    history.push(`/${props.space}/receipt/edit?id=${record._id}`);
   };
 
   const loadMore = () => {
     dispatch(
-      fetchAndAppendExpenseItems(props.space, authorization, {
-        ...expenseState.filter,
-        pagination: { ...expenseState.pagination },
+      fetchAndAppendReceiptItems(props.space, authorization, {
+        ...receiptState.filter,
+        pagination: { ...receiptState.pagination },
       })
     );
   };
 
   return (
     <>
-      <div className="list-expense__action">
-        <div className="list-expense__action__left">
-          {/* <OakButton
-            theme="info"
-            variant="regular"
-            handleClick={() => {}}
-            size="small"
-          >
-            <FontAwesomeIcon icon={faFileExport} /> Export
-          </OakButton>
-          {checkedRecords.length > 0 && (
-            <OakButton
-              handleClick={() => {}}
-              variant="regular"
-              theme="danger"
-              size="small"
-            >
-              <FontAwesomeIcon icon={faTrash} /> Delete selection (
-              {checkedRecords.length})
-            </OakButton>
-          )} */}
-        </div>
-        <div className="list-expense__action__right">
+      <div className="list-receipt__action">
+        <div className="list-receipt__action__left" />
+        <div className="list-receipt__action__right">
           {checkedRecords.length > 0 && (
             <OakButton
               handleClick={() => {}}
@@ -160,31 +131,13 @@ const ListExpense = (props: Props) => {
             </OakButton>
           )}
           <OakButton
-            theme="primary"
-            variant="regular"
-            handleClick={openAddBillPage}
-            size="small"
-          >
-            <FontAwesomeIcon icon={faPlus} /> Bill
-          </OakButton>
-          <OakButton
             theme="info"
             variant="regular"
-            handleClick={openAddExpense}
+            handleClick={openAddReceipt}
             size="small"
           >
             <FontAwesomeIcon icon={faPlus} /> Item
           </OakButton>
-          <div className="desktop-only">
-            <OakButton
-              theme="info"
-              variant="regular"
-              handleClick={() => {}}
-              size="small"
-            >
-              <FontAwesomeIcon icon={faFileExport} />
-            </OakButton>
-          </div>
           <div className="desktop-only">
             <OakButton
               theme="info"
@@ -198,24 +151,8 @@ const ListExpense = (props: Props) => {
             </OakButton>
           </div>
         </div>
-        {/* <div className="list-expense__action__right">
-          <OakButton
-            theme="primary"
-            variant="regular"
-            handleClick={openAddExpense}
-          >
-            <FontAwesomeIcon icon={faPlus} /> Add
-          </OakButton>
-          <OakButton
-            theme="info"
-            variant="regular"
-            handleClick={openAddExpense}
-          >
-            <FontAwesomeIcon icon={faPlus} /> Quick add
-          </OakButton>
-        </div> */}
       </div>
-      <div className="content-section list-expense">
+      <div className="content-section list-receipt">
         <table
           className={tableCompose({
             color: 'surface',
@@ -224,26 +161,23 @@ const ListExpense = (props: Props) => {
         >
           <thead>
             <tr>
-              <th className="list-expense__column list-expense__column--selection">
+              <th className="list-receipt__column list-receipt__column--selection">
                 <OakCheckbox
                   name="check"
-                  value={checkedRecords.length === expenseState.items.length}
+                  value={checkedRecords.length === receiptState.items.length}
                   handleChange={toggleAll}
                 />
               </th>
-              <th className="list-expense__column">Date</th>
-              <th className="list-expense__column">Category</th>
-              {/* <th className="list-expense__column list-expense__column--kakeibo">
-                Kakeibo
-              </th> */}
-              <th className="list-expense__column">Description</th>
-              <th className="list-expense__column">Amount</th>
+              <th className="list-receipt__column">Date</th>
+              <th className="list-receipt__column">Receipt number</th>
+              <th className="list-receipt__column">Description</th>
+              <th className="list-receipt__column">Amount</th>
             </tr>
           </thead>
           <tbody>
-            {expenseState.items.map((record: any) => (
+            {receiptState.items.map((record: any) => (
               <tr key={record._id}>
-                <td className="list-expense__column list-expense__column--selection">
+                <td className="list-receipt__column list-receipt__column--selection">
                   <div>
                     <OakCheckbox
                       name="check"
@@ -253,35 +187,23 @@ const ListExpense = (props: Props) => {
                   </div>
                 </td>
                 <td
-                  className="list-expense__column"
+                  className="list-receipt__column"
                   onClick={() => openRecord(record)}
                 >
                   {format(new Date(record.billDate), 'yyyy-MM-dd')}
                 </td>
-                <td onClick={() => openRecord(record)}>
-                  {categoryMap[record.category]
-                    ? categoryMap[record.category].name
-                    : ''}
-                </td>
-                {/* <td
-                  className="list-expense__column list-expense__column--kakeibo"
-                  onClick={() => openRecord(record)}
-                >
-                  {categoryMap[record.category]
-                    ? categoryMap[record.category].kakeibo
-                    : ''}
-                </td> */}
+                <td onClick={() => openRecord(record)}>{record.number}</td>
                 <td
-                  className="list-expense__column list-expense__column--description"
+                  className="list-receipt__column list-receipt__column--description"
                   onClick={() => openRecord(record)}
                 >
                   {record.description}
                 </td>
                 <td
-                  className="list-expense__column"
+                  className="list-receipt__column"
                   onClick={() => openRecord(record)}
                 >
-                  {formatCurrencyByCompanyDetail(record.amount, company)}
+                  {formatCurrencyByCompanyDetail(record.total, company)}
                 </td>
               </tr>
             ))}
@@ -293,4 +215,4 @@ const ListExpense = (props: Props) => {
   );
 };
 
-export default ListExpense;
+export default ListReceipt;

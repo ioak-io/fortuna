@@ -7,27 +7,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import OakButton from '../../../oakui/wc/OakButton';
-import ListExpense from './ListExpense';
+import ListReceipt from './ListReceipt';
 import './style.scss';
-import Summary from './Summary';
-import AddExpense from '../../AddExpense';
-import { ExpenseFilterState } from '../../../simplestates/ExpenseFilterState';
-import { fetchAndSetExpenseItems } from '../../../actions/ExpenseActions';
+import { fetchAndSetReceiptItems } from '../../../actions/ReceiptActions';
 import Topbar from '../../../components/Topbar';
-import AddFilterExpense from '../../../components/AddFilterExpense';
-import ManageFilterExpense from '../../../components/ManageFilterExpense';
+// import AddFilterReceipt from '../../../components/AddFilterReceipt';
+// import ManageFilterReceipt from '../../../components/ManageFilterReceipt';
 import EditCategory from '../../../components/EditCategory';
-import ExpenseFilterModel from '../../../model/ExpenseFilterModel';
-import AddFilterExpenseCommand from '../../../events/AddFilterExpenseCommand';
-import ManageFilterExpenseCommand from '../../../events/ManageFilterExpenseCommand';
+import ReceiptFilterModel from '../../../model/ReceiptFilterModel';
 import GridFilter from '../../../components/GridFilter';
+// import AddFilterReceiptCommand from '../../../events/AddFilterReceiptCommand';
+// import ManageFilterReceiptCommand from '../../../events/ManageFilterReceiptCommand';
 
 interface Props {
   history: any;
   space: string;
 }
 
-const EMPTY_FILTER: ExpenseFilterModel = {
+const EMPTY_FILTER: ReceiptFilterModel = {
   name: '',
   showInDashboard: false,
   showInSummary: false,
@@ -45,11 +42,11 @@ const EMPTY_FILTER: ExpenseFilterModel = {
   tagIdList: [],
 };
 
-const ExpensePage = (props: Props) => {
+const ReceiptPage = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const dispatch = useDispatch();
-  const expenseFilterState: any = useSelector(
-    (state: any) => state.expense.filter
+  const receiptFilterState: any = useSelector(
+    (state: any) => state.receipt.filter
   );
 
   const [filterExpanded, setFilterExpanded] = useState(false);
@@ -60,48 +57,44 @@ const ExpensePage = (props: Props) => {
 
   const applyFilter = (searchCriteria: any) => {
     // setSearchCriteria(searchCriteria);
-    // ExpenseFilterState.next(searchCriteria);
+    // ReceiptFilterState.next(searchCriteria);
     dispatch(
-      fetchAndSetExpenseItems(props.space, authorization, {
+      fetchAndSetReceiptItems(props.space, authorization, {
         ...searchCriteria,
       })
     );
   };
 
   const saveFilter = (_state: any) => {
-    AddFilterExpenseCommand.next({ open: true, payload: { ..._state } });
+    // AddFilterReceiptCommand.next({ open: true, payload: { ..._state } });
   };
 
   const manageFilter = () => {
-    ManageFilterExpenseCommand.next(true);
+    // ManageFilterReceiptCommand.next(true);
   };
 
   return (
     <>
-      <AddExpense space={props.space} />
-      <EditCategory space={props.space} />
-      <AddFilterExpense space={props.space} />
-      <ManageFilterExpense space={props.space} />
-      <div className="expense-page">
-        <Topbar title="Expenses">
-          <div className="expense-page__topbar__right">
+      {/* <AddReceipt space={props.space} /> */}
+      {/* <AddFilterReceipt space={props.space} /> */}
+      {/* <ManageFilterReceipt space={props.space} /> */}
+      <div className="receipt-page">
+        <Topbar title="Receipts">
+          <div className="receipt-page__topbar__right">
             <button className="button" onClick={toggleFilter}>
               <FontAwesomeIcon icon={faFilter} />
             </button>
           </div>
         </Topbar>
-        <div className="expense-page__main">
-          <div className="expense-page__main__summary">
-            <Summary space={props.space} />
-          </div>
-          <div className="expense-page__main__list">
-            <ListExpense space={props.space} />
+        <div className="receipt-page__main">
+          <div className="receipt-page__main__list">
+            <ListReceipt space={props.space} />
           </div>
         </div>
       </div>
       <div
-        className={`expense-page__filter ${
-          filterExpanded ? 'expense-page__filter--active' : ''
+        className={`receipt-page__filter ${
+          filterExpanded ? 'receipt-page__filter--active' : ''
         }`}
       >
         <GridFilter
@@ -110,11 +103,11 @@ const ExpensePage = (props: Props) => {
           emptyFilter={EMPTY_FILTER}
           saveFilter={saveFilter}
           manageFilter={manageFilter}
-          filterFromState={expenseFilterState}
+          filterFromState={receiptFilterState}
         />
       </div>
     </>
   );
 };
 
-export default ExpensePage;
+export default ReceiptPage;

@@ -4,11 +4,11 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import OakInput from '../../../oakui/wc/OakInput';
 
 import './BillDetails.scss';
-import BillModel from '../../../model/BillModel';
+import ReceiptModel from '../../../model/ReceiptModel';
 import { EXPENSO_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
 
 interface Props {
-  bill: BillModel;
+  bill: ReceiptModel;
   handleChange: any;
   formId: string;
   errors: boolean;

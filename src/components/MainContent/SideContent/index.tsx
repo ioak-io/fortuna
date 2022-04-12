@@ -100,12 +100,12 @@ const SideContent = (props: Props) => {
             <SideNavLink
               link={`/${props.space}/expense`}
               icon={faMoneyBillWave}
-              label="Expense"
+              label="Expenses"
             />
             <SideNavLink
-              link={`/${props.space}/bill/edit`}
+              link={`/${props.space}/receipt`}
               icon={faReceipt}
-              label="Receipt"
+              label="Receipts"
             />
             <SideNavLink
               link={`/${props.space}/budget`}
@@ -115,12 +115,12 @@ const SideContent = (props: Props) => {
             <SideNavLink
               link={`/${props.space}/budget`}
               icon={faCalendarAlt}
-              label="Recurring expense"
+              label="Recurring expenses"
             />
             <SideNavLink
               link={`/${props.space}/category`}
               icon={faTags}
-              label="Category and tag"
+              label="Categories and tags"
             />
             <SideNavSubHeading short="Report" long="Report" />
             <SideNavLink

@@ -13,7 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
-import BillModel from '../../../model/BillModel';
+import ReceiptModel from '../../../model/ReceiptModel';
 import ExpenseModel from '../../../model/ExpenseModel';
 import Topbar from '../../../components/Topbar';
 import SideNavLink from '../../../components/SideNavLink';

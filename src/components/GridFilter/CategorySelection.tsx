@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import OakInput from '../../../oakui/wc/OakInput';
+import OakInput from '../../oakui/wc/OakInput';
 
 import './CategorySelection.scss';
-import { isEmptyOrSpaces } from '../../Utils';
-import CategoryChip from '../../../components/CategoryChip';
+import { isEmptyOrSpaces } from '../Utils';
+import CategoryChip from '../../components/CategoryChip';
 
 interface Props {
   categoryIdList: string[];
@@ -44,18 +44,6 @@ const CategorySelection = (props: Props) => {
 
   return (
     <div className="category-selection-filter">
-      {/* <div className="category-selection-filter__search">
-        <OakInput
-          name="searchText"
-          value={searchText}
-          gutterBottom
-          handleInput={handleChange}
-          size="large"
-          color="container"
-          placeholder="Search category"
-          shape="underline"
-        />
-      </div> */}
       <label>Category</label>
       <div className="category-selection-filter__list">
         {categoriesFiltered &&
