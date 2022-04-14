@@ -4,7 +4,7 @@ import {
   EXPENSE_ITEMS_FETCH_AND_SET,
   EXPENSE_ITEMS_UPDATE_FILTER,
   EXPENSE_ITEMS_UPDATE_PAGINATION,
-  FETCH_CATEGORY,
+  EXPENSE_ITEMS_UPDATE,
 } from './types';
 import { httpGet, httpPost, httpPut } from '../components/Lib/RestTemplate';
 
@@ -41,6 +41,13 @@ export const fetchAndAppendExpenseItems =
       );
     }
   };
+
+export const updateExpenseItems = (payload: any[]) => (dispatch: any) => {
+  dispatch({
+    type: EXPENSE_ITEMS_UPDATE,
+    payload,
+  });
+};
 
 const _fetchExpenseItems = (
   space: string,

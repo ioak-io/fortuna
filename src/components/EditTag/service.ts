@@ -2,17 +2,18 @@
 import { httpPut } from '../Lib/RestTemplate';
 
 export const saveTag = (space: string, payload: any, authorization: any) => {
-  httpPut(`/tag/${space}/`, payload, {
+  return httpPut(`/tag/${space}/`, payload, {
     headers: {
       Authorization: authorization.access_token,
     },
   })
     .then((response) => {
       if (response.status === 200) {
-        console.log(response);
+        return Promise.resolve(response.data);
       }
+      return Promise.resolve({});
     })
     .catch((error) => {
-      console.log(error);
+      return Promise.resolve({});
     });
 };

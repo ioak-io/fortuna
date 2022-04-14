@@ -21,14 +21,16 @@ import OakSelect from '../../oakui/wc/OakSelect';
 import OakButton from '../../oakui/wc/OakButton';
 
 import { saveCategory } from './service';
+import { updateCategoryItem } from '../../actions/CategoryActions';
 
 interface Props {
   space: string;
 }
 
-const EMPTY_CATEGORY = { _id: null, name: '', kakeibo: '' };
+const EMPTY_CATEGORY = { _id: undefined, name: '', kakeibo: '' };
 
 const EditCategory = (props: Props) => {
+  const dispatch = useDispatch();
   const authorization = useSelector((state: any) => state.authorization);
   const profile = useSelector((state: any) => state.profile);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -65,8 +67,9 @@ const EditCategory = (props: Props) => {
   };
 
   const save = () => {
-    console.log('save');
-    saveCategory(props.space, state, authorization);
+    saveCategory(props.space, state, authorization).then((response: any) => {
+      dispatch(updateCategoryItem(response));
+    });
     EditCategoryCommand.next({ open: false });
   };
 
@@ -85,66 +88,66 @@ const EditCategory = (props: Props) => {
         <div slot="body">
           <div className="edit-category">
             {isOpen && (
-              <OakForm formGroupName={formId} handleSubmit={save}>
-                <div className="edit-category__form">
-                  <OakInput
-                    name="name"
-                    value={state.name}
-                    formGroupName={formId}
-                    gutterBottom
-                    handleInput={handleChange}
-                    size="large"
-                    color="container"
-                    shape="rectangle"
-                    label="Category name"
-                    autofocus
-                  />
-                  <div>
-                    <div className="edit-category__form__chips">
-                      <button
-                        className={`edit-category__form__chips__chip ${
-                          state.kakeibo === 'Needs'
-                            ? 'edit-category__form__chips__chip--selected'
-                            : ''
-                        }`}
-                        onClick={() => updatekakeibo('Needs')}
-                      >
-                        Needs
-                      </button>
-                      <button
-                        className={`edit-category__form__chips__chip ${
-                          state.kakeibo === 'Wants'
-                            ? 'edit-category__form__chips__chip--selected'
-                            : ''
-                        }`}
-                        onClick={() => updatekakeibo('Wants')}
-                      >
-                        Wants
-                      </button>
-                      <button
-                        className={`edit-category__form__chips__chip ${
-                          state.kakeibo === 'Culture'
-                            ? 'edit-category__form__chips__chip--selected'
-                            : ''
-                        }`}
-                        onClick={() => updatekakeibo('Culture')}
-                      >
-                        Culture
-                      </button>
-                      <button
-                        className={`edit-category__form__chips__chip ${
-                          state.kakeibo === 'Unexpected'
-                            ? 'edit-category__form__chips__chip--selected'
-                            : ''
-                        }`}
-                        onClick={() => updatekakeibo('Unexpected')}
-                      >
-                        Unexpected
-                      </button>
-                    </div>
+              // <OakForm formGroupName={formId} handleSubmit={save}>
+              <div className="edit-category__form">
+                <OakInput
+                  name="name"
+                  value={state.name}
+                  formGroupName={formId}
+                  gutterBottom
+                  handleInput={handleChange}
+                  size="large"
+                  color="container"
+                  shape="rectangle"
+                  label="Category name"
+                  autofocus
+                />
+                <div>
+                  <div className="edit-category__form__chips">
+                    <button
+                      className={`edit-category__form__chips__chip ${
+                        state.kakeibo === 'Needs'
+                          ? 'edit-category__form__chips__chip--selected'
+                          : ''
+                      }`}
+                      onClick={() => updatekakeibo('Needs')}
+                    >
+                      Needs
+                    </button>
+                    <button
+                      className={`edit-category__form__chips__chip ${
+                        state.kakeibo === 'Wants'
+                          ? 'edit-category__form__chips__chip--selected'
+                          : ''
+                      }`}
+                      onClick={() => updatekakeibo('Wants')}
+                    >
+                      Wants
+                    </button>
+                    <button
+                      className={`edit-category__form__chips__chip ${
+                        state.kakeibo === 'Culture'
+                          ? 'edit-category__form__chips__chip--selected'
+                          : ''
+                      }`}
+                      onClick={() => updatekakeibo('Culture')}
+                    >
+                      Culture
+                    </button>
+                    <button
+                      className={`edit-category__form__chips__chip ${
+                        state.kakeibo === 'Unexpected'
+                          ? 'edit-category__form__chips__chip--selected'
+                          : ''
+                      }`}
+                      onClick={() => updatekakeibo('Unexpected')}
+                    >
+                      Unexpected
+                    </button>
                   </div>
                 </div>
-              </OakForm>
+              </div>
+              // </OakForm>
             )}
           </div>
         </div>
@@ -152,7 +155,8 @@ const EditCategory = (props: Props) => {
           <div className="edit-category-footer">
             <OakButton
               formGroupName={formId}
-              type="submit"
+              // type="submit"
+              handleClick={save}
               theme="primary"
               variant="regular"
             >

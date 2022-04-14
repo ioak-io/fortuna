@@ -20,6 +20,8 @@ import {
 } from '../../../constants/SessionStorageConstants';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import Topbar from '../../../components/Topbar';
+import { updateExpenseItems } from '../../../actions/ExpenseActions';
+import { updateReceiptItems } from '../../../actions/ReceiptActions';
 
 const queryString = require('query-string');
 
@@ -44,6 +46,7 @@ interface Props {
 }
 
 const EditBillPage = (props: Props) => {
+  const dispatch = useDispatch();
   const getEmptyBill = (): ReceiptModel => {
     return {
       ...EMPTY_BILL,
@@ -150,6 +153,9 @@ const EditBillPage = (props: Props) => {
         authorization
       ).then((response: any) => {
         if (!isEmptyAttributes(response)) {
+          const { items, ..._receipt } = response;
+          dispatch(updateReceiptItems([_receipt]));
+          dispatch(updateExpenseItems(items));
           setState({
             ...response,
             items: [...response.items, { ...EMPTY_EXPENSE }],

@@ -10,38 +10,76 @@ import { newId } from '../../../events/MessageService';
 import OakForm from '../../../oakui/wc/OakForm';
 import OakInput from '../../../oakui/wc/OakInput';
 import CompanyModel from '../../../model/CompanyModel';
-import { saveCompany } from './service';
+import { getBudgetByYear, saveBudget } from './service';
+import OakSelect from '../../../oakui/wc/OakSelect';
+import BudgetItems from './BudgetItems';
+import BudgetModel from '../../../model/BudgetModel';
 
 const queryString = require('query-string');
 
 interface Props {
-  history: any;
-  location: any;
+  space: string;
 }
 
-const EMPTY_COMPANY: CompanyModel = {
-  _id: undefined,
-  name: '',
-  description: '',
-  reference: null,
-  numberFormat: 'en-US',
-  currency: 'USD',
-};
+const THIS_YEAR = new Date().getFullYear();
+const NEXT_YEAR = new Date().getFullYear() + 1;
+const LAST_YEAR = new Date().getFullYear() - 1;
 
 const BudgetPage = (props: Props) => {
   const history = useHistory();
   const authorization = useSelector((state: any) => state.authorization);
+  const categories = useSelector((state: any) => state.category.categories);
   const [formId, setFormId] = useState(newId());
-  const [state, setState] = useState<CompanyModel>({ ...EMPTY_COMPANY });
+  const [state, setState] = useState<BudgetModel[]>([]);
+  const [year, setYear] = useState(THIS_YEAR);
 
-  const handleChange = (detail: any) => {
-    setState({ ...state, [detail.name]: detail.value });
+  useEffect(() => {
+    if (authorization.isAuth) {
+      getBudgetByYear(props.space, year, authorization).then(
+        (response: any) => {
+          if (response) {
+            setState(response);
+          }
+        }
+      );
+    }
+  }, [year, authorization]);
+
+  const handleChange = (_state: BudgetModel[]) => {
+    setState(_state);
+  };
+
+  const handleYearChange = (detail: any) => {
+    setYear(detail.value || year);
+  };
+
+  const thisYear = () => {
+    setYear(THIS_YEAR);
+  };
+  const lastYear = () => {
+    setYear(LAST_YEAR);
+  };
+  const nextYear = () => {
+    setYear(NEXT_YEAR);
   };
 
   const save = () => {
-    saveCompany(state, authorization).then((response: any) => {
-      goBack();
-    });
+    console.log(state);
+    saveBudget(props.space, year, state, authorization).then(
+      (response: any) => {
+        setState(response);
+      }
+    );
+  };
+
+  const getYearRange = () => {
+    const _res = [];
+    let i = 2000;
+    while (i < 2100) {
+      _res.push(i);
+      i += 1;
+    }
+    return _res;
   };
 
   const goBack = () => {
@@ -52,21 +90,49 @@ const BudgetPage = (props: Props) => {
     <div className="budget-page">
       <Topbar title="Budget">right</Topbar>
       <div className="budget-page__main main-section content-section">
-        <OakForm formGroupName={formId} handleSubmit={save}>
-          <div className="form">
-            <OakInput
-              name="name"
-              value={state.name}
-              formGroupName={formId}
-              handleInput={handleChange}
-              size="small"
-              color="container"
-              label="Company name"
-              autofocus
-              required
-            />
-          </div>
-        </OakForm>
+        <div className="budget-page__main__year">
+          <OakSelect
+            name="year"
+            value={year}
+            handleInput={handleYearChange}
+            options={getYearRange()}
+            size="small"
+            color="container"
+            label="Budget for year"
+            popupColor="surface"
+            autocomplete
+            required
+          />
+          <OakButton
+            handleClick={lastYear}
+            theme="info"
+            variant={LAST_YEAR === year ? 'regular' : 'block'}
+          >
+            Last year
+          </OakButton>
+          <OakButton
+            handleClick={thisYear}
+            theme="info"
+            variant={THIS_YEAR === year ? 'regular' : 'block'}
+          >
+            This year
+          </OakButton>
+          <OakButton
+            handleClick={nextYear}
+            theme="info"
+            variant={NEXT_YEAR === year ? 'regular' : 'block'}
+          >
+            Next year
+          </OakButton>
+        </div>
+        <div className="budget-page__main__table">
+          <BudgetItems
+            data={state}
+            formId={formId}
+            year={year}
+            handleChange={handleChange}
+          />
+        </div>
       </div>
       <div className="footer">
         <div />
@@ -74,7 +140,7 @@ const BudgetPage = (props: Props) => {
           <OakButton
             theme="primary"
             variant="regular"
-            type="submit"
+            handleClick={save}
             formGroupName={formId}
           >
             <FontAwesomeIcon icon={faCheck} />

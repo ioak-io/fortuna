@@ -29,12 +29,14 @@ import OakCheckbox from '../../oakui/wc/OakCheckbox';
 import { EXPENSO_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageConstants';
 import TagSelection from './TagSelection';
 import ExpenseModel from '../../model/ExpenseModel';
+import { updateExpenseItems } from '../../actions/ExpenseActions';
 
 interface Props {
   space: string;
 }
 
 const AddExpense = (props: Props) => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [emptyExpense, setEmptyExpense] = useState<any>({
     _id: undefined,
@@ -129,12 +131,13 @@ const AddExpense = (props: Props) => {
         props.space,
         { ...state, billDate: state.billDateString },
         authorization
-      ).then(() => {
+      ).then((response: any) => {
         if (!addAnother || state._id) {
           QuickEditExpenseCommand.next({ open: false, record: null });
         }
         setState({ ...emptyExpense });
         setCategoryNotChosen(false);
+        dispatch(updateExpenseItems([response]));
       });
     }
   };

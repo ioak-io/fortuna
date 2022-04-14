@@ -22,6 +22,7 @@ import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
 import { getReceiptById } from '../EditScheduleReceiptPage/service';
 import Details from './Details';
 import RunLog from './RunLog';
+import { getLog } from './service';
 
 const queryString = require('query-string');
 
@@ -35,6 +36,7 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
   const history = useHistory();
   const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState<ScheduleReceiptModel | null>();
+  const [logData, setLogData] = useState<any[]>([]);
   const [formId, setFormId] = useState(newId());
   const [errorInItemList, setErrorInItemList] = useState<boolean[]>([]);
   const [errorInReceiptDetails, setErrorInReceiptDetails] =
@@ -57,6 +59,19 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
     }
   }, [queryParam, authorization]);
 
+  useEffect(() => {
+    if (authorization.isAuth && data?._id) {
+      getLog(props.space, data._id, authorization).then((response: any) => {
+        setLogData([...response]);
+      });
+    }
+  }, [authorization, data]);
+
+  const handleDataChange = (_logData: any[]) => {
+    console.log(_logData);
+    setLogData(_logData);
+  };
+
   const goBack = () => {
     history.goBack();
   };
@@ -72,10 +87,16 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
       </Topbar>
       <div className="main-section schedule-receipt-runbook-page__main">
         <div className="schedule-receipt-runbook-page__main__section page-width content-section">
-          {data && <Details receipt={data} space={props.space} />}
+          {data && (
+            <Details
+              receipt={data}
+              space={props.space}
+              handleDataChange={handleDataChange}
+            />
+          )}
         </div>
         <div className="schedule-receipt-runbook-page__main__section page-width content-section">
-          {data && <RunLog receipt={data} space={props.space} />}
+          {data && <RunLog space={props.space} data={logData} />}
         </div>
       </div>
     </div>

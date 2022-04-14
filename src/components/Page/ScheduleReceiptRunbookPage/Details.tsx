@@ -16,6 +16,7 @@ import { deleteTransactions, repostTransactions } from './service';
 interface Props {
   receipt: ScheduleReceiptModel;
   space: string;
+  handleDataChange: any;
 }
 
 const Details = (props: Props) => {
@@ -25,7 +26,7 @@ const Details = (props: Props) => {
     if (props.receipt?._id) {
       deleteTransactions(props.space, props.receipt._id, authorization).then(
         (response: any) => {
-          console.log(response);
+          props.handleDataChange([]);
         }
       );
     }
@@ -36,6 +37,7 @@ const Details = (props: Props) => {
       repostTransactions(props.space, props.receipt._id, authorization).then(
         (response: any) => {
           console.log(response);
+          props.handleDataChange(response);
         }
       );
     }

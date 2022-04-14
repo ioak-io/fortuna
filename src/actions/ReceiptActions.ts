@@ -5,6 +5,7 @@ import {
   RECEIPT_ITEMS_UPDATE_FILTER,
   RECEIPT_ITEMS_UPDATE_PAGINATION,
   FETCH_CATEGORY,
+  RECEIPT_ITEMS_UPDATE,
 } from './types';
 import { httpGet, httpPost, httpPut } from '../components/Lib/RestTemplate';
 
@@ -41,6 +42,13 @@ export const fetchAndAppendReceiptItems =
       );
     }
   };
+
+export const updateReceiptItems = (payload: any[]) => (dispatch: any) => {
+  dispatch({
+    type: RECEIPT_ITEMS_UPDATE,
+    payload,
+  });
+};
 
 const _fetchReceiptItems = (
   space: string,

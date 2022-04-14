@@ -21,14 +21,16 @@ import OakSelect from '../../oakui/wc/OakSelect';
 import OakButton from '../../oakui/wc/OakButton';
 
 import { saveTag } from './service';
+import { updateTagItem } from '../../actions/TagActions';
 
 interface Props {
   space: string;
 }
 
-const EMPTY_CATEGORY = { _id: null, name: '', kakeibo: '' };
+const EMPTY_CATEGORY = { _id: undefined, name: '', kakeibo: '' };
 
 const EditTag = (props: Props) => {
+  const dispatch = useDispatch();
   const authorization = useSelector((state: any) => state.authorization);
   const profile = useSelector((state: any) => state.profile);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -65,8 +67,9 @@ const EditTag = (props: Props) => {
   };
 
   const save = () => {
-    console.log('save');
-    saveTag(props.space, state, authorization);
+    saveTag(props.space, state, authorization).then((response: any) => {
+      dispatch(updateTagItem(response));
+    });
     EditTagCommand.next({ open: false });
   };
 
@@ -85,30 +88,31 @@ const EditTag = (props: Props) => {
         <div slot="body">
           <div className="edit-tag">
             {isOpen && (
-              <OakForm formGroupName={formId} handleSubmit={save}>
-                <div className="edit-tag__form">
-                  <OakInput
-                    name="name"
-                    value={state.name}
-                    formGroupName={formId}
-                    gutterBottom
-                    handleInput={handleChange}
-                    size="large"
-                    color="container"
-                    shape="rectangle"
-                    label="Tag name"
-                    autofocus
-                  />
-                </div>
-              </OakForm>
+              // <OakForm formGroupName={formId} handleSubmit={save}>
+              <div className="edit-tag__form">
+                <OakInput
+                  name="name"
+                  value={state.name}
+                  formGroupName={formId}
+                  gutterBottom
+                  handleInput={handleChange}
+                  size="large"
+                  color="container"
+                  shape="rectangle"
+                  label="Tag name"
+                  autofocus
+                />
+              </div>
+              // </OakForm>
             )}
           </div>
         </div>
         <div slot="footer">
           <div className="edit-tag-footer">
             <OakButton
-              formGroupName={formId}
-              type="submit"
+              // formGroupName={formId}
+              handleClick={save}
+              // type="submit"
               theme="primary"
               variant="regular"
             >

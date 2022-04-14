@@ -21,35 +21,16 @@ import OakButton from '../../../oakui/wc/OakButton';
 import { deleteTransactions, getLog, repostTransactions } from './service';
 
 interface Props {
-  receipt: ScheduleReceiptModel;
+  // receipt: ScheduleReceiptModel;
+  data: any[];
   space: string;
 }
 
 const RunLog = (props: Props) => {
   const history = useHistory();
   const authorization = useSelector((state: any) => state.authorization);
-  const [data, setData] = useState<any[]>([]);
+  // const [data, setData] = useState<any[]>([]);
   const [denseView, setDenseView] = useState(true);
-
-  useEffect(() => {
-    if (authorization.isAuth && props.receipt?._id) {
-      getLog(props.space, props.receipt._id, authorization).then(
-        (response: any) => {
-          setData([...response]);
-        }
-      );
-    }
-  }, [authorization, props.receipt]);
-
-  const deletePosting = () => {
-    if (props.receipt?._id) {
-      deleteTransactions(props.space, props.receipt._id, authorization).then(
-        (response: any) => {
-          console.log(response);
-        }
-      );
-    }
-  };
 
   const openRecord = (record: any) => {
     history.push(`/${props.space}/receipt/edit?id=${record.receiptId}`);
@@ -87,7 +68,7 @@ const RunLog = (props: Props) => {
             </tr>
           </thead>
           <tbody>
-            {data?.map((record: any) => (
+            {props.data?.map((record: any) => (
               <tr key={record._id}>
                 <td onClick={() => openRecord(record)}>
                   {record.transactionDate}

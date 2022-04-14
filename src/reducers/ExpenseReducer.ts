@@ -1,9 +1,12 @@
+/* eslint-disable no-prototype-builtins */
 import {
   EXPENSE_ITEMS_FETCH_AND_APPEND,
   EXPENSE_ITEMS_FETCH_AND_SET,
+  EXPENSE_ITEMS_UPDATE,
   EXPENSE_ITEMS_UPDATE_FILTER,
   EXPENSE_ITEMS_UPDATE_PAGINATION,
 } from '../actions/types';
+import { mergeItems } from './Utils';
 
 const initialState = {
   items: [],
@@ -46,6 +49,13 @@ export default function (state = initialState, action: any) {
       return {
         ...state,
         items: [...state.items, ...action.payload],
+      };
+    case EXPENSE_ITEMS_UPDATE:
+      console.log('EXPENSE_ITEMS_UPDATE reducer');
+      console.log(action);
+      return {
+        ...state,
+        items: mergeItems(state.items, action.payload),
       };
     case EXPENSE_ITEMS_UPDATE_FILTER:
       console.log('EXPENSE_ITEMS_UPDATE_FILTER reducer');

@@ -6,17 +6,18 @@ export const saveCategory = (
   payload: any,
   authorization: any
 ) => {
-  httpPut(`/category/${space}/`, payload, {
+  return httpPut(`/category/${space}/`, payload, {
     headers: {
       Authorization: authorization.access_token,
     },
   })
     .then((response) => {
       if (response.status === 200) {
-        console.log(response);
+        return Promise.resolve(response.data);
       }
+      return Promise.resolve({});
     })
     .catch((error) => {
-      console.log(error);
+      return Promise.resolve({});
     });
 };

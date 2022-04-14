@@ -1,9 +1,11 @@
 import {
   RECEIPT_ITEMS_FETCH_AND_APPEND,
   RECEIPT_ITEMS_FETCH_AND_SET,
+  RECEIPT_ITEMS_UPDATE,
   RECEIPT_ITEMS_UPDATE_FILTER,
   RECEIPT_ITEMS_UPDATE_PAGINATION,
 } from '../actions/types';
+import { mergeItems } from './Utils';
 
 const initialState = {
   items: [],
@@ -46,6 +48,13 @@ export default function (state = initialState, action: any) {
       return {
         ...state,
         items: [...state.items, ...action.payload],
+      };
+    case RECEIPT_ITEMS_UPDATE:
+      console.log('RECEIPT_ITEMS_UPDATE reducer');
+      console.log(action);
+      return {
+        ...state,
+        items: mergeItems(state.items, action.payload),
       };
     case RECEIPT_ITEMS_UPDATE_FILTER:
       console.log('RECEIPT_ITEMS_UPDATE_FILTER reducer');

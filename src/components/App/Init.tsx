@@ -24,10 +24,12 @@ const Init = () => {
   const [previousAuthorizationState, setPreviousAuthorizationState] =
     useState<any>();
   const [space, setSpace] = useState<string>();
+  const [previousSpace, setPreviousSpace] = useState<string>();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (authorization?.isAuth && space) {
+      //  && !previousAuthorizationState?.isAuth) {
       initialize();
       dispatch(fetchAndSetUserItems(space, authorization));
       dispatch(fetchAllCategories(space, authorization));
@@ -37,14 +39,17 @@ const Init = () => {
   }, [authorization, space]);
 
   useEffect(() => {
-    if (
-      authorization?.isAuth &&
-      authorization?.isAuth !== previousAuthorizationState?.isAuth
-    ) {
+    if (authorization?.isAuth && !previousAuthorizationState?.isAuth) {
       dispatch(fetchAndSetCompanyItems(authorization));
       setPreviousAuthorizationState(authorization);
     }
   }, [authorization]);
+
+  useEffect(() => {
+    if (space && previousSpace !== space) {
+      setPreviousSpace(space);
+    }
+  }, [space]);
 
   useEffect(() => {
     initializeProfileFromSession();
