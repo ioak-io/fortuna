@@ -18,6 +18,10 @@ import EditCompanyPage from '../Page/EditCompanyPage';
 import SettingsPage from '../Page/SettingsPage';
 import UnauthorizedPage from '../Page/UnauthorizedPage';
 import ReceiptPage from '../Page/ReceiptPage';
+import EditScheduleReceiptPage from '../Page/EditScheduleReceiptPage';
+import ScheduleReceiptPage from '../Page/ScheduleReceiptPage';
+import ScheduleReceiptRunbookPage from '../Page/ScheduleReceiptRunbookPage';
+import BudgetPage from '../Page/BudgetPage';
 
 interface Props {
   cookies: any;
@@ -141,6 +145,54 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={EditBillPage}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/schedule/receipt"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={ScheduleReceiptPage}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/schedule/receipt/edit"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={EditScheduleReceiptPage}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/schedule/receipt/runbook"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={ScheduleReceiptRunbookPage}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/budget"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={BudgetPage}
             middleware={['authenticate']}
           />
         )}

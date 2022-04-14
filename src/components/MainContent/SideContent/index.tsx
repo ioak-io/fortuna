@@ -113,9 +113,9 @@ const SideContent = (props: Props) => {
               label="Budget"
             />
             <SideNavLink
-              link={`/${props.space}/budget`}
+              link={`/${props.space}/schedule/receipt`}
               icon={faCalendarAlt}
-              label="Recurring expenses"
+              label="Schedule transactions"
             />
             <SideNavLink
               link={`/${props.space}/category`}

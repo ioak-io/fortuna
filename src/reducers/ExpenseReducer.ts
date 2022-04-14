@@ -11,6 +11,8 @@ const initialState = {
     pageSize: 20,
     pageNo: 0,
     hasMore: true,
+    sortBy: null,
+    sortOrder: null,
   },
   filter: {
     name: '',

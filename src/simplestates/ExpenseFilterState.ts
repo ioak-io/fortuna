@@ -14,6 +14,7 @@ export const ExpenseFilterState = new BehaviorSubject<ExpenseFilterModel>({
   yearNumber: null,
   categoryIdList: [],
   kakeiboList: [],
+  tagIdList: [],
 });
 
 export const ExpenseFilterPaginationState =
@@ -21,4 +22,6 @@ export const ExpenseFilterPaginationState =
     pageNo: 0,
     pageSize: 20,
     hasMore: true,
+    sortBy: null,
+    sortOrder: null,
   });

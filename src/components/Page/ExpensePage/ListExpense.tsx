@@ -5,6 +5,8 @@ import { useHistory } from 'react-router';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faChevronDown,
+  faChevronUp,
   faCompressAlt,
   faExpandAlt,
   faFileExport,
@@ -22,8 +24,12 @@ import QuickEditExpenseCommand from '../../../events/QuickEditExpenseCommand';
 import ExpenseListState from '../../../simplestates/ExpenseListState';
 import ExpenseListLoadMoreCommand from '../../../simplestates/ExpenseListLoadMoreCommand';
 import ExpenseModel from '../../../model/ExpenseModel';
-import { fetchAndAppendExpenseItems } from '../../../actions/ExpenseActions';
+import {
+  fetchAndAppendExpenseItems,
+  fetchAndSetExpenseItems,
+} from '../../../actions/ExpenseActions';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
+import TableHeader from '../../../components/TableHeader';
 
 interface Props {
   space: string;
@@ -41,6 +47,11 @@ const ListExpense = (props: Props) => {
       (item: any) => item.reference === parseInt(props.space, 10)
     )
   );
+
+  const [sortPref, setSortPref] = useState<any>({
+    sortBy: expenseState?.pagination?.sortBy,
+    sortOrder: expenseState?.pagination?.sortOrder,
+  });
 
   const [denseView, setDenseView] = useState(true);
   // const [data, setData] = useState<any[]>([]);
@@ -64,16 +75,20 @@ const ListExpense = (props: Props) => {
   //   });
   // }, []);
 
-  // useEffect(() => {
-  //   if (authorization.isAuth) {
-  //     searchExpense('companyname', authorization, props.searchCriteria).then(
-  //       (_data: any) => {
-  //         setData(_data);
-  //         console.log(_data);
-  //       }
-  //     );
-  //   }
-  // }, [authorization, props.searchCriteria]);
+  useEffect(() => {
+    if (
+      expenseState?.pagination &&
+      (expenseState?.pagination?.sortBy !== sortPref.sortBy ||
+        expenseState?.pagination?.sortOrder !== sortPref.sortOrder)
+    ) {
+      dispatch(
+        fetchAndSetExpenseItems(props.space, authorization, {
+          ...expenseState.filter,
+          pagination: { pageNo: 0, pageSize: 20, hasMore: true, ...sortPref },
+        })
+      );
+    }
+  }, [sortPref]);
 
   const toggleCheckedState = (recordId: string) => {
     if (checkedRecords.includes(recordId)) {
@@ -83,15 +98,6 @@ const ListExpense = (props: Props) => {
     }
   };
 
-  // const toggleAll = () => {
-  //   const _checkedRecords: string[] = [];
-  //   if (data.length > checkedRecords.length) {
-  //     data.forEach((item: any) => {
-  //       _checkedRecords.push(item._id);
-  //     });
-  //   }
-  //   setCheckedRecords(_checkedRecords);
-  // };
   const toggleAll = () => {
     const _checkedRecords: string[] = [];
     if (expenseState.items.length > checkedRecords.length) {
@@ -123,30 +129,30 @@ const ListExpense = (props: Props) => {
     );
   };
 
+  const handleSortChange = (sortBy: string) => {
+    let _sortPref = { ...sortPref };
+    if (_sortPref.sortBy === sortBy) {
+      if (_sortPref.sortOrder === 'descending') {
+        _sortPref = {
+          sortBy: null,
+          sortOrder: null,
+        };
+      } else {
+        _sortPref.sortOrder = 'descending';
+      }
+    } else {
+      _sortPref = {
+        sortBy,
+        sortOrder: 'ascending',
+      };
+    }
+    setSortPref(_sortPref);
+  };
+
   return (
     <>
       <div className="list-expense__action">
-        <div className="list-expense__action__left">
-          {/* <OakButton
-            theme="info"
-            variant="regular"
-            handleClick={() => {}}
-            size="small"
-          >
-            <FontAwesomeIcon icon={faFileExport} /> Export
-          </OakButton>
-          {checkedRecords.length > 0 && (
-            <OakButton
-              handleClick={() => {}}
-              variant="regular"
-              theme="danger"
-              size="small"
-            >
-              <FontAwesomeIcon icon={faTrash} /> Delete selection (
-              {checkedRecords.length})
-            </OakButton>
-          )} */}
-        </div>
+        <div className="list-expense__action__left" />
         <div className="list-expense__action__right">
           {checkedRecords.length > 0 && (
             <OakButton
@@ -198,22 +204,6 @@ const ListExpense = (props: Props) => {
             </OakButton>
           </div>
         </div>
-        {/* <div className="list-expense__action__right">
-          <OakButton
-            theme="primary"
-            variant="regular"
-            handleClick={openAddExpense}
-          >
-            <FontAwesomeIcon icon={faPlus} /> Add
-          </OakButton>
-          <OakButton
-            theme="info"
-            variant="regular"
-            handleClick={openAddExpense}
-          >
-            <FontAwesomeIcon icon={faPlus} /> Quick add
-          </OakButton>
-        </div> */}
       </div>
       <div className="content-section list-expense">
         <table
@@ -231,13 +221,41 @@ const ListExpense = (props: Props) => {
                   handleChange={toggleAll}
                 />
               </th>
-              <th className="list-expense__column">Date</th>
-              <th className="list-expense__column">Category</th>
+              <th className="list-expense__column">
+                <TableHeader
+                  name="billDate"
+                  label="Date"
+                  sortPref={sortPref}
+                  handleChange={handleSortChange}
+                />
+              </th>
+              <th className="list-expense__column">
+                <TableHeader
+                  name="category"
+                  label="Category"
+                  sortPref={sortPref}
+                  handleChange={handleSortChange}
+                />
+              </th>
               {/* <th className="list-expense__column list-expense__column--kakeibo">
                 Kakeibo
               </th> */}
-              <th className="list-expense__column">Description</th>
-              <th className="list-expense__column">Amount</th>
+              <th className="list-expense__column">
+                <TableHeader
+                  name="description"
+                  label="Description"
+                  sortPref={sortPref}
+                  handleChange={handleSortChange}
+                />
+              </th>
+              <th className="list-expense__column">
+                <TableHeader
+                  name="amount"
+                  label="Amount"
+                  sortPref={sortPref}
+                  handleChange={handleSortChange}
+                />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -287,7 +305,13 @@ const ListExpense = (props: Props) => {
             ))}
           </tbody>
         </table>
-        <button onClick={loadMore}>Load more</button>
+        {expenseState.pagination.hasMore && (
+          <div className="load-more">
+            <button className="button load-more__button" onClick={loadMore}>
+              Load more
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

@@ -31,6 +31,8 @@ const ExpenseStateActions = (props: Props) => {
             pageSize: 20,
             pageNo: 0,
             hasMore: true,
+            sortBy: null,
+            sortOrder: null,
           },
         })
       );

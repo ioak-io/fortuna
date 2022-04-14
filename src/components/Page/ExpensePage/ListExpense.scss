@@ -36,3 +36,20 @@
 .list-expense__column--description {
   max-width: 400px !important;
 }
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.load-more__button {
+  font-size: 14px;
+  border: 1px solid var(--color-float-darkest);
+  padding: 10px 40px;
+  &:hover,
+  &:focus {
+    border-color: var(--color-default);
+  }
+}

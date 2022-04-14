@@ -17,8 +17,12 @@ import './ListReceipt.scss';
 import { searchReceipt } from './service';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import OakButton from '../../../oakui/wc/OakButton';
-import { fetchAndAppendReceiptItems } from '../../../actions/ReceiptActions';
+import {
+  fetchAndAppendReceiptItems,
+  fetchAndSetReceiptItems,
+} from '../../../actions/ReceiptActions';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
+import TableHeader from '../../../components/TableHeader';
 
 interface Props {
   space: string;
@@ -37,6 +41,11 @@ const ListReceipt = (props: Props) => {
     )
   );
 
+  const [sortPref, setSortPref] = useState<any>({
+    sortBy: receiptState?.pagination?.sortBy,
+    sortOrder: receiptState?.pagination?.sortOrder,
+  });
+
   const [denseView, setDenseView] = useState(true);
   // const [data, setData] = useState<any[]>([]);
   const [categoryMap, setCategoryMap] = useState<any>({});
@@ -53,22 +62,20 @@ const ListReceipt = (props: Props) => {
     }
   }, [categories]);
 
-  // useEffect(() => {
-  //   ReceiptListState.asObservable().subscribe((items) => {
-  //     setData(items);
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   if (authorization.isAuth) {
-  //     searchReceipt('companyname', authorization, props.searchCriteria).then(
-  //       (_data: any) => {
-  //         setData(_data);
-  //         console.log(_data);
-  //       }
-  //     );
-  //   }
-  // }, [authorization, props.searchCriteria]);
+  useEffect(() => {
+    if (
+      receiptState?.pagination &&
+      (receiptState?.pagination?.sortBy !== sortPref.sortBy ||
+        receiptState?.pagination?.sortOrder !== sortPref.sortOrder)
+    ) {
+      dispatch(
+        fetchAndSetReceiptItems(props.space, authorization, {
+          ...receiptState.filter,
+          pagination: { pageNo: 0, pageSize: 20, hasMore: true, ...sortPref },
+        })
+      );
+    }
+  }, [sortPref]);
 
   const toggleCheckedState = (recordId: string) => {
     if (checkedRecords.includes(recordId)) {
@@ -78,15 +85,6 @@ const ListReceipt = (props: Props) => {
     }
   };
 
-  // const toggleAll = () => {
-  //   const _checkedRecords: string[] = [];
-  //   if (data.length > checkedRecords.length) {
-  //     data.forEach((item: any) => {
-  //       _checkedRecords.push(item._id);
-  //     });
-  //   }
-  //   setCheckedRecords(_checkedRecords);
-  // };
   const toggleAll = () => {
     const _checkedRecords: string[] = [];
     if (receiptState.items.length > checkedRecords.length) {
@@ -112,6 +110,26 @@ const ListReceipt = (props: Props) => {
         pagination: { ...receiptState.pagination },
       })
     );
+  };
+
+  const handleSortChange = (sortBy: string) => {
+    let _sortPref = { ...sortPref };
+    if (_sortPref.sortBy === sortBy) {
+      if (_sortPref.sortOrder === 'descending') {
+        _sortPref = {
+          sortBy: null,
+          sortOrder: null,
+        };
+      } else {
+        _sortPref.sortOrder = 'descending';
+      }
+    } else {
+      _sortPref = {
+        sortBy,
+        sortOrder: 'ascending',
+      };
+    }
+    setSortPref(_sortPref);
   };
 
   return (
@@ -168,10 +186,38 @@ const ListReceipt = (props: Props) => {
                   handleChange={toggleAll}
                 />
               </th>
-              <th className="list-receipt__column">Date</th>
-              <th className="list-receipt__column">Receipt number</th>
-              <th className="list-receipt__column">Description</th>
-              <th className="list-receipt__column">Amount</th>
+              <th className="list-receipt__column">
+                <TableHeader
+                  name="billDate"
+                  label="Date"
+                  sortPref={sortPref}
+                  handleChange={handleSortChange}
+                />
+              </th>
+              <th className="list-receipt__column">
+                <TableHeader
+                  name="number"
+                  label="Receipt Number"
+                  sortPref={sortPref}
+                  handleChange={handleSortChange}
+                />
+              </th>
+              <th className="list-receipt__column">
+                <TableHeader
+                  name="description"
+                  label="Description"
+                  sortPref={sortPref}
+                  handleChange={handleSortChange}
+                />
+              </th>
+              <th className="list-receipt__column">
+                <TableHeader
+                  name="total"
+                  label="Amount"
+                  sortPref={sortPref}
+                  handleChange={handleSortChange}
+                />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -209,7 +255,13 @@ const ListReceipt = (props: Props) => {
             ))}
           </tbody>
         </table>
-        <button onClick={loadMore}>Load more</button>
+        {receiptState.pagination.hasMore && (
+          <div className="load-more">
+            <button className="button load-more__button" onClick={loadMore}>
+              Load more
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

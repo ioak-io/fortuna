@@ -19,6 +19,8 @@ export const fetchAndSetReceiptItems =
           pageNo: 0,
           pageSize: 20,
           hasMore: true,
+          sortBy: null,
+          sortOrder: null,
           ...payload.pagination,
         },
       },
@@ -64,6 +66,8 @@ const _fetchReceiptItems = (
           payload: {
             pageNo: response.data.pageNo,
             hasMore: response.data.hasMore,
+            sortBy: payload?.pagination?.sortBy,
+            sortOrder: payload?.pagination?.sortOrder,
           },
         });
         const { pagination = null, ...filter } = { ...payload };
