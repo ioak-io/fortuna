@@ -1,0 +1,9 @@
+.chart-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 20px;
+  border-bottom: 1px solid var(--color-surface-darker);
+}

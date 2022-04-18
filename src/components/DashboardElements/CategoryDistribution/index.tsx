@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
-import { Chart, ArcElement, DoughnutController } from 'chart.js';
+import { Chart, ArcElement, DoughnutController, Legend } from 'chart.js';
 import './style.scss';
 // import Chart from 'chart.js';
 // import { Chart as ChartJS } from 'chart.js';
 import { newId } from '../../../events/MessageService';
+import ChartHeader from '../ChartHeader';
+import ChartBody from '../ChartBody';
 
-Chart.register(DoughnutController, ArcElement);
+Chart.register(DoughnutController, ArcElement, Legend);
 
 interface Props {
   title?: string;
@@ -19,10 +21,14 @@ const CategoryDistribution = (props: Props) => {
   const chartRef = useRef(null);
   const [refId, setRefId] = useState(newId());
   const profile = useSelector((state: any) => state.profile);
+  const [chart, setChart] = useState<any>(null);
 
   useEffect(() => {
-    renderChart();
-  }, []);
+    console.log(profile.sidebar, '***');
+    setTimeout(() => {
+      renderChart();
+    }, 250);
+  }, [profile.sidebar]);
 
   // useEffect(() => {
   //   renderChart();
@@ -31,41 +37,58 @@ const CategoryDistribution = (props: Props) => {
   const renderChart = () => {
     const el: any = document.getElementById(refId);
     if (el) {
-      new Chart(el, {
+      if (chart) {
+        chart.destroy();
+      }
+      const _chart = new Chart(el, {
         type: 'doughnut',
         data: {
-          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels: ['Grocery', 'Restaurant', 'Yellow'],
           datasets: [
             {
-              label: '# of Votes',
-              data: [12, 19, 3, 5, 2, 3],
+              label: 'My First Dataset',
+              data: [300, 50, 100, 200, 225],
               backgroundColor: [
-                '#C6D57E',
-                '#D57E7E',
-                '#A2CDCD',
-                '#FFE1AF',
-                '#92BA92',
-                '#F68989',
+                '#8CA685',
+                '#D9BB25',
+                '#BF9A2C',
+                '#F2E6CE',
+                '#6393A6',
               ],
               borderWidth: 0,
             },
           ],
         },
         options: {
+          // responsive: true,
+          // maintainAspectRatio: true,
           cutout: '80%',
+          plugins: {
+            legend: {
+              display: false,
+              position: 'right',
+              labels: {
+                padding: 20,
+              },
+            },
+          },
         },
       });
+      setChart(_chart);
     }
   };
 
   return (
-    <div className="category-distribution">
-      <canvas
-        id={refId}
-        ref={chartRef}
-        // height={height}
-        // width={width}
-      />
+    <div className="chart-section">
+      <ChartHeader title="Category distribution" />
+      <ChartBody>
+        <div className="chart-section-main">
+          <div className="category-distribution__chart">
+            <canvas id={refId} ref={chartRef} />
+          </div>
+          <div className="category-distribution__legend">Legend</div>
+        </div>
+      </ChartBody>
     </div>
   );
 };

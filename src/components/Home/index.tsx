@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import CategoryDistribution from '../DashboardElements/CategoryDistribution';
+import Topbar from '../Topbar';
 import './style.scss';
 
 interface Props {
@@ -15,11 +16,21 @@ const Home = (props: Props) => {
   };
 
   return (
-    <div className="home page-width">
-      {/* <ListSpaces history={props.history} /> */}
-      <div className="content-section">
-        <CategoryDistribution />
-        <div />
+    <div className="home">
+      <Topbar title="Dashboard">right</Topbar>
+      <div className="main-section home__main">
+        <div className="home__main__two-column">
+          <div className="home__main__chart">
+            <CategoryDistribution />
+          </div>
+          <div className="home__main__chart">
+            <CategoryDistribution />
+          </div>
+        </div>
+        <div className="home__main__multi-column">
+          <div className="">100</div>
+          <div className="">200</div>
+        </div>
       </div>
     </div>
   );

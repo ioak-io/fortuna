@@ -146,3 +146,20 @@
   //   color: inherit;
   // }
 }
+
+.action-column {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  justify-content: flex-end;
+}
+
+.chart-section {
+  background-color: var(--color-surface);
+}
+
+.chart-section-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+}

@@ -16,6 +16,8 @@ import OakForm from '../../../oakui/wc/OakForm';
 import * as service from './service';
 import OakButton from '../../../oakui/wc/OakButton';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
+import RunLog from './RunLog';
+import { isEmptyAttributes } from '../../../components/Utils';
 
 const queryString = require('query-string');
 
@@ -30,29 +32,44 @@ const BackupAndRestore = (props: Props) => {
   const [queryParam, setQueryParam] = useState<any>({});
   const [formId, setFormId] = useState(newId());
   const [state, setState] = useState<any>({ expenseImportFile: null });
+  const [logData, setLogData] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (authorization.isAuth) {
+      service.getLog(props.space, authorization).then((response: any) => {
+        setLogData([...response]);
+      });
+    }
+  }, [authorization]);
 
   const handleChange = (detail: any) => {
     console.log(detail);
     setState({ ...state, [detail.name]: detail.value });
   };
 
+  const handleRunLogChange = (_data: any) => {
+    setLogData(_data);
+  };
+
   const importExpenseFile = () => {
     if (state.expenseImportFile?.length > 0) {
-      console.log(state.expenseImportFile[0]);
-      service.importExpenseFile(
-        props.space,
-        state.expenseImportFile[0],
-        authorization
-      );
+      service
+        .importExpenseFile(
+          props.space,
+          state.expenseImportFile[0],
+          authorization
+        )
+        .then((response: any) => {
+          if (!isEmptyAttributes(response?.log)) {
+            setLogData([response.log, ...logData]);
+          }
+        });
     }
   };
 
   return (
     <div className="backup-and-restore page-width">
-      {/* <OakForm formGroupName={formId} handleSubmit={save}>
-        <div className="form"> */}
-      {/* <div className="form-two-column"> */}
-      <div className="backup-and-restore__section content-section">
+      {/* <div className="content-section">
         <div className="page-title">System backup and restore</div>
         <div className="form">
           <div className="backup-and-restore__section__subtitle">
@@ -73,19 +90,27 @@ const BackupAndRestore = (props: Props) => {
           <div className="backup-and-restore__section__action">
             <OakButton handleClick={() => {}} theme="primary">
               <FontAwesomeIcon icon={faCloudDownloadAlt} />
-              {/* <FontAwesomeIcon icon={faFileExport} /> */}
               Download backup
             </OakButton>
             <OakButton handleClick={() => {}} theme="default">
               <FontAwesomeIcon icon={faCloudUploadAlt} />
-              {/* <FontAwesomeIcon icon={faFileExport} /> */}
               Restore from backup
             </OakButton>
           </div>
         </div>
+      </div> */}
+      <div className="content-section">
+        <div className="page-title">Data export</div>
+        <div>Export all expense data available in the system so far</div>
+        <div className="backup-and-restore__section__action">
+          <OakButton handleClick={() => {}} theme="primary">
+            <FontAwesomeIcon icon={faFileExport} />
+            Export
+          </OakButton>
+        </div>
       </div>
       <div className="content-section">
-        <div className="page-title">Expense data import and export</div>
+        <div className="page-title">Data import</div>
         <div className="form">
           <OakInput
             name="expenseImportFile"
@@ -96,27 +121,31 @@ const BackupAndRestore = (props: Props) => {
             size="small"
             color="container"
           />
-          <OakCheckbox name="addAnother" value handleChange={() => {}}>
+          {/* <OakCheckbox name="addAnother" value handleChange={() => {}}>
             Delete existing data before import
           </OakCheckbox>
           <OakCheckbox name="addAnother" value handleChange={() => {}}>
             Ignore possible duplicates
-          </OakCheckbox>
+          </OakCheckbox> */}
           <div className="backup-and-restore__section__action">
             <OakButton handleClick={() => {}} theme="primary">
               <FontAwesomeIcon icon={faFileExport} />
-              Export expense data
+              Export all
             </OakButton>
             <OakButton handleClick={importExpenseFile} theme="default">
               <FontAwesomeIcon icon={faFileImport} />
-              Import expense data
+              Import file
             </OakButton>
           </div>
         </div>
       </div>
-      {/* </div> */}
-      {/* </div>
-      </OakForm> */}
+      <div className="content-section">
+        <RunLog
+          space={props.space}
+          data={logData}
+          handleChange={handleRunLogChange}
+        />
+      </div>
     </div>
   );
 };

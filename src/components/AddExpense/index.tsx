@@ -56,6 +56,10 @@ const AddExpense = (props: Props) => {
   const [categoryNotChosen, setCategoryNotChosen] = useState(false);
 
   useEffect(() => {
+    setFormId(newId());
+  }, [isOpen]);
+
+  useEffect(() => {
     QuickEditExpenseCommand.subscribe((message) => {
       if (message.open && message.record) {
         setState({
@@ -161,62 +165,62 @@ const AddExpense = (props: Props) => {
       >
         <div slot="body">
           <div className="add-expense">
+            {/* <OakForm formGroupName={formId} handleSubmit={save}> */}
             {isOpen && (
-              <OakForm formGroupName={formId} handleSubmit={save}>
-                <div className="form">
-                  <div className="form-two-column">
-                    <OakInput
-                      name="billDateString"
-                      value={state.billDateString}
-                      formGroupName={formId}
-                      type="date"
-                      handleInput={handleChange}
-                      size="large"
-                      color="container"
-                      label="Bill date"
-                      shape="rectangle"
-                      required
-                      disabled={state.billId}
-                    />
-
-                    <OakInput
-                      name="amount"
-                      value={state.amount}
-                      type="number"
-                      formGroupName={formId}
-                      handleInput={handleChange}
-                      size="large"
-                      color="container"
-                      shape="rectangle"
-                      label="Amount"
-                      nonzero
-                      autofocus
-                    />
-                  </div>
+              <div className="form">
+                <div className="form-two-column">
                   <OakInput
-                    name="description"
-                    value={state.description}
+                    name="billDateString"
+                    value={state.billDateString}
+                    formGroupName={formId}
+                    type="date"
+                    handleInput={handleChange}
+                    size="large"
+                    color="container"
+                    label="Bill date"
+                    shape="rectangle"
+                    required
+                    disabled={state.billId}
+                  />
+
+                  <OakInput
+                    name="amount"
+                    value={state.amount}
+                    type="number"
                     formGroupName={formId}
                     handleInput={handleChange}
                     size="large"
                     color="container"
                     shape="rectangle"
-                    label="Details of the expenditure"
-                    required
-                  />
-                  <CategorySelection
-                    handleChange={handleCategoryChange}
-                    categoryId={state.category}
-                    error={categoryNotChosen}
-                  />
-                  <TagSelection
-                    addTag={handleAddTag}
-                    removeTag={handleRemoveTag}
-                    tagId={state.tagId}
+                    label="Amount"
+                    nonzero
+                    autofocus
                   />
                 </div>
-              </OakForm>
+                <OakInput
+                  name="description"
+                  value={state.description}
+                  formGroupName={formId}
+                  handleInput={handleChange}
+                  size="large"
+                  color="container"
+                  shape="rectangle"
+                  label="Details of the expenditure"
+                  required
+                />
+                <CategorySelection
+                  handleChange={handleCategoryChange}
+                  categoryId={state.category}
+                  error={categoryNotChosen}
+                />
+                <TagSelection
+                  addTag={handleAddTag}
+                  removeTag={handleRemoveTag}
+                  tagId={state.tagId}
+                />
+              </div>
             )}
+            {/* </OakForm> */}
           </div>
         </div>
         <div slot="footer">
@@ -234,7 +238,7 @@ const AddExpense = (props: Props) => {
               formGroupName={formId}
               theme="primary"
               variant="regular"
-              type="submit"
+              handleClick={save}
             >
               <FontAwesomeIcon icon={faChevronRight} /> Save
             </OakButton>

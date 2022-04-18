@@ -1,8 +1,12 @@
 /* eslint-disable import/prefer-default-export */
-import { httpDelete, httpGet, httpPost, httpPut } from '../../Lib/RestTemplate';
+import { httpGet, httpPost, httpPut } from '../../Lib/RestTemplate';
 
-export const getUserInvite = (space: string, authorization: any) => {
-  return httpGet(`/user/invite/${space}`, {
+export const getDuplicateReceipt = (
+  space: string,
+  authorization: any,
+  payload: any
+) => {
+  return httpPost(`/receipt/${space}/action/getduplicate`, payload, {
     headers: {
       Authorization: authorization.access_token,
     },
@@ -18,12 +22,12 @@ export const getUserInvite = (space: string, authorization: any) => {
     });
 };
 
-export const sendUserInvite = (
+export const fixDuplicateReceipt = (
   space: string,
-  payload: any,
-  authorization: any
+  authorization: any,
+  payload: any
 ) => {
-  return httpPost(`/user/invite/${space}/`, payload, {
+  return httpPost(`/receipt/${space}/action/fixduplicate`, payload, {
     headers: {
       Authorization: authorization.access_token,
     },
@@ -32,41 +36,19 @@ export const sendUserInvite = (
       if (response.status === 200) {
         return Promise.resolve(response.data);
       }
+      return Promise.resolve([]);
     })
     .catch((error) => {
-      return Promise.resolve({});
+      return Promise.resolve([]);
     });
 };
 
-export const importExpenseFile = (
+export const getDuplicateLineItem = (
   space: string,
-  payload: any,
-  authorization: any
+  authorization: any,
+  payload: any
 ) => {
-  const formData = new FormData();
-  formData.append('file', payload);
-  return httpPost(`/import/${space}`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      Authorization: authorization.access_token,
-    },
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        return Promise.resolve(response.data);
-      }
-    })
-    .catch((error) => {
-      return Promise.resolve({});
-    });
-};
-
-export const deleteTransactions = (
-  space: string,
-  id: string,
-  authorization: any
-) => {
-  return httpDelete(`/import/${space}/transaction/${id}`, {
+  return httpPost(`/expense/${space}/action/getduplicate`, payload, {
     headers: {
       Authorization: authorization.access_token,
     },
@@ -75,15 +57,19 @@ export const deleteTransactions = (
       if (response.status === 200) {
         return Promise.resolve(response.data);
       }
-      return Promise.resolve({});
+      return Promise.resolve([]);
     })
     .catch((error) => {
-      return Promise.resolve({});
+      return Promise.resolve([]);
     });
 };
 
-export const getLog = (space: string, authorization: any) => {
-  return httpGet(`/import/log/${space}`, {
+export const fixDuplicateLineItem = (
+  space: string,
+  authorization: any,
+  payload: any
+) => {
+  return httpPost(`/expense/${space}/action/fixduplicate`, payload, {
     headers: {
       Authorization: authorization.access_token,
     },

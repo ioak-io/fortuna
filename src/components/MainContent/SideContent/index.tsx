@@ -3,8 +3,10 @@ import {
   faCalendarAlt,
   faChartArea,
   faChartBar,
+  faClone,
   faCog,
   faCogs,
+  faCopy,
   faDatabase,
   faFileExport,
   faFileImport,
@@ -113,14 +115,19 @@ const SideContent = (props: Props) => {
               label="Budget"
             />
             <SideNavLink
+              link={`/${props.space}/category`}
+              icon={faTags}
+              label="Categories and tags"
+            />
+            <SideNavLink
               link={`/${props.space}/schedule/receipt`}
               icon={faCalendarAlt}
               label="Schedule transactions"
             />
             <SideNavLink
-              link={`/${props.space}/category`}
-              icon={faTags}
-              label="Categories and tags"
+              link={`/${props.space}/duplicate`}
+              icon={faCopy}
+              label="Duplicate transactions"
             />
             <SideNavSubHeading short="Report" long="Report" />
             <SideNavLink
