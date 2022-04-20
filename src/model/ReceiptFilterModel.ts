@@ -14,5 +14,4 @@ export default interface ReceiptFilterModel {
   yearNumber?: number | null;
   categoryIdList: string[];
   tagIdList: string[];
-  kakeiboList: string[];
 }

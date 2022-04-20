@@ -38,11 +38,11 @@ const EMPTY_FILTER: ReceiptFilterModel = {
   monthNumber: null,
   yearNumber: null,
   categoryIdList: [],
-  kakeiboList: [],
   tagIdList: [],
 };
 
 const ReceiptPage = (props: Props) => {
+  const categories = useSelector((state: any) => state.category.categories);
   const authorization = useSelector((state: any) => state.authorization);
   const dispatch = useDispatch();
   const receiptFilterState: any = useSelector(
@@ -104,6 +104,7 @@ const ReceiptPage = (props: Props) => {
           saveFilter={saveFilter}
           manageFilter={manageFilter}
           filterFromState={receiptFilterState}
+          categories={categories}
         />
       </div>
     </>

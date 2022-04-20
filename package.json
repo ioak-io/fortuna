@@ -82,6 +82,7 @@
     "apollo-link-http": "^1.5.17",
     "axios": "^0.21.1",
     "chart.js": "^3.7.1",
+    "chartjs-adapter-date-fns": "^2.0.0",
     "cropperjs": "^1.5.11",
     "cross-env": "^7.0.3",
     "date-fns": "^2.16.1",

@@ -25,3 +25,15 @@
 // .home__main__chart {
 //     height: 200px
 // }
+
+.home__main__criteria {
+  display: grid;
+  grid-auto-flow: column;
+  row-gap: 20px;
+  column-gap: 20px;
+  align-items: center;
+}
+
+.home__main__chart {
+  background-color: var(--color-surface);
+}

@@ -46,6 +46,7 @@ const EMPTY_FILTER: ExpenseFilterModel = {
 };
 
 const ExpensePage = (props: Props) => {
+  const categories = useSelector((state: any) => state.category.categories);
   const authorization = useSelector((state: any) => state.authorization);
   const dispatch = useDispatch();
   const expenseFilterState: any = useSelector(
@@ -111,6 +112,7 @@ const ExpensePage = (props: Props) => {
           saveFilter={saveFilter}
           manageFilter={manageFilter}
           filterFromState={expenseFilterState}
+          categories={categories}
         />
       </div>
     </>

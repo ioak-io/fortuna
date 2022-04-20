@@ -23,6 +23,7 @@ import ScheduleReceiptPage from '../Page/ScheduleReceiptPage';
 import ScheduleReceiptRunbookPage from '../Page/ScheduleReceiptRunbookPage';
 import BudgetPage from '../Page/BudgetPage';
 import DuplicatePage from '../Page/DuplicatePage';
+import IncomePage from '../Page/IncomePage';
 
 interface Props {
   cookies: any;
@@ -134,6 +135,18 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={ReceiptPage}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/income"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={IncomePage}
             middleware={['authenticate']}
           />
         )}

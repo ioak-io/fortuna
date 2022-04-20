@@ -1,40 +1,57 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import { Chart, ArcElement, DoughnutController, Legend } from 'chart.js';
+import * as _ from 'lodash';
 import './style.scss';
 // import Chart from 'chart.js';
 // import { Chart as ChartJS } from 'chart.js';
 import { newId } from '../../../events/MessageService';
 import ChartHeader from '../ChartHeader';
 import ChartBody from '../ChartBody';
-
-Chart.register(DoughnutController, ArcElement, Legend);
+import StatisticsPayloadModel from '../../../model/StatisticsPayloadModel';
+import { getCategoryDistribution, DASHBOARD_COLOR_SCHEME } from '../service';
+import LegendView from './LegendView';
+import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
+import { isEmptyAttributes } from '../../../components/Utils';
 
 interface Props {
-  title?: string;
-  stacked?: boolean;
-  // datasets: any;
-  categoryLabels?: string[];
+  space: string;
+  categoryMap: any;
+  data?: any;
+  title: string;
+  colorScheme: any;
 }
 
 const CategoryDistribution = (props: Props) => {
   const chartRef = useRef(null);
   const [refId, setRefId] = useState(newId());
   const profile = useSelector((state: any) => state.profile);
+  const authorization = useSelector((state: any) => state.authorization);
   const [chart, setChart] = useState<any>(null);
+  const company = useSelector((state: any) =>
+    state.company.items.find(
+      (item: any) => item.reference === parseInt(props.space, 10)
+    )
+  );
 
   useEffect(() => {
-    console.log(profile.sidebar, '***');
     setTimeout(() => {
-      renderChart();
+      if (chart) {
+        chart.update();
+      } else {
+        renderChart();
+      }
     }, 250);
   }, [profile.sidebar]);
 
-  // useEffect(() => {
-  //   renderChart();
-  // }, [props.datasets]);
+  useEffect(() => {
+    renderChart();
+  }, [props.data]);
 
   const renderChart = () => {
+    if (isEmptyAttributes(props.data)) {
+      return;
+    }
     const el: any = document.getElementById(refId);
     if (el) {
       if (chart) {
@@ -43,25 +60,18 @@ const CategoryDistribution = (props: Props) => {
       const _chart = new Chart(el, {
         type: 'doughnut',
         data: {
-          labels: ['Grocery', 'Restaurant', 'Yellow'],
+          labels: props.data.label,
           datasets: [
             {
-              label: 'My First Dataset',
-              data: [300, 50, 100, 200, 225],
-              backgroundColor: [
-                '#8CA685',
-                '#D9BB25',
-                '#BF9A2C',
-                '#F2E6CE',
-                '#6393A6',
-              ],
+              data: props.data.data,
+              backgroundColor: props.colorScheme,
               borderWidth: 0,
             },
           ],
         },
         options: {
-          // responsive: true,
-          // maintainAspectRatio: true,
+          responsive: true,
+          maintainAspectRatio: true,
           cutout: '80%',
           plugins: {
             legend: {
@@ -80,14 +90,32 @@ const CategoryDistribution = (props: Props) => {
 
   return (
     <div className="chart-section">
-      <ChartHeader title="Category distribution" />
+      <ChartHeader title={props.title} />
       <ChartBody>
-        <div className="chart-section-main">
+        <div className="chart-section-two-column">
           <div className="category-distribution__chart">
             <canvas id={refId} ref={chartRef} />
+            {chart && props.data && (
+              <div className="category-distribution__chart__center">
+                <p>{props.data.totalCount} Spends</p>
+                <p>
+                  {formatCurrencyByCompanyDetail(props.data.total, company)}
+                </p>
+              </div>
+            )}
           </div>
-          <div className="category-distribution__legend">Legend</div>
+          <div className="category-distribution__legend">
+            {chart && props.data && (
+              <LegendView
+                data={props.data}
+                categoryMap={props.categoryMap}
+                space={props.space}
+                colorScheme={props.colorScheme}
+              />
+            )}
+          </div>
         </div>
+        {!props.data && <div>Loading...</div>}
       </ChartBody>
     </div>
   );

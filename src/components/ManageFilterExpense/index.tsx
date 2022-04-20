@@ -49,6 +49,7 @@ const EMPTY_FILTER: ExpenseFilterModel = {
   yearNumber: null,
   categoryIdList: [],
   kakeiboList: [],
+  tagIdList: [],
 };
 
 const ManageFilterExpense = (props: Props) => {

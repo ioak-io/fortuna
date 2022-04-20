@@ -6,8 +6,6 @@ import './style.scss';
 // import { Chart as ChartJS } from 'chart.js';
 import { newId } from '../../../events/MessageService';
 
-Chart.register(DoughnutController, ArcElement, Legend);
-
 interface Props {
   title: string;
 }

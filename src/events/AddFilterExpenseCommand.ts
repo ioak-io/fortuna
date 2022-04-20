@@ -16,6 +16,7 @@ const AddFilterExpenseCommand =
       yearNumber: null,
       categoryIdList: [],
       kakeiboList: [],
+      tagIdList: [],
     },
   });
 

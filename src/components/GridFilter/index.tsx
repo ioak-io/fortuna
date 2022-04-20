@@ -33,6 +33,7 @@ interface Props {
   saveFilter: any;
   manageFilter: any;
   filterFromState: any;
+  categories: any[];
 }
 
 const GridFilter = (props: Props) => {
@@ -209,11 +210,14 @@ const GridFilter = (props: Props) => {
         <CategorySelection
           handleChange={handleCategoryChange}
           categoryIdList={state.categoryIdList}
+          categories={props.categories}
         />
-        <KakeiboSelection
-          handleChange={handleKakeiboChange}
-          kakeiboList={state.kakeiboList}
-        />
+        {state.kakeiboList && (
+          <KakeiboSelection
+            handleChange={handleKakeiboChange}
+            kakeiboList={state.kakeiboList}
+          />
+        )}
         <TagSelection
           handleChange={handleTagChange}
           tagIdList={state.tagIdList}

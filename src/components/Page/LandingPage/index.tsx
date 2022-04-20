@@ -16,6 +16,7 @@ const EMPTY_EXPENSE: ExpenseModel = {
   billDate: '',
   category: '',
   description: '',
+  tagId: [],
 };
 
 const EMPTY_BILL: ReceiptModel = {

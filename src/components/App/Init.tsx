@@ -17,6 +17,8 @@ import { fetchAndSetFilterExpenseItems } from '../../actions/FilterExpenseAction
 import { fetchAllTags } from '../../actions/TagActions';
 import { setProfile } from '../../actions/ProfileActions';
 import ReceiptStateActions from '../../simplestates/ReceiptStateActions';
+import { fetchAllIncomeCategories } from '../../actions/IncomeCategoryActions';
+import IncomeStateActions from '../../simplestates/IncomeStateActions';
 
 const Init = () => {
   const authorization = useSelector((state: any) => state.authorization);
@@ -33,6 +35,7 @@ const Init = () => {
       initialize();
       dispatch(fetchAndSetUserItems(space, authorization));
       dispatch(fetchAllCategories(space, authorization));
+      dispatch(fetchAllIncomeCategories(space, authorization));
       dispatch(fetchAllTags(space, authorization));
       dispatch(fetchAndSetFilterExpenseItems(space, authorization));
     }
@@ -111,6 +114,7 @@ const Init = () => {
     <>
       <ExpenseStateActions space={space} />
       <ReceiptStateActions space={space} />
+      <IncomeStateActions space={space} />
     </>
   );
 };

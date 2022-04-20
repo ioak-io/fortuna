@@ -7,26 +7,26 @@ import { isEmptyOrSpaces } from '../Utils';
 import CategoryChip from '../../components/CategoryChip';
 
 interface Props {
+  categories: any[];
   categoryIdList: string[];
   handleChange: any;
 }
 
 const CategorySelection = (props: Props) => {
-  const categories = useSelector((state: any) => state.category.categories);
   const [searchText, setSearchText] = useState('');
-  const [categoriesFiltered, setCategoriesFiltered] = useState([]);
+  const [categoriesFiltered, setCategoriesFiltered] = useState<any[]>([]);
 
   useEffect(() => {
     if (isEmptyOrSpaces(searchText)) {
-      setCategoriesFiltered(categories);
+      setCategoriesFiltered(props.categories);
     } else {
       setCategoriesFiltered(
-        categories.filter((category: any) =>
+        props.categories.filter((category: any) =>
           category.name.toLowerCase().includes(searchText)
         )
       );
     }
-  }, [categories, searchText]);
+  }, [props.categories, searchText]);
 
   const handleChange = (detail: any) => {
     setSearchText(detail.value);

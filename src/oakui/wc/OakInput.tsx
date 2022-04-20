@@ -32,6 +32,7 @@ interface Props {
     | 'file'
     | 'time'
     | 'datetime'
+    | 'month'
     | 'color';
   multiple?: boolean;
   size?: 'xsmall' | 'small' | 'medium' | 'large';

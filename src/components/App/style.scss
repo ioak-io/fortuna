@@ -156,10 +156,21 @@
 
 .chart-section {
   background-color: var(--color-surface);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
 }
 
-.chart-section-main {
+.chart-section-one-column {
+  display: grid;
+  // grid-template-columns: 1fr 1fr;
+  // column-gap: 40px;
+  align-items: center;
+}
+
+.chart-section-two-column {
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 40px;
+  align-items: center;
 }

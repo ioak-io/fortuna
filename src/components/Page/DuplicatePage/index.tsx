@@ -39,7 +39,6 @@ const EMPTY_FILTER: ReceiptFilterModel = {
   monthNumber: null,
   yearNumber: null,
   categoryIdList: [],
-  kakeiboList: [],
   tagIdList: [],
 };
 

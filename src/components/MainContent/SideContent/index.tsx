@@ -23,6 +23,7 @@ import {
   faTags,
   faTh,
   faThLarge,
+  faUniversity,
   faUserShield,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -110,6 +111,11 @@ const SideContent = (props: Props) => {
               label="Receipts"
             />
             <SideNavLink
+              link={`/${props.space}/income`}
+              icon={faUniversity}
+              label="Income"
+            />
+            <SideNavLink
               link={`/${props.space}/budget`}
               icon={faBalanceScaleRight}
               label="Budget"
@@ -172,7 +178,7 @@ const SideContent = (props: Props) => {
             </button>
           )}
           {!authorization.isAuth && (
-            <button className="button" onClick={login}>
+            <button className="button" onClick={() => login('signin')}>
               <FontAwesomeIcon icon={faFingerprint} />
             </button>
           )}
