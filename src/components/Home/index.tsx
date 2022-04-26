@@ -13,14 +13,16 @@ import MonthlyCategoryTrend from '../DashboardElements/MonthlyCategoryTrend';
 import {
   DASHBOARD_COLOR_SCHEME,
   DASHBOARD_KAKEIBO_COLOR_SCHEME,
-  getCategoryDistribution,
   getTrend,
   getWeeklyTrend,
+  getMetric,
 } from '../DashboardElements/service';
 import IncomeTrend from '../DashboardElements/IncomeTrend';
 import ExpenseChangeTrend from '../DashboardElements/ExpenseChangeTrend';
 import WeeklyTrend from '../DashboardElements/WeeklyTrend';
 import { isEmptyOrSpaces } from '../Utils';
+import TopNSpendTrend from '../DashboardElements/TileSection/TopNSpendTrend';
+import TopNMonthTrend from '../DashboardElements/TileSection/TopNMonthTrend';
 
 interface Props {
   space: string;
@@ -60,9 +62,8 @@ const Home = (props: Props) => {
   const [prevState, setPrevState] = useState<StatisticsPayloadModel>({
     option: 'last month',
   });
-  const [data, setData] = useState<any>({
-    categoryDistribution: {},
-  });
+  const [data, setData] = useState<any>({});
+  const [metric, setMetric] = useState<any>({});
   const [weeklyTrendata, setWeeklyTrendData] = useState<any>({});
 
   const [categoryMap, setCategoryMap] = useState<any>({});
@@ -78,6 +79,9 @@ const Home = (props: Props) => {
       ) {
         getTrend(props.space, authorization, state).then((response: any) => {
           setData(response);
+        });
+        getMetric(props.space, authorization, state).then((response: any) => {
+          setMetric(response);
         });
         getWeeklyTrend(props.space, authorization, state).then(
           (response: any) => {
@@ -174,6 +178,28 @@ const Home = (props: Props) => {
         </div>
         <div className="home__main__two-column">
           <div className="home__main__chart">
+            <TopNMonthTrend
+              space={props.space}
+              categoryMap={categoryMap}
+              data={data.metric?.topSpend}
+              title="Top spends by transaction"
+            />
+            {/* <TopNSpendTrend
+              space={props.space}
+              categoryMap={categoryMap}
+              data={data.metric}
+              title="Top spends by transactions"
+            /> */}
+          </div>
+          <div className="home__main__chart">
+            <TopNMonthTrend
+              space={props.space}
+              categoryMap={categoryMap}
+              data={data.metric?.topMonth}
+              title="Top spends by month"
+            />
+          </div>
+          <div className="home__main__chart">
             <CategoryDistribution
               space={props.space}
               categoryMap={categoryMap}
@@ -242,6 +268,7 @@ const Home = (props: Props) => {
             />
           </div>
         </div>
+        <div className="home__main__one-column">list</div>
         <div className="home__main__multi-column">
           <div className="">100</div>
           <div className="">200</div>

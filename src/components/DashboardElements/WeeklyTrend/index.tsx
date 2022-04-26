@@ -98,7 +98,7 @@ const WeeklyTrend = (props: Props) => {
               ...config,
               label: 'Amount',
               data: props.data.total,
-              backgroundColor: DASHBOARD_WEEKLY_COLOR_SCHEME[0],
+              backgroundColor: DASHBOARD_COLOR_SCHEME[0],
               borderWidth: 0,
             },
             // {

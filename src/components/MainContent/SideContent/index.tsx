@@ -86,7 +86,7 @@ const SideContent = (props: Props) => {
     >
       <div className="side-content__header">
         <div className="side-content__header__logo">
-          <Logo />
+          <Logo variant={profile.sidebar ? 'full' : 'short'}/>
         </div>
         {profile.sidebar && (
           <div className="side-content__header__button">

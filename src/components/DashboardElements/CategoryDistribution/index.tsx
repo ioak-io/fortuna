@@ -9,7 +9,7 @@ import { newId } from '../../../events/MessageService';
 import ChartHeader from '../ChartHeader';
 import ChartBody from '../ChartBody';
 import StatisticsPayloadModel from '../../../model/StatisticsPayloadModel';
-import { getCategoryDistribution, DASHBOARD_COLOR_SCHEME } from '../service';
+import { DASHBOARD_COLOR_SCHEME } from '../service';
 import LegendView from './LegendView';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
 import { isEmptyAttributes } from '../../../components/Utils';

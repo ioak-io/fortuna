@@ -90,6 +90,23 @@ export const getTrend = (space: string, authorization: any, payload: any) => {
     });
 };
 
+export const getMetric = (space: string, authorization: any, payload: any) => {
+  return httpPost(`/statistics/${space}/metric`, payload, {
+    headers: {
+      Authorization: authorization.access_token,
+    },
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return Promise.resolve(response.data);
+      }
+      return Promise.resolve({});
+    })
+    .catch((error) => {
+      return Promise.resolve({});
+    });
+};
+
 export const getWeeklyTrend = (
   space: string,
   authorization: any,

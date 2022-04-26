@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import './style.scss';
-import expensoWhite from '../../images/mirror_white_small.svg';
+import fortunaWhiteSmall from '../../images/fortuna_white_small.svg';
+import fortunaWhiteText from '../../images/fortuna_white_text.svg';
 import expensoBlack from '../../images/expenso_black.svg';
 
-const Logo = () => {
+interface Props {
+  variant: 'full' | 'short';
+}
+
+const Logo = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
 
   const profile = useSelector((state: any) => state.profile);
@@ -13,12 +18,20 @@ const Logo = () => {
 
   return (
     <div className="logo">
-      {profile.theme === 'theme_light' && (
-        <img className="logo--image" src={expensoWhite} alt="Expenso logo" />
-      )}
-      {profile.theme !== 'theme_light' && (
-        <img className="logo--image" src={expensoWhite} alt="Expenso logo" />
-      )}
+      <div className="logo--image">
+        {profile.theme === 'theme_light' && (
+          <img src={fortunaWhiteSmall} alt="Expenso logo" />
+        )}
+        {profile.theme !== 'theme_light' && (
+          <img
+            src={fortunaWhiteSmall}
+            alt="Expenso logo"
+          />
+        )}
+      </div>
+      {props.variant === 'full' && <div className="logo--text">
+        <img src={fortunaWhiteText} alt="Expenso logo" />
+      </div>}
     </div>
   );
 };

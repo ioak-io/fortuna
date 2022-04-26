@@ -12,11 +12,9 @@ import ChartHeader from '../ChartHeader';
 import ChartBody from '../ChartBody';
 import StatisticsPayloadModel from '../../../model/StatisticsPayloadModel';
 import {
-  getMonthlyCategoryDistribution,
   DASHBOARD_COLOR_SCHEME,
   CSSVARIABLES_DARK,
   CSSVARIABLES_LIGHT,
-  getMonthlyTrend,
 } from '../service';
 import { isEmptyAttributes } from '../../../components/Utils';
 

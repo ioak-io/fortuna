@@ -9,6 +9,13 @@
   margin-right: 40px;
 }
 
+.home__main__one-column {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 40px;
+  column-gap: 40px;
+}
+
 .home__main__two-column {
   display: grid;
   grid-template-columns: 1fr 1fr;
