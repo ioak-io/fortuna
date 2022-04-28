@@ -238,12 +238,14 @@ const ListReceipt = (props: Props) => {
                 >
                   {format(new Date(record.billDate), 'yyyy-MM-dd')}
                 </td>
-                <td onClick={() => openRecord(record)}>{record.number}</td>
+                <td onClick={() => openRecord(record)}>
+                  {record.number || '-'}
+                </td>
                 <td
                   className="list-receipt__column list-receipt__column--description"
                   onClick={() => openRecord(record)}
                 >
-                  {record.description}
+                  {record.description || '-'}
                 </td>
                 <td
                   className="list-receipt__column"
