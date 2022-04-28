@@ -7,6 +7,9 @@ import {
   EXPENSE_ITEMS_UPDATE,
 } from './types';
 import { httpGet, httpPost, httpPut } from '../components/Lib/RestTemplate';
+import { newId } from '../events/MessageService';
+import AddSpinnerCommand from '../events/AddSpinnerCommand';
+import RemoveSpinnerCommand from '../events/RemoveSpinnerCommand';
 
 export const fetchAndSetExpenseItems =
   (space: string, authorization: any, payload: any) => (dispatch: any) => {
@@ -57,12 +60,15 @@ const _fetchExpenseItems = (
   actionType: string
 ) => {
   console.log('****', space, authorization, payload);
+  const taskId = newId();
+  AddSpinnerCommand.next(taskId);
   httpPost(`/expense/${space}/`, payload, {
     headers: {
       Authorization: authorization.access_token,
     },
   })
     .then((response) => {
+      RemoveSpinnerCommand.next(taskId);
       if (response.status === 200) {
         dispatch({
           type: actionType,
@@ -84,5 +90,7 @@ const _fetchExpenseItems = (
         });
       }
     })
-    .catch((error) => {});
+    .catch((error) => {
+      RemoveSpinnerCommand.next(taskId);
+    });
 };

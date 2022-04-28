@@ -31,7 +31,7 @@ const ExternLogin = (props: Props) => {
     });
     if (data?.newExternSession?.sessionId) {
       props.cookies.set(
-        `expenso_${props.asset}`,
+        `fortuna_${props.asset}`,
         `extern ${data?.newExternSession?.sessionId}`
       );
       props.history.push(`/${props.asset}/article`);

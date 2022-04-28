@@ -5,7 +5,7 @@ import OakInput from '../../../oakui/wc/OakInput';
 
 import './ScheduleReceiptDetails.scss';
 import ReceiptModel from '../../../model/ReceiptModel';
-import { EXPENSO_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
+import { FORTUNA_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
 import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
 import OakSelect from '../../../oakui/wc/OakSelect';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
@@ -21,7 +21,7 @@ const ScheduleReceiptDetails = (props: Props) => {
   const handleChange = (detail: any) => {
     props.handleChange({ ...props.receipt, [detail.name]: detail.value });
     if (detail.name === 'billDate') {
-      sessionStorage.setItem(EXPENSO_PREF_ADDBILL_DATE, detail.value);
+      sessionStorage.setItem(FORTUNA_PREF_ADDBILL_DATE, detail.value);
     }
   };
 

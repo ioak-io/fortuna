@@ -24,8 +24,8 @@ const OaLogin = (props: Props) => {
         .then((response) => {
           if (response.status === 200) {
             console.log('**', response.data.token);
-            props.cookies.set(`expenso-access_token`, response.data.token);
-            props.cookies.set(`expenso-refresh_token`, query.refresh_token);
+            props.cookies.set(`fortuna-access_token`, response.data.token);
+            props.cookies.set(`fortuna-refresh_token`, query.refresh_token);
             props.history.push(query.from ? query.from : '/home');
           }
           return Promise.resolve({});

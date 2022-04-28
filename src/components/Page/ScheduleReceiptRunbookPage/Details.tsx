@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import OakInput from '../../../oakui/wc/OakInput';
 
 import './Details.scss';
 import ReceiptModel from '../../../model/ReceiptModel';
-import { EXPENSO_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
+import { FORTUNA_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
 import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
 import OakSelect from '../../../oakui/wc/OakSelect';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import OakButton from '../../../oakui/wc/OakButton';
 import { deleteTransactions, repostTransactions } from './service';
+import { fetchAndSetExpenseItems } from '../../../actions/ExpenseActions';
+import { fetchAndSetReceiptItems } from '../../../actions/ReceiptActions';
 
 interface Props {
   receipt: ScheduleReceiptModel;
@@ -20,12 +22,47 @@ interface Props {
 }
 
 const Details = (props: Props) => {
+  const dispatch = useDispatch();
   const authorization = useSelector((state: any) => state.authorization);
+  const expenseFilter = useSelector((state: any) => state.expense.filter);
+  const expensePagination = useSelector(
+    (state: any) => state.expense.pagination
+  );
+  const receiptFilter = useSelector((state: any) => state.receipt.filter);
+  const receiptPagination = useSelector(
+    (state: any) => state.receipt.pagination
+  );
+
+  const refreshStore = () => {
+    dispatch(
+      fetchAndSetExpenseItems(props.space, authorization, {
+        ...expenseFilter,
+        pagination: {
+          ...expensePagination,
+          pageSize: 20,
+          pageNo: 0,
+          hasMore: true,
+        },
+      })
+    );
+    dispatch(
+      fetchAndSetReceiptItems(props.space, authorization, {
+        ...receiptFilter,
+        pagination: {
+          ...receiptPagination,
+          pageSize: 20,
+          pageNo: 0,
+          hasMore: true,
+        },
+      })
+    );
+  };
 
   const deletePosting = () => {
     if (props.receipt?._id) {
       deleteTransactions(props.space, props.receipt._id, authorization).then(
         (response: any) => {
+          refreshStore();
           props.handleDataChange([]);
         }
       );
@@ -36,7 +73,7 @@ const Details = (props: Props) => {
     if (props.receipt?._id) {
       repostTransactions(props.space, props.receipt._id, authorization).then(
         (response: any) => {
-          console.log(response);
+          refreshStore();
           props.handleDataChange(response);
         }
       );

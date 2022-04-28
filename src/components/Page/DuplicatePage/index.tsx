@@ -74,7 +74,7 @@ const DuplicatePage = (props: Props) => {
   };
 
   return (
-    <div className="duplicate-page">
+    <div className="duplicate-page page-animate">
       <Topbar title="Duplicate transactions">
         <div className="duplicate-page__topbar__right">
           <button className="button" onClick={toggleFilter}>

@@ -70,8 +70,8 @@ const OakRouteApp = (props: Props) => {
       }
       return true;
     }
-    const accessToken = props.cookies.get(`expenso-access_token`);
-    const refreshToken = props.cookies.get(`expenso-refresh_token`);
+    const accessToken = props.cookies.get(`fortuna-access_token`);
+    const refreshToken = props.cookies.get(`fortuna-refresh_token`);
     if (accessToken && refreshToken) {
       httpPost(
         `/user/${appRealm}/authorize_user`,
@@ -83,7 +83,7 @@ const OakRouteApp = (props: Props) => {
             let newAccessToken = accessToken;
             if (response.data.accessToken) {
               newAccessToken = response.data.accessToken;
-              props.cookies.set(`expenso-access_token`, newAccessToken);
+              props.cookies.set(`fortuna-access_token`, newAccessToken);
             }
             console.log(response.data);
             dispatch(
@@ -97,8 +97,8 @@ const OakRouteApp = (props: Props) => {
           }
         })
         .catch((error: any) => {
-          props.cookies.remove(`expenso-access_token`);
-          props.cookies.remove(`expenso-refresh_token`);
+          props.cookies.remove(`fortuna-access_token`);
+          props.cookies.remove(`fortuna-refresh_token`);
           if (redirect && error.response.status === 404) {
             sendMessage('notification', true, {
               type: 'failure',

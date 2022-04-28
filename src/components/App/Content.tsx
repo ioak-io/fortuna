@@ -42,6 +42,7 @@ import NavigationContainer from './NavigationContainer';
 import MakeNavBarTransparentCommand from '../../events/MakeNavBarTransparentCommand';
 import HideNavBarCommand from '../../events/HideNavBarCommand';
 import MainContent from '../MainContent';
+import Spinner from '../Spinner';
 
 Chart.register(
   DoughnutController,
@@ -138,6 +139,7 @@ const Content = (props: Props) => {
       <div className={`App ${profile.theme} ${profile.textSize}`}>
         <HashRouter>
           <Init />
+          <Spinner />
           {/* <Notification /> */}
           {/* <OakNotification
             indicator="fill"

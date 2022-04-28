@@ -26,7 +26,7 @@ import { saveIncome } from './service';
 import CategorySelection from './CategorySelection';
 import { isEmptyOrSpaces } from '../Utils';
 import OakCheckbox from '../../oakui/wc/OakCheckbox';
-import { EXPENSO_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageConstants';
+import { FORTUNA_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageConstants';
 import TagSelection from './TagSelection';
 import IncomeModel from '../../model/IncomeModel';
 import { updateIncomeItems } from '../../actions/IncomeActions';
@@ -74,9 +74,9 @@ const EditIncome = (props: Props) => {
       setIsOpen(message.open);
     });
 
-    if (sessionStorage.getItem(EXPENSO_PREF_ADDEXPENSE_ANOTHER)) {
+    if (sessionStorage.getItem(FORTUNA_PREF_ADDEXPENSE_ANOTHER)) {
       setAddAnother(
-        sessionStorage.getItem(EXPENSO_PREF_ADDEXPENSE_ANOTHER) === 'true'
+        sessionStorage.getItem(FORTUNA_PREF_ADDEXPENSE_ANOTHER) === 'true'
       );
     }
   }, []);
@@ -118,7 +118,7 @@ const EditIncome = (props: Props) => {
 
   const toggleAddAnother = () => {
     sessionStorage.setItem(
-      EXPENSO_PREF_ADDEXPENSE_ANOTHER,
+      FORTUNA_PREF_ADDEXPENSE_ANOTHER,
       (!addAnother).toString()
     );
     setAddAnother(!addAnother);

@@ -26,7 +26,7 @@ import { saveExpense } from './service';
 import CategorySelection from './CategorySelection';
 import { isEmptyOrSpaces } from '../Utils';
 import OakCheckbox from '../../oakui/wc/OakCheckbox';
-import { EXPENSO_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageConstants';
+import { FORTUNA_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageConstants';
 import TagSelection from './TagSelection';
 import ExpenseModel from '../../model/ExpenseModel';
 import { updateExpenseItems } from '../../actions/ExpenseActions';
@@ -75,9 +75,9 @@ const AddExpense = (props: Props) => {
       setIsOpen(message.open);
     });
 
-    if (sessionStorage.getItem(EXPENSO_PREF_ADDEXPENSE_ANOTHER)) {
+    if (sessionStorage.getItem(FORTUNA_PREF_ADDEXPENSE_ANOTHER)) {
       setAddAnother(
-        sessionStorage.getItem(EXPENSO_PREF_ADDEXPENSE_ANOTHER) === 'true'
+        sessionStorage.getItem(FORTUNA_PREF_ADDEXPENSE_ANOTHER) === 'true'
       );
     }
   }, []);
@@ -119,7 +119,7 @@ const AddExpense = (props: Props) => {
 
   const toggleAddAnother = () => {
     sessionStorage.setItem(
-      EXPENSO_PREF_ADDEXPENSE_ANOTHER,
+      FORTUNA_PREF_ADDEXPENSE_ANOTHER,
       (!addAnother).toString()
     );
     setAddAnother(!addAnother);
@@ -148,7 +148,7 @@ const AddExpense = (props: Props) => {
 
   const goToEditBill = () => {
     QuickEditExpenseCommand.next({ open: false, record: null });
-    history.push(`/${props.space}/bill/edit?id=${state.billId}`);
+    history.push(`/${props.space}/receipt/edit?id=${state.billId}`);
   };
 
   return (

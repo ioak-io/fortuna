@@ -5,7 +5,7 @@ import OakInput from '../../../oakui/wc/OakInput';
 
 import './BillDetails.scss';
 import ReceiptModel from '../../../model/ReceiptModel';
-import { EXPENSO_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
+import { FORTUNA_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
 
 interface Props {
   bill: ReceiptModel;
@@ -18,7 +18,7 @@ const BillDetails = (props: Props) => {
   const handleChange = (detail: any) => {
     props.handleChange({ ...props.bill, [detail.name]: detail.value });
     if (detail.name === 'billDate') {
-      sessionStorage.setItem(EXPENSO_PREF_ADDBILL_DATE, detail.value);
+      sessionStorage.setItem(FORTUNA_PREF_ADDBILL_DATE, detail.value);
     }
   };
 

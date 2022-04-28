@@ -21,8 +21,8 @@ import IncomeTrend from '../DashboardElements/IncomeTrend';
 import ExpenseChangeTrend from '../DashboardElements/ExpenseChangeTrend';
 import WeeklyTrend from '../DashboardElements/WeeklyTrend';
 import { isEmptyOrSpaces } from '../Utils';
-import TopNSpendTrend from '../DashboardElements/TileSection/TopNSpendTrend';
-import TopNMonthTrend from '../DashboardElements/TileSection/TopNMonthTrend';
+import TileSection from '../DashboardElements/TileSection';
+import TopSpendList from '../DashboardElements/TopSpendList';
 
 interface Props {
   space: string;
@@ -133,7 +133,7 @@ const Home = (props: Props) => {
   };
 
   return (
-    <div className="home">
+    <div className="home page-animate">
       <Topbar title="Dashboard">right</Topbar>
 
       <div className="main-section home__main">
@@ -178,21 +178,15 @@ const Home = (props: Props) => {
         </div>
         <div className="home__main__two-column">
           <div className="home__main__chart">
-            <TopNMonthTrend
+            <TileSection
               space={props.space}
               categoryMap={categoryMap}
               data={data.metric?.topSpend}
               title="Top spends by transaction"
             />
-            {/* <TopNSpendTrend
-              space={props.space}
-              categoryMap={categoryMap}
-              data={data.metric}
-              title="Top spends by transactions"
-            /> */}
           </div>
           <div className="home__main__chart">
-            <TopNMonthTrend
+            <TileSection
               space={props.space}
               categoryMap={categoryMap}
               data={data.metric?.topMonth}
@@ -267,11 +261,32 @@ const Home = (props: Props) => {
               title="Kakeibo distribution"
             />
           </div>
+          {/* <div className="home__main__chart">
+            <TileSection
+              space={props.space}
+              categoryMap={categoryMap}
+              data={data.metric?.topSpend}
+              title="Top spends by transaction"
+            />
+          </div>
+          <div className="home__main__chart">
+            <TileSection
+              space={props.space}
+              categoryMap={categoryMap}
+              data={data.metric?.topMonth}
+              title="Top spends by month"
+            />
+          </div> */}
         </div>
-        <div className="home__main__one-column">list</div>
-        <div className="home__main__multi-column">
-          <div className="">100</div>
-          <div className="">200</div>
+        <div className="home__main__one-column">
+          <div className="home__main__chart">
+            <TopSpendList
+              space={props.space}
+              categoryMap={categoryMap}
+              data={data.metric?.topSpendList}
+              title="Top spends list"
+            />
+          </div>
         </div>
       </div>
     </div>

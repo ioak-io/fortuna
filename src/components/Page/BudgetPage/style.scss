@@ -8,9 +8,17 @@
 .budget-page__main__year {
   display: grid;
   justify-content: flex-end;
-  grid-auto-flow: column;
+  grid-template-columns: 20px 50px 20px;
   column-gap: 10px;
-  align-items: flex-end;
+  align-content: center;
+  justify-items: center;
+
+  .button {
+    cursor: pointer;
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
 }
 .budget-page__main__table {
   display: block;

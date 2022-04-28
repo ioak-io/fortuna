@@ -1,9 +1,9 @@
 {
-  "name": "expenso",
+  "name": "fortuna",
   "version": "1.0.0",
-  "description": "Expenso app",
+  "description": "Fortuna app",
   "main": "index.js",
-  "homepage": "https://expenso-app.ioak.io",
+  "homepage": "https://fortuna-app.ioak.io",
   "scripts": {
     "start": "tsc && webpack serve --env target=development --config webpack.config.js --mode development",
     "start:fast": "webpack serve --env target=development --config webpack.config.js --mode development",

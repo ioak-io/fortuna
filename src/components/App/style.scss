@@ -174,3 +174,26 @@
   column-gap: 40px;
   align-items: center;
 }
+
+.page-animate {
+  -webkit-animation: page-animate 500ms forwards ease-in-out;
+  animation: page-animate 250ms forwards ease-in-out;
+}
+
+@-webkit-keyframes page-animate {
+  0% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes page-animate {
+  0% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}

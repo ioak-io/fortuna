@@ -1,3 +1,6 @@
+import { newId } from '../../events/MessageService';
+import RemoveSpinnerCommand from '../../events/RemoveSpinnerCommand';
+import AddSpinnerCommand from '../../events/AddSpinnerCommand';
 import { httpPost } from '../Lib/RestTemplate';
 
 export const DASHBOARD_COLOR_SCHEME: string[] = [
@@ -74,18 +77,22 @@ export const CSSVARIABLES_LIGHT = {
 };
 
 export const getTrend = (space: string, authorization: any, payload: any) => {
+  const taskId = newId();
+  AddSpinnerCommand.next(taskId);
   return httpPost(`/statistics/${space}/trend`, payload, {
     headers: {
       Authorization: authorization.access_token,
     },
   })
     .then((response) => {
+      RemoveSpinnerCommand.next(taskId);
       if (response.status === 200) {
         return Promise.resolve(response.data);
       }
       return Promise.resolve({});
     })
     .catch((error) => {
+      RemoveSpinnerCommand.next(taskId);
       return Promise.resolve({});
     });
 };

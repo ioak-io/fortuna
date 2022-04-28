@@ -15,8 +15,8 @@ import OakForm from '../../../oakui/wc/OakForm';
 import { isEmptyAttributes, isEmptyOrSpaces } from '../../../components/Utils';
 import { saveBill, getBillById } from './service';
 import {
-  EXPENSO_PREF_ADDBILL_ANOTHER,
-  EXPENSO_PREF_ADDBILL_DATE,
+  FORTUNA_PREF_ADDBILL_ANOTHER,
+  FORTUNA_PREF_ADDBILL_DATE,
 } from '../../../constants/SessionStorageConstants';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import Topbar from '../../../components/Topbar';
@@ -52,7 +52,7 @@ const EditBillPage = (props: Props) => {
     return {
       ...EMPTY_BILL,
       billDate:
-        sessionStorage.getItem(EXPENSO_PREF_ADDBILL_DATE) ||
+        sessionStorage.getItem(FORTUNA_PREF_ADDBILL_DATE) ||
         EMPTY_BILL.billDate,
     };
   };
@@ -71,9 +71,9 @@ const EditBillPage = (props: Props) => {
   }, [props.location.search]);
 
   useEffect(() => {
-    if (sessionStorage.getItem(EXPENSO_PREF_ADDBILL_ANOTHER)) {
+    if (sessionStorage.getItem(FORTUNA_PREF_ADDBILL_ANOTHER)) {
       setAddAnother(
-        sessionStorage.getItem(EXPENSO_PREF_ADDBILL_ANOTHER) === 'true'
+        sessionStorage.getItem(FORTUNA_PREF_ADDBILL_ANOTHER) === 'true'
       );
     }
   }, []);
@@ -161,7 +161,6 @@ const EditBillPage = (props: Props) => {
             ...response,
             items: [...response.items, { ...EMPTY_EXPENSE }],
           });
-          // if (!_addAnother || queryParam.id) {
           if (!_addAnother) {
             history.goBack();
           } else {
@@ -186,14 +185,14 @@ const EditBillPage = (props: Props) => {
 
   const toggleAddAnother = () => {
     sessionStorage.setItem(
-      EXPENSO_PREF_ADDBILL_ANOTHER,
+      FORTUNA_PREF_ADDBILL_ANOTHER,
       (!addAnother).toString()
     );
     setAddAnother(!addAnother);
   };
 
   return (
-    <div className="edit-bill-page">
+    <div className="edit-bill-page page-animate">
       <Topbar title={queryParam.id ? 'Edit bill' : 'New bill'}>right</Topbar>
       {/* <OakForm formGroupName={formId} handleSubmit={save}> */}
       <div className="edit-bill-page__main main-section">

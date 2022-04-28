@@ -113,7 +113,22 @@ const DuplicateLineItem = (props: Props) => {
     // history.push(`/${props.space}/receipt/edit?id=${record._id}`);
   };
 
-  const loadMore = () => {};
+  const loadMore = () => {
+    if (paginationPref.hasMore) {
+      getDuplicateLineItem(props.space, authorization, paginationPref).then(
+        (response: any) => {
+          if (response?.results) {
+            setData([...data, ...response.results]);
+            setPaginationPref({
+              ...paginationPref,
+              hasMore: response.hasMore,
+              pageNo: response.pageNo,
+            });
+          }
+        }
+      );
+    }
+  };
 
   const handleSortChange = (sortBy: string) => {
     let _paginationPref = { ...paginationPref };

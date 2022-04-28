@@ -71,11 +71,13 @@ const GridFilter = (props: Props) => {
 
   const applyFilter = () => {
     props.applyFilter({ ...state });
+    props.closeFilter();
   };
 
   const resetFilter = () => {
     props.applyFilter({ ...props.emptyFilter });
     setState({ ...props.emptyFilter });
+    props.closeFilter();
   };
 
   const saveFilter = () => {

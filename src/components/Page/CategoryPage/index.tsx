@@ -46,7 +46,7 @@ const CategoryItem = (props: Props) => {
       <EditCategory space={props.space} />
       <EditIncomeCategory space={props.space} />
       <EditTag space={props.space} />
-      <div className="category-page">
+      <div className="category-page page-animate">
         <Topbar title="Categories and tags">right</Topbar>
         <div className="category-page__main main-section">
           <div className="category-page__main__category page-width content-section">
@@ -54,7 +54,7 @@ const CategoryItem = (props: Props) => {
               <div className="">Expense categories</div>
               <OakButton handleClick={addNewCategory}>
                 <FontAwesomeIcon icon={faPlus} />
-                New category
+                New
               </OakButton>
             </div>
             <ManageCategory space={props.space} location={props.location} />
@@ -64,7 +64,7 @@ const CategoryItem = (props: Props) => {
               <div className="">Income categories</div>
               <OakButton handleClick={addNewIncomeCategory}>
                 <FontAwesomeIcon icon={faPlus} />
-                New category
+                New
               </OakButton>
             </div>
             <ManageIncomeCategory
@@ -77,7 +77,7 @@ const CategoryItem = (props: Props) => {
               <div className="">Tags</div>
               <OakButton handleClick={addNewTag}>
                 <FontAwesomeIcon icon={faPlus} />
-                New tag
+                New
               </OakButton>
             </div>
             <ManageTag space={props.space} location={props.location} />

@@ -24,6 +24,8 @@ interface Props {
 const ExpenseItems = (props: Props) => {
   const categories = useSelector((state: any) => state.category.categories);
   const [categoryMap, setCategoryMap] = useState<any[]>([]);
+  const tags = useSelector((state: any) => state.tag.items);
+  const [tagMap, setTagMap] = useState<any[]>([]);
 
   useEffect(() => {
     if (categories) {
@@ -35,9 +37,26 @@ const ExpenseItems = (props: Props) => {
     }
   }, [categories]);
 
+  useEffect(() => {
+    if (tags) {
+      const _tagMap: any[] = [];
+      tags.forEach((tag: any) => {
+        _tagMap.push({ id: tag._id, value: tag.name });
+      });
+      setTagMap(_tagMap);
+    }
+  }, [tags]);
+
   const handleChange = (detail: any, index: number) => {
     const _data = [...props.data];
     _data[index] = { ..._data[index], [detail.name]: detail.value };
+    props.handleChange(_data, index === props.data.length - 1);
+  };
+
+  const handleTagChange = (detail: any, index: number) => {
+    console.log(detail);
+    const _data = [...props.data];
+    _data[index] = { ..._data[index], [detail.name]: [...detail.value] };
     props.handleChange(_data, index === props.data.length - 1);
   };
 
@@ -61,6 +80,7 @@ const ExpenseItems = (props: Props) => {
             <tr>
               <th className="indicator-column"> </th>
               <th>Category</th>
+              <th>Tags</th>
               <th>Description</th>
               <th>Price</th>
             </tr>
@@ -86,6 +106,23 @@ const ExpenseItems = (props: Props) => {
                     size="small"
                     color="container"
                     popupColor="surface"
+                    // required={index === 0 || index !== props.data.length - 1}
+                  />
+                </td>
+                <td>
+                  <OakSelect
+                    name="tagId"
+                    autocomplete
+                    value={record.tagId}
+                    optionsAsKeyValue={tagMap}
+                    formGroupName={props.formId}
+                    handleInput={(detail: any) =>
+                      handleTagChange(detail, index)
+                    }
+                    size="small"
+                    color="container"
+                    popupColor="surface"
+                    multiple
                     // required={index === 0 || index !== props.data.length - 1}
                   />
                 </td>

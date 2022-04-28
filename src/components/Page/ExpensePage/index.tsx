@@ -83,7 +83,7 @@ const ExpensePage = (props: Props) => {
       <EditCategory space={props.space} />
       <AddFilterExpense space={props.space} />
       <ManageFilterExpense space={props.space} />
-      <div className="expense-page">
+      <div className="expense-page page-animate">
         <Topbar title="Expenses">
           <div className="expense-page__topbar__right">
             <button className="button" onClick={toggleFilter}>

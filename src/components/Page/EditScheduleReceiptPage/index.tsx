@@ -15,8 +15,8 @@ import OakForm from '../../../oakui/wc/OakForm';
 import { isEmptyAttributes, isEmptyOrSpaces } from '../../../components/Utils';
 import { saveScheduleReceipt, getReceiptById } from './service';
 import {
-  EXPENSO_PREF_ADDBILL_ANOTHER,
-  EXPENSO_PREF_ADDBILL_DATE,
+  FORTUNA_PREF_ADDBILL_ANOTHER,
+  FORTUNA_PREF_ADDBILL_DATE,
 } from '../../../constants/SessionStorageConstants';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import Topbar from '../../../components/Topbar';
@@ -200,7 +200,7 @@ const EditScheduleReceiptPage = (props: Props) => {
   };
 
   return (
-    <div className="edit-schedule-receipt-page">
+    <div className="edit-schedule-receipt-page page-animate">
       <Topbar
         title={
           queryParam.id

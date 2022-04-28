@@ -21,7 +21,7 @@ interface Props {
   title: string;
 }
 
-const TopNMonthTrend = (props: Props) => {
+const TileSection = (props: Props) => {
   const chartRef = useRef(null);
   const [refId, setRefId] = useState(newId());
   const profile = useSelector((state: any) => state.profile);
@@ -61,4 +61,4 @@ const TopNMonthTrend = (props: Props) => {
   );
 };
 
-export default TopNMonthTrend;
+export default TileSection;

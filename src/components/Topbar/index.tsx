@@ -16,7 +16,7 @@ const Topbar = (props: Props) => {
 
   const toggleSidebar = () => {
     sessionStorage.setItem(
-      'expenso_pref_sidebar_status',
+      'fortuna_pref_sidebar_status',
       profile.sidebar ? 'collapsed' : 'expanded'
     );
 

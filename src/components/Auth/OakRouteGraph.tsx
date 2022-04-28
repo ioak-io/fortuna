@@ -57,8 +57,8 @@ const OakRouteGraph = (props: Props) => {
     if (authorization.isAuth) {
       return true;
     }
-    const accessToken = props.cookies.get(`expenso-access_token`);
-    const refreshToken = props.cookies.get(`expenso-refresh_token`);
+    const accessToken = props.cookies.get(`fortuna-access_token`);
+    const refreshToken = props.cookies.get(`fortuna-refresh_token`);
     if (accessToken && refreshToken) {
       const { data } = await gqlClient.query({
         query: authorizeUserQuery,
@@ -73,7 +73,7 @@ const OakRouteGraph = (props: Props) => {
         let newAccessToken = accessToken;
         if (data.authorizeUser.accessToken) {
           newAccessToken = data.authorizeUser.accessToken;
-          props.cookies.set(`expenso-access_token`, newAccessToken);
+          props.cookies.set(`fortuna-access_token`, newAccessToken);
         }
         dispatch(
           addAuth({
@@ -83,8 +83,8 @@ const OakRouteGraph = (props: Props) => {
           })
         );
       } else {
-        props.cookies.remove(`expenso-access_token`);
-        props.cookies.remove(`expenso-refresh_token`);
+        props.cookies.remove(`fortuna-access_token`);
+        props.cookies.remove(`fortuna-refresh_token`);
 
         if (redirect) {
           sendMessage('notification', true, {

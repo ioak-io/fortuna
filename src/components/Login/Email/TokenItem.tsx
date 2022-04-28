@@ -21,7 +21,7 @@ const TokenItem = (props: Props) => {
       console.log(props.queryParam.auth_token);
 
       props.cookies.set(
-        `expenso_${props.asset}`,
+        `fortuna_${props.asset}`,
         `email ${props.queryParam.auth_token}`
       );
       props.history.push(`/${props.asset}/article`);

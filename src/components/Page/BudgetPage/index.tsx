@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faChevronCircleLeft,
+  faChevronCircleRight,
+  faChevronLeft,
+  faChevronRight,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import OakButton from '../../../oakui/wc/OakButton';
 import Topbar from '../../../components/Topbar';
 import './style.scss';
@@ -48,19 +55,11 @@ const BudgetPage = (props: Props) => {
   const handleChange = (_state: BudgetModel[]) => {
     setState(_state);
   };
-
-  const handleYearChange = (detail: any) => {
-    setYear(detail.value || year);
+  const reduceYear = () => {
+    setYear(year - 1);
   };
-
-  const thisYear = () => {
-    setYear(THIS_YEAR);
-  };
-  const lastYear = () => {
-    setYear(LAST_YEAR);
-  };
-  const nextYear = () => {
-    setYear(NEXT_YEAR);
+  const addYear = () => {
+    setYear(year + 1);
   };
 
   const save = () => {
@@ -87,43 +86,17 @@ const BudgetPage = (props: Props) => {
   };
 
   return (
-    <div className="budget-page">
+    <div className="budget-page page-animate">
       <Topbar title="Budget">right</Topbar>
       <div className="budget-page__main main-section content-section">
         <div className="budget-page__main__year">
-          <OakSelect
-            name="year"
-            value={year}
-            handleInput={handleYearChange}
-            options={getYearRange()}
-            size="small"
-            color="container"
-            label="Budget for year"
-            popupColor="surface"
-            autocomplete
-            required
-          />
-          <OakButton
-            handleClick={lastYear}
-            theme="info"
-            variant={LAST_YEAR === year ? 'regular' : 'block'}
-          >
-            Last year
-          </OakButton>
-          <OakButton
-            handleClick={thisYear}
-            theme="info"
-            variant={THIS_YEAR === year ? 'regular' : 'block'}
-          >
-            This year
-          </OakButton>
-          <OakButton
-            handleClick={nextYear}
-            theme="info"
-            variant={NEXT_YEAR === year ? 'regular' : 'block'}
-          >
-            Next year
-          </OakButton>
+          <button onClick={reduceYear} className="button">
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
+          <div>{year}</div>
+          <button onClick={addYear} className="button">
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
         </div>
         <div className="budget-page__main__table">
           <BudgetItems

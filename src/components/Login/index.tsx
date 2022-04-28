@@ -29,7 +29,7 @@ const Login = (props: Props) => {
     );
   };
 
-  const expensoLogin = () => {
+  const fortunaLogin = () => {
     console.log('not yet implemented');
   };
 
@@ -50,7 +50,7 @@ const Login = (props: Props) => {
       <br />
       Choose the preferred authentication method to continue
       <div className="view-asset-item">
-        <div className="space-top-3 expenso-signin">
+        <div className="space-top-3 fortuna-signin">
           <div className="login-home">
             <LoginMethod
               action={oaLogin}
@@ -58,7 +58,7 @@ const Login = (props: Props) => {
               label="Enterprise Login"
             />
             <LoginMethod
-              action={expensoLogin}
+              action={fortunaLogin}
               icon="people"
               label="Individual Login"
             />

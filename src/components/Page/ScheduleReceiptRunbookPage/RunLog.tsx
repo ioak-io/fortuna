@@ -13,7 +13,7 @@ import OakInput from '../../../oakui/wc/OakInput';
 
 import './Details.scss';
 import ReceiptModel from '../../../model/ReceiptModel';
-import { EXPENSO_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
+import { FORTUNA_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
 import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
 import OakSelect from '../../../oakui/wc/OakSelect';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';

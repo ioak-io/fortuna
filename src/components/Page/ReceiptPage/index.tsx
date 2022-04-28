@@ -78,7 +78,7 @@ const ReceiptPage = (props: Props) => {
       {/* <AddReceipt space={props.space} /> */}
       {/* <AddFilterReceipt space={props.space} /> */}
       {/* <ManageFilterReceipt space={props.space} /> */}
-      <div className="receipt-page">
+      <div className="receipt-page page-animate">
         <Topbar title="Receipts">
           <div className="receipt-page__topbar__right">
             <button className="button" onClick={toggleFilter}>

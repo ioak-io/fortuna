@@ -1,10 +1,10 @@
 import React from 'react';
-import './OakSpinnerExpenso.scss';
+import './OakSpinnerFortuna.scss';
 
-const OakSpinnerExpenso = () => {
+const OakSpinnerFortuna = () => {
   return (
     <div>
-      <div className="oak-spinner-expenso">
+      <div className="oak-spinner-fortuna">
         <div className="spinner-wrapper">
           <span />
           <span />
@@ -17,4 +17,4 @@ const OakSpinnerExpenso = () => {
   );
 };
 
-export default OakSpinnerExpenso;
+export default OakSpinnerFortuna;

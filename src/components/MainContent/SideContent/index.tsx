@@ -58,7 +58,7 @@ const SideContent = (props: Props) => {
   ) => {
     dispatch(removeAuth());
     props.cookies.remove(
-      `expenso_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`
+      `fortuna_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`
     );
     history.push(`/`);
     sendMessage('notification', true, {
@@ -82,11 +82,15 @@ const SideContent = (props: Props) => {
         profile.sidebar
           ? 'side-content__sidebar-active'
           : 'side-content__sidebar-inactive'
+      } ${
+        profile.theme === 'theme_dark'
+          ? 'side-content__theme-dark'
+          : 'side-content__theme-light'
       }`}
     >
       <div className="side-content__header">
         <div className="side-content__header__logo">
-          <Logo variant={profile.sidebar ? 'full' : 'short'}/>
+          <Logo variant={profile.sidebar ? 'full' : 'short'} />
         </div>
         {profile.sidebar && (
           <div className="side-content__header__button">
@@ -99,16 +103,21 @@ const SideContent = (props: Props) => {
       <div className="side-content__menu">
         {props.space && (
           <>
-            <SideNavSubHeading short="Record" long="Record" />
+            {/* <SideNavSubHeading short="Record" long="Record" /> */}
+            <SideNavLink
+              link={`/${props.space}/home`}
+              icon={faChartBar}
+              label="Dashboard"
+            />
             <SideNavLink
               link={`/${props.space}/expense`}
               icon={faMoneyBillWave}
-              label="Expenses"
+              label="Expense"
             />
             <SideNavLink
               link={`/${props.space}/receipt`}
               icon={faReceipt}
-              label="Receipts"
+              label="Receipt"
             />
             <SideNavLink
               link={`/${props.space}/income`}
@@ -128,37 +137,26 @@ const SideContent = (props: Props) => {
             <SideNavLink
               link={`/${props.space}/schedule/receipt`}
               icon={faCalendarAlt}
-              label="Schedule transactions"
+              label="Schedule transaction"
             />
             <SideNavLink
               link={`/${props.space}/duplicate`}
               icon={faCopy}
-              label="Duplicate transactions"
-            />
-            <SideNavSubHeading short="Report" long="Report" />
-            <SideNavLink
-              link={`/${props.space}/home`}
-              icon={faChartBar}
-              label="Dashboard"
-            />
-            <SideNavLink
-              link={`/${props.space}/report`}
-              icon={faTable}
-              label="Report"
+              label="Duplicate transaction"
             />
             <SideNavSubHeading short="System" long="System" />
             <SideNavLink
-              link={`/${props.space}/settings?link=general`}
+              link={`/${props.space}/settings/company`}
               icon={faCogs}
-              label="Company settings"
+              label="Company setting"
             />
             <SideNavLink
-              link={`/${props.space}/settings?link=permissions`}
+              link={`/${props.space}/settings/user`}
               icon={faUserShield}
-              label="Users"
+              label="User"
             />
             <SideNavLink
-              link={`/${props.space}/settings?link=backup`}
+              link={`/${props.space}/settings/backup`}
               icon={faDatabase}
               label="Backup and restore"
             />

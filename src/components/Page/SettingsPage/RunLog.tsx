@@ -14,13 +14,9 @@ import { compose } from '@oakui/core-stage/style-composer/OakTableComposer';
 import OakInput from '../../../oakui/wc/OakInput';
 
 import './RunLog.scss';
-import ReceiptModel from '../../../model/ReceiptModel';
-import { EXPENSO_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
-import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
-import OakSelect from '../../../oakui/wc/OakSelect';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import OakButton from '../../../oakui/wc/OakButton';
 import { deleteTransactions, getLog } from './service';
+import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
 
 interface Props {
   // receipt: ScheduleReceiptModel;
@@ -32,6 +28,11 @@ interface Props {
 const RunLog = (props: Props) => {
   const history = useHistory();
   const authorization = useSelector((state: any) => state.authorization);
+  const company = useSelector((state: any) =>
+    state.company.items.find(
+      (item: any) => item.reference === parseInt(props.space, 10)
+    )
+  );
   // const [data, setData] = useState<any[]>([]);
   const [denseView, setDenseView] = useState(true);
 
@@ -76,11 +77,12 @@ const RunLog = (props: Props) => {
           <thead>
             <tr>
               <th>Date</th>
-              <th>Receipts</th>
-              <th>Line items</th>
-              <th>Categories</th>
-              <th>Tags</th>
-              <th>Transaction amount</th>
+              <th>Tag</th>
+              <th>Category</th>
+              <th>Income category</th>
+              <th>Expense</th>
+              <th>Income</th>
+              <th>Budget</th>
               <th> </th>
             </tr>
           </thead>
@@ -90,13 +92,63 @@ const RunLog = (props: Props) => {
                 <td onClick={() => openRecord(record)}>
                   {record.transactionDate}
                 </td>
-                <td onClick={() => openRecord(record)}>{record.receipts}</td>
-                <td onClick={() => openRecord(record)}>{record.lineItems}</td>
-                <td onClick={() => openRecord(record)}>
-                  {record.categoryCount}
-                </td>
-                <td onClick={() => openRecord(record)}>{record.tagCount}</td>
-                <td onClick={() => openRecord(record)}>{record.total}</td>
+                {record.tagRecords > 0 && (
+                  <td onClick={() => openRecord(record)}>
+                    {record.tagRecords}
+                  </td>
+                )}
+                {record.tagRecords === 0 && (
+                  <td onClick={() => openRecord(record)}>-</td>
+                )}
+                {record.categoryRecords > 0 && (
+                  <td onClick={() => openRecord(record)}>
+                    {record.categoryRecords}
+                  </td>
+                )}
+                {record.categoryRecords === 0 && (
+                  <td onClick={() => openRecord(record)}>-</td>
+                )}
+                {record.incomeCategoryRecords > 0 && (
+                  <td onClick={() => openRecord(record)}>
+                    {record.incomeCategoryRecords}
+                  </td>
+                )}
+                {record.incomeCategoryRecords === 0 && (
+                  <td onClick={() => openRecord(record)}>-</td>
+                )}
+                {record.expenseRecords > 0 && (
+                  <td onClick={() => openRecord(record)}>
+                    {record.expenseRecords} (
+                    {formatCurrencyByCompanyDetail(
+                      record.expenseTotal,
+                      company
+                    )}
+                    )
+                  </td>
+                )}
+                {record.expenseRecords === 0 && (
+                  <td onClick={() => openRecord(record)}>-</td>
+                )}
+                {record.incomeRecords > 0 && (
+                  <td onClick={() => openRecord(record)}>
+                    {record.incomeRecords} (
+                    {formatCurrencyByCompanyDetail(record.incomeTotal, company)}
+                    )
+                  </td>
+                )}
+                {record.incomeRecords === 0 && (
+                  <td onClick={() => openRecord(record)}>-</td>
+                )}
+                {record.budgetRecords > 0 && (
+                  <td onClick={() => openRecord(record)}>
+                    {record.budgetRecords} (
+                    {formatCurrencyByCompanyDetail(record.budgetTotal, company)}
+                    )
+                  </td>
+                )}
+                {record.budgetRecords === 0 && (
+                  <td onClick={() => openRecord(record)}>-</td>
+                )}
                 <td className="action-column">
                   <button
                     className="button backup-runlog__main__delete-button"

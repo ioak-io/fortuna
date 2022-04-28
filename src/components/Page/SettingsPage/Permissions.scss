@@ -5,3 +5,10 @@
   align-items: flex-end;
   margin-bottom: 20px;
 }
+
+.permissions__list__button {
+  cursor: pointer;
+  &:hover {
+    color: var(--color-danger);
+  }
+}

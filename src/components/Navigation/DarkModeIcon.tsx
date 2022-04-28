@@ -15,7 +15,7 @@ const DarkModeIcon = () => {
     );
 
     sessionStorage.setItem(
-      'expenso_pref_profile_colormode',
+      'fortuna_pref_profile_colormode',
       profile.theme === 'theme_dark' ? 'theme_light' : 'theme_dark'
     );
   };

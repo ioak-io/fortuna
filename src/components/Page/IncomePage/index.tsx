@@ -81,7 +81,7 @@ const IncomePage = (props: Props) => {
       {/* <ManageFilterIncome space={props.space} /> */}
 
       <EditIncome space={props.space} />
-      <div className="income-page">
+      <div className="income-page page-animate">
         <Topbar title="Incomes">
           <div className="income-page__topbar__right">
             <button className="button" onClick={toggleFilter}>

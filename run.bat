@@ -7,7 +7,7 @@ call npm pack
 call npm run move-package
 call npm run move-package-to-oneauth
 call npm run move-package-to-janus
-call npm run move-package-to-expenso
-cd ../expenso-new
+call npm run move-package-to-fortuna
+cd ../fortuna-new
 call npm i .\oakui-core-stage-1.0.0.tgz
 call npm start

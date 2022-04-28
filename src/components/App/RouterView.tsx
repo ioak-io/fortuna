@@ -24,6 +24,9 @@ import ScheduleReceiptRunbookPage from '../Page/ScheduleReceiptRunbookPage';
 import BudgetPage from '../Page/BudgetPage';
 import DuplicatePage from '../Page/DuplicatePage';
 import IncomePage from '../Page/IncomePage';
+import EditCompany from '../Page/SettingsPage/EditCompany';
+import Permissions from '../Page/SettingsPage/Permissions';
+import BackupAndRestore from '../Page/SettingsPage/BackupAndRestore';
 
 interface Props {
   cookies: any;
@@ -224,13 +227,37 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
-        path="/:space/settings"
+        path="/:space/settings/company"
         exact
         render={(propsLocal) => (
           <OakRouteApp
             {...propsLocal}
             {...props}
-            component={SettingsPage}
+            component={EditCompany}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/settings/user"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={Permissions}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/settings/backup"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={BackupAndRestore}
             middleware={['authenticate']}
           />
         )}

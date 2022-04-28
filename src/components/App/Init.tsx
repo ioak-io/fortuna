@@ -97,8 +97,8 @@ const Init = () => {
   };
 
   const initializeProfileFromSession = () => {
-    const colorMode = sessionStorage.getItem('expenso_pref_profile_colormode');
-    const sidebarStatus = sessionStorage.getItem('expenso_pref_sidebar_status');
+    const colorMode = sessionStorage.getItem('fortuna_pref_profile_colormode');
+    const sidebarStatus = sessionStorage.getItem('fortuna_pref_sidebar_status');
 
     if (colorMode || sidebarStatus) {
       dispatch(

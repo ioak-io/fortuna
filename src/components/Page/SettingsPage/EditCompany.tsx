@@ -7,6 +7,7 @@ import CompanyModel from '../../../model/CompanyModel';
 import OakInput from '../../../oakui/wc/OakInput';
 import OakForm from '../../../oakui/wc/OakForm';
 import { saveCompany } from '../EditCompanyPage/service';
+import Topbar from '../../../components/Topbar';
 
 const queryString = require('query-string');
 
@@ -53,71 +54,78 @@ const EditCompany = (props: Props) => {
   };
 
   return (
-    <div className="edit-company page-width content-section">
-      {company && (
-        <OakForm formGroupName={formId} handleSubmit={save}>
-          <div className="form">
-            <div className="form-two-column">
-              <OakInput
-                name="name"
-                value={state.name}
-                formGroupName={formId}
-                handleInput={handleChange}
-                size="small"
-                color="container"
-                label="Company name"
-                autofocus
-                required
-              />
-              <OakInput
-                name="reference"
-                value={state.reference}
-                formGroupName={formId}
-                handleInput={handleChange}
-                size="small"
-                color="container"
-                label="Company ID"
-                disabled
-                tooltip={
-                  !state.reference ? 'Auto generated after creation' : ''
-                }
-              />
-            </div>
-            <OakInput
-              name="description"
-              value={state.description}
-              formGroupName={formId}
-              handleInput={handleChange}
-              size="small"
-              color="container"
-              label="Description"
-              type="textarea"
-              required
-            />
-            <OakInput
-              name="currency"
-              value={state.currency}
-              formGroupName={formId}
-              handleInput={handleChange}
-              size="small"
-              color="container"
-              label="Currency"
-              required
-            />
-            <OakInput
-              name="numberFormat"
-              value={state.numberFormat}
-              formGroupName={formId}
-              handleInput={handleChange}
-              size="small"
-              color="container"
-              label="Number format"
-              required
-            />
-          </div>
-        </OakForm>
-      )}
-      {!company && <div>Company details cannot be loaded at the moment</div>}
+    <div>
+      <Topbar title="Company details" />
+      <div className="main-section">
+        <div className="edit-company page-width content-section">
+          {company && (
+            <OakForm formGroupName={formId} handleSubmit={save}>
+              <div className="form">
+                <div className="form-two-column">
+                  <OakInput
+                    name="name"
+                    value={state.name}
+                    formGroupName={formId}
+                    handleInput={handleChange}
+                    size="small"
+                    color="container"
+                    label="Company name"
+                    autofocus
+                    required
+                  />
+                  <OakInput
+                    name="reference"
+                    value={state.reference}
+                    formGroupName={formId}
+                    handleInput={handleChange}
+                    size="small"
+                    color="container"
+                    label="Company ID"
+                    disabled
+                    tooltip={
+                      !state.reference ? 'Auto generated after creation' : ''
+                    }
+                  />
+                </div>
+                <OakInput
+                  name="description"
+                  value={state.description}
+                  formGroupName={formId}
+                  handleInput={handleChange}
+                  size="small"
+                  color="container"
+                  label="Description"
+                  type="textarea"
+                  required
+                />
+                <OakInput
+                  name="currency"
+                  value={state.currency}
+                  formGroupName={formId}
+                  handleInput={handleChange}
+                  size="small"
+                  color="container"
+                  label="Currency"
+                  required
+                />
+                <OakInput
+                  name="numberFormat"
+                  value={state.numberFormat}
+                  formGroupName={formId}
+                  handleInput={handleChange}
+                  size="small"
+                  color="container"
+                  label="Number format"
+                  required
+                />
+              </div>
+            </OakForm>
+          )}
+          {!company && (
+            <div>Company details cannot be loaded at the moment</div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

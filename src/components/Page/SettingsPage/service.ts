@@ -1,3 +1,6 @@
+import AddSpinnerCommand from '../../../events/AddSpinnerCommand';
+import { newId } from '../../../events/MessageService';
+import RemoveSpinnerCommand from '../../../events/RemoveSpinnerCommand';
 /* eslint-disable import/prefer-default-export */
 import { httpDelete, httpGet, httpPost, httpPut } from '../../Lib/RestTemplate';
 
@@ -43,6 +46,8 @@ export const importExpenseFile = (
   payload: any,
   authorization: any
 ) => {
+  const taskId = newId();
+  AddSpinnerCommand.next(taskId);
   const formData = new FormData();
   formData.append('file', payload);
   return httpPost(`/import/${space}`, formData, {
@@ -52,11 +57,33 @@ export const importExpenseFile = (
     },
   })
     .then((response) => {
+      RemoveSpinnerCommand.next(taskId);
       if (response.status === 200) {
         return Promise.resolve(response.data);
       }
     })
     .catch((error) => {
+      RemoveSpinnerCommand.next(taskId);
+      return Promise.resolve({});
+    });
+};
+
+export const exportExpenseFile = (space: string, authorization: any) => {
+  const taskId = newId();
+  AddSpinnerCommand.next(taskId);
+  return httpPost(`/export/${space}`, null, {
+    headers: {
+      Authorization: authorization.access_token,
+    },
+  })
+    .then((response) => {
+      RemoveSpinnerCommand.next(taskId);
+      if (response.status === 200) {
+        return Promise.resolve(response.data);
+      }
+    })
+    .catch((error) => {
+      RemoveSpinnerCommand.next(taskId);
       return Promise.resolve({});
     });
 };
@@ -66,35 +93,43 @@ export const deleteTransactions = (
   id: string,
   authorization: any
 ) => {
+  const taskId = newId();
+  AddSpinnerCommand.next(taskId);
   return httpDelete(`/import/${space}/transaction/${id}`, {
     headers: {
       Authorization: authorization.access_token,
     },
   })
     .then((response) => {
+      RemoveSpinnerCommand.next(taskId);
       if (response.status === 200) {
         return Promise.resolve(response.data);
       }
       return Promise.resolve({});
     })
     .catch((error) => {
+      RemoveSpinnerCommand.next(taskId);
       return Promise.resolve({});
     });
 };
 
 export const getLog = (space: string, authorization: any) => {
+  const taskId = newId();
+  AddSpinnerCommand.next(taskId);
   return httpGet(`/import/log/${space}`, {
     headers: {
       Authorization: authorization.access_token,
     },
   })
     .then((response) => {
+      RemoveSpinnerCommand.next(taskId);
       if (response.status === 200) {
         return Promise.resolve(response.data);
       }
       return Promise.resolve([]);
     })
     .catch((error) => {
+      RemoveSpinnerCommand.next(taskId);
       return Promise.resolve([]);
     });
 };
