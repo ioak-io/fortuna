@@ -1,9 +1,0 @@
-.main-content {
-  margin-left: var(--oak-app-layout-sidebar-width);
-  transition: margin-left 250ms ease-in-out;
-}
-
-.main-content__sidebar-inactive {
-  margin-left: 75px;
-  margin-left: var(--oak-app-layout-sidebar-width-shrinked);
-}
