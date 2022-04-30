@@ -26,7 +26,7 @@ interface Props {
   data: any;
 }
 
-const WeeklyTrend = (props: Props) => {
+const YearTrend = (props: Props) => {
   const chartRef = useRef(null);
   const [refId, setRefId] = useState(newId());
   const profile = useSelector((state: any) => state.profile);
@@ -97,7 +97,7 @@ const WeeklyTrend = (props: Props) => {
             {
               ...config,
               label: 'Amount',
-              data: props.data.average,
+              data: props.data.total,
               backgroundColor: DASHBOARD_COLOR_SCHEME[4],
               borderWidth: 0,
             },
@@ -158,7 +158,7 @@ const WeeklyTrend = (props: Props) => {
 
   return (
     <div className="chart-section">
-      <ChartHeader title="Average weekly spend" />
+      <ChartHeader title="Spend by year" />
       <ChartBody>
         <div className="chart-section-one-column">
           <div className="budget-trend__chart">
@@ -177,4 +177,4 @@ const WeeklyTrend = (props: Props) => {
   );
 };
 
-export default WeeklyTrend;
+export default YearTrend;

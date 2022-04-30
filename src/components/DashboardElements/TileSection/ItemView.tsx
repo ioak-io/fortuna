@@ -27,9 +27,11 @@ const ItemView = (props: Props) => {
     <div className="tile-section-item-view">
       <div className="tile-section-item-view__title">{props.title}</div>
       <div className="tile-section-item-view__data">
-        <div className="tile-section-item-view__data__left">
-          {props.percent}%
-        </div>
+        {props.percent !== undefined && props.percent !== null && (
+          <div className="tile-section-item-view__data__left">
+            {props.percent}%
+          </div>
+        )}
         <div className="tile-section-item-view__data__right">
           {formatCurrencyByCompanyDetail(props.value, company)}
         </div>

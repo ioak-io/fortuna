@@ -2,7 +2,7 @@
   display: grid;
   grid-auto-flow: row;
   align-content: center;
-  // row-gap: 10px;
+  row-gap: 4px;
 }
 
 .tile-section-item-view__title {
@@ -19,7 +19,7 @@
 }
 
 .tile-section-item-view__data__right {
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 600;
   color: var(--color-2);
 }

@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as _ from 'lodash';
-import OakSelect from '../../oakui/wc/OakSelect';
-import { newId } from '../../events/MessageService';
-import StatisticsPayloadModel from '../../model/StatisticsPayloadModel';
-import OakInput from '../../oakui/wc/OakInput';
-import CategoryDistribution from '../DashboardElements/CategoryDistribution';
-import Topbar from '../Topbar';
+import OakSelect from '../../../oakui/wc/OakSelect';
+import { newId } from '../../../events/MessageService';
+import StatisticsPayloadModel from '../../../model/StatisticsPayloadModel';
+import OakInput from '../../../oakui/wc/OakInput';
+import CategoryDistribution from '../../DashboardElements/CategoryDistribution';
+import Topbar from '../../Topbar';
 import './style.scss';
-import BudgetTrend from '../DashboardElements/BudgetTrend';
-import MonthlyCategoryTrend from '../DashboardElements/MonthlyCategoryTrend';
+import BudgetTrend from '../../DashboardElements/BudgetTrend';
+import MonthlyCategoryTrend from '../../DashboardElements/MonthlyCategoryTrend';
 import {
   DASHBOARD_COLOR_SCHEME,
   DASHBOARD_KAKEIBO_COLOR_SCHEME,
   getTrend,
   getWeeklyTrend,
+  getYearlyTrend,
   getMetric,
-} from '../DashboardElements/service';
-import IncomeTrend from '../DashboardElements/IncomeTrend';
-import ExpenseChangeTrend from '../DashboardElements/ExpenseChangeTrend';
-import WeeklyTrend from '../DashboardElements/WeeklyTrend';
-import { isEmptyOrSpaces } from '../Utils';
-import TileSection from '../DashboardElements/TileSection';
-import TopSpendList from '../DashboardElements/TopSpendList';
+  getBalanceTrend,
+} from '../../DashboardElements/service';
+import IncomeTrend from '../../DashboardElements/IncomeTrend';
+import ExpenseChangeTrend from '../../DashboardElements/ExpenseChangeTrend';
+import WeeklyTrend from '../../DashboardElements/WeeklyTrend';
+import { isEmptyOrSpaces } from '../../Utils';
+import TileSection from '../../DashboardElements/TileSection';
+import TopSpendList from '../../DashboardElements/TopSpendList';
+import YearTrend from '../../DashboardElements/YearTrend';
 
 interface Props {
   space: string;
@@ -35,12 +38,7 @@ const KAKEIBO_MAP = {
   Unexpected: { name: 'Unexpected' },
 };
 
-const INCOME_EXPENSE_CHART_CLASS = {
-  income: { name: 'Income' },
-  expense: { name: 'Expense' },
-};
-
-const Home = (props: Props) => {
+const DashboardPage = (props: Props) => {
   const categories = useSelector((state: any) => state.category.categories);
   const filterExpenseList = useSelector(
     (state: any) => state.filterExpense.items
@@ -64,7 +62,9 @@ const Home = (props: Props) => {
   });
   const [data, setData] = useState<any>({});
   const [metric, setMetric] = useState<any>({});
+  const [balanceTrendData, setBalanceTrendData] = useState<any[]>([]);
   const [weeklyTrendata, setWeeklyTrendData] = useState<any>({});
+  const [yearlyTrendata, setYearlyTrendData] = useState<any>({});
 
   const [categoryMap, setCategoryMap] = useState<any>({});
 
@@ -88,9 +88,29 @@ const Home = (props: Props) => {
             setWeeklyTrendData(response);
           }
         );
+        getYearlyTrend(props.space, authorization, state).then(
+          (response: any) => {
+            setYearlyTrendData(response);
+          }
+        );
+        getBalanceTrend(props.space, authorization, state).then(
+          (response: any) => {
+            setBalanceTrendData(response);
+          }
+        );
       }
     }
   }, [authorization, state]);
+
+  // useEffect(() => {
+  //   if (authorization.isAuth) {
+  //     getYearlyTrend(props.space, authorization, state).then(
+  //       (response: any) => {
+  //         setYearlyTrendData(response);
+  //       }
+  //     );
+  //   }
+  // }, [authorization]);
 
   useEffect(() => {
     const _dropdown = filterExpenseList?.map((item: any) => {
@@ -133,11 +153,11 @@ const Home = (props: Props) => {
   };
 
   return (
-    <div className="home page-animate">
+    <div className="dashboard-page page-animate">
       <Topbar title="Dashboard">right</Topbar>
 
-      <div className="main-section home__main">
-        <div className="home__main__criteria">
+      <div className="main-section dashboard-page__main">
+        <div className="dashboard-page__main__criteria">
           <OakSelect
             name="option"
             value={state.option}
@@ -176,33 +196,16 @@ const Home = (props: Props) => {
             </>
           )}
         </div>
-        <div className="home__main__two-column">
-          <div className="home__main__chart">
+        <div className="dashboard-page__main__two-column">
+          <div className="dashboard-page__main__chart">
             <TileSection
               space={props.space}
               categoryMap={categoryMap}
-              data={data.metric?.topSpend}
-              title="Top spends by transaction"
+              data={balanceTrendData}
+              title="Balances"
             />
           </div>
-          <div className="home__main__chart">
-            <TileSection
-              space={props.space}
-              categoryMap={categoryMap}
-              data={data.metric?.topMonth}
-              title="Top spends by month"
-            />
-          </div>
-          <div className="home__main__chart">
-            <CategoryDistribution
-              space={props.space}
-              categoryMap={categoryMap}
-              data={data.categoryDistribution}
-              colorScheme={DASHBOARD_COLOR_SCHEME}
-              title="Category distribution"
-            />
-          </div>
-          <div className="home__main__chart">
+          <div className="dashboard-page__main__chart">
             <MonthlyCategoryTrend
               space={props.space}
               criteria={state}
@@ -213,35 +216,51 @@ const Home = (props: Props) => {
               stacked
             />
           </div>
-          <div className="home__main__chart">
+          <div className="dashboard-page__main__chart">
+            <CategoryDistribution
+              space={props.space}
+              categoryMap={categoryMap}
+              data={data.categoryDistribution}
+              colorScheme={DASHBOARD_COLOR_SCHEME}
+              title="Category distribution"
+            />
+          </div>
+          <div className="dashboard-page__main__chart">
             <BudgetTrend
               space={props.space}
               criteria={state}
               data={data.budgetDistribution}
             />
           </div>
-          <div className="home__main__chart">
+          <div className="dashboard-page__main__chart">
             <IncomeTrend
               space={props.space}
               criteria={state}
               data={data.incomeDistributionMonthly}
             />
           </div>
-          <div className="home__main__chart">
+          <div className="dashboard-page__main__chart">
             <ExpenseChangeTrend
               space={props.space}
               criteria={state}
               data={data.totalChangeDistribution}
             />
           </div>
-          <div className="home__main__chart">
+          <div className="dashboard-page__main__chart">
             <WeeklyTrend
               space={props.space}
               criteria={state}
               data={weeklyTrendata}
             />
           </div>
-          <div className="home__main__chart">
+          <div className="dashboard-page__main__chart">
+            <YearTrend
+              space={props.space}
+              criteria={state}
+              data={yearlyTrendata}
+            />
+          </div>
+          <div className="dashboard-page__main__chart">
             <MonthlyCategoryTrend
               space={props.space}
               criteria={state}
@@ -252,7 +271,7 @@ const Home = (props: Props) => {
               stacked
             />
           </div>
-          <div className="home__main__chart">
+          <div className="dashboard-page__main__chart">
             <CategoryDistribution
               space={props.space}
               categoryMap={KAKEIBO_MAP}
@@ -261,7 +280,7 @@ const Home = (props: Props) => {
               title="Kakeibo distribution"
             />
           </div>
-          {/* <div className="home__main__chart">
+          <div className="dashboard-page__main__chart">
             <TileSection
               space={props.space}
               categoryMap={categoryMap}
@@ -269,7 +288,23 @@ const Home = (props: Props) => {
               title="Top spends by transaction"
             />
           </div>
-          <div className="home__main__chart">
+          <div className="dashboard-page__main__chart">
+            <TileSection
+              space={props.space}
+              categoryMap={categoryMap}
+              data={data.metric?.topMonth}
+              title="Top spends by month"
+            />
+          </div>
+          {/* <div className="dashboard-page__main__chart">
+            <TileSection
+              space={props.space}
+              categoryMap={categoryMap}
+              data={data.metric?.topSpend}
+              title="Top spends by transaction"
+            />
+          </div>
+          <div className="dashboard-page__main__chart">
             <TileSection
               space={props.space}
               categoryMap={categoryMap}
@@ -278,8 +313,8 @@ const Home = (props: Props) => {
             />
           </div> */}
         </div>
-        <div className="home__main__one-column">
-          <div className="home__main__chart">
+        <div className="dashboard-page__main__one-column">
+          <div className="dashboard-page__main__chart">
             <TopSpendList
               space={props.space}
               categoryMap={categoryMap}
@@ -293,4 +328,4 @@ const Home = (props: Props) => {
   );
 };
 
-export default Home;
+export default DashboardPage;

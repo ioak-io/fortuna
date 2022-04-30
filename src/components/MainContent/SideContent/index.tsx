@@ -6,6 +6,7 @@ import {
   faClone,
   faCog,
   faCogs,
+  faCoins,
   faCopy,
   faDatabase,
   faFileExport,
@@ -25,6 +26,7 @@ import {
   faThLarge,
   faUniversity,
   faUserShield,
+  faWallet,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
@@ -105,7 +107,7 @@ const SideContent = (props: Props) => {
           <>
             {/* <SideNavSubHeading short="Record" long="Record" /> */}
             <SideNavLink
-              link={`/${props.space}/home`}
+              link={`/${props.space}/dashboard`}
               icon={faChartBar}
               label="Dashboard"
             />
@@ -121,13 +123,18 @@ const SideContent = (props: Props) => {
             />
             <SideNavLink
               link={`/${props.space}/income`}
-              icon={faUniversity}
+              icon={faCoins}
               label="Income"
             />
             <SideNavLink
               link={`/${props.space}/budget`}
               icon={faBalanceScaleRight}
               label="Budget"
+            />
+            <SideNavLink
+              link={`/${props.space}/balance`}
+              icon={faWallet}
+              label="Balance"
             />
             <SideNavLink
               link={`/${props.space}/category`}

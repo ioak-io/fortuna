@@ -9,7 +9,7 @@ import Login from '../Login';
 import ExternLogin from '../Auth/ExternLogin';
 import OneAuth from '../Login/OneAuth';
 import Email from '../Login/Email';
-import Home from '../Home';
+import DashboardPage from '../Page/DashboardPage';
 import ExpensePage from '../Page/ExpensePage';
 import CategoryPage from '../Page/CategoryPage';
 import EditBillPage from '../Page/EditBillPage';
@@ -22,6 +22,7 @@ import EditScheduleReceiptPage from '../Page/EditScheduleReceiptPage';
 import ScheduleReceiptPage from '../Page/ScheduleReceiptPage';
 import ScheduleReceiptRunbookPage from '../Page/ScheduleReceiptRunbookPage';
 import BudgetPage from '../Page/BudgetPage';
+import BalancePage from '../Page/BalancePage';
 import DuplicatePage from '../Page/DuplicatePage';
 import IncomePage from '../Page/IncomePage';
 import EditCompany from '../Page/SettingsPage/EditCompany';
@@ -78,7 +79,12 @@ const RouterView = (props: Props) => {
         path="/"
         exact
         render={(propsLocal) => (
-          <OakRouteApp {...propsLocal} {...props} component={Home} />
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={LandingPage}
+            middleware={['authenticate']}
+          />
         )}
       />
       <Route
@@ -100,8 +106,20 @@ const RouterView = (props: Props) => {
           <OakRouteApp
             {...propsLocal}
             {...props}
-            component={Home}
+            component={ExpensePage}
             middleware={['readAuthentication']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/dashboard"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={DashboardPage}
+            middleware={['authenticate']}
           />
         )}
       />
@@ -210,6 +228,18 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={BudgetPage}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/:space/balance"
+        exact
+        render={(propsLocal) => (
+          <OakRouteApp
+            {...propsLocal}
+            {...props}
+            component={BalancePage}
             middleware={['authenticate']}
           />
         )}
