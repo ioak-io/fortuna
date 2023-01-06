@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import OakButton from '../../../oakui/wc/OakButton';
@@ -30,14 +30,9 @@ const EditCompanyPage = (props: Props) => {
   const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const companyList = useSelector((state: any) => state.company.items);
-  const [queryParam, setQueryParam] = useState<any>({});
+  const [searchParams] = useSearchParams();
   const [formId, setFormId] = useState(newId());
   const [state, setState] = useState<CompanyModel>({ ...EMPTY_COMPANY });
-
-  useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setQueryParam(query);
-  }, [props.location.search]);
 
   const handleChange = (detail: any) => {
     setState({ ...state, [detail.name]: detail.value });
@@ -50,12 +45,12 @@ const EditCompanyPage = (props: Props) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1);
   };
 
   return (
     <div className="edit-company-page">
-      <Topbar title={queryParam.id ? 'Edit company' : 'New company'}>
+      <Topbar title={searchParams.get('id') ? 'Edit company' : 'New company'}>
         right
       </Topbar>
       <div className="edit-company-page__main main-section content-section page-width">
@@ -70,8 +65,6 @@ const EditCompanyPage = (props: Props) => {
                 size="small"
                 color="container"
                 label="Company name"
-                autofocus
-                required
               />
               <OakInput
                 name="reference"
@@ -96,7 +89,6 @@ const EditCompanyPage = (props: Props) => {
               color="container"
               label="Description"
               type="textarea"
-              required
             />
           </div>
         </OakForm>
@@ -111,7 +103,7 @@ const EditCompanyPage = (props: Props) => {
             formGroupName={formId}
           >
             <FontAwesomeIcon icon={faCheck} />
-            {queryParam.id ? 'Save' : 'Save and go back'}
+            {searchParams.get('id') ? 'Save' : 'Save and go back'}
           </OakButton>
           <OakButton theme="info" variant="regular" handleClick={goBack}>
             <FontAwesomeIcon icon={faTimes} />
