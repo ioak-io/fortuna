@@ -80,7 +80,7 @@ const ExpenseItems = (props: Props) => {
             <tr>
               <th className="indicator-column"> </th>
               <th>Category</th>
-              <th>Tags</th>
+              {/* <th>Tags</th> */}
               <th>Description</th>
               <th>Price</th>
             </tr>
@@ -109,7 +109,7 @@ const ExpenseItems = (props: Props) => {
                     // required={index === 0 || index !== props.data.length - 1}
                   />
                 </td>
-                <td>
+                {/* <td>
                   <OakSelect
                     name="tagId"
                     autocomplete
@@ -125,7 +125,7 @@ const ExpenseItems = (props: Props) => {
                     multiple
                     // required={index === 0 || index !== props.data.length - 1}
                   />
-                </td>
+                </td> */}
                 <td>
                   <OakInput
                     name="description"

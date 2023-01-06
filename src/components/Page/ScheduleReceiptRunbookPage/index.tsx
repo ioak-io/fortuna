@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
-import ReceiptModel from '../../../model/ReceiptModel';
-import ExpenseModel from '../../../model/ExpenseModel';
 import OakButton from '../../../oakui/wc/OakButton';
 import { newId } from '../../../events/MessageService';
 import OakForm from '../../../oakui/wc/OakForm';
@@ -24,16 +23,14 @@ import Details from './Details';
 import RunLog from './RunLog';
 import { getLog } from './service';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;
 }
 
 const ScheduleReceiptRunbookPage = (props: Props) => {
-  const [queryParam, setQueryParam] = useState<any>({});
-  const history = useHistory();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState<ScheduleReceiptModel | null>();
   const [logData, setLogData] = useState<any[]>([]);
@@ -42,14 +39,10 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
   const [errorInReceiptDetails, setErrorInReceiptDetails] =
     useState<boolean>(false);
 
-  useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setQueryParam(query);
-  }, [props.location.search]);
 
   useEffect(() => {
-    if (queryParam?.id && authorization.isAuth) {
-      getReceiptById(props.space, queryParam.id, authorization).then(
+    if (searchParams.has("id") && authorization.isAuth) {
+      getReceiptById(props.space, searchParams.get("id") || '', authorization).then(
         (response: any) => {
           if (!isEmptyAttributes(response)) {
             setData(response);
@@ -57,7 +50,7 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
         }
       );
     }
-  }, [queryParam, authorization]);
+  }, [searchParams, authorization]);
 
   useEffect(() => {
     if (authorization.isAuth && data?._id) {
@@ -73,11 +66,11 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1)
   };
 
   const goToEditSchedule = () => {
-    history.push(`/${props.space}/schedule/receipt/edit?id=${queryParam.id}`);
+    navigate(`/${props.space}/schedule/receipt/edit?id=${searchParams.get("id")}`);
   };
 
   return (

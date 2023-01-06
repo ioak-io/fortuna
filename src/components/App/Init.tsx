@@ -6,19 +6,21 @@ import {
   ExpenseFilterState,
 } from '../../simplestates/ExpenseFilterState';
 import ExpenseListState from '../../simplestates/ExpenseListState';
-import { fetchAllCategories } from '../../actions/CategoryActions';
+import { fetchAllCategories } from '../../store/actions/CategoryActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 import { searchExpense } from '../Page/ExpensePage/service';
 import PaginationModel from '../../model/PaginationModel';
 import ExpenseStateActions from '../../simplestates/ExpenseStateActions';
-import { fetchAndSetCompanyItems } from '../../actions/CompanyActions';
-import { fetchAndSetUserItems } from '../../actions/UserActions';
-import { fetchAndSetFilterExpenseItems } from '../../actions/FilterExpenseActions';
-import { fetchAllTags } from '../../actions/TagActions';
-import { setProfile } from '../../actions/ProfileActions';
+import { fetchAndSetCompanyItems } from '../../store/actions/CompanyActions';
+import { fetchAndSetUserItems } from '../../store/actions/UserActions';
+import { fetchAndSetFilterExpenseItems } from '../../store/actions/FilterExpenseActions';
+import { fetchAllTags } from '../../store/actions/TagActions';
+import { setProfile } from '../../store/actions/ProfileActions';
 import ReceiptStateActions from '../../simplestates/ReceiptStateActions';
-import { fetchAllIncomeCategories } from '../../actions/IncomeCategoryActions';
+import { fetchAllIncomeCategories } from '../../store/actions/IncomeCategoryActions';
 import IncomeStateActions from '../../simplestates/IncomeStateActions';
+import { axiosInstance, httpPost } from '../Lib/RestTemplate';
+import { setSessionValue } from 'src/utils/SessionUtils';
 
 const Init = () => {
   const authorization = useSelector((state: any) => state.authorization);
@@ -33,6 +35,7 @@ const Init = () => {
     if (authorization?.isAuth && space) {
       //  && !previousAuthorizationState?.isAuth) {
       initialize();
+      initializeHttpInterceptor();
       dispatch(fetchAndSetUserItems(space, authorization));
       dispatch(fetchAllCategories(space, authorization));
       dispatch(fetchAllIncomeCategories(space, authorization));
@@ -57,12 +60,14 @@ const Init = () => {
   useEffect(() => {
     initializeProfileFromSession();
     receiveMessage().subscribe((event: any) => {
-      console.log(event);
       if (event.name === 'spaceChange') {
+        // TODO
         setSpace(event.data);
       }
       if (event.name === 'spaceChange' && authorization.isAuth) {
+        setSpace(event.data);
         initialize();
+        initializeHttpInterceptor();
       }
     });
   }, []);
@@ -108,6 +113,59 @@ const Init = () => {
         })
       );
     }
+  };
+
+  const initializeHttpInterceptor = () => {
+    console.log('HTTP Interceptor initialization');
+    // TODO
+    // axiosInstance.defaults.headers.authorization = authorization.access_token;
+    // axiosInstance.interceptors.response.use(
+    //   (response) => {
+    //     return response;
+    //   },
+    //   (error) => {
+    //     if (error.response.status !== 401) {
+    //       return new Promise((resolve, reject) => {
+    //         reject(error);
+    //       });
+    //     }
+    //     httpPost(
+    //       '/auth/token',
+    //       {
+    //         refresh_token: authorization.refresh_token,
+    //         grant_type: 'refresh_token',
+    //         realm: realm || 100,
+    //       },
+    //       null
+    //     )
+    //       .then((response) => {
+    //         if (response.status === 200) {
+    //           axiosInstance.defaults.headers.authorization =
+    //             response.data.access_token;
+    //           setSessionValue(
+    //             `fortuna-access_token`,
+    //             response.data.access_token
+    //           );
+    //           dispatch(
+    //             addAuth({
+    //               ...authorization,
+    //               access_token: response.data.access_token,
+    //             })
+    //           );
+    //           if (!error.config._retry) {
+    //             error.config._retry = true;
+    //             error.config.headers.authorization = response.data.access_token;
+    //             return axiosInstance(error.config);
+    //           }
+    //         } else {
+    //           console.log('********redirect to login');
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         Promise.reject(error);
+    //       });
+    //   }
+    // );
   };
 
   return (

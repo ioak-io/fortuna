@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -23,15 +23,13 @@ import { isEmptyAttributes } from '../../../components/Utils';
 import {
   fetchAndAppendExpenseItems,
   fetchAndSetExpenseItems,
-} from '../../../actions/ExpenseActions';
-import { fetchAllCategories } from '../../../actions/CategoryActions';
-import { fetchAllIncomeCategories } from '../../../actions/IncomeCategoryActions';
-import { fetchAllTags } from '../../../actions/TagActions';
+} from '../../../store/actions/ExpenseActions';
+import { fetchAllCategories } from '../../../store/actions/CategoryActions';
+import { fetchAllIncomeCategories } from '../../../store/actions/IncomeCategoryActions';
+import { fetchAllTags } from '../../../store/actions/TagActions';
 import Topbar from '../../../components/Topbar';
-import { fetchAndSetReceiptItems } from '../../../actions/ReceiptActions';
-import { fetchAndSetIncomeItems } from '../../../actions/IncomeActions';
-
-const queryString = require('query-string');
+import { fetchAndSetReceiptItems } from '../../../store/actions/ReceiptActions';
+import { fetchAndSetIncomeItems } from '../../../store/actions/IncomeActions';
 
 interface Props {
   space: string;
@@ -40,7 +38,7 @@ interface Props {
 
 const BackupAndRestore = (props: Props) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const company = useSelector((state: any) =>
     state.company.items.find(

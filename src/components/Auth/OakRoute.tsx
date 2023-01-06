@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAuth } from '../../actions/AuthActions';
+import { addAuth } from '../../store/actions/AuthActions';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
@@ -55,8 +55,8 @@ const OakRoute = (props: Props) => {
     if (authorization.isAuth) {
       return true;
     }
-    const accessToken = props.cookies.get(`fortuna-access_token`);
-    const refreshToken = props.cookies.get(`fortuna-refresh_token`);
+    const accessToken = getSessionValue(`fortuna-access_token`);
+    const refreshToken = getSessionValue(`fortuna-refresh_token`);
     if (accessToken && refreshToken) {
       httpPost(
         `/user/${props.match.params.space}/authorize_user`,
@@ -68,7 +68,7 @@ const OakRoute = (props: Props) => {
             let newAccessToken = accessToken;
             if (response.data.access_token) {
               newAccessToken = response.data.access_token;
-              props.cookies.set(`fortuna-access_token`, newAccessToken);
+              setSessionValue(`fortuna-access_token`, newAccessToken);
             }
             dispatch(
               addAuth({
@@ -80,8 +80,8 @@ const OakRoute = (props: Props) => {
           }
         })
         .catch((error: any) => {
-          props.cookies.remove(`fortuna-access_token`);
-          props.cookies.remove(`fortuna-refresh_token`);
+          removeSessionValue(`fortuna-access_token`);
+          removeSessionValue(`fortuna-refresh_token`);
           if (redirect && error.response.status === 404) {
             sendMessage('notification', true, {
               type: 'failure',
@@ -112,11 +112,11 @@ const OakRoute = (props: Props) => {
 
   const redirectToLogin = (space: string) => {
     window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${props.match.params.space}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
-    // props.history.push(`/${space}/login/home`);
+    // navigate(`/${space}/login/home`);
   };
 
   const redirectToUnauthorized = () => {
-    props.history.push(`/${profile.space}/unauthorized`);
+    navigate(`/${profile.space}/unauthorized`);
   };
 
   return (

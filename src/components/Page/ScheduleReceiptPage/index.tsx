@@ -6,10 +6,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import OakButton from '../../../oakui/wc/OakButton';
 import './style.scss';
-import { fetchAndSetReceiptItems } from '../../../actions/ReceiptActions';
+import { fetchAndSetReceiptItems } from '../../../store/actions/ReceiptActions';
 import Topbar from '../../../components/Topbar';
 // import AddFilterReceipt from '../../../components/AddFilterReceipt';
 // import ManageFilterReceipt from '../../../components/ManageFilterReceipt';
@@ -29,11 +29,11 @@ interface Props {
 
 const ScheduleReceiptPage = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [data, setData] = useState<ScheduleReceiptModel[]>([]);
 
   const addNew = () => {
-    history.push(`/${props.space}/schedule/receipt/edit`);
+    navigate(`/${props.space}/schedule/receipt/edit`);
   };
 
   useEffect(() => {

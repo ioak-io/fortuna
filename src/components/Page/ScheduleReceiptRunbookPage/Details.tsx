@@ -12,8 +12,8 @@ import OakSelect from '../../../oakui/wc/OakSelect';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import OakButton from '../../../oakui/wc/OakButton';
 import { deleteTransactions, repostTransactions } from './service';
-import { fetchAndSetExpenseItems } from '../../../actions/ExpenseActions';
-import { fetchAndSetReceiptItems } from '../../../actions/ReceiptActions';
+import { fetchAndSetExpenseItems } from '../../../store/actions/ExpenseActions';
+import { fetchAndSetReceiptItems } from '../../../store/actions/ReceiptActions';
 
 interface Props {
   receipt: ScheduleReceiptModel;

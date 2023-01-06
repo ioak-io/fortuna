@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { HashRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { InMemoryCache } from 'apollo-boost';
-import ApolloClient from 'apollo-client';
-import { createHttpLink } from 'apollo-link-http';
-import { setContext } from 'apollo-link-context';
-import { ApolloProvider } from '@apollo/client';
+// TODO Chart JS responsiveness does not work after 4.1.1 version
+// https://github.com/chartjs/Chart.js/issues/11005
+
 import {
   Chart,
   ArcElement,
@@ -26,10 +24,8 @@ import {
 } from 'chart.js';
 
 import './style.scss';
-import { withCookies } from 'react-cookie';
 
 import Notification from '../Notification';
-import { fetchAllSpaces } from '../../actions/SpaceActions';
 import Init from './Init';
 import TopbarContainer from './TopbarContainer';
 import SidebarContainer from './SidebarContainer';
@@ -37,12 +33,12 @@ import BodyContainer from './BodyContainer';
 import { receiveMessage } from '../../events/MessageService';
 import OakNotification from '../../oakui/wc/OakNotification';
 import OakAppLayout from '../../oakui/wc/OakAppLayout';
-import { setProfile } from '../../actions/ProfileActions';
-import NavigationContainer from './NavigationContainer';
 import MakeNavBarTransparentCommand from '../../events/MakeNavBarTransparentCommand';
 import HideNavBarCommand from '../../events/HideNavBarCommand';
 import MainContent from '../MainContent';
 import Spinner from '../Spinner';
+import { setProfile } from '../../store/actions/ProfileActions';
+import { fetchAllSpaces } from '../../store/actions/SpaceActions';
 
 Chart.register(
   DoughnutController,
@@ -62,7 +58,6 @@ Chart.register(
 );
 
 interface Props {
-  cookies: any;
 }
 
 const Content = (props: Props) => {
@@ -98,24 +93,6 @@ const Content = (props: Props) => {
     dispatch(fetchAllSpaces());
   }, []);
 
-  const httpLink = createHttpLink({
-    uri: process.env.REACT_APP_GRAPHQL_URL,
-  });
-
-  const authLink = setContext((_, { headers }) => {
-    return {
-      headers: {
-        ...headers,
-        authorization: `${space} ${authorization?.accessToken}` || '',
-      },
-    };
-  });
-
-  const client: any = new ApolloClient({
-    link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
-  });
-
   // useEffect(() => {
   //   Chart.defaults.global.defaultFontColor =
   //     profile.theme === 'theme_dark' ? '#e0e0e0' : '#626262';
@@ -135,13 +112,12 @@ const Content = (props: Props) => {
   };
 
   return (
-    <ApolloProvider client={client}>
-      <div className={`App ${profile.theme} ${profile.textSize}`}>
-        <HashRouter>
-          <Init />
-          <Spinner />
-          {/* <Notification /> */}
-          {/* <OakNotification
+    <div className={`App ${profile.theme} ${profile.textSize}`}>
+      <HashRouter>
+        <Init />
+        <Spinner />
+        {/* <Notification /> */}
+        {/* <OakNotification
             indicator="fill"
             outlined
             rounded
@@ -149,7 +125,7 @@ const Content = (props: Props) => {
             displayCount={5}
           /> */}
 
-          {/* <OakAppLayout
+        {/* <OakAppLayout
             topbarVariant="auto"
             sidebarVariant="none"
             topbarColor="custom"
@@ -157,15 +133,15 @@ const Content = (props: Props) => {
             sidebarElevation={2}
             sidebarToggleIconVariant="chevron"
           > */}
-          {/* <div slot="sidebar">
+        {/* <div slot="sidebar">
               <SidebarContainer />
             </div> */}
-          {/* <div slot="toolbar">
+        {/* <div slot="toolbar">
               <TopbarContainer cookies={props.cookies} />
             </div> */}
-          {/* <div slot="main"> */}
-          {/* <TopbarContainer cookies={props.cookies} /> */}
-          {/* {!hideNav && (
+        {/* <div slot="main"> */}
+        {/* <TopbarContainer cookies={props.cookies} /> */}
+        {/* {!hideNav && (
                 <NavigationContainer
                   cookies={props.cookies}
                   space={space}
@@ -173,13 +149,12 @@ const Content = (props: Props) => {
                 />
               )}
               <BodyContainer {...props} /> */}
-          <MainContent cookies={props.cookies} space={space} />
-          {/* </div> */}
-          {/* </OakAppLayout> */}
-        </HashRouter>
-      </div>
-    </ApolloProvider>
+        <MainContent space={space} />
+        {/* </div> */}
+        {/* </OakAppLayout> */}
+      </HashRouter>
+    </div>
   );
 };
 
-export default withCookies(Content);
+export default Content;

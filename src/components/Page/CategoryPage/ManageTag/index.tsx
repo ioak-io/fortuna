@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import EditTagCommand from '../../../../events/EditTagCommand';
 import EditCategoryCommand from '../../../../events/EditCategoryCommand';
 import { newId } from '../../../../events/MessageService';

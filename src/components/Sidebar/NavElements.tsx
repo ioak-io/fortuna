@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
-import { getProfile, setProfile } from '../../actions/ProfileActions';
+import { getProfile, setProfile } from '../../store/actions/ProfileActions';
 
 import './NavElements.scss';
 import NavGroup from './NavGroup';

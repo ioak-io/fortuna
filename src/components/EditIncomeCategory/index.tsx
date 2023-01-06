@@ -21,9 +21,9 @@ import OakSelect from '../../oakui/wc/OakSelect';
 import OakButton from '../../oakui/wc/OakButton';
 
 import { saveIncomeCategory } from './service';
-import { updateCategoryItem } from '../../actions/CategoryActions';
+import { updateCategoryItem } from '../../store/actions/CategoryActions';
 import EditIncomeCategoryCommand from '../../events/EditIncomeCategoryCommand';
-import { updateIncomeCategoryItem } from '../../actions/IncomeCategoryActions';
+import { updateIncomeCategoryItem } from '../../store/actions/IncomeCategoryActions';
 
 interface Props {
   space: string;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { addDays, format } from 'date-fns';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,8 +22,7 @@ import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import Topbar from '../../../components/Topbar';
 import ScheduleReceiptItemModel from '../../../model/ScheduleReceiptItemModel';
 import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
-
-const queryString = require('query-string');
+import { useSearchParams } from 'react-router-dom';
 
 const EMPTY_RECEIPT_ITEM: ScheduleReceiptItemModel = {
   _id: undefined,
@@ -61,8 +60,8 @@ const EditScheduleReceiptPage = (props: Props) => {
       ...EMPTY_RECEIPT,
     };
   };
-  const [queryParam, setQueryParam] = useState<any>({});
-  const history = useHistory();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const [formId, setFormId] = useState(newId());
   const [errorInItemList, setErrorInItemList] = useState<boolean[]>([]);
@@ -73,13 +72,8 @@ const EditScheduleReceiptPage = (props: Props) => {
   });
 
   useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setQueryParam(query);
-  }, [props.location.search]);
-
-  useEffect(() => {
-    if (queryParam?.id && authorization.isAuth) {
-      getReceiptById(props.space, queryParam.id, authorization).then(
+    if (searchParams.has("id") && authorization.isAuth) {
+      getReceiptById(props.space, searchParams.get("id") || '', authorization).then(
         (response: any) => {
           if (!isEmptyAttributes(response)) {
             setState({
@@ -90,7 +84,7 @@ const EditScheduleReceiptPage = (props: Props) => {
         }
       );
     }
-  }, [queryParam, authorization]);
+  }, [searchParams, authorization]);
 
   const addRow = (
     _existingItems: ScheduleReceiptItemModel[],
@@ -184,11 +178,11 @@ const EditScheduleReceiptPage = (props: Props) => {
       ).then((response: any) => {
         if (!isEmptyAttributes(response)) {
           // if (queryParam.id) {
-          //   history.push(
+          //   navigate(
           //     `/${props.space}/schedule/receipt/runbook?id=${response._id}`
           //   );
           // } else {
-          history.goBack();
+          navigate(-1)
           // }
         }
       });
@@ -196,14 +190,14 @@ const EditScheduleReceiptPage = (props: Props) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1)
   };
 
   return (
     <div className="edit-schedule-receipt-page page-animate">
       <Topbar
         title={
-          queryParam.id
+          searchParams.has("id")
             ? `${state.name} - Edit`
             : 'Schedule recurring transactions - New'
         }

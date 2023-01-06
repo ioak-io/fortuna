@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -27,7 +27,7 @@ import ExpenseModel from '../../../model/ExpenseModel';
 import {
   fetchAndAppendExpenseItems,
   fetchAndSetExpenseItems,
-} from '../../../actions/ExpenseActions';
+} from '../../../store/actions/ExpenseActions';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
 import TableHeader from '../../../components/TableHeader';
 
@@ -37,7 +37,7 @@ interface Props {
 }
 
 const ListExpense = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const authorization = useSelector((state: any) => state.authorization);
   const categories = useSelector((state: any) => state.category.categories);
@@ -109,7 +109,7 @@ const ListExpense = (props: Props) => {
   };
 
   const openAddBillPage = () => {
-    history.push(`/${props.space}/receipt/edit`);
+    navigate(`/${props.space}/receipt/edit`);
   };
 
   const openAddExpense = () => {

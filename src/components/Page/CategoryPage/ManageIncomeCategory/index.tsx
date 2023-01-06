@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import CategoryChip from '../../../CategoryChip';
 import './style.scss';
 import EditIncomeCategoryCommand from '../../../../events/EditIncomeCategoryCommand';
@@ -12,7 +12,7 @@ interface Props {
 
 const ManageIncomeCategory = (props: Props) => {
   const [queryParam, setQueryParam] = useState<any>({});
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const categoryList = useSelector((state: any) => state.incomeCategory.items);
 

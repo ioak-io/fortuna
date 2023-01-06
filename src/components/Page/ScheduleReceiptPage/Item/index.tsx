@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import './style.scss';
 import ScheduleReceiptModel from '../../../../model/ScheduleReceiptModel';
 import Element from './Element';
@@ -19,7 +19,7 @@ interface Props {
 const Item = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const [recurrence, setRecurrence] = useState<string>('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (props.record) {
@@ -60,7 +60,7 @@ const Item = (props: Props) => {
   };
 
   const goToRunbookPage = () => {
-    history.push(
+    navigate(
       `/${props.space}/schedule/receipt/runbook?id=${props.record._id}`
     );
   };

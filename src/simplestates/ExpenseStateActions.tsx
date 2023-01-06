@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAndSetExpenseItems } from '../actions/ExpenseActions';
+import { fetchAndSetExpenseItems } from '../store/actions/ExpenseActions';
 
 interface Props {
   space: any;

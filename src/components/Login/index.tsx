@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import './style.scss';
 import LoginMethod from './LoginMethod';
 import OakSection from '../../oakui/wc/OakSection';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 interface Props {
   history: any;
@@ -12,19 +13,19 @@ interface Props {
   location: any;
 }
 
-const queryString = require('query-string');
-
 const Login = (props: Props) => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const profile = useSelector((state: any) => state.profile);
   const [from, setFrom] = useState<string | undefined>();
   const oaLogin = () => {
-    props.history.push(
+    navigate(
       `/${props.asset}/login/oa${from ? `?from=${from}` : ''}`
     );
   };
   const emailLogin = () => {
-    props.history.push(
+    navigate(
       `/${props.asset}/login/email${from ? `?from=${from}` : ''}`
     );
   };
@@ -35,14 +36,13 @@ const Login = (props: Props) => {
 
   useEffect(() => {
     if (authorization.isAuth) {
-      props.history.push(`/${props.asset}/article`);
+      navigate(`/${props.asset}/article`);
     }
   }, [authorization]);
 
   useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    query.from ? setFrom(query.from) : setFrom(undefined);
-  }, [props.location.search]);
+    setFrom(searchParams.get("from") || undefined);
+  }, [searchParams]);
 
   return (
     <OakSection>

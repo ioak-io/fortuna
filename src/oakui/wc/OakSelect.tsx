@@ -15,7 +15,6 @@ interface Props {
   handleInput?: any;
   handleActionItem?: any;
   tooltip?: string;
-  required?: boolean;
   multiple?: boolean;
   disabled?: boolean;
   options?: any[];
@@ -141,10 +140,6 @@ const OakSelect = (props: Props) => {
   useEffect(() => {
     (elementRef.current as any)!.fill = props.fill;
   }, [props.fill]);
-
-  useEffect(() => {
-    (elementRef.current as any)!.required = props.required;
-  }, [props.required]);
 
   useEffect(() => {
     (elementRef.current as any)!.options = props.options;

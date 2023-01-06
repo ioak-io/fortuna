@@ -21,7 +21,7 @@ import OakSelect from '../../oakui/wc/OakSelect';
 import OakButton from '../../oakui/wc/OakButton';
 
 import { saveCategory } from './service';
-import { updateCategoryItem } from '../../actions/CategoryActions';
+import { updateCategoryItem } from '../../store/actions/CategoryActions';
 
 interface Props {
   space: string;

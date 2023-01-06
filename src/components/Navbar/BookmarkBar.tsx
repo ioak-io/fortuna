@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router';
 import './BookmarkBar.scss';
 
 const BookmarkBar = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
     console.log(history);

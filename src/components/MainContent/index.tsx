@@ -9,7 +9,6 @@ import BodyContainer from '../App/BodyContainer';
 import SideContent from './SideContent';
 
 interface Props {
-  cookies: any;
   space: string;
 }
 
@@ -20,7 +19,7 @@ const MainContent = (props: Props) => {
 
   return (
     <>
-      <SideContent cookies={props.cookies} space={props.space} />
+      <SideContent space={props.space} />
       {/* <NavigationContainer
         cookies={props.cookies}
         space={props.space}

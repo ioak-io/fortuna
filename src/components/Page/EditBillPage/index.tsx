@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { addDays, format } from 'date-fns';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,10 +20,9 @@ import {
 } from '../../../constants/SessionStorageConstants';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import Topbar from '../../../components/Topbar';
-import { updateExpenseItems } from '../../../actions/ExpenseActions';
-import { updateReceiptItems } from '../../../actions/ReceiptActions';
-
-const queryString = require('query-string');
+import { updateExpenseItems } from '../../../store/actions/ExpenseActions';
+import { updateReceiptItems } from '../../../store/actions/ReceiptActions';
+import { useSearchParams } from 'react-router-dom';
 
 const EMPTY_EXPENSE: ExpenseModel = {
   amount: undefined,
@@ -57,18 +56,13 @@ const EditBillPage = (props: Props) => {
     };
   };
   const [queryParam, setQueryParam] = useState<any>({});
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const [formId, setFormId] = useState(newId());
   const [errorInItemList, setErrorInItemList] = useState<boolean[]>([]);
   const [errorInBillDetails, setErrorInBillDetails] = useState<boolean>(false);
   const [state, setState] = useState<ReceiptModel>({ ...getEmptyBill() });
   const [addAnother, setAddAnother] = useState(false);
-
-  useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setQueryParam(query);
-  }, [props.location.search]);
 
   useEffect(() => {
     if (sessionStorage.getItem(FORTUNA_PREF_ADDBILL_ANOTHER)) {
@@ -162,7 +156,7 @@ const EditBillPage = (props: Props) => {
             items: [...response.items, { ...EMPTY_EXPENSE }],
           });
           if (!_addAnother) {
-            history.goBack();
+            navigate(-1)
           } else {
             setState({ ...getEmptyBill() });
           }
@@ -180,7 +174,7 @@ const EditBillPage = (props: Props) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1)
   };
 
   const toggleAddAnother = () => {

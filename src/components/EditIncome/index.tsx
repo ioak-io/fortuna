@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { addDays, format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -29,7 +29,7 @@ import OakCheckbox from '../../oakui/wc/OakCheckbox';
 import { FORTUNA_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageConstants';
 import TagSelection from './TagSelection';
 import IncomeModel from '../../model/IncomeModel';
-import { updateIncomeItems } from '../../actions/IncomeActions';
+import { updateIncomeItems } from '../../store/actions/IncomeActions';
 
 interface Props {
   space: string;
@@ -37,7 +37,7 @@ interface Props {
 
 const EditIncome = (props: Props) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [emptyIncome, setEmptyIncome] = useState<any>({
     _id: undefined,
     description: '',
