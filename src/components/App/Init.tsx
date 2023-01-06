@@ -62,7 +62,7 @@ const Init = () => {
     receiveMessage().subscribe((event: any) => {
       if (event.name === 'spaceChange') {
         // TODO
-        // setSpace(event.data);
+        setSpace(event.data);
       }
       if (event.name === 'spaceChange' && authorization.isAuth) {
         setSpace(event.data);
