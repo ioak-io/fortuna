@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import './RouterView.scss';
 import Home from '../Home';
 import { loginPageSubject } from '../../events/LoginPageEvent';
-import ProtectedRoute from '../ProtectedRoute';
+import ProtectedRouteApp from '../ProtectedRouteApp';
 import LandingPage from '../Page/LandingPage';
 import OaLogin from '../Auth/OaLogin';
 
@@ -28,23 +28,23 @@ const RouterView = (props: Props) => {
         <Route
           path="/"
           element={
-            <ProtectedRoute
+            <ProtectedRouteApp
               middleware={['readAuthenticationOa']}>
               <Home />
-            </ProtectedRoute>
+            </ProtectedRouteApp>
           }
         />
         <Route
           path="/home"
           element={
-            <ProtectedRoute
+            <ProtectedRouteApp
               middleware={['authenticate']} component={LandingPage} />
           }
         />
         <Route
           path="/login"
           element={
-            <ProtectedRoute
+            <ProtectedRouteApp
               middleware={['readAuthenticationOa']} component={OaLogin} />}
         />
       </Routes>
