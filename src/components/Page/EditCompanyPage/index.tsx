@@ -12,8 +12,6 @@ import OakInput from '../../../oakui/wc/OakInput';
 import CompanyModel from '../../../model/CompanyModel';
 import { saveCompany } from './service';
 
-const queryString = require('query-string');
-
 interface Props {
   history: any;
   location: any;

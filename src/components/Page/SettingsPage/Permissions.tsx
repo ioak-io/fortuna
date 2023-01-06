@@ -15,8 +15,6 @@ import OakButton from '../../../oakui/wc/OakButton';
 import { getUserInvite, sendUserInvite } from './service';
 import Topbar from '../../../components/Topbar';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;

@@ -23,8 +23,6 @@ import Topbar from '../../../components/Topbar';
 import ScheduleReceiptItemModel from '../../../model/ScheduleReceiptItemModel';
 import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
 
-const queryString = require('query-string');
-
 const EMPTY_RECEIPT_ITEM: ScheduleReceiptItemModel = {
   _id: undefined,
   category: '',

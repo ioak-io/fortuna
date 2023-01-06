@@ -31,8 +31,6 @@ import Topbar from '../../../components/Topbar';
 import { fetchAndSetReceiptItems } from '../../../actions/ReceiptActions';
 import { fetchAndSetIncomeItems } from '../../../actions/IncomeActions';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;

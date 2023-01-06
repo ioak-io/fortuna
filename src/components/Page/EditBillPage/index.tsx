@@ -22,8 +22,7 @@ import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import Topbar from '../../../components/Topbar';
 import { updateExpenseItems } from '../../../actions/ExpenseActions';
 import { updateReceiptItems } from '../../../actions/ReceiptActions';
-
-const queryString = require('query-string');
+import { useSearchParams } from 'react-router-dom';
 
 const EMPTY_EXPENSE: ExpenseModel = {
   amount: undefined,
@@ -64,11 +63,6 @@ const EditBillPage = (props: Props) => {
   const [errorInBillDetails, setErrorInBillDetails] = useState<boolean>(false);
   const [state, setState] = useState<ReceiptModel>({ ...getEmptyBill() });
   const [addAnother, setAddAnother] = useState(false);
-
-  useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setQueryParam(query);
-  }, [props.location.search]);
 
   useEffect(() => {
     if (sessionStorage.getItem(FORTUNA_PREF_ADDBILL_ANOTHER)) {

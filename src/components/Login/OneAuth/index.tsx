@@ -7,6 +7,7 @@ import './style.scss';
 import OakSpinner from '../../../oakui/OakSpinner';
 import OakInput from '../../../oakui/wc/OakInput';
 import OakSection from '../../../oakui/wc/OakSection';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
   history: any;
@@ -14,9 +15,8 @@ interface Props {
   asset: string;
 }
 
-const queryString = require('query-string');
-
 const OneAuth = (props: Props) => {
+  const [searchParams] = useSearchParams();
   const authorization = useSelector((state: any) => state.authorization);
   const [view, setView] = useState<Array<any> | undefined>(undefined);
   const [searchCriteria, setSearchCriteria] = useState({ text: '' });
@@ -24,9 +24,8 @@ const OneAuth = (props: Props) => {
   const [queryParam, setQueryParam] = useState<any>();
 
   useEffect(() => {
-    const queryParam = queryString.parse(props.location.search);
-    if (queryParam.space) {
-      window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/space/${queryParam.space}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}&asset=${props.asset}&from=${queryParam.from}`;
+    if (searchParams.has("space")) {
+      window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/space/${queryParam.space}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}&asset=${props.asset}&from=${searchParams.get("from")}`;
     }
     setQueryParam(queryParam);
   }, []);

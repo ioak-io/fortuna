@@ -33,8 +33,6 @@ import AccountTypeChip from './AccountTypeChip';
 import AccountScope from './AccountScope';
 import AccountScopeModel from '../../../model/AccountScopeModel';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
 }

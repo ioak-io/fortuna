@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style.scss';
-import ReceiptModel from '../../../model/ReceiptModel';
-import ExpenseModel from '../../../model/ExpenseModel';
 import OakButton from '../../../oakui/wc/OakButton';
 import { newId } from '../../../events/MessageService';
 import OakForm from '../../../oakui/wc/OakForm';
@@ -24,15 +23,13 @@ import Details from './Details';
 import RunLog from './RunLog';
 import { getLog } from './service';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;
 }
 
 const ScheduleReceiptRunbookPage = (props: Props) => {
-  const [queryParam, setQueryParam] = useState<any>({});
+  const searchParams = useSearchParams();
   const history = useHistory();
   const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState<ScheduleReceiptModel | null>();
@@ -42,10 +39,6 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
   const [errorInReceiptDetails, setErrorInReceiptDetails] =
     useState<boolean>(false);
 
-  useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    setQueryParam(query);
-  }, [props.location.search]);
 
   useEffect(() => {
     if (queryParam?.id && authorization.isAuth) {

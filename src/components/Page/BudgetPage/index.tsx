@@ -22,8 +22,6 @@ import OakSelect from '../../../oakui/wc/OakSelect';
 import BudgetItems from './BudgetItems';
 import BudgetModel from '../../../model/BudgetModel';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
 }

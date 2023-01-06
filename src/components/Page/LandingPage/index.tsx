@@ -9,8 +9,6 @@ import ReceiptModel from '../../../model/ReceiptModel';
 import ExpenseModel from '../../../model/ExpenseModel';
 import Topbar from '../../../components/Topbar';
 
-const queryString = require('query-string');
-
 const EMPTY_EXPENSE: ExpenseModel = {
   amount: undefined,
   billDate: '',

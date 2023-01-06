@@ -4,8 +4,6 @@ import { useHistory } from 'react-router';
 import './style.scss';
 import Topbar from '../../../components/Topbar';
 
-const queryString = require('query-string');
-
 interface Props {
   space: string;
   location: any;

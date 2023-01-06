@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import './style.scss';
 import LoginMethod from './LoginMethod';
 import OakSection from '../../oakui/wc/OakSection';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
   history: any;
@@ -12,9 +13,8 @@ interface Props {
   location: any;
 }
 
-const queryString = require('query-string');
-
 const Login = (props: Props) => {
+  const [searchParams] = useSearchParams();
   const authorization = useSelector((state: any) => state.authorization);
   const profile = useSelector((state: any) => state.profile);
   const [from, setFrom] = useState<string | undefined>();
@@ -40,9 +40,8 @@ const Login = (props: Props) => {
   }, [authorization]);
 
   useEffect(() => {
-    const query = queryString.parse(props.location.search);
-    query.from ? setFrom(query.from) : setFrom(undefined);
-  }, [props.location.search]);
+    setFrom(searchParams.get("from") || undefined);
+  }, [searchParams]);
 
   return (
     <OakSection>
