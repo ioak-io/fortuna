@@ -29,7 +29,7 @@ interface Props {
 }
 
 const ScheduleReceiptRunbookPage = (props: Props) => {
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState<ScheduleReceiptModel | null>();
@@ -41,8 +41,8 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
 
 
   useEffect(() => {
-    if (queryParam?.id && authorization.isAuth) {
-      getReceiptById(props.space, queryParam.id, authorization).then(
+    if (searchParams.has("id") && authorization.isAuth) {
+      getReceiptById(props.space, searchParams.get("id") || '', authorization).then(
         (response: any) => {
           if (!isEmptyAttributes(response)) {
             setData(response);
@@ -50,7 +50,7 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
         }
       );
     }
-  }, [queryParam, authorization]);
+  }, [searchParams, authorization]);
 
   useEffect(() => {
     if (authorization.isAuth && data?._id) {
@@ -66,11 +66,11 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1)
   };
 
   const goToEditSchedule = () => {
-    navigate(`/${props.space}/schedule/receipt/edit?id=${queryParam.id}`);
+    navigate(`/${props.space}/schedule/receipt/edit?id=${searchParams.get("id")}`);
   };
 
   return (

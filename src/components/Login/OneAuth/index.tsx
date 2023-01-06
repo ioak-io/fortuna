@@ -62,7 +62,7 @@ const OneAuth = (props: Props) => {
   }, [authorization]);
 
   const goBack = () => {
-    props.history.goBack();
+    navigate(-1)
   };
 
   const getHeadingLinks = () => {

@@ -156,7 +156,7 @@ const EditBillPage = (props: Props) => {
             items: [...response.items, { ...EMPTY_EXPENSE }],
           });
           if (!_addAnother) {
-            history.goBack();
+            navigate(-1)
           } else {
             setState({ ...getEmptyBill() });
           }
@@ -174,7 +174,7 @@ const EditBillPage = (props: Props) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1)
   };
 
   const toggleAddAnother = () => {

@@ -80,7 +80,7 @@ const BudgetPage = (props: Props) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1)
   };
 
   return (

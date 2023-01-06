@@ -110,7 +110,7 @@ const BalancePage = (props: Props) => {
   };
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1)
   };
 
   const handleClose = () => {
