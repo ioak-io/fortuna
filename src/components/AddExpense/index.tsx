@@ -148,7 +148,7 @@ const AddExpense = (props: Props) => {
 
   const goToEditBill = () => {
     QuickEditExpenseCommand.next({ open: false, record: null });
-    history.push(`/${props.space}/receipt/edit?id=${state.billId}`);
+    navigate(`/${props.space}/receipt/edit?id=${state.billId}`);
   };
 
   return (

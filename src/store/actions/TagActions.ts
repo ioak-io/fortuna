@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import { TAG_ITEMS_UPDATE, TAG_LIST_FETCH_AND_SET } from './types';
-import { httpGet, httpPut } from '../components/Lib/RestTemplate';
-import { sendMessage } from '../events/MessageService';
-import constants from '../components/Constants';
+import { httpGet, httpPut } from '../../components/Lib/RestTemplate';
+import { sendMessage } from '../../events/MessageService';
+import constants from '../../components/Constants';
 
 const domain = 'user';
 

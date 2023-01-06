@@ -182,7 +182,7 @@ const EditScheduleReceiptPage = (props: Props) => {
       ).then((response: any) => {
         if (!isEmptyAttributes(response)) {
           // if (queryParam.id) {
-          //   history.push(
+          //   navigate(
           //     `/${props.space}/schedule/receipt/runbook?id=${response._id}`
           //   );
           // } else {

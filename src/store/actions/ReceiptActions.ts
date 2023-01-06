@@ -7,7 +7,7 @@ import {
   FETCH_CATEGORY,
   RECEIPT_ITEMS_UPDATE,
 } from './types';
-import { httpGet, httpPost, httpPut } from '../components/Lib/RestTemplate';
+import { httpGet, httpPost, httpPut } from '../../components/Lib/RestTemplate';
 
 export const fetchAndSetReceiptItems =
   (space: string, authorization: any, payload: any) => (dispatch: any) => {

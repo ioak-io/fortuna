@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { COMPANY_LIST_FETCH_AND_SET } from './types';
-import { httpGet, httpPost, httpPut } from '../components/Lib/RestTemplate';
+import { httpGet, httpPost, httpPut } from '../../components/Lib/RestTemplate';
 
 export const fetchAndSetCompanyItems =
   (authorization: any) => (dispatch: any) => {

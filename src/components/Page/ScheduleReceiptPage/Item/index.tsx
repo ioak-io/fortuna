@@ -60,7 +60,7 @@ const Item = (props: Props) => {
   };
 
   const goToRunbookPage = () => {
-    history.push(
+    navigate(
       `/${props.space}/schedule/receipt/runbook?id=${props.record._id}`
     );
   };

@@ -19,12 +19,12 @@ const Login = (props: Props) => {
   const profile = useSelector((state: any) => state.profile);
   const [from, setFrom] = useState<string | undefined>();
   const oaLogin = () => {
-    props.history.push(
+    props.navigate(
       `/${props.asset}/login/oa${from ? `?from=${from}` : ''}`
     );
   };
   const emailLogin = () => {
-    props.history.push(
+    props.navigate(
       `/${props.asset}/login/email${from ? `?from=${from}` : ''}`
     );
   };
@@ -35,7 +35,7 @@ const Login = (props: Props) => {
 
   useEffect(() => {
     if (authorization.isAuth) {
-      props.history.push(`/${props.asset}/article`);
+      props.navigate(`/${props.asset}/article`);
     }
   }, [authorization]);
 

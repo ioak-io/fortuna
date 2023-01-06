@@ -1,4 +1,4 @@
-import { GET_ROLE, ADD_ROLE, FETCH_ALL_ROLES } from '../store/actions/types';
+import { GET_ROLE, ADD_ROLE, FETCH_ALL_ROLES } from '../actions/types';
 
 const initialState = {
   roles: [],

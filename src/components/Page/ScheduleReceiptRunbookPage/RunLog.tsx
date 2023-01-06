@@ -33,7 +33,7 @@ const RunLog = (props: Props) => {
   const [denseView, setDenseView] = useState(true);
 
   const openRecord = (record: any) => {
-    history.push(`/${props.space}/receipt/edit?id=${record.receiptId}`);
+    navigate(`/${props.space}/receipt/edit?id=${record.receiptId}`);
   };
 
   return (

@@ -30,7 +30,7 @@ const RightNav = (props: Props) => {
     props.cookies.remove(
       `fortuna_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`
     );
-    history.push(`/`);
+    navigate(`/`);
     sendMessage('notification', true, {
       type,
       message,

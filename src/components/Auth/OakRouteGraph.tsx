@@ -109,13 +109,13 @@ const OakRouteGraph = (props: Props) => {
 
   const redirectToLogin = (space: string) => {
     // window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/space/${spaceId}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}`;
-    props.history.push(
+    props.navigate(
       `/${space}/login/home?from=${props.history.location.pathname}${props.history.location.search}`
     );
   };
 
   const redirectToUnauthorized = () => {
-    props.history.push(`/${profile.space}/unauthorized`);
+    props.navigate(`/${profile.space}/unauthorized`);
   };
 
   return (

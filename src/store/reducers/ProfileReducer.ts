@@ -1,4 +1,4 @@
-import { GET_PROFILE, SET_PROFILE } from '../store/actions/types';
+import { GET_PROFILE, SET_PROFILE } from '../actions/types';
 
 const initialState = {
   theme: 'theme_dark',

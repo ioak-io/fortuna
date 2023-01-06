@@ -5,7 +5,7 @@ import {
   EXPENSE_ITEMS_UPDATE,
   EXPENSE_ITEMS_UPDATE_FILTER,
   EXPENSE_ITEMS_UPDATE_PAGINATION,
-} from '../store/actions/types';
+} from '../actions/types';
 import { mergeItems } from './Utils';
 
 const initialState = {

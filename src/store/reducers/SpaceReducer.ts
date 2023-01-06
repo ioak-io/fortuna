@@ -1,4 +1,4 @@
-import { REFRESH_SPACES } from '../store/actions/types';
+import { REFRESH_SPACES } from '../actions/types';
 
 const initialState = {
   assets: [],

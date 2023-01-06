@@ -25,7 +25,7 @@ const OaLogin = (props: Props) => {
             console.log('**', response.data.token);
             props.cookies.set(`fortuna-access_token`, response.data.token);
             props.cookies.set(`fortuna-refresh_token`, searchParams.get("refresh_token"));
-            props.history.push(searchParams.get("from") || '/home');
+            props.navigate(searchParams.get("from") || '/home');
           }
           return Promise.resolve({});
         })

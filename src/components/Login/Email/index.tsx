@@ -23,26 +23,26 @@ const Email = (props: Props) => {
   }, [props.location.search]);
 
   const emailLogin = () => {
-    props.history.push(
+    props.navigate(
       `/${props.asset}/login/email?type=email&from=${searchParams.get("from")}`
     );
   };
 
   const tokenLogin = () => {
-    props.history.push(
+    props.navigate(
       `/${props.asset}/login/email?type=token&from=${searchParams.get("from")}`
     );
   };
 
   const newAccount = () => {
-    props.history.push(
+    props.navigate(
       `/${props.asset}/login/email?type=new&from=${searchParams.get("from")}`
     );
   };
 
   useEffect(() => {
     if (authorization.isAuth) {
-      props.history.push(searchParams.get("from") || `/${props.asset}/article`);
+      props.navigate(searchParams.get("from") || `/${props.asset}/article`);
     }
   }, [authorization]);
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-prototype-builtins */
 
-import { isEmptyAttributes } from '../components/Utils';
+import { isEmptyAttributes } from '../../components/Utils';
 
 /* eslint-disable import/prefer-default-export */
 export const mergeItems = (base: any[], amend: any[]) => {

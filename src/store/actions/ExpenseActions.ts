@@ -6,10 +6,10 @@ import {
   EXPENSE_ITEMS_UPDATE_PAGINATION,
   EXPENSE_ITEMS_UPDATE,
 } from './types';
-import { httpGet, httpPost, httpPut } from '../components/Lib/RestTemplate';
-import { newId } from '../events/MessageService';
-import AddSpinnerCommand from '../events/AddSpinnerCommand';
-import RemoveSpinnerCommand from '../events/RemoveSpinnerCommand';
+import { httpGet, httpPost, httpPut } from '../../components/Lib/RestTemplate';
+import { newId } from '../../events/MessageService';
+import AddSpinnerCommand from '../../events/AddSpinnerCommand';
+import RemoveSpinnerCommand from '../../events/RemoveSpinnerCommand';
 
 export const fetchAndSetExpenseItems =
   (space: string, authorization: any, payload: any) => (dispatch: any) => {

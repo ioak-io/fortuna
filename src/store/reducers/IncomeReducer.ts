@@ -4,7 +4,7 @@ import {
   INCOME_ITEMS_UPDATE,
   INCOME_ITEMS_UPDATE_FILTER,
   INCOME_ITEMS_UPDATE_PAGINATION,
-} from '../store/actions/types';
+} from '../actions/types';
 import { mergeItems } from './Utils';
 
 const initialState = {

@@ -109,7 +109,7 @@ const ListExpense = (props: Props) => {
   };
 
   const openAddBillPage = () => {
-    history.push(`/${props.space}/receipt/edit`);
+    navigate(`/${props.space}/receipt/edit`);
   };
 
   const openAddExpense = () => {

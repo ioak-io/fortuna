@@ -24,7 +24,7 @@ const TokenItem = (props: Props) => {
         `fortuna_${props.asset}`,
         `email ${props.queryParam.auth_token}`
       );
-      props.history.push(`/${props.asset}/article`);
+      props.navigate(`/${props.asset}/article`);
     }
   }, [props.queryParam]);
 
@@ -44,7 +44,7 @@ const TokenItem = (props: Props) => {
     }
     setFormErrors(errorFields);
     if (isEmptyAttributes(errorFields)) {
-      props.history.push(
+      props.navigate(
         `/${props.asset}/login/email?type=token&auth_token=${state.token}`
       );
     }

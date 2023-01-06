@@ -33,7 +33,7 @@ const ChangeAsset = (props: Props) => {
   }, [props.space, assets]);
 
   const goToChangeAssetPage = () => {
-    history.push('/');
+    navigate('/');
   };
 
   return (

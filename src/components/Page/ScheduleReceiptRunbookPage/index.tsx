@@ -70,7 +70,7 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
   };
 
   const goToEditSchedule = () => {
-    history.push(`/${props.space}/schedule/receipt/edit?id=${queryParam.id}`);
+    navigate(`/${props.space}/schedule/receipt/edit?id=${queryParam.id}`);
   };
 
   return (

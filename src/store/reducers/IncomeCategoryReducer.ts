@@ -1,7 +1,7 @@
 import {
   INCOME_CATEGORY_ITEMS_FETCH_AND_SET,
   INCOME_CATEGORY_ITEMS_UPDATE,
-} from '../store/actions/types';
+} from '../actions/types';
 import { mergeItem } from './Utils';
 
 const initialState = {

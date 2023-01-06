@@ -1,4 +1,4 @@
-import { TAG_ITEMS_UPDATE, TAG_LIST_FETCH_AND_SET } from '../store/actions/types';
+import { TAG_ITEMS_UPDATE, TAG_LIST_FETCH_AND_SET } from '../actions/types';
 import { mergeItem } from './Utils';
 
 const initialState = {

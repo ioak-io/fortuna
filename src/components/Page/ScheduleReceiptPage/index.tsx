@@ -33,7 +33,7 @@ const ScheduleReceiptPage = (props: Props) => {
   const [data, setData] = useState<ScheduleReceiptModel[]>([]);
 
   const addNew = () => {
-    history.push(`/${props.space}/schedule/receipt/edit`);
+    navigate(`/${props.space}/schedule/receipt/edit`);
   };
 
   useEffect(() => {

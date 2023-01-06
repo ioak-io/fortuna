@@ -1,7 +1,7 @@
 import { FETCH_ALL_ROLES } from './types';
-import { httpGet, httpPut } from '../components/Lib/RestTemplate';
-import { sendMessage } from '../events/MessageService';
-import constants from '../components/Constants';
+import { httpGet, httpPut } from '../../components/Lib/RestTemplate';
+import { sendMessage } from '../../events/MessageService';
+import constants from '../../components/Constants';
 
 const domain = 'user';
 

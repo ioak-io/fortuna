@@ -106,11 +106,11 @@ const DuplicateLineItem = (props: Props) => {
   };
 
   const openAddReceipt = () => {
-    history.push(`/${props.space}/receipt/edit`);
+    navigate(`/${props.space}/receipt/edit`);
   };
 
   const openRecord = (record: any) => {
-    // history.push(`/${props.space}/receipt/edit?id=${record._id}`);
+    // navigate(`/${props.space}/receipt/edit?id=${record._id}`);
   };
 
   const loadMore = () => {
