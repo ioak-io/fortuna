@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faHamburger } from '@fortawesome/free-solid-svg-icons';
 
@@ -21,7 +21,7 @@ interface Props {
 }
 
 const Navbar = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
 
   const profile = useSelector((state: any) => state.profile);

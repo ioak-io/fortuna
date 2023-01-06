@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import OakButton from '../../../oakui/wc/OakButton';
 import './style.scss';
 import { fetchAndSetReceiptItems } from '../../../store/actions/ReceiptActions';
@@ -29,7 +29,7 @@ interface Props {
 
 const ScheduleReceiptPage = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [data, setData] = useState<ScheduleReceiptModel[]>([]);
 
   const addNew = () => {

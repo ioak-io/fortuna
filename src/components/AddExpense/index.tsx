@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 import { addDays, format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -30,6 +29,7 @@ import { FORTUNA_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageC
 import TagSelection from './TagSelection';
 import ExpenseModel from '../../model/ExpenseModel';
 import { updateExpenseItems } from '../../store/actions/ExpenseActions';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   space: string;
@@ -37,7 +37,7 @@ interface Props {
 
 const AddExpense = (props: Props) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [emptyExpense, setEmptyExpense] = useState<any>({
     _id: undefined,
     description: '',

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheck,
@@ -47,7 +47,7 @@ const EMPTY_ACCOUNT: AccountModel = {
 };
 
 const BalancePage = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const categories = useSelector((state: any) => state.category.categories);
   const [formId, setFormId] = useState(newId());

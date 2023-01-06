@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCompressAlt,
@@ -27,7 +27,7 @@ interface Props {
 }
 
 const RunLog = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   // const [data, setData] = useState<any[]>([]);
   const [denseView, setDenseView] = useState(true);

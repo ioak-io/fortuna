@@ -55,7 +55,6 @@ Chart.register(
 );
 
 interface Props {
-  cookies: any;
 }
 
 const Content = (props: Props) => {
@@ -147,7 +146,7 @@ const Content = (props: Props) => {
                 />
               )}
               <BodyContainer {...props} /> */}
-        <MainContent cookies={props.cookies} space={space} />
+        <MainContent space={space} />
         {/* </div> */}
         {/* </OakAppLayout> */}
       </HashRouter>

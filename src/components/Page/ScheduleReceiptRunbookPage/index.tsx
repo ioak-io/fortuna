@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { addDays, format } from 'date-fns';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -30,7 +30,7 @@ interface Props {
 
 const ScheduleReceiptRunbookPage = (props: Props) => {
   const searchParams = useSearchParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState<ScheduleReceiptModel | null>();
   const [logData, setLogData] = useState<any[]>([]);

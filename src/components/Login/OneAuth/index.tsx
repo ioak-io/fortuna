@@ -57,7 +57,7 @@ const OneAuth = (props: Props) => {
 
   useEffect(() => {
     if (authorization.isAuth) {
-      props.navigate(`/${props.asset}/article`);
+      navigate(`/${props.asset}/article`);
     }
   }, [authorization]);
 

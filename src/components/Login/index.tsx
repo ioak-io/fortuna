@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import './style.scss';
 import LoginMethod from './LoginMethod';
 import OakSection from '../../oakui/wc/OakSection';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 interface Props {
   history: any;
@@ -15,16 +15,17 @@ interface Props {
 
 const Login = (props: Props) => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const profile = useSelector((state: any) => state.profile);
   const [from, setFrom] = useState<string | undefined>();
   const oaLogin = () => {
-    props.navigate(
+    navigate(
       `/${props.asset}/login/oa${from ? `?from=${from}` : ''}`
     );
   };
   const emailLogin = () => {
-    props.navigate(
+    navigate(
       `/${props.asset}/login/email${from ? `?from=${from}` : ''}`
     );
   };
@@ -35,7 +36,7 @@ const Login = (props: Props) => {
 
   useEffect(() => {
     if (authorization.isAuth) {
-      props.navigate(`/${props.asset}/article`);
+      navigate(`/${props.asset}/article`);
     }
   }, [authorization]);
 

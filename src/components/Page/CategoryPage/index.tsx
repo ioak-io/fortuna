@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,7 +25,7 @@ interface Props {
 
 const CategoryItem = (props: Props) => {
   const [queryParam, setQueryParam] = useState<any>({});
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const [formId, setFormId] = useState(newId());
 

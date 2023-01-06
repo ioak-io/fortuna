@@ -44,7 +44,6 @@ import { removeSessionValue } from '../../../utils/SessionUtils';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
-  cookies: any;
   space: string;
 }
 

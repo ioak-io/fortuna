@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import './EditCompany.scss';
 import { newId } from '../../../events/MessageService';
 import CompanyModel from '../../../model/CompanyModel';
@@ -24,7 +24,7 @@ const EMPTY_COMPANY: CompanyModel = {
 };
 
 const EditCompany = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const company = useSelector((state: any) =>
     state.company.items.find(

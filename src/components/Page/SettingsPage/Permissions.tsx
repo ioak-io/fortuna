@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { compose } from '@oakui/core-stage/style-composer/OakTableComposer';
@@ -21,7 +21,7 @@ interface Props {
 }
 
 const Permissions = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const users = useSelector((state: any) => state.user.items);
   const [userInviteList, setUserInviteList] = useState<any[]>([]);

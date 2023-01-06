@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheck,
@@ -31,7 +31,7 @@ const NEXT_YEAR = new Date().getFullYear() + 1;
 const LAST_YEAR = new Date().getFullYear() - 1;
 
 const BudgetPage = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const categories = useSelector((state: any) => state.category.categories);
   const [formId, setFormId] = useState(newId());

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import OakButton from '../../../oakui/wc/OakButton';
@@ -27,7 +27,7 @@ const EMPTY_COMPANY: CompanyModel = {
 };
 
 const EditCompanyPage = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const companyList = useSelector((state: any) => state.company.items);
   const [queryParam, setQueryParam] = useState<any>({});

@@ -129,11 +129,11 @@ const OakRouteApp = (props: Props) => {
 
   const redirectToLogin = (space: string) => {
     window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${appRealm}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
-    // props.navigate(`/${space}/login/home`);
+    // navigate(`/${space}/login/home`);
   };
 
   const redirectToUnauthorized = () => {
-    props.navigate(`/${props.match.params.space}/unauthorized`);
+    navigate(`/${props.match.params.space}/unauthorized`);
   };
 
   return (
