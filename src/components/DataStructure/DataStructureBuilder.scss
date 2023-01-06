@@ -1,0 +1,14 @@
+.data-structure-builder {
+  .data-structure-builder__label {
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+}
+
+.data-structure-builder__content {
+  border: 1px solid var(--color-global-darkest);
+  // background-color: var(--color-container);
+  border-radius: var(--global-border-radius);
+  padding: 10px 6px;
+  margin-bottom: 10px;
+}

@@ -64,7 +64,7 @@ module.exports = (env) => {
       host: '0.0.0.0',
       compress: true,
       hot: true,
-      port: 3010,
+      port: 3000,
       devMiddleware: {
         publicPath: '/',
       }

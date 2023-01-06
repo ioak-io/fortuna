@@ -1,0 +1,30 @@
+.tag {
+  margin: 0px 6px 6px 0;
+}
+.tag__content {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 8px;
+  padding: 6px 16px;
+  // border-radius: 50px;
+  border-radius: 0px;
+  background-color: var(--color-global-dark);
+  color: var(--color-global-dark-i);
+  cursor: pointer;
+  transition: border-color 250ms ease-in-out, background-color 250ms ease-in-out,
+    color 250ms ease-in-out;
+  &:hover {
+    border-color: var(--color-1);
+    background-color: var(--color-global-darker);
+    color: var(--color-global-darker-i);
+  }
+}
+
+.tag__content__icon {
+  display: grid;
+  font-size: 10px;
+  align-items: center;
+  svg {
+    transform: rotate(90deg);
+  }
+}

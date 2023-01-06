@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import OakButton from '../../oakui/wc/OakButton';
 
 interface Props {
-  realm: string;
+  space: string;
 }
 
 const Links = (props: Props) => {
@@ -15,28 +15,28 @@ const Links = (props: Props) => {
   return (
     <div className={`links ${profile.theme}`}>
       <NavLink
-        to={`/${props.realm}/home`}
+        to={`/${props.space}/home`}
         className="navitem"
         activeClassName="active"
       >
         Home
       </NavLink>
       <NavLink
-        to={`/${props.realm}/project`}
+        to={`/${props.space}/project`}
         className="navitem"
         activeClassName="active"
       >
         Projects
       </NavLink>
       <NavLink
-        to={`/${props.realm}/email-server`}
+        to={`/${props.space}/email-server`}
         className="navitem"
         activeClassName="active"
       >
         Email Servers
       </NavLink>
       <NavLink
-        to={`/${props.realm}/template`}
+        to={`/${props.space}/template`}
         className="navitem"
         activeClassName="active"
       >

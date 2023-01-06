@@ -3,20 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './RouterView.scss';
 import Home from '../Home';
-import OakRoute from '../Auth/OakRoute';
-import Unauthorized from '../Auth/Unauthorized';
-import RealmHome from '../RealmHome';
-import RealmListing from '../ManageRealm/RealmListing';
-import ClientListing from '../ManageClient/ClientListing';
-import ClientrealmHome from '../ClientrealmHome';
-import RealmDetail from '../ManageRealm/RealmDetail';
-import ClientDetail from '../ManageClient/ClientDetail';
-import ClientPermission from '../ClientPermission';
-import LoginPage from '../LoginPage';
 import { loginPageSubject } from '../../events/LoginPageEvent';
-import ReachInstance from '../ReachInstance';
 import ProtectedRoute from '../ProtectedRoute';
-import Landing from '../Landing';
+import LandingPage from '../Page/LandingPage';
+import OaLogin from '../Auth/OaLogin';
 
 interface Props {
 }
@@ -48,108 +38,15 @@ const RouterView = (props: Props) => {
           path="/home"
           element={
             <ProtectedRoute
-              middleware={['readAuthenticationOa']}>
-              <Home />
-            </ProtectedRoute>
+              middleware={['authenticate']} component={LandingPage} />
           }
         />
         <Route
-          path="/landing"
+          path="/login"
           element={
             <ProtectedRoute
-              middleware={[]}>
-              <Landing />
-            </ProtectedRoute>
-          }
+              middleware={['readAuthenticationOa']} component={OaLogin} />}
         />
-        <Route
-          path="/realm/:realm/login/:client_id"
-          element={
-            <ProtectedRoute
-              middleware={['readRealm']} component={LoginPage} />
-          }
-        />
-        <Route
-          path="/managerealm"
-          element={
-            <ProtectedRoute middleware={['authenticate']} component={RealmListing} />
-          }
-        />
-        <Route
-          path="/managerealm/:realmId"
-          element={
-            <ProtectedRoute middleware={['authenticate']} component={RealmDetail} />
-          }
-        />
-        <Route
-          path="/manageclient"
-          element={
-            <ProtectedRoute middleware={['authenticate']} component={ClientListing} />
-          }
-        />
-        <Route
-          path="/manageclient/:id"
-          element={
-            <ProtectedRoute middleware={['authenticate']} component={ClientDetail} />
-          }
-        />
-        <Route
-          path="/manageclient/:id/permission/:userId"
-          element={
-            <ProtectedRoute middleware={['authenticate']} component={ClientPermission} />
-          }
-        />
-        <Route
-          path="/blog"
-          element={
-            <ProtectedRoute middleware={['authenticate']} component={ReachInstance} />
-          }
-        />
-        
-        <Route
-          path="/realm/:realm/home"
-          element={
-            <ProtectedRoute middleware={['readAuthentication']} component={RealmHome} />
-          }
-        />
-        <Route
-          path="/realm/:realm"
-          element={
-            <ProtectedRoute middleware={['readAuthentication']} component={RealmHome} />
-          }
-        />
-        <Route
-          path="/realm/:realm/unauthorized"
-          element={
-            <ProtectedRoute middleware={['isAuthenticated']} component={Unauthorized} />
-          }
-        />
-
-        {/* <Route
-          exact
-          path="/clientrealm/:clientrealm/home"
-          render={(propsLocal: any) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              //  logout={() => logout}
-              component={ClientrealmHome}
-              middleware={['readAuthenticationClientrealm']}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/clientrealm/:clientrealm"
-          render={(propsLocal: any) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={ClientrealmHome}
-              middleware={['readAuthenticationClientrealm']}
-            />
-          )}
-        /> */}
       </Routes>
     </div>
   );
