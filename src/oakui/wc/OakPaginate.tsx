@@ -38,6 +38,7 @@ const OakPaginate = (props: Props) => {
   const handleChange = (event: any) => {
     if (props.handleChange) {
       const { detail } = event;
+      console.log(detail);
       props.handleChange(detail);
     }
   };

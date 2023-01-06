@@ -1,5 +1,5 @@
-export function isEmptyOrSpaces(str: any) {
-  return !str || str.match(/^ *$/) !== null;
+export function isEmptyOrSpaces(str: string | null) {
+  return str === null || str.match(/^ *$/) !== null;
 }
 
 export function isEmptyAttributes(object: Record<string, any>) {
@@ -15,10 +15,10 @@ export function isEmptyAttributes(object: Record<string, any>) {
   });
 }
 
-export function match(text: string, words: string) {
+export function match(text: any, words: any) {
   let found = false;
   if (words) {
-    words.split(' ').forEach((word) => {
+    words.split(' ').forEach((word: any) => {
       if (text.toString().match(new RegExp(`(\\w*${word}\\w*)`, 'gi'))) {
         found = true;
       }
@@ -27,12 +27,8 @@ export function match(text: string, words: string) {
   return found;
 }
 
-export function sort(
-  array: any[],
-  property: string | number,
-  isReverseOrder: boolean
-) {
-  const result = array.sort(function (o1, o2) {
+export function sort(array: any[], property: string, isReverseOrder: boolean) {
+  const result = array.sort(function (o1: any, o2: any) {
     if (isReverseOrder) {
       return o1[property] > o2[property]
         ? -1

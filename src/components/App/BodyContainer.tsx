@@ -6,13 +6,12 @@ import Topbar from '../Topbar';
 import RouterView from './RouterView';
 
 interface Props {
-  cookies: any;
 }
 
 const BodyContainer = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const profile = useSelector((state: any) => state.profile);
-  const [space, setSpace] = useState('');
+  const [realm, setRealm] = useState('');
   const dispatch = useDispatch();
 
   return (

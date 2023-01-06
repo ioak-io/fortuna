@@ -1,297 +1,156 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './RouterView.scss';
-import OaLogin from '../Auth/OaLogin';
-import OakRouteApp from '../Auth/OakRouteApp';
-import OakRouteGraph from '../Auth/OakRouteGraph';
-import Login from '../Login';
-import ExternLogin from '../Auth/ExternLogin';
-import OneAuth from '../Login/OneAuth';
-import Email from '../Login/Email';
-import DashboardPage from '../Page/DashboardPage';
-import ExpensePage from '../Page/ExpensePage';
-import CategoryPage from '../Page/CategoryPage';
-import EditBillPage from '../Page/EditBillPage';
-import LandingPage from '../Page/LandingPage';
-import EditCompanyPage from '../Page/EditCompanyPage';
-import SettingsPage from '../Page/SettingsPage';
-import UnauthorizedPage from '../Page/UnauthorizedPage';
-import ReceiptPage from '../Page/ReceiptPage';
-import EditScheduleReceiptPage from '../Page/EditScheduleReceiptPage';
-import ScheduleReceiptPage from '../Page/ScheduleReceiptPage';
-import ScheduleReceiptRunbookPage from '../Page/ScheduleReceiptRunbookPage';
-import BudgetPage from '../Page/BudgetPage';
-import BalancePage from '../Page/BalancePage';
-import DuplicatePage from '../Page/DuplicatePage';
-import IncomePage from '../Page/IncomePage';
-import EditCompany from '../Page/SettingsPage/EditCompany';
-import Permissions from '../Page/SettingsPage/Permissions';
-import BackupAndRestore from '../Page/SettingsPage/BackupAndRestore';
+import Home from '../Home';
+import OakRoute from '../Auth/OakRoute';
+import Unauthorized from '../Auth/Unauthorized';
+import RealmHome from '../RealmHome';
+import RealmListing from '../ManageRealm/RealmListing';
+import ClientListing from '../ManageClient/ClientListing';
+import ClientrealmHome from '../ClientrealmHome';
+import RealmDetail from '../ManageRealm/RealmDetail';
+import ClientDetail from '../ManageClient/ClientDetail';
+import ClientPermission from '../ClientPermission';
+import LoginPage from '../LoginPage';
+import { loginPageSubject } from '../../events/LoginPageEvent';
+import ReachInstance from '../ReachInstance';
+import ProtectedRoute from '../ProtectedRoute';
+import Landing from '../Landing';
 
 interface Props {
-  cookies: any;
 }
 
 const RouterView = (props: Props) => {
+  const [loginPage, setLoginPage] = useState(true);
+
+  useEffect(() => {
+    loginPageSubject.subscribe((message) => {
+      setLoginPage(message.state);
+    });
+  }, []);
+
   return (
-    <div className="router-view">
-      <Route
-        path="/login"
-        render={(propsLocal) => (
-          <OakRouteApp {...propsLocal} {...props} component={OaLogin} />
-        )}
-      />
-      <Route
-        path="/home"
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={LandingPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/company/edit"
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={EditCompanyPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/unauthorized"
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={UnauthorizedPage}
-            middleware={['isAuthenticated']}
-          />
-        )}
-      />
-      <Route
-        path="/"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={LandingPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/login/email"
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={Email}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
+    <div
+      className={`router-view ${loginPage ? 'login-page' : 'not-login-page'}`}
+    >
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute
+              middleware={['readAuthenticationOa']}>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute
+              middleware={['readAuthenticationOa']}>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/landing"
+          element={
+            <ProtectedRoute
+              middleware={[]}>
+              <Landing />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/realm/:realm/login/:client_id"
+          element={
+            <ProtectedRoute
+              middleware={['readRealm']} component={LoginPage} />
+          }
+        />
+        <Route
+          path="/managerealm"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={RealmListing} />
+          }
+        />
+        <Route
+          path="/managerealm/:realmId"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={RealmDetail} />
+          }
+        />
+        <Route
+          path="/manageclient"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={ClientListing} />
+          }
+        />
+        <Route
+          path="/manageclient/:id"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={ClientDetail} />
+          }
+        />
+        <Route
+          path="/manageclient/:id/permission/:userId"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={ClientPermission} />
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={ReachInstance} />
+          }
+        />
+        
+        <Route
+          path="/realm/:realm/home"
+          element={
+            <ProtectedRoute middleware={['readAuthentication']} component={RealmHome} />
+          }
+        />
+        <Route
+          path="/realm/:realm"
+          element={
+            <ProtectedRoute middleware={['readAuthentication']} component={RealmHome} />
+          }
+        />
+        <Route
+          path="/realm/:realm/unauthorized"
+          element={
+            <ProtectedRoute middleware={['isAuthenticated']} component={Unauthorized} />
+          }
+        />
 
-      <Route
-        path="/:space/home"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={ExpensePage}
-            middleware={['readAuthentication']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/dashboard"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={DashboardPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-
-      <Route
-        path="/:space/category"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={CategoryPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/expense"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={ExpensePage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/receipt"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={ReceiptPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/income"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={IncomePage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/receipt/edit"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={EditBillPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/schedule/receipt"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={ScheduleReceiptPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/schedule/receipt/edit"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={EditScheduleReceiptPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/schedule/receipt/runbook"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={ScheduleReceiptRunbookPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/budget"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={BudgetPage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/balance"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={BalancePage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/duplicate"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={DuplicatePage}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/settings/company"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={EditCompany}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/settings/user"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={Permissions}
-            middleware={['authenticate']}
-          />
-        )}
-      />
-      <Route
-        path="/:space/settings/backup"
-        exact
-        render={(propsLocal) => (
-          <OakRouteApp
-            {...propsLocal}
-            {...props}
-            component={BackupAndRestore}
-            middleware={['authenticate']}
-          />
-        )}
-      />
+        {/* <Route
+          exact
+          path="/clientrealm/:clientrealm/home"
+          render={(propsLocal: any) => (
+            <OakRoute
+              {...propsLocal}
+              {...props}
+              //  logout={() => logout}
+              component={ClientrealmHome}
+              middleware={['readAuthenticationClientrealm']}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/clientrealm/:clientrealm"
+          render={(propsLocal: any) => (
+            <OakRoute
+              {...propsLocal}
+              {...props}
+              component={ClientrealmHome}
+              middleware={['readAuthenticationClientrealm']}
+            />
+          )}
+        /> */}
+      </Routes>
     </div>
   );
 };
