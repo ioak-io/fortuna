@@ -27,7 +27,7 @@ import ExpenseModel from '../../../model/ExpenseModel';
 import {
   fetchAndAppendExpenseItems,
   fetchAndSetExpenseItems,
-} from '../../../actions/ExpenseActions';
+} from '../../../store/actions/ExpenseActions';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
 import TableHeader from '../../../components/TableHeader';
 

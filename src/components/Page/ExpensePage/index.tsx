@@ -12,7 +12,7 @@ import './style.scss';
 import Summary from './Summary';
 import AddExpense from '../../AddExpense';
 import { ExpenseFilterState } from '../../../simplestates/ExpenseFilterState';
-import { fetchAndSetExpenseItems } from '../../../actions/ExpenseActions';
+import { fetchAndSetExpenseItems } from '../../../store/actions/ExpenseActions';
 import Topbar from '../../../components/Topbar';
 import AddFilterExpense from '../../../components/AddFilterExpense';
 import ManageFilterExpense from '../../../components/ManageFilterExpense';

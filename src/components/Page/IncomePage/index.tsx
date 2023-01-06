@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import OakButton from '../../../oakui/wc/OakButton';
 import ListIncome from './ListIncome';
 import './style.scss';
-import { fetchAndSetIncomeItems } from '../../../actions/IncomeActions';
+import { fetchAndSetIncomeItems } from '../../../store/actions/IncomeActions';
 import Topbar from '../../../components/Topbar';
 // import AddFilterIncome from '../../../components/AddFilterIncome';
 // import ManageFilterIncome from '../../../components/ManageFilterIncome';

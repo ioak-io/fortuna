@@ -9,7 +9,7 @@ import {
 import './style.scss';
 import { getAggregate } from './service';
 import { isEmptyAttributes } from '../../../components/Utils';
-import { fetchAndSetExpenseItems } from '../../../actions/ExpenseActions';
+import { fetchAndSetExpenseItems } from '../../../store/actions/ExpenseActions';
 
 interface Props {
   space: string;

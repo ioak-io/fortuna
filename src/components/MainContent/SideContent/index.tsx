@@ -38,7 +38,7 @@ import Logo from '../../../components/Logo';
 import SideNavLink from '../SideNavLink';
 
 import './style.scss';
-import { removeAuth } from '../../../actions/AuthActions';
+import { removeAuth } from '../../../store/actions/AuthActions';
 import { sendMessage } from '../../../events/MessageService';
 import SideNavSubHeading from '../SideNavSubHeading';
 

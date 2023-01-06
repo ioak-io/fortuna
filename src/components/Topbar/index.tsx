@@ -2,7 +2,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProfile } from '../../actions/ProfileActions';
+import { setProfile } from '../../store/actions/ProfileActions';
 import './style.scss';
 
 interface Props {

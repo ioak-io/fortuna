@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAuth } from '../../actions/AuthActions';
+import { addAuth } from '../../store/actions/AuthActions';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';

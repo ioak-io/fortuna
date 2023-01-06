@@ -26,7 +26,7 @@ import OakButton from '../../../oakui/wc/OakButton';
 import {
   fetchAndAppendReceiptItems,
   fetchAndSetReceiptItems,
-} from '../../../actions/ReceiptActions';
+} from '../../../store/actions/ReceiptActions';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
 import TableHeader from '../../../components/TableHeader';
 

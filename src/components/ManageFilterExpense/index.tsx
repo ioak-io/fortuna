@@ -28,7 +28,7 @@ import OakRadio from '../../oakui/wc/OakRadio';
 import ExpenseFilterModel from '../../model/ExpenseFilterModel';
 import OakCheckbox from '../../oakui/wc/OakCheckbox';
 import OakRadioGroup from '../../oakui/wc/OakRadioGroup';
-import { fetchAndSetExpenseItems } from '../../actions/ExpenseActions';
+import { fetchAndSetExpenseItems } from '../../store/actions/ExpenseActions';
 
 interface Props {
   space: string;

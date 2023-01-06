@@ -21,7 +21,7 @@ import OakSelect from '../../oakui/wc/OakSelect';
 import OakButton from '../../oakui/wc/OakButton';
 
 import { saveTag } from './service';
-import { updateTagItem } from '../../actions/TagActions';
+import { updateTagItem } from '../../store/actions/TagActions';
 
 interface Props {
   space: string;

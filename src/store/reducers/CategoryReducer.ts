@@ -1,4 +1,4 @@
-import { FETCH_CATEGORY, CATEGORY_ITEMS_UPDATE } from '../actions/types';
+import { FETCH_CATEGORY, CATEGORY_ITEMS_UPDATE } from '../store/actions/types';
 import { mergeItem } from './Utils';
 
 const initialState = {

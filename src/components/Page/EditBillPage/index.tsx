@@ -20,8 +20,8 @@ import {
 } from '../../../constants/SessionStorageConstants';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import Topbar from '../../../components/Topbar';
-import { updateExpenseItems } from '../../../actions/ExpenseActions';
-import { updateReceiptItems } from '../../../actions/ReceiptActions';
+import { updateExpenseItems } from '../../../store/actions/ExpenseActions';
+import { updateReceiptItems } from '../../../store/actions/ReceiptActions';
 import { useSearchParams } from 'react-router-dom';
 
 const EMPTY_EXPENSE: ExpenseModel = {

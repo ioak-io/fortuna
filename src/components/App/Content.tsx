@@ -11,7 +11,6 @@ import { receiveMessage } from '../../events/MessageService';
 import { loginPageSubject } from '../../events/LoginPageEvent';
 import OakNotification from '../../oakui/wc/OakNotification';
 import OakAppLayout from '../../oakui/wc/OakAppLayout';
-import { setProfile } from '../../store/actions/ProfileActions';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { Chart } from 'chart.js';
@@ -41,19 +40,6 @@ const Content = (props: Props) => {
   //   Chart.defaults.global.defaultFontColor =
   //     profile.theme === 'theme_dark' ? '#181818' : '#626262';
   // }, [profile]);
-
-  const handleClose = (detail: any) => {
-    switch (detail.name) {
-      case 'left':
-        dispatch(setProfile({ ...profile, sidebar: !detail.value }));
-        break;
-      case 'right':
-        dispatch(setProfile({ ...profile, rightSidebar: !detail.value }));
-        break;
-      default:
-        break;
-    }
-  };
 
   return (
     <div

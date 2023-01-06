@@ -4,7 +4,7 @@ import {
   RECEIPT_ITEMS_UPDATE,
   RECEIPT_ITEMS_UPDATE_FILTER,
   RECEIPT_ITEMS_UPDATE_PAGINATION,
-} from '../actions/types';
+} from '../store/actions/types';
 import { mergeItems } from './Utils';
 
 const initialState = {

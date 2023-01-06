@@ -8,7 +8,7 @@ import './RightNav.scss';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 import DarkModeIcon from '../Navigation/DarkModeIcon';
 import NavAccountIcon from '../Navigation/NavAccountIcon';
-import { removeAuth } from '../../actions/AuthActions';
+import { removeAuth } from '../../store/actions/AuthActions';
 
 interface Props {
   cookies: any;

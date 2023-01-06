@@ -8,7 +8,7 @@ import {
 
 import './LegendView.scss';
 import { isEmptyAttributes } from '../../../components/Utils';
-import { fetchAndSetExpenseItems } from '../../../actions/ExpenseActions';
+import { fetchAndSetExpenseItems } from '../../../store/actions/ExpenseActions';
 import { DASHBOARD_COLOR_SCHEME } from '../service';
 
 interface Props {

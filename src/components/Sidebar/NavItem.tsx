@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getProfile, setProfile } from '../../actions/ProfileActions';
+import { getProfile, setProfile } from '../../store/actions/ProfileActions';
 
 import './NavItem.scss';
 

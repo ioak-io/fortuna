@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import OakButton from '../../../oakui/wc/OakButton';
 import ListReceipt from './ListReceipt';
 import './style.scss';
-import { fetchAndSetReceiptItems } from '../../../actions/ReceiptActions';
+import { fetchAndSetReceiptItems } from '../../../store/actions/ReceiptActions';
 import Topbar from '../../../components/Topbar';
 // import AddFilterReceipt from '../../../components/AddFilterReceipt';
 // import ManageFilterReceipt from '../../../components/ManageFilterReceipt';

@@ -29,7 +29,7 @@ import OakCheckbox from '../../oakui/wc/OakCheckbox';
 import { FORTUNA_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageConstants';
 import TagSelection from './TagSelection';
 import IncomeModel from '../../model/IncomeModel';
-import { updateIncomeItems } from '../../actions/IncomeActions';
+import { updateIncomeItems } from '../../store/actions/IncomeActions';
 
 interface Props {
   space: string;

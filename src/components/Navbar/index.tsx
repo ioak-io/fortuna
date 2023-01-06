@@ -9,7 +9,7 @@ import './style.scss';
 
 import Logo from '../Logo';
 import RightNav from './RightNav';
-import { setProfile } from '../../actions/ProfileActions';
+import { setProfile } from '../../store/actions/ProfileActions';
 // import RightNav from '../Topbar/RightNav';
 
 interface Props {

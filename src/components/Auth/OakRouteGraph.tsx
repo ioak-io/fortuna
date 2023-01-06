@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApolloClient } from '@apollo/client';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAuth } from '../../actions/AuthActions';
+import { addAuth } from '../../store/actions/AuthActions';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage } from '../../events/MessageService';
 import { authorizeUserQuery, GET_SESSION } from '../Types/schema';

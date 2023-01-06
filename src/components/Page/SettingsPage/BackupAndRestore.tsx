@@ -23,13 +23,13 @@ import { isEmptyAttributes } from '../../../components/Utils';
 import {
   fetchAndAppendExpenseItems,
   fetchAndSetExpenseItems,
-} from '../../../actions/ExpenseActions';
-import { fetchAllCategories } from '../../../actions/CategoryActions';
-import { fetchAllIncomeCategories } from '../../../actions/IncomeCategoryActions';
-import { fetchAllTags } from '../../../actions/TagActions';
+} from '../../../store/actions/ExpenseActions';
+import { fetchAllCategories } from '../../../store/actions/CategoryActions';
+import { fetchAllIncomeCategories } from '../../../store/actions/IncomeCategoryActions';
+import { fetchAllTags } from '../../../store/actions/TagActions';
 import Topbar from '../../../components/Topbar';
-import { fetchAndSetReceiptItems } from '../../../actions/ReceiptActions';
-import { fetchAndSetIncomeItems } from '../../../actions/IncomeActions';
+import { fetchAndSetReceiptItems } from '../../../store/actions/ReceiptActions';
+import { fetchAndSetIncomeItems } from '../../../store/actions/IncomeActions';
 
 interface Props {
   space: string;

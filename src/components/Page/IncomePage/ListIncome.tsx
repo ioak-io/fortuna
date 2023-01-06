@@ -20,7 +20,7 @@ import OakButton from '../../../oakui/wc/OakButton';
 import {
   fetchAndAppendIncomeItems,
   fetchAndSetIncomeItems,
-} from '../../../actions/IncomeActions';
+} from '../../../store/actions/IncomeActions';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
 import TableHeader from '../../../components/TableHeader';
 import EditIncomeCommand from '../../../events/EditIncomeCommand';

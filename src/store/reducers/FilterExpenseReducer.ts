@@ -1,4 +1,4 @@
-import { FILTER_EXPENSE_LIST_FETCH_AND_SET } from '../actions/types';
+import { FILTER_EXPENSE_LIST_FETCH_AND_SET } from '../store/actions/types';
 
 const initialState = {
   items: [],

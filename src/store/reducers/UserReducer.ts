@@ -1,4 +1,4 @@
-import { USER_LIST_FETCH_AND_SET } from '../actions/types';
+import { USER_LIST_FETCH_AND_SET } from '../store/actions/types';
 
 const initialState = {
   items: [],
