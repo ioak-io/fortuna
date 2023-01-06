@@ -2,23 +2,29 @@ import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
 import ProfileReducer from './ProfileReducer';
 import UserReducer from './UserReducer';
-import RealmReducer from './RealmReducer';
-import AssetReducer from './AssetReducer';
-import ClientReducer from './ClientReducer';
-import PermittedRealmReducer from './PermittedRealmReducer';
-import OaRoleReducer from './OaRoleReducer';
-import OaUserReducer from './OaUserReducer';
+import RoleReducer from './RoleReducer';
+import SpaceReducer from './SpaceReducer';
+import CategoryReducer from './CategoryReducer';
+import ExpenseReducer from './ExpenseReducer';
+import CompanyReducer from './CompanyReducer';
+import FilterExpenseReducer from './FilterExpenseReducer';
+import TagReducer from './TagReducer';
+import ReceiptReducer from './ReceiptReducer';
+import IncomeCategoryReducer from './IncomeCategoryReducer';
+import IncomeReducer from './IncomeReducer';
 
-const rootReducer = combineReducers({
+export default combineReducers({
   authorization: AuthReducer,
   profile: ProfileReducer,
   user: UserReducer,
-  realm: RealmReducer,
-  asset: AssetReducer,
-  client: ClientReducer,
-  oaUsers: OaUserReducer,
-  oaRoles: OaRoleReducer,
-  permittedRealm: PermittedRealmReducer,
+  role: RoleReducer,
+  company: CompanyReducer,
+  space: SpaceReducer,
+  category: CategoryReducer,
+  tag: TagReducer,
+  expense: ExpenseReducer,
+  receipt: ReceiptReducer,
+  income: IncomeReducer,
+  filterExpense: FilterExpenseReducer,
+  incomeCategory: IncomeCategoryReducer,
 });
-
-export default rootReducer;

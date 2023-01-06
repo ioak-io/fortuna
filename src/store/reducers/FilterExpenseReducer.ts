@@ -1,4 +1,4 @@
-import { USER_LIST_FETCH_AND_SET } from '../actions/types';
+import { FILTER_EXPENSE_LIST_FETCH_AND_SET } from '../actions/types';
 
 const initialState = {
   items: [],
@@ -6,12 +6,12 @@ const initialState = {
 
 export default function (state = initialState, action: any) {
   switch (action.type) {
-    case USER_LIST_FETCH_AND_SET:
-      console.log('USER_LIST_FETCH_AND_SET reducer');
+    case FILTER_EXPENSE_LIST_FETCH_AND_SET:
+      console.log('FILTER_EXPENSE_LIST_FETCH_AND_SET reducer');
       console.log(action);
       return {
         ...state,
-        items: action.payload,
+        items: [...action.payload],
       };
     default:
       return state;

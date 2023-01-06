@@ -1,21 +1,29 @@
 /* eslint-disable import/prefer-default-export */
-import { USER_LIST_FETCH_AND_SET } from './types';
+import { TAG_ITEMS_UPDATE, TAG_LIST_FETCH_AND_SET } from './types';
 import { httpGet, httpPut } from '../components/Lib/RestTemplate';
 import { sendMessage } from '../events/MessageService';
 import constants from '../components/Constants';
 
 const domain = 'user';
 
-export const fetchAndSetUserItems =
+export const fetchAllTags =
   (space: string, authorization: any) => (dispatch: any) => {
-    httpGet(`${constants.API_URL_USER}/${space}`, {
+    console.log('****', space, authorization);
+    httpGet(`/tag/${space}`, {
       headers: {
         Authorization: authorization.access_token,
       },
     }).then((response) => {
       dispatch({
-        type: USER_LIST_FETCH_AND_SET,
+        type: TAG_LIST_FETCH_AND_SET,
         payload: response.data,
       });
     });
   };
+
+export const updateTagItem = (payload: any) => (dispatch: any) => {
+  dispatch({
+    type: TAG_ITEMS_UPDATE,
+    payload,
+  });
+};

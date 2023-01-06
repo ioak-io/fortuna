@@ -1,21 +1,31 @@
 /* eslint-disable import/prefer-default-export */
-import { USER_LIST_FETCH_AND_SET } from './types';
+import {
+  INCOME_CATEGORY_ITEMS_FETCH_AND_SET,
+  INCOME_CATEGORY_ITEMS_UPDATE,
+} from './types';
 import { httpGet, httpPut } from '../components/Lib/RestTemplate';
 import { sendMessage } from '../events/MessageService';
 import constants from '../components/Constants';
 
 const domain = 'user';
 
-export const fetchAndSetUserItems =
+export const fetchAllIncomeCategories =
   (space: string, authorization: any) => (dispatch: any) => {
-    httpGet(`${constants.API_URL_USER}/${space}`, {
+    httpGet(`/incomecategory/${space}`, {
       headers: {
         Authorization: authorization.access_token,
       },
     }).then((response) => {
       dispatch({
-        type: USER_LIST_FETCH_AND_SET,
-        payload: response.data,
+        type: INCOME_CATEGORY_ITEMS_FETCH_AND_SET,
+        payload: { items: response.data },
       });
     });
   };
+
+export const updateIncomeCategoryItem = (payload: any) => (dispatch: any) => {
+  dispatch({
+    type: INCOME_CATEGORY_ITEMS_UPDATE,
+    payload,
+  });
+};

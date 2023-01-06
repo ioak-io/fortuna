@@ -1,21 +1,32 @@
 /* eslint-disable import/prefer-default-export */
-import { USER_LIST_FETCH_AND_SET } from './types';
+import {
+  FETCH_CATEGORY,
+  RECEIPT_ITEMS_UPDATE,
+  CATEGORY_ITEMS_UPDATE,
+} from './types';
 import { httpGet, httpPut } from '../components/Lib/RestTemplate';
 import { sendMessage } from '../events/MessageService';
 import constants from '../components/Constants';
 
 const domain = 'user';
 
-export const fetchAndSetUserItems =
+export const fetchAllCategories =
   (space: string, authorization: any) => (dispatch: any) => {
-    httpGet(`${constants.API_URL_USER}/${space}`, {
+    httpGet(`/category/${space}`, {
       headers: {
         Authorization: authorization.access_token,
       },
     }).then((response) => {
       dispatch({
-        type: USER_LIST_FETCH_AND_SET,
-        payload: response.data,
+        type: FETCH_CATEGORY,
+        payload: { categories: response.data },
       });
     });
   };
+
+export const updateCategoryItem = (payload: any) => (dispatch: any) => {
+  dispatch({
+    type: CATEGORY_ITEMS_UPDATE,
+    payload,
+  });
+};

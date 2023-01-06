@@ -1,19 +1,19 @@
 import { GET_AUTH, REMOVE_AUTH, ADD_AUTH } from './types';
 
-export const getAuth = () => (dispatch: any) => {
+export const getAuth = () => (dispatch) => {
   dispatch({
     type: GET_AUTH,
   });
 };
 
-export const addAuth = (data: any) => (dispatch: any) => {
+export const addAuth = (data) => (dispatch): any => {
   dispatch({
     type: ADD_AUTH,
     payload: data,
   });
 };
 
-export const removeAuth = () => (dispatch: any) => {
+export const removeAuth = () => (dispatch) => {
   dispatch({
     type: REMOVE_AUTH,
   });

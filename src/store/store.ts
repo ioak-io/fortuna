@@ -2,14 +2,18 @@ import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 
 import AuthReducer from './reducers/AuthReducer';
+import CategoryReducer from './reducers/CategoryReducer';
+import CompanyReducer from './reducers/CompanyReducer';
+import ExpenseReducer from './reducers/ExpenseReducer';
+import FilterExpenseReducer from './reducers/FilterExpenseReducer';
+import IncomeCategoryReducer from './reducers/IncomeCategoryReducer';
+import IncomeReducer from './reducers/IncomeReducer';
 import ProfileReducer from './reducers/ProfileReducer';
+import ReceiptReducer from './reducers/ReceiptReducer';
+import RoleReducer from './reducers/RoleReducer';
+import SpaceReducer from './reducers/SpaceReducer';
+import TagReducer from './reducers/TagReducer';
 import UserReducer from './reducers/UserReducer';
-import RealmReducer from './reducers/RealmReducer';
-import AssetReducer from './reducers/AssetReducer';
-import ClientReducer from './reducers/ClientReducer';
-import PermittedRealmReducer from './reducers/PermittedRealmReducer';
-import OaRoleReducer from './reducers/OaRoleReducer';
-import OaUserReducer from './reducers/OaUserReducer';
 
 const initialState = {};
 
@@ -21,12 +25,16 @@ const store = configureStore(
       authorization: AuthReducer,
       profile: ProfileReducer,
       user: UserReducer,
-      realm: RealmReducer,
-      asset: AssetReducer,
-      client: ClientReducer,
-      oaUsers: OaUserReducer,
-      oaRoles: OaRoleReducer,
-      permittedRealm: PermittedRealmReducer,
+      role: RoleReducer,
+      company: CompanyReducer,
+      space: SpaceReducer,
+      category: CategoryReducer,
+      tag: TagReducer,
+      expense: ExpenseReducer,
+      receipt: ReceiptReducer,
+      income: IncomeReducer,
+      filterExpense: FilterExpenseReducer,
+      incomeCategory: IncomeCategoryReducer,
     }
   }
 );
