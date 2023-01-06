@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { HashRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+// TODO Chart JS responsiveness does not work after 4.1.1 version
+// https://github.com/chartjs/Chart.js/issues/11005
+
 import {
   Chart,
   ArcElement,
