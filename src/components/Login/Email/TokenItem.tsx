@@ -20,7 +20,7 @@ const TokenItem = (props: Props) => {
     if (props.queryParam.auth_token) {
       console.log(props.queryParam.auth_token);
 
-      props.cookies.set(
+      setSessionValue(
         `fortuna_${props.asset}`,
         `email ${props.queryParam.auth_token}`
       );

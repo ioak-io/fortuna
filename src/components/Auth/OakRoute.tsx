@@ -55,8 +55,8 @@ const OakRoute = (props: Props) => {
     if (authorization.isAuth) {
       return true;
     }
-    const accessToken = props.cookies.get(`fortuna-access_token`);
-    const refreshToken = props.cookies.get(`fortuna-refresh_token`);
+    const accessToken = getSessionValue(`fortuna-access_token`);
+    const refreshToken = getSessionValue(`fortuna-refresh_token`);
     if (accessToken && refreshToken) {
       httpPost(
         `/user/${props.match.params.space}/authorize_user`,
@@ -68,7 +68,7 @@ const OakRoute = (props: Props) => {
             let newAccessToken = accessToken;
             if (response.data.access_token) {
               newAccessToken = response.data.access_token;
-              props.cookies.set(`fortuna-access_token`, newAccessToken);
+              setSessionValue(`fortuna-access_token`, newAccessToken);
             }
             dispatch(
               addAuth({
@@ -80,8 +80,8 @@ const OakRoute = (props: Props) => {
           }
         })
         .catch((error: any) => {
-          props.cookies.remove(`fortuna-access_token`);
-          props.cookies.remove(`fortuna-refresh_token`);
+          removeSessionValue(`fortuna-access_token`);
+          removeSessionValue(`fortuna-refresh_token`);
           if (redirect && error.response.status === 404) {
             sendMessage('notification', true, {
               type: 'failure',

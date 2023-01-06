@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { setSessionValue } from '../../utils/SessionUtils';
 import { httpGet, httpPost } from '../Lib/RestTemplate';
 import './Login.scss';
 
@@ -12,9 +13,10 @@ interface Props {
 const appRealm = process.env.REACT_APP_ONEAUTH_APPSPACE_ID || '';
 
 const OaLogin = (props: Props) => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   useEffect(() => {
-    if (props.location.search) {
+    if (searchParams) {
       httpGet('/user/token/local', {
         headers: {
           Authorization: searchParams.get("access_token"),
@@ -23,9 +25,9 @@ const OaLogin = (props: Props) => {
         .then((response) => {
           if (response.status === 200) {
             console.log('**', response.data.token);
-            props.cookies.set(`fortuna-access_token`, response.data.token);
-            props.cookies.set(`fortuna-refresh_token`, searchParams.get("refresh_token"));
-            props.navigate(searchParams.get("from") || '/home');
+            setSessionValue(`fortuna-access_token`, response.data.token);
+            setSessionValue(`fortuna-refresh_token`, searchParams.get("refresh_token") || '');
+            navigate(searchParams.get("from") || '/home');
           }
           return Promise.resolve({});
         })
@@ -33,7 +35,7 @@ const OaLogin = (props: Props) => {
           return Promise.resolve({});
         });
     }
-  }, []);
+  }, [searchParams]);
 
   return <></>;
 };

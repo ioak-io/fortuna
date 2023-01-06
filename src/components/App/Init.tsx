@@ -60,11 +60,12 @@ const Init = () => {
   useEffect(() => {
     initializeProfileFromSession();
     receiveMessage().subscribe((event: any) => {
-      console.log(event);
       if (event.name === 'spaceChange') {
-        setSpace(event.data);
+        // TODO
+        // setSpace(event.data);
       }
       if (event.name === 'spaceChange' && authorization.isAuth) {
+        setSpace(event.data);
         initialize();
         initializeHttpInterceptor();
       }

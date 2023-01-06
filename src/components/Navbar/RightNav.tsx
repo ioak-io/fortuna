@@ -27,7 +27,7 @@ const RightNav = (props: Props) => {
     message = 'You have been logged out'
   ) => {
     dispatch(removeAuth());
-    props.cookies.remove(
+    removeSessionValue(
       `fortuna_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`
     );
     navigate(`/`);

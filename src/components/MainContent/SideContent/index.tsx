@@ -31,7 +31,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 import DarkModeIcon from '../../../components/Navigation/DarkModeIcon';
 import NavAccountIcon from '../../../components/Navigation/NavAccountIcon';
 import Logo from '../../../components/Logo';
@@ -41,6 +40,8 @@ import './style.scss';
 import { removeAuth } from '../../../store/actions/AuthActions';
 import { sendMessage } from '../../../events/MessageService';
 import SideNavSubHeading from '../SideNavSubHeading';
+import { removeSessionValue } from '../../../utils/SessionUtils';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   cookies: any;
@@ -48,7 +49,7 @@ interface Props {
 }
 
 const SideContent = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const profile = useSelector((state: any) => state.profile);
   const authorization = useSelector((state: any) => state.authorization);
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ const SideContent = (props: Props) => {
     message = 'You have been logged out'
   ) => {
     dispatch(removeAuth());
-    props.cookies.remove(
+    removeSessionValue(
       `fortuna_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`
     );
     navigate(`/`);
