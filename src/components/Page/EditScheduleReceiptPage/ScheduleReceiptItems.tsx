@@ -42,6 +42,12 @@ const ScheduleReceiptItems = (props: Props) => {
     props.handleChange(_data, index === props.data.length - 1);
   };
 
+  const handleNumberChange = (detail: any, index: number) => {
+    const _data = [...props.data];
+    _data[index] = { ..._data[index], [detail.name]: parseInt(detail.value || "0") };
+    props.handleChange(_data, index === props.data.length - 1);
+  };
+
   return (
     <div className="schedule-receipt-items">
       <div className="page-title">Line items</div>
@@ -71,9 +77,8 @@ const ScheduleReceiptItems = (props: Props) => {
               <tr key={record._id || index}>
                 <td className="indicator-column">
                   <div
-                    className={`indicator ${
-                      props.errors[index] ? 'indicator--error' : ''
-                    }`}
+                    className={`indicator ${props.errors[index] ? 'indicator--error' : ''
+                      }`}
                   />
                 </td>
                 <td>
@@ -87,7 +92,7 @@ const ScheduleReceiptItems = (props: Props) => {
                     size="small"
                     color="container"
                     popupColor="surface"
-                    // required={index === 0 || index !== props.data.length - 1}
+                  // required={index === 0 || index !== props.data.length - 1}
                   />
                 </td>
                 <td>
@@ -98,10 +103,10 @@ const ScheduleReceiptItems = (props: Props) => {
                     handleInput={(detail: any) => handleChange(detail, index)}
                     size="small"
                     color="container"
-                    // autofocus={props.data.length - 1 === index}
-                    // minLength={
-                    //   index === 0 || index !== props.data.length - 1 ? 1 : 0
-                    // }
+                  // autofocus={props.data.length - 1 === index}
+                  // minLength={
+                  //   index === 0 || index !== props.data.length - 1 ? 1 : 0
+                  // }
                   />
                 </td>
                 <td>
@@ -110,10 +115,10 @@ const ScheduleReceiptItems = (props: Props) => {
                     type="number"
                     value={record.amount}
                     formGroupName={props.formId}
-                    handleInput={(detail: any) => handleChange(detail, index)}
+                    handleInput={(detail: any) => handleNumberChange(detail, index)}
                     size="small"
                     color="container"
-                    // min={index === 0 || index !== props.data.length - 1 ? 1 : 0}
+                  // min={index === 0 || index !== props.data.length - 1 ? 1 : 0}
                   />
                 </td>
               </tr>
