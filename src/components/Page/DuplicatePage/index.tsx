@@ -75,13 +75,7 @@ const DuplicatePage = (props: Props) => {
 
   return (
     <div className="duplicate-page page-animate">
-      <Topbar title="Duplicate transactions">
-        <div className="duplicate-page__topbar__right">
-          <button className="button" onClick={toggleFilter}>
-            <FontAwesomeIcon icon={faFilter} />
-          </button>
-        </div>
-      </Topbar>
+      <Topbar title="Duplicate transactions" />
       <div className="duplicate-page__main main-section page-width">
         <div>
           <DuplicateReceipt space={props.space} />

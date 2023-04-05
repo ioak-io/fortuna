@@ -6,18 +6,23 @@
   margin-bottom: 20px;
 
   background-color: var(--tag-background-color);
+
   &:hover,
   &:focus {
     background-color: var(--tag-background-color-hover);
   }
 }
 
-.account-type-chip--active {
-  background-color: var(--color-default);
-  color: var(--color-default-i);
-  &:hover,
-  &:focus {
-    background-color: var(--color-default);
-    color: var(--color-default-i);
-  }
+.account-type-chip--active,
+.account-type-chip--active:hover,
+.account-type-chip--active:focus {
+  background-color: var(--theme-black-extended-50);
+  color: var(--theme-black-extended-50i);
+}
+
+.basicui-dark .account-type-chip--active,
+.basicui-dark .account-type-chip--active:hover,
+.basicui-dark .account-type-chip--active:focus {
+  background-color: var(--theme-white-900);
+  color: var(--theme-white-900i);
 }

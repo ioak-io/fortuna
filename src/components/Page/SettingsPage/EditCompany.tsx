@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import {Input} from 'basicui';
+import {Button, Input} from 'basicui';
 import './EditCompany.scss';
 import { newId } from '../../../events/MessageService';
 import CompanyModel from '../../../model/CompanyModel';
@@ -107,6 +107,9 @@ const EditCompany = (props: Props) => {
             <div>Company details cannot be loaded at the moment</div>
           )}
         </div>
+      </div>
+      <div className='footer footer-right'>
+        <Button onClick={save}>Save</Button>
       </div>
     </div>
   );

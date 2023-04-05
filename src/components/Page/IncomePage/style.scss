@@ -1,11 +1,11 @@
-.income-page {
-}
+.income-page {}
 
 .income-page {
   // display: grid;
   // grid-template-columns: 1fr auto;
   // margin-right: 27em;
 }
+
 .income-page__topbar {
   // background-color: var(--color-surface);
   height: 100px;
@@ -16,9 +16,11 @@
   align-items: center;
   padding: 0 20px;
 }
+
 .income-page__topbar__left {
   font-size: 28px;
 }
+
 .income-page__topbar__right {
   display: grid;
   grid-auto-flow: column;
@@ -54,8 +56,14 @@
   top: 0;
   bottom: 0;
   margin-right: -27em;
-  background-color: var(--color-container);
+  background-color: var(--theme-white-100);
+  border-left: 1px solid var(--theme-white-500);
   transition: margin-right 250ms ease-in-out;
+}
+
+.basicui-dark .income-page__filter {
+  background-color: var(--theme-black-300);
+  border-left: 1px solid var(--theme-black-50);
 }
 
 .income-page__filter--active {

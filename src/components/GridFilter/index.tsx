@@ -28,7 +28,7 @@ interface Props {
   saveFilter: any;
   manageFilter: any;
   filterFromState: any;
-  categories: any[];
+  categories?: any[];
 }
 
 const GridFilter = (props: Props) => {
@@ -168,11 +168,11 @@ const GridFilter = (props: Props) => {
             tooltip="Tip: 3 indicates year 2020, if current year is 2022"
           />
         </div>
-        <CategorySelection
+        {props.categories && <CategorySelection
           handleChange={handleCategoryChange}
           categoryIdList={state.categoryIdList}
           categories={props.categories}
-        />
+        />}
         {state.kakeiboList && (
           <KakeiboSelection
             handleChange={handleKakeiboChange}

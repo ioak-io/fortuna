@@ -25,9 +25,9 @@ const ScheduleReceiptItems = (props: Props) => {
 
   useEffect(() => {
     if (categories) {
-      const _categoryMap: any[] = [];
+      const _categoryMap: any = {};
       categories.forEach((category: any) => {
-        _categoryMap.push({ id: category._id, value: category.name });
+        _categoryMap[category._id] = category.name;
       });
       setCategoryMap(_categoryMap);
     }

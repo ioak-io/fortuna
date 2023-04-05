@@ -159,7 +159,7 @@ const ListReceipt = (props: Props) => {
         </div>
       </div>
       <div className="content-section list-receipt">
-        <table className="basicui-table">
+        <table className="basicui-table table-hover table-small">
           <thead>
             <tr>
               <th className="list-receipt__column list-receipt__column--selection">
@@ -167,7 +167,7 @@ const ListReceipt = (props: Props) => {
                   id=""
                   name="check"
                   value={checkedRecords.length === receiptState.items.length}
-                  handleChange={toggleAll}
+                  onInput={toggleAll}
                 />
               </th>
               <th className="list-receipt__column">
@@ -213,7 +213,7 @@ const ListReceipt = (props: Props) => {
                       id=""
                       name="check"
                       value={checkedRecords.includes(record._id)}
-                      handleChange={() => toggleCheckedState(record._id)}
+                      onInput={() => toggleCheckedState(record._id)}
                     />
                   </div>
                 </td>

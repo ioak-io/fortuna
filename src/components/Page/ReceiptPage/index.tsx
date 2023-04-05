@@ -104,7 +104,6 @@ const ReceiptPage = (props: Props) => {
           saveFilter={saveFilter}
           manageFilter={manageFilter}
           filterFromState={receiptFilterState}
-          categories={categories}
         />
       </div>
     </>

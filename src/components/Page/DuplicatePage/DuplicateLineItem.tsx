@@ -190,7 +190,7 @@ const DuplicateLineItem = (props: Props) => {
         </div>
       </div>
       <div className="content-section duplicate-receipt">
-        <table className="basicui-table">
+        <table className={`basicui-table ${denseView ? 'table-small' : ''}`}>
           <thead>
             <tr>
               <th className="duplicate-receipt__column duplicate-receipt__column--selection">

@@ -175,35 +175,33 @@ const BalancePage = (props: Props) => {
         isOpen={isOpen}
         onClose={handleClose}
       >
-        <ModalHeader heading='New expense' onClose={handleClose} />
+        <ModalHeader heading='New account' onClose={handleClose} />
         <ModalBody>
-          <div className="add-expense">
-            {isOpen && (
-              <div className="form">
-                <Input
-                  name="name"
-                  value={currentItem.name}
-                  onInput={handleMetaChange}
-                  label="Account name"
-                  autofocus
-                />
-                <div>
-                  {['cash', 'debit', 'credit'].map(
-                    (item: any, index: number) => (
-                      <AccountTypeChip
-                        key={item._id || index}
-                        activeValue={currentItem.type}
-                        value={item}
-                        handleClick={(value: string) =>
-                          handleMetaChange({ name: 'type', value })
-                        }
-                      />
-                    )
-                  )}
-                </div>
+          {isOpen && (
+            <div className="form">
+              <Input
+                name="name"
+                value={currentItem.name}
+                onInput={handleMetaChange}
+                label="Account name"
+                autofocus
+              />
+              <div>
+                {['cash', 'debit', 'credit'].map(
+                  (item: any, index: number) => (
+                    <AccountTypeChip
+                      key={item._id || index}
+                      activeValue={currentItem.type}
+                      value={item}
+                      handleClick={(value: string) =>
+                        handleMetaChange({ currentTarget: { name: 'type', value } })
+                      }
+                    />
+                  )
+                )}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </ModalBody>
         <ModalFooter>
           <div className="balance-page-footer">

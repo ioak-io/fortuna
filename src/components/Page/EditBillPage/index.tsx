@@ -20,6 +20,7 @@ import {
 import Topbar from '../../../components/Topbar';
 import { updateExpenseItems } from '../../../store/actions/ExpenseActions';
 import { updateReceiptItems } from '../../../store/actions/ReceiptActions';
+import { useSearchParams } from 'react-router-dom';
 
 const EMPTY_EXPENSE: ExpenseModel = {
   amount: undefined,
@@ -43,6 +44,7 @@ interface Props {
 }
 
 const EditBillPage = (props: Props) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const getEmptyBill = (): ReceiptModel => {
     return {
@@ -52,7 +54,6 @@ const EditBillPage = (props: Props) => {
         EMPTY_BILL.billDate,
     };
   };
-  const [queryParam, setQueryParam] = useState<any>({});
   const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const [formId, setFormId] = useState(newId());
@@ -60,6 +61,7 @@ const EditBillPage = (props: Props) => {
   const [errorInBillDetails, setErrorInBillDetails] = useState<boolean>(false);
   const [state, setState] = useState<ReceiptModel>({ ...getEmptyBill() });
   const [addAnother, setAddAnother] = useState(false);
+  const [id, setId] = useState<string | null>(null);
 
   useEffect(() => {
     if (sessionStorage.getItem(FORTUNA_PREF_ADDBILL_ANOTHER)) {
@@ -70,8 +72,14 @@ const EditBillPage = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    if (queryParam?.id && authorization.isAuth) {
-      getBillById(props.space, queryParam.id, authorization).then(
+    if (searchParams.has('id')) {
+      setId(searchParams.get('id'));
+    }
+  }, [searchParams])
+
+  useEffect(() => {
+    if (id && authorization.isAuth) {
+      getBillById(props.space, id, authorization).then(
         (response: any) => {
           if (!isEmptyAttributes(response)) {
             setState({
@@ -82,7 +90,7 @@ const EditBillPage = (props: Props) => {
         }
       );
     }
-  }, [queryParam, authorization]);
+  }, [id, authorization]);
 
   // useEffect(() => {
   //   addRow(state.items);
@@ -184,7 +192,7 @@ const EditBillPage = (props: Props) => {
 
   return (
     <div className="edit-bill-page page-animate">
-      <Topbar title={queryParam.id ? 'Edit bill' : 'New bill'}>right</Topbar>
+      <Topbar title={id ? 'Edit bill' : 'New bill'}>right</Topbar>
       <div className="edit-bill-page__main main-section">
         <div className="edit-bill-page__main__bill page-width content-section">
           <BillDetails
@@ -205,7 +213,7 @@ const EditBillPage = (props: Props) => {
       </div>
       <div className="footer">
         <div className="edit-bill-page__footer__left">
-          {/* {!queryParam.id && (
+          {/* {!id && (
             <Checkbox
               name="addAnother"
               value={addAnother}
@@ -222,7 +230,7 @@ const EditBillPage = (props: Props) => {
             <FontAwesomeIcon icon={faCheck} />
             Save and close
           </Button>
-          {!queryParam.id && (
+          {!id && (
             <Button
               onClick={saveAndAddAnother}
             >

@@ -1,11 +1,11 @@
-.expense-page {
-}
+.expense-page {}
 
 .expense-page {
   // display: grid;
   // grid-template-columns: 1fr auto;
   // margin-right: 27em;
 }
+
 .expense-page__topbar {
   // background-color: var(--color-surface);
   height: 100px;
@@ -16,9 +16,11 @@
   align-items: center;
   padding: 0 20px;
 }
+
 .expense-page__topbar__left {
   font-size: 28px;
 }
+
 .expense-page__topbar__right {
   display: grid;
   grid-auto-flow: column;
@@ -59,7 +61,7 @@
 }
 
 .basicui-dark .expense-page__filter {
-   background-color: var(--theme-black-300);
+  background-color: var(--theme-black-300);
   border-left: 1px solid var(--theme-black-50);
 }
 

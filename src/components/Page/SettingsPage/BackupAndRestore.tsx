@@ -64,8 +64,8 @@ const BackupAndRestore = (props: Props) => {
     }
   }, [authorization]);
 
-  const handleChange = (event: any) => {
-    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
+  const handleFileChange = (event: any) => {
+    setState({ ...state, [event.target.name]: event.target.files });
   };
 
   const handleRunLogChange = (_data: any) => {
@@ -178,7 +178,7 @@ const BackupAndRestore = (props: Props) => {
                 name="expenseImportFile"
                 type="file"
                 value={state.file}
-                onInput={handleChange}
+                onInput={handleFileChange}
               />
               {state.expenseImportFile?.length > 0 && (
                 <div className="backup-and-restore__section__action">
