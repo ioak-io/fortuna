@@ -12,18 +12,13 @@ import {
   faSave,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
+import { Button, Input } from 'basicui';
 
 import './style.scss';
-import OakTypography from '../../oakui/wc/OakTypography';
-import OakInput from '../../oakui/wc/OakInput';
 import { newId } from '../../events/MessageService';
 import CategorySelection from './CategorySelection';
 import KakeiboSelection from './KakeiboSelection';
-import OakButton from '../../oakui/wc/OakButton';
 import ExpenseFilterModel from '../../model/ExpenseFilterModel';
-import AddFilterExpenseCommand from '../../events/AddFilterExpenseCommand';
-import ManageFilterExpenseCommand from '../../events/ManageFilterExpenseCommand';
 import TagSelection from './TagSelection';
 
 interface Props {
@@ -48,10 +43,10 @@ const GridFilter = (props: Props) => {
     setState({ ...props.filterFromState });
   }, [props.filterFromState]);
 
-  const handleChange = (detail: any) => {
+  const handleChange = (event: any) => {
     setState({
       ...state,
-      [detail.name]: detail.value,
+      [event.currentTarget.name]: event.currentTarget.value,
       _id: undefined,
       name: '',
     });
@@ -98,112 +93,76 @@ const GridFilter = (props: Props) => {
         </button>
       </div>
       <div className="grid-filter__main">
-        <OakInput
+        <Input
           name="description"
-          value={state.description}
-          formGroupName={formId}
-          handleInput={handleChange}
-          size="large"
-          color="container"
-          shape="rectangle"
+          value={state.description || ''}
+          onInput={handleChange}
           label="Search text"
           placeholder="search in description"
         />
         <div className="form-two-column">
-          <OakInput
+          <Input
             name="moreThan"
-            value={state.moreThan}
-            formGroupName={formId}
+            value={state.moreThan || 0}
             type="number"
-            handleInput={handleChange}
-            size="large"
-            color="container"
-            shape="rectangle"
+            onInput={handleChange}
             label="Amount more than"
             placeholder="amount above"
           />
-          <OakInput
+          <Input
             name="lessThan"
-            value={state.lessThan}
-            formGroupName={formId}
+            value={state.lessThan || 0}
             type="number"
-            handleInput={handleChange}
-            size="large"
-            color="container"
-            shape="rectangle"
+            onInput={handleChange}
             label="Amount less than"
             placeholder="amount upto"
           />
-          <OakInput
+          <Input
             name="from"
-            value={state.from}
-            formGroupName={formId}
+            value={state.from || ''}
             type="date"
-            handleInput={handleChange}
-            size="large"
-            color="container"
+            onInput={handleChange}
             placeholder="From"
-            shape="rectangle"
             label="From"
           />
-          <OakInput
+          <Input
             name="to"
-            value={state.to}
-            formGroupName={formId}
+            value={state.to || ''}
             type="date"
-            handleInput={handleChange}
-            size="large"
-            color="container"
+            onInput={handleChange}
             placeholder="To"
-            shape="rectangle"
             label="To"
           />
-          <OakInput
+          <Input
             name="days"
-            value={state.days}
-            formGroupName={formId}
+            value={state.days || 0}
             type="number"
-            handleInput={handleChange}
-            size="large"
-            color="container"
-            shape="rectangle"
+            onInput={handleChange}
             label="Past N days"
             placeholder="days in relation to today"
           />
-          <OakInput
+          <Input
             name="months"
-            value={state.months}
-            formGroupName={formId}
+            value={state.months || 0}
             type="number"
-            handleInput={handleChange}
-            size="large"
-            color="container"
-            shape="rectangle"
+            onInput={handleChange}
             label="Past N months"
             placeholder="calendar months"
           />
-          <OakInput
+          <Input
             name="monthNumber"
-            value={state.monthNumber}
-            formGroupName={formId}
+            value={state.monthNumber || 0}
             type="number"
-            handleInput={handleChange}
-            size="large"
-            color="container"
-            shape="rectangle"
+            onInput={handleChange}
             label="Nth month"
             placeholder="single month data"
             tooltip="Tip: 6 indicates January month this year, if current month is June"
           />
-          <OakInput
+          <Input
             name="yearNumber"
-            value={state.yearNumber}
-            formGroupName={formId}
+            value={state.yearNumber || 0}
             type="number"
-            handleInput={handleChange}
-            size="large"
-            color="container"
-            shape="rectangle"
+            onInput={handleChange}
             label="Nth year"
             placeholder="single year data"
             tooltip="Tip: 3 indicates year 2020, if current year is 2022"
@@ -226,18 +185,18 @@ const GridFilter = (props: Props) => {
         />
       </div>
       <div className="grid-filter__action">
-        <OakButton theme="primary" variant="regular" handleClick={applyFilter}>
+        <Button onClick={applyFilter}>
           <FontAwesomeIcon icon={faCheck} /> Apply
-        </OakButton>
-        <OakButton theme="info" variant="regular" handleClick={saveFilter}>
+        </Button>
+        <Button onClick={saveFilter}>
           <FontAwesomeIcon icon={faBookmark} /> Save
-        </OakButton>
-        <OakButton theme="info" variant="regular" handleClick={resetFilter}>
+        </Button>
+        <Button onClick={resetFilter}>
           <FontAwesomeIcon icon={faTimes} />
-        </OakButton>
-        <OakButton theme="info" variant="regular" handleClick={manageFilter}>
+        </Button>
+        <Button onClick={manageFilter}>
           <FontAwesomeIcon icon={faCog} />
-        </OakButton>
+        </Button>
       </div>
     </div>
   );

@@ -13,17 +13,10 @@ import {
   faPlus,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
+import { Button, Input, Checkbox } from 'basicui';
 
 import './ListExpense.scss';
-import OakTypography from '../../../oakui/wc/OakTypography';
-import { searchExpense } from './service';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
-import OakButton from '../../../oakui/wc/OakButton';
 import QuickEditExpenseCommand from '../../../events/QuickEditExpenseCommand';
-import ExpenseListState from '../../../simplestates/ExpenseListState';
-import ExpenseListLoadMoreCommand from '../../../simplestates/ExpenseListLoadMoreCommand';
-import ExpenseModel from '../../../model/ExpenseModel';
 import {
   fetchAndAppendExpenseItems,
   fetchAndSetExpenseItems,
@@ -155,70 +148,51 @@ const ListExpense = (props: Props) => {
         <div className="list-expense__action__left" />
         <div className="list-expense__action__right">
           {checkedRecords.length > 0 && (
-            <OakButton
-              handleClick={() => {}}
-              variant="regular"
-              theme="danger"
-              size="small"
+            <Button
+              onClick={() => { }}
             >
               <FontAwesomeIcon icon={faTrash} /> Delete ({checkedRecords.length}
               )
-            </OakButton>
+            </Button>
           )}
-          <OakButton
-            theme="primary"
-            variant="regular"
-            handleClick={openAddBillPage}
-            size="small"
+          <Button
+            onClick={openAddBillPage}
           >
             <FontAwesomeIcon icon={faPlus} /> Bill
-          </OakButton>
-          <OakButton
-            theme="info"
-            variant="regular"
-            handleClick={openAddExpense}
-            size="small"
+          </Button>
+          <Button
+            onClick={openAddExpense}
           >
             <FontAwesomeIcon icon={faPlus} /> Item
-          </OakButton>
+          </Button>
           <div className="desktop-only">
-            <OakButton
-              theme="info"
-              variant="regular"
-              handleClick={() => {}}
-              size="small"
+            <Button
+              onClick={() => { }}
             >
               <FontAwesomeIcon icon={faFileExport} />
-            </OakButton>
+            </Button>
           </div>
           <div className="desktop-only">
-            <OakButton
-              theme="info"
-              variant="regular"
-              handleClick={() => {
+            <Button
+              onClick={() => {
                 setDenseView(!denseView);
               }}
-              size="small"
             >
               <FontAwesomeIcon icon={denseView ? faExpandAlt : faCompressAlt} />
-            </OakButton>
+            </Button>
           </div>
         </div>
       </div>
       <div className="content-section list-expense">
-        <table
-          className={tableCompose({
-            color: 'surface',
-            dense: denseView,
-          })}
-        >
+        <table className="basicui-table table-hover table-small">
           <thead>
             <tr>
               <th className="list-expense__column list-expense__column--selection">
-                <OakCheckbox
+                <Checkbox
+                  id=""
                   name="check"
                   value={checkedRecords.length === expenseState.items.length}
-                  handleChange={toggleAll}
+                  onInput={toggleAll}
                 />
               </th>
               <th className="list-expense__column">
@@ -263,10 +237,11 @@ const ListExpense = (props: Props) => {
               <tr key={record._id}>
                 <td className="list-expense__column list-expense__column--selection">
                   <div>
-                    <OakCheckbox
+                    <Checkbox
+                      id=""
                       name="check"
                       value={checkedRecords.includes(record._id)}
-                      handleChange={() => toggleCheckedState(record._id)}
+                      onInput={() => toggleCheckedState(record._id)}
                     />
                   </div>
                 </td>
@@ -307,9 +282,9 @@ const ListExpense = (props: Props) => {
         </table>
         {expenseState.pagination.hasMore && (
           <div className="load-more">
-            <button className="button load-more__button" onClick={loadMore}>
+            <Button onClick={loadMore}>
               Load more
-            </button>
+            </Button>
           </div>
         )}
       </div>

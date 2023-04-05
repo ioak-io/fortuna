@@ -11,12 +11,10 @@ import {
   faPlus,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
+import { Input, Button, Checkbox } from 'basicui';
 
 import './ListIncome.scss';
-import { searchIncome } from './service';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
-import OakButton from '../../../oakui/wc/OakButton';
+
 import {
   fetchAndAppendIncomeItems,
   fetchAndSetIncomeItems,
@@ -139,52 +137,39 @@ const ListIncome = (props: Props) => {
         <div className="list-income__action__left" />
         <div className="list-income__action__right">
           {checkedRecords.length > 0 && (
-            <OakButton
-              handleClick={() => {}}
-              variant="regular"
-              theme="danger"
-              size="small"
+            <Button
+              onClick={() => { }}
             >
               <FontAwesomeIcon icon={faTrash} /> Delete ({checkedRecords.length}
               )
-            </OakButton>
+            </Button>
           )}
-          <OakButton
-            theme="info"
-            variant="regular"
-            handleClick={openAddIncome}
-            size="small"
+          <Button
+            onClick={openAddIncome}
           >
             <FontAwesomeIcon icon={faPlus} /> Item
-          </OakButton>
+          </Button>
           <div className="desktop-only">
-            <OakButton
-              theme="info"
-              variant="regular"
-              handleClick={() => {
+            <Button
+              onClick={() => {
                 setDenseView(!denseView);
               }}
-              size="small"
             >
               <FontAwesomeIcon icon={denseView ? faExpandAlt : faCompressAlt} />
-            </OakButton>
+            </Button>
           </div>
         </div>
       </div>
       <div className="content-section list-income">
-        <table
-          className={tableCompose({
-            color: 'surface',
-            dense: denseView,
-          })}
-        >
+        <table className="basicui-table">
           <thead>
             <tr>
               <th className="list-income__column list-income__column--selection">
-                <OakCheckbox
+                <Checkbox
+                  id=""
                   name="check"
                   value={checkedRecords.length === incomeState.items.length}
-                  handleChange={toggleAll}
+                  onInput={toggleAll}
                 />
               </th>
               <th className="list-income__column">
@@ -226,10 +211,11 @@ const ListIncome = (props: Props) => {
               <tr key={record._id}>
                 <td className="list-income__column list-income__column--selection">
                   <div>
-                    <OakCheckbox
+                    <Checkbox
+                    id=""
                       name="check"
                       value={checkedRecords.includes(record._id)}
-                      handleChange={() => toggleCheckedState(record._id)}
+                      onInput={() => toggleCheckedState(record._id)}
                     />
                   </div>
                 </td>

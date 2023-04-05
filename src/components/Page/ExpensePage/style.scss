@@ -53,8 +53,14 @@
   top: 0;
   bottom: 0;
   margin-right: -27em;
-  background-color: var(--color-container);
+  background-color: var(--theme-white-100);
+  border-left: 1px solid var(--theme-white-500);
   transition: margin-right 250ms ease-in-out;
+}
+
+.basicui-dark .expense-page__filter {
+   background-color: var(--theme-black-300);
+  border-left: 1px solid var(--theme-black-50);
 }
 
 .expense-page__filter--active {

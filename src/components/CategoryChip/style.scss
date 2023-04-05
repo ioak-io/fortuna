@@ -1,7 +1,7 @@
 .category-chip {
   color: var(--color-info-i);
-  padding: 10px 20px;
-  border-radius: 100px;
+  padding: 4px 8px;
+  border-radius: 4px;
   margin-right: 20px;
   margin-bottom: 20px;
 
@@ -12,12 +12,14 @@
   }
 }
 
-.category-chip--active {
-  background-color: var(--color-default);
-  color: var(--color-default-i);
-  &:hover,
-  &:focus {
-    background-color: var(--color-default);
-    color: var(--color-default-i);
-  }
+.category-chip--active, .category-chip--active:hover, .category-chip--active:focus {
+  background-color: var(--theme-black-extended-50);
+  color: var(--theme-black-extended-50i);
+}
+
+.basicui-dark .category-chip--active,
+.basicui-dark .category-chip--active:hover,
+.basicui-dark .category-chip--active:focus {
+  background-color: var(--theme-white-900);
+  color: var(--theme-white-900i);
 }

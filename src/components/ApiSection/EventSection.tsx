@@ -33,9 +33,9 @@ const EventSection = (props: Props) => {
         </table>
       )}
       {props.events.length === 0 && (
-        <OakTypography variant="body2">
+        <p>
           No events emitted from this component.
-        </OakTypography>
+        </p>
       )}
     </div>
   );

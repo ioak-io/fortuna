@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import OakInput from '../../oakui/wc/OakInput';
+import { Input } from 'basicui';
 
 import './TagSelection.scss';
 import { isEmptyOrSpaces } from '../Utils';
@@ -27,8 +27,8 @@ const TagSelection = (props: Props) => {
     }
   }, [tags, searchText]);
 
-  const handleChange = (detail: any) => {
-    setSearchText(detail.value);
+  const handleChange = (event: any) => {
+    setSearchText(event.currentTarget.value);
   };
 
   const handleTagChange = (tag: any) => {
@@ -44,15 +44,11 @@ const TagSelection = (props: Props) => {
       <label>Tag</label>
       {tags && tags.length > 10 && (
         <div className="tag-selection__search">
-          <OakInput
+          <Input
             name="searchText"
             value={searchText}
-            gutterBottom
-            handleInput={handleChange}
-            size="large"
-            color="container"
+            onInput={handleChange}
             placeholder="Search tag"
-            shape="underline"
           />
         </div>
       )}

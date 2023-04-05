@@ -6,25 +6,18 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
-import OakModal from '../../oakui/wc/OakModal';
+import { Modal, ModalBody, ModalFooter, ModalHeader, Button, Input } from 'basicui';
 import AddFilterExpenseCommand from '../../events/AddFilterExpenseCommand';
 import {
   receiveMessage,
   sendMessage,
   newId,
 } from '../../events/MessageService';
-import OakForm from '../../oakui/wc/OakForm';
-import OakInput from '../../oakui/wc/OakInput';
 
 import './style.scss';
-import OakSelect from '../../oakui/wc/OakSelect';
-import OakButton from '../../oakui/wc/OakButton';
 
 import { saveFilter } from './service';
-import OakRadio from '../../oakui/wc/OakRadio';
 import ExpenseFilterModel from '../../model/ExpenseFilterModel';
-import OakCheckbox from '../../oakui/wc/OakCheckbox';
-import OakRadioGroup from '../../oakui/wc/OakRadioGroup';
 import { isEmptyOrSpaces } from '../Utils';
 
 interface Props {
@@ -74,9 +67,9 @@ const AddFilterExpense = (props: Props) => {
     AddFilterExpenseCommand.next({ open: false });
   };
 
-  const handleChange = (detail: any) => {
+  const handleChange = (event: any) => {
     setExistingFilter(null);
-    setState({ ...state, [detail.name]: detail.value });
+    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const save = () => {
@@ -112,52 +105,42 @@ const AddFilterExpense = (props: Props) => {
 
   return (
     <>
-      <OakModal
+      <Modal
         isOpen={isOpen}
-        handleClose={handleClose}
-        backdropIntensity={3}
-        animationStyle="slide"
-        animationSpeed="normal"
-        height="auto"
-        width="small"
-        heading={existingFilter ? 'Update filter' : 'New filter'}
+        onClose={handleClose}
       >
-        <div slot="body">
+        <ModalHeader onClose={handleClose} heading={existingFilter ? 'Update Filter' : 'New Filter'} />
+        <ModalBody>
           <div className="add-filter-expense">
             {isOpen && (
-              <OakForm formGroupName={formId} handleSubmit={save}>
+              <form id={formId} onSubmit={save}>
                 <div className="add-filter-expense__form">
-                  <OakInput
+                  <Input
                     name="name"
-                    value={state.name}
-                    formGroupName={formId}
-                    gutterBottom
-                    handleInput={handleChange}
-                    size="large"
-                    color="container"
-                    shape="rectangle"
+                    value={state.name || ''}
+                    onInput={handleChange}
                     label="Filter name"
                     autofocus
                     required
                   />
                   {/* <div className="add-filter-expense__form__checkbox-group">
-                <OakCheckbox
+                <Checkbox
                   name="showInSummary"
                   value={!!state.showInSummary}
                   handleChange={handleChange}
                 >
                   Show in summary section
-                </OakCheckbox>
-                <OakCheckbox
+                </Checkbox>
+                <Checkbox
                   name="showInDashboard"
                   value={!!state.showInDashboard}
                   handleChange={handleChange}
                 >
                   Show in Dashboard
-                </OakCheckbox>
+                </Checkbox>
               </div> */}
                 </div>
-              </OakForm>
+              </form>
             )}
           </div>
           {existingFilter && (
@@ -166,21 +149,16 @@ const AddFilterExpense = (props: Props) => {
               overwrite the filter?
             </div>
           )}
-        </div>
-        <div slot="footer">
+        </ModalBody>
+        <ModalFooter>
           <div className="add-filter-expense-footer">
-            <OakButton
-              type="submit"
-              theme={existingFilter ? 'warning' : 'primary'}
-              variant="regular"
-              formGroupName={formId}
-            >
+            <Button type="submit" onClick={save}>
               <FontAwesomeIcon icon={faChevronRight} />
               {existingFilter ? 'Yes, Overwrite existing filter' : 'Save'}
-            </OakButton>
+            </Button>
           </div>
-        </div>
-      </OakModal>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };

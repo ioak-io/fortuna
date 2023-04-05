@@ -8,23 +8,19 @@ import {
   faMoneyBill,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import OakModal from '../../oakui/wc/OakModal';
+import { Modal, ModalBody, ModalHeader, ModalFooter, Input, Checkbox, Select, Button } from 'basicui';
 import QuickEditExpenseCommand from '../../events/QuickEditExpenseCommand';
 import {
   receiveMessage,
   sendMessage,
   newId,
 } from '../../events/MessageService';
-import OakForm from '../../oakui/wc/OakForm';
-import OakInput from '../../oakui/wc/OakInput';
 
 import './style.scss';
-import OakButton from '../../oakui/wc/OakButton';
 
 import { saveExpense } from './service';
 import CategorySelection from './CategorySelection';
 import { isEmptyOrSpaces } from '../Utils';
-import OakCheckbox from '../../oakui/wc/OakCheckbox';
 import { FORTUNA_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageConstants';
 import TagSelection from './TagSelection';
 import ExpenseModel from '../../model/ExpenseModel';
@@ -88,11 +84,10 @@ const AddExpense = (props: Props) => {
     QuickEditExpenseCommand.next({ open: false, record: null });
   };
 
-  const handleChange = (detail: any) => {
-    console.log(emptyExpense);
-    setState({ ...state, [detail.name]: detail.value });
-    if (detail.name === 'billDateString') {
-      setEmptyExpense({ ...emptyExpense, billDateString: detail.value });
+  const handleChange = (event: any) => {
+    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
+    if (event.currentTarget.name === 'billDateString') {
+      setEmptyExpense({ ...emptyExpense, billDateString: event.currentTarget.value });
     }
   };
 
@@ -153,58 +148,37 @@ const AddExpense = (props: Props) => {
 
   return (
     <>
-      <OakModal
+      <Modal
         isOpen={isOpen}
-        handleClose={handleClose}
-        backdropIntensity={3}
-        animationStyle="slide"
-        animationSpeed="normal"
-        height="auto"
-        width="auto"
-        heading="New expense"
+        onClose={handleClose}
       >
-        <div slot="body">
+        <ModalBody>
           <div className="add-expense">
-            {/* <OakForm formGroupName={formId} handleSubmit={save}> */}
             {isOpen && (
               <div className="form">
                 <div className="form-two-column">
-                  <OakInput
+                  <Input
                     name="billDateString"
                     value={state.billDateString}
-                    formGroupName={formId}
                     type="date"
-                    handleInput={handleChange}
-                    size="large"
-                    color="container"
+                    onInput={handleChange}
                     label="Bill date"
-                    shape="rectangle"
                     required
                     disabled={state.billId}
                   />
-
-                  <OakInput
+                  <Input
                     name="amount"
                     value={state.amount}
                     type="number"
-                    formGroupName={formId}
-                    handleInput={handleChange}
-                    size="large"
-                    color="container"
-                    shape="rectangle"
+                    onInput={handleChange}
                     label="Amount"
-                    nonzero
                     autofocus
                   />
                 </div>
-                <OakInput
+                <Input
                   name="description"
                   value={state.description}
-                  formGroupName={formId}
-                  handleInput={handleChange}
-                  size="large"
-                  color="container"
-                  shape="rectangle"
+                  onInput={handleChange}
                   label="Details of the expenditure"
                   required
                 />
@@ -222,47 +196,35 @@ const AddExpense = (props: Props) => {
             )}
             {/* </OakForm> */}
           </div>
-        </div>
-        <div slot="footer">
-          <div className="add-expense-footer">
-            {!state._id && (
-              <OakCheckbox
-                name="addAnother"
-                value={addAnother}
-                handleChange={toggleAddAnother}
-              >
-                Add another
-              </OakCheckbox>
-            )}
-            <OakButton
-              formGroupName={formId}
-              theme="primary"
-              variant="regular"
-              handleClick={save}
+        </ModalBody>
+        <ModalFooter>
+          {!state._id && (
+            <Checkbox
+              id="addAnother"
+              name="addAnother"
+              checked={addAnother}
+              onInput={toggleAddAnother}
+              label="Add another" />
+          )}
+          <Button
+            onClick={save}
+          >
+            <FontAwesomeIcon icon={faChevronRight} /> Save
+          </Button>
+          {state.billId && (
+            <Button
+              onClick={goToEditBill}
             >
-              <FontAwesomeIcon icon={faChevronRight} /> Save
-            </OakButton>
-            {state.billId && (
-              <OakButton
-                formGroupName={formId}
-                theme="info"
-                variant="regular"
-                handleClick={goToEditBill}
-              >
-                <FontAwesomeIcon icon={faMoneyBill} /> Go to bill
-              </OakButton>
-            )}
-            <OakButton
-              formGroupName={formId}
-              theme="info"
-              variant="regular"
-              handleClick={handleClose}
-            >
-              <FontAwesomeIcon icon={faTimes} />
-            </OakButton>
-          </div>
-        </div>
-      </OakModal>
+              <FontAwesomeIcon icon={faMoneyBill} /> Go to bill
+            </Button>
+          )}
+          <Button
+            onClick={handleClose}
+          >
+            <FontAwesomeIcon icon={faTimes} />
+          </Button>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };

@@ -85,7 +85,7 @@ const SideContent = (props: Props) => {
           ? 'side-content__sidebar-active'
           : 'side-content__sidebar-inactive'
       } ${
-        profile.theme === 'theme_dark'
+        profile.theme === 'basicui-dark'
           ? 'side-content__theme-dark'
           : 'side-content__theme-light'
       }`}

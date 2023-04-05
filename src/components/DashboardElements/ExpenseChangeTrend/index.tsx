@@ -47,7 +47,7 @@ const ExpenseChangeTrend = (props: Props) => {
       }
     }, 250);
     setCssVariable(
-      profile.theme === 'theme_dark' ? CSSVARIABLES_DARK : CSSVARIABLES_LIGHT
+      profile.theme === 'basicui-dark' ? CSSVARIABLES_DARK : CSSVARIABLES_LIGHT
     );
   }, [profile.sidebar, profile.theme]);
 
@@ -156,11 +156,11 @@ const ExpenseChangeTrend = (props: Props) => {
               mode: 'x',
               borderWidth: 0,
               backgroundColor:
-                profile.theme === 'theme_dark'
+                profile.theme === 'basicui-dark'
                   ? CSSVARIABLES_DARK.SURFACE_DARKER
                   : CSSVARIABLES_DARK.SURFACE,
               bodyColor:
-                profile.theme === 'theme_dark'
+                profile.theme === 'basicui-dark'
                   ? CSSVARIABLES_DARK.I
                   : CSSVARIABLES_DARK.I,
             },

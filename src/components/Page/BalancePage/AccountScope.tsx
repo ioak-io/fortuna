@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import OakInput from '../../../oakui/wc/OakInput';
+import { Button, Input, Select, SelectPropsConverter } from 'basicui';
 
 import './AccountScope.scss';
-import ReceiptModel from '../../../model/ReceiptModel';
-import { FORTUNA_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
 import AccountScopeModel from '../../../model/AccountScopeModel';
-import OakSelect from '../../../oakui/wc/OakSelect';
 
 interface Props {
   data: AccountScopeModel;
@@ -16,8 +11,9 @@ interface Props {
 }
 
 const AccountScope = (props: Props) => {
-  const handleChange = (detail: any) => {
-    props.handleChange({ ...props.data, [detail.name]: detail.value });
+  const handleChange = (event: any) => {
+    console.log(event);
+    props.handleChange({ ...props.data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   // const save = () => {
@@ -35,39 +31,33 @@ const AccountScope = (props: Props) => {
       <div className="page-title">Applicable time range</div>
       <div className="account-scope__form form">
         <div className="form-two-column">
-          <OakSelect
+          <Select
             name="scope"
-            value={props.data.scope}
-            options={[
+            value={[props.data.scope]}
+            options={SelectPropsConverter.optionsFromSimpleList([
               'This month',
               'Last month',
               'This year',
               'Last year',
               'Custom',
-            ]}
-            formGroupName={props.formId}
-            handleInput={handleChange}
-            color="container"
-            popupColor="surface"
+            ])} onInput={handleChange}
             label="Scope"
           />
           <div />
           {props.data.scope === 'Custom' && (
             <>
-              <OakInput
+              <Input
                 type="date"
                 name="from"
                 value={props.data.from}
-                formGroupName={props.formId}
-                handleInput={handleChange}
+                onInput={handleChange}
                 label="From"
               />
-              <OakInput
+              <Input
                 type="date"
                 name="to"
                 value={props.data.to}
-                formGroupName={props.formId}
-                handleInput={handleChange}
+                onInput={handleChange}
                 label="To"
               />
             </>

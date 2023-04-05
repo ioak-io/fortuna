@@ -9,23 +9,19 @@ import {
   faMoneyBill,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import OakModal from '../../oakui/wc/OakModal';
+import { Input, Button, Select, Checkbox, Modal, ModalBody, ModalFooter, ModalHeader } from 'basicui';
 import EditIncomeCommand from '../../events/EditIncomeCommand';
 import {
   receiveMessage,
   sendMessage,
   newId,
 } from '../../events/MessageService';
-import OakForm from '../../oakui/wc/OakForm';
-import OakInput from '../../oakui/wc/OakInput';
 
 import './style.scss';
-import OakButton from '../../oakui/wc/OakButton';
 
 import { saveIncome } from './service';
 import CategorySelection from './CategorySelection';
 import { isEmptyOrSpaces } from '../Utils';
-import OakCheckbox from '../../oakui/wc/OakCheckbox';
 import { FORTUNA_PREF_ADDEXPENSE_ANOTHER } from '../../constants/SessionStorageConstants';
 import TagSelection from './TagSelection';
 import IncomeModel from '../../model/IncomeModel';
@@ -87,11 +83,11 @@ const EditIncome = (props: Props) => {
     EditIncomeCommand.next({ open: false, record: null });
   };
 
-  const handleChange = (detail: any) => {
+  const handleChange = (event: any) => {
     console.log(emptyIncome);
-    setState({ ...state, [detail.name]: detail.value });
-    if (detail.name === 'billDateString') {
-      setEmptyIncome({ ...emptyIncome, billDateString: detail.value });
+    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
+    if (event.currentTarget.name === 'billDateString') {
+      setEmptyIncome({ ...emptyIncome, billDateString: event.currentTarget.value });
     }
   };
 
@@ -147,58 +143,39 @@ const EditIncome = (props: Props) => {
 
   return (
     <>
-      <OakModal
+      <Modal
         isOpen={isOpen}
-        handleClose={handleClose}
-        backdropIntensity={3}
-        animationStyle="slide"
-        animationSpeed="normal"
-        height="auto"
-        width="auto"
-        heading="New income"
+        onClose={handleClose}
       >
-        <div slot="body">
+        <ModalHeader onClose={handleClose} heading="New income" />
+        <ModalBody>
           <div className="add-income">
-            {/* <OakForm formGroupName={formId} handleSubmit={save}> */}
             {isOpen && (
               <div className="form">
                 <div className="form-two-column">
-                  <OakInput
+                  <Input
                     name="billDateString"
                     value={state.billDateString}
-                    formGroupName={formId}
                     type="date"
-                    handleInput={handleChange}
-                    size="large"
-                    color="container"
+                    onInput={handleChange}
                     label="Bill date"
-                    shape="rectangle"
                     required
                     disabled={state.billId}
                   />
 
-                  <OakInput
+                  <Input
                     name="amount"
                     value={state.amount}
                     type="number"
-                    formGroupName={formId}
-                    handleInput={handleChange}
-                    size="large"
-                    color="container"
-                    shape="rectangle"
+                    onInput={handleChange}
                     label="Amount"
-                    nonzero
                     autofocus
                   />
                 </div>
-                <OakInput
+                <Input
                   name="description"
                   value={state.description}
-                  formGroupName={formId}
-                  handleInput={handleChange}
-                  size="large"
-                  color="container"
-                  shape="rectangle"
+                  onInput={handleChange}
                   label="Details of the expenditure"
                   required
                 />
@@ -214,39 +191,33 @@ const EditIncome = (props: Props) => {
                 />
               </div>
             )}
-            {/* </OakForm> */}
           </div>
-        </div>
+        </ModalBody>
         <div slot="footer">
           <div className="add-income-footer">
             {!state._id && (
-              <OakCheckbox
+              <Checkbox
+                id=""
                 name="addAnother"
                 value={addAnother}
-                handleChange={toggleAddAnother}
+                onInput={toggleAddAnother}
               >
                 Add another
-              </OakCheckbox>
+              </Checkbox>
             )}
-            <OakButton
-              formGroupName={formId}
-              theme="primary"
-              variant="regular"
-              handleClick={save}
+            <Button
+              onClick={save}
             >
               <FontAwesomeIcon icon={faChevronRight} /> Save
-            </OakButton>
-            <OakButton
-              formGroupName={formId}
-              theme="info"
-              variant="regular"
-              handleClick={handleClose}
+            </Button>
+            <Button
+              onClick={handleClose}
             >
               <FontAwesomeIcon icon={faTimes} />
-            </OakButton>
+            </Button>
           </div>
         </div>
-      </OakModal>
+      </Modal>
     </>
   );
 };

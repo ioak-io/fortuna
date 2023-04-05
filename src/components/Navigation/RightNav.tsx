@@ -44,12 +44,6 @@ const RightNav = (props: Props) => {
 
   return (
     <div className="right-nav">
-      {/* <OakButton theme="info" variant="regular" handleClick={openAddExpense}>
-        <FontAwesomeIcon icon={faPlus} /> Expense
-      </OakButton>
-      <OakButton theme="info" variant="regular" handleClick={openEditCategory}>
-        <FontAwesomeIcon icon={faPlus} /> Category
-      </OakButton> */}
       <DarkModeIcon />
       <NavAccountIcon logout={logout} login={login} />
     </div>

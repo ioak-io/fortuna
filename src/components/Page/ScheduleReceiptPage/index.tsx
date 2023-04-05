@@ -7,20 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import OakButton from '../../../oakui/wc/OakButton';
+import { Button } from 'basicui';
 import './style.scss';
-import { fetchAndSetReceiptItems } from '../../../store/actions/ReceiptActions';
 import Topbar from '../../../components/Topbar';
-// import AddFilterReceipt from '../../../components/AddFilterReceipt';
-// import ManageFilterReceipt from '../../../components/ManageFilterReceipt';
-import EditCategory from '../../../components/EditCategory';
-import ReceiptFilterModel from '../../../model/ReceiptFilterModel';
-import GridFilter from '../../../components/GridFilter';
 import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
 import { getScheduleReceipt } from './service';
 import Item from './Item';
-// import AddFilterReceiptCommand from '../../../events/AddFilterReceiptCommand';
-// import ManageFilterReceiptCommand from '../../../events/ManageFilterReceiptCommand';
 
 interface Props {
   history: any;
@@ -53,10 +45,10 @@ const ScheduleReceiptPage = (props: Props) => {
         <div className="schedule-receipt-page__main page-width content-section">
           <div className="page-title">
             <div className="">Schedules</div>
-            <OakButton handleClick={addNew}>
+            <Button onClick={addNew}>
               <FontAwesomeIcon icon={faPlus} />
               Add new
-            </OakButton>
+            </Button>
           </div>
           {/* <ManageCategory space={props.space} location={props.location} /> */}
           <div className="schedule-receipt-page__main__list">

@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import OakInput from '../../../oakui/wc/OakInput';
+import { Button } from 'basicui';
 
 import './Details.scss';
-import ReceiptModel from '../../../model/ReceiptModel';
-import { FORTUNA_PREF_ADDBILL_DATE } from '../../../constants/SessionStorageConstants';
 import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
-import OakSelect from '../../../oakui/wc/OakSelect';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
-import OakButton from '../../../oakui/wc/OakButton';
 import { deleteTransactions, repostTransactions } from './service';
 import { fetchAndSetExpenseItems } from '../../../store/actions/ExpenseActions';
 import { fetchAndSetReceiptItems } from '../../../store/actions/ReceiptActions';
@@ -89,9 +82,9 @@ const Details = (props: Props) => {
             Delete all transactions posted by this schedule. This will remove
             all the automatic postings made by this schedule so far
           </div>
-          <OakButton handleClick={deletePosting} theme="info">
+          <Button onClick={deletePosting}>
             Delete all transactions
-          </OakButton>
+          </Button>
         </div>
         <div>
           <div>
@@ -100,9 +93,9 @@ const Details = (props: Props) => {
             then add new transactions with the latest definition for all past
             periods till today
           </div>
-          <OakButton handleClick={runSchedule} theme="info">
+          <Button onClick={runSchedule}>
             Repost transactions
-          </OakButton>
+          </Button>
         </div>
         <div>
           <div>
@@ -113,9 +106,9 @@ const Details = (props: Props) => {
             postings in the system, the schedule will be marked as archived
             instead of deleting
           </div>
-          <OakButton handleClick={runSchedule} theme="info">
+          <Button onClick={runSchedule}>
             Delete schedule
-          </OakButton>
+          </Button>
         </div>
       </div>
     </div>

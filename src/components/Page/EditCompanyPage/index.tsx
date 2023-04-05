@@ -3,12 +3,10 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-import OakButton from '../../../oakui/wc/OakButton';
+import { Input, Button, Select } from 'basicui';
 import Topbar from '../../../components/Topbar';
 import './style.scss';
 import { newId } from '../../../events/MessageService';
-import OakForm from '../../../oakui/wc/OakForm';
-import OakInput from '../../../oakui/wc/OakInput';
 import CompanyModel from '../../../model/CompanyModel';
 import { saveCompany } from './service';
 
@@ -34,8 +32,8 @@ const EditCompanyPage = (props: Props) => {
   const [formId, setFormId] = useState(newId());
   const [state, setState] = useState<CompanyModel>({ ...EMPTY_COMPANY });
 
-  const handleChange = (detail: any) => {
-    setState({ ...state, [detail.name]: detail.value });
+  const handleChange = (event: any) => {
+    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const save = () => {
@@ -54,25 +52,19 @@ const EditCompanyPage = (props: Props) => {
         right
       </Topbar>
       <div className="edit-company-page__main main-section content-section page-width">
-        <OakForm formGroupName={formId} handleSubmit={save}>
+        <form id={formId} onSubmit={save}>
           <div className="form">
             <div className="form-two-column">
-              <OakInput
+              <Input
                 name="name"
                 value={state.name}
-                formGroupName={formId}
-                handleInput={handleChange}
-                size="small"
-                color="container"
+                onInput={handleChange}
                 label="Company name"
               />
-              <OakInput
+              <Input
                 name="reference"
-                value={state.reference}
-                formGroupName={formId}
-                handleInput={handleChange}
-                size="small"
-                color="container"
+                value={state.reference || ''}
+                onInput={handleChange}
                 label="Company ID"
                 disabled
                 tooltip={
@@ -80,34 +72,29 @@ const EditCompanyPage = (props: Props) => {
                 }
               />
             </div>
-            <OakInput
+            <Input
               name="description"
               value={state.description}
-              formGroupName={formId}
-              handleInput={handleChange}
-              size="small"
-              color="container"
+              onInput={handleChange}
               label="Description"
               type="textarea"
             />
           </div>
-        </OakForm>
+        </form>
       </div>
       <div className="footer">
         <div />
         <div className="footer-right">
-          <OakButton
-            theme="primary"
-            variant="regular"
+          <Button
             type="submit"
-            formGroupName={formId}
+            onClick={save}
           >
             <FontAwesomeIcon icon={faCheck} />
             {searchParams.get('id') ? 'Save' : 'Save and go back'}
-          </OakButton>
-          <OakButton theme="info" variant="regular" handleClick={goBack}>
+          </Button>
+          <Button onClick={goBack}>
             <FontAwesomeIcon icon={faTimes} />
-          </OakButton>
+          </Button>
         </div>
       </div>
     </div>

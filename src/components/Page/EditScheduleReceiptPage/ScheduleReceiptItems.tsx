@@ -7,12 +7,9 @@ import {
   faChevronRight,
   faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
-import OakInput from '../../../oakui/wc/OakInput';
+import { Button, Input, Select, SelectPropsConverter } from 'basicui';
 
 import './ScheduleReceiptItems.scss';
-import OakSelect from '../../../oakui/wc/OakSelect';
-import ExpenseModel from '../../../model/ExpenseModel';
 import ScheduleReceiptItemModel from '../../../model/ScheduleReceiptItemModel';
 
 interface Props {
@@ -36,21 +33,21 @@ const ScheduleReceiptItems = (props: Props) => {
     }
   }, [categories]);
 
-  const handleChange = (detail: any, index: number) => {
+  const handleChange = (event: any, index: number) => {
     const _data = [...props.data];
-    _data[index] = { ..._data[index], [detail.name]: detail.value };
+    _data[index] = { ..._data[index], [event.currentTarget.name]: event.currentTarget.value };
     props.handleChange(_data, index === props.data.length - 1);
   };
 
-  const handleNumberChange = (detail: any, index: number) => {
+  const handleNumberChange = (event: any, index: number) => {
     const _data = [...props.data];
-    _data[index] = { ..._data[index], [detail.name]: parseInt(detail.value || "0") };
+    _data[index] = { ..._data[index], [event.currentTarget.name]: parseInt(event.currentTarget.value || "0") };
     props.handleChange(_data, index === props.data.length - 1);
   };
 
   return (
     <div className="schedule-receipt-items">
-      <div className="page-title">Line items</div>
+      {/* <div className="page-title">Line items</div> */}
       {props.errors.includes(true) && (
         <div className="schedule-receipt-items__error">
           <FontAwesomeIcon icon={faExclamationTriangle} /> Incomplete
@@ -58,12 +55,7 @@ const ScheduleReceiptItems = (props: Props) => {
         </div>
       )}
       <div className="schedule-receipt-items__main">
-        <table
-          className={tableCompose({
-            color: 'surface',
-            dense: false,
-          })}
-        >
+        <table className="basicui-table">
           <thead>
             <tr>
               <th className="indicator-column"> </th>
@@ -82,43 +74,27 @@ const ScheduleReceiptItems = (props: Props) => {
                   />
                 </td>
                 <td>
-                  <OakSelect
+                  <Select
                     name="category"
                     autocomplete
-                    value={record.category}
-                    optionsAsKeyValue={categoryMap}
-                    formGroupName={props.formId}
-                    handleInput={(detail: any) => handleChange(detail, index)}
-                    size="small"
-                    color="container"
-                    popupColor="surface"
-                  // required={index === 0 || index !== props.data.length - 1}
+                    value={[record.category]}
+                    options={SelectPropsConverter.optionsFromObject(categoryMap)}
+                    onInput={(event: any) => handleChange(event, index)}
                   />
                 </td>
                 <td>
-                  <OakInput
+                  <Input
                     name="description"
                     value={record.description}
-                    formGroupName={props.formId}
-                    handleInput={(detail: any) => handleChange(detail, index)}
-                    size="small"
-                    color="container"
-                  // autofocus={props.data.length - 1 === index}
-                  // minLength={
-                  //   index === 0 || index !== props.data.length - 1 ? 1 : 0
-                  // }
+                    onInput={(event: any) => handleChange(event, index)}
                   />
                 </td>
                 <td>
-                  <OakInput
+                  <Input
                     name="amount"
                     type="number"
                     value={record.amount}
-                    formGroupName={props.formId}
-                    handleInput={(detail: any) => handleNumberChange(detail, index)}
-                    size="small"
-                    color="container"
-                  // min={index === 0 || index !== props.data.length - 1 ? 1 : 0}
+                    onInput={(event: any) => handleNumberChange(event, index)}
                   />
                 </td>
               </tr>

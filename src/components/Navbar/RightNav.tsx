@@ -44,8 +44,6 @@ const RightNav = (props: Props) => {
 
   return (
     <div className="right-nav">
-      {/* <OakButton theme="primary" variant="appear" action={() => {}} icon="add">Income</OakButton>
-      <OakButton theme="primary" variant="appear" action={() => {}} icon="add">Bill</OakButton> */}
       <DarkModeIcon />
       <NavAccountIcon logout={logout} login={login} />
     </div>

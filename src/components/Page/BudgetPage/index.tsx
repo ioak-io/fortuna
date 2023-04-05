@@ -10,15 +10,11 @@ import {
   faChevronRight,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import OakButton from '../../../oakui/wc/OakButton';
+import { Button } from 'basicui';
 import Topbar from '../../../components/Topbar';
 import './style.scss';
 import { newId } from '../../../events/MessageService';
-import OakForm from '../../../oakui/wc/OakForm';
-import OakInput from '../../../oakui/wc/OakInput';
-import CompanyModel from '../../../model/CompanyModel';
 import { getBudgetByYear, saveBudget } from './service';
-import OakSelect from '../../../oakui/wc/OakSelect';
 import BudgetItems from './BudgetItems';
 import BudgetModel from '../../../model/BudgetModel';
 
@@ -31,6 +27,7 @@ const NEXT_YEAR = new Date().getFullYear() + 1;
 const LAST_YEAR = new Date().getFullYear() - 1;
 
 const BudgetPage = (props: Props) => {
+  const [saving, setSaving] = useState(false);
   const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const categories = useSelector((state: any) => state.category.categories);
@@ -61,10 +58,11 @@ const BudgetPage = (props: Props) => {
   };
 
   const save = () => {
-    console.log(state);
+    setSaving(true);
     saveBudget(props.space, year, state, authorization).then(
       (response: any) => {
         setState(response);
+        setSaving(false);
       }
     );
   };
@@ -108,18 +106,13 @@ const BudgetPage = (props: Props) => {
       <div className="footer">
         <div />
         <div className="footer-right">
-          <OakButton
-            theme="primary"
-            variant="regular"
-            handleClick={save}
-            formGroupName={formId}
-          >
+          <Button onClick={save} loading={saving}>
             <FontAwesomeIcon icon={faCheck} />
             Save
-          </OakButton>
-          <OakButton theme="info" variant="regular" handleClick={goBack}>
+          </Button>
+          <Button onClick={goBack}>
             <FontAwesomeIcon icon={faTimes} />
-          </OakButton>
+          </Button>
         </div>
       </div>
     </div>

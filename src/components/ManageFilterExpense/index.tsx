@@ -8,26 +8,16 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { cloneDeep } from 'lodash';
-import { compose } from '@oakui/core-stage/style-composer/OakTableComposer';
-import OakModal from '../../oakui/wc/OakModal';
+import { Button, Input, Select, Checkbox, Modal, ModalBody, ModalFooter, ModalHeader } from 'basicui';
 import ManageFilterExpenseCommand from '../../events/ManageFilterExpenseCommand';
 import {
-  receiveMessage,
-  sendMessage,
   newId,
 } from '../../events/MessageService';
-import OakForm from '../../oakui/wc/OakForm';
-import OakInput from '../../oakui/wc/OakInput';
 
 import './style.scss';
-import OakSelect from '../../oakui/wc/OakSelect';
-import OakButton from '../../oakui/wc/OakButton';
 
 import { publishAllFilters } from './service';
-import OakRadio from '../../oakui/wc/OakRadio';
 import ExpenseFilterModel from '../../model/ExpenseFilterModel';
-import OakCheckbox from '../../oakui/wc/OakCheckbox';
-import OakRadioGroup from '../../oakui/wc/OakRadioGroup';
 import { fetchAndSetExpenseItems } from '../../store/actions/ExpenseActions';
 
 interface Props {
@@ -82,9 +72,16 @@ const ManageFilterExpense = (props: Props) => {
     ManageFilterExpenseCommand.next(false);
   };
 
-  const handleChange = (detail: any, index: number) => {
+  const handleChange = (event: any, index: number) => {
     const _state = [...state];
-    _state[index] = { ..._state[index], [detail.name]: detail.value };
+    _state[index] = { ..._state[index], [event.currentTarget.name]: event.currentTarget.value };
+    setState([..._state]);
+  };
+
+  const handleCheckboxChange = (event: any, index: number) => {
+    console.log(event.target.name, event.target.checked, typeof event.target.checked);
+    const _state = [...state];
+    _state[index] = { ..._state[index], [event.target.name]: event.target.checked };
     setState([..._state]);
   };
 
@@ -103,24 +100,14 @@ const ManageFilterExpense = (props: Props) => {
 
   return (
     <>
-      <OakModal
+      <Modal
         isOpen={isOpen}
-        handleClose={handleClose}
-        backdropIntensity={3}
-        animationStyle="slide"
-        animationSpeed="normal"
-        height="auto"
-        width="auto"
-        heading="Manage filters"
+        onClose={handleClose}
       >
-        <div slot="body">
+        <ModalHeader onClose={handleClose} heading="Manage filters" />
+        <ModalBody>
           <div className="manage-filter-expense">
-            <table
-              className={compose({
-                color: 'surface',
-                dense: true,
-              })}
-            >
+            <table className="basicui-table">
               <thead>
                 <tr>
                   <th className="manage-filter-expense__column--name">
@@ -141,33 +128,34 @@ const ManageFilterExpense = (props: Props) => {
                 {state?.map((record: any, index: number) => (
                   <tr key={record._id}>
                     <td className="manage-filter-expense__column--name">
-                      <OakInput
-                        size="xsmall"
+                      <Input
                         name="name"
-                        handleInput={(detail: any) =>
-                          handleChange(detail, index)
+                        onInput={(event: any) =>
+                          handleChange(event, index)
                         }
                         value={record.name}
                       />
                     </td>
                     <td className="manage-filter-expense__column--selection">
                       <div>
-                        <OakCheckbox
+                        <Checkbox
+                          id=""
                           name="showInSummary"
-                          value={record.showInSummary}
-                          handleChange={(detail: any) =>
-                            handleChange(detail, index)
+                          defaultChecked={record.showInSummary}
+                          onInput={(event: any) =>
+                            handleCheckboxChange(event, index)
                           }
                         />
                       </div>
                     </td>
                     <td className="manage-filter-expense__column--selection">
                       <div>
-                        <OakCheckbox
+                        <Checkbox
+                          id=""
                           name="showInDashboard"
-                          value={record.showInDashboard}
-                          handleChange={(detail: any) =>
-                            handleChange(detail, index)
+                          defaultChecked={record.showInDashboard}
+                          onInput={(event: any) =>
+                            handleCheckboxChange(event, index)
                           }
                         />
                       </div>
@@ -175,21 +163,17 @@ const ManageFilterExpense = (props: Props) => {
                     <td className="manage-filter-expense__column--selection">
                       <div className="manage-filter-expense__action">
                         {appliedFilter._id !== record._id && (
-                          <OakButton
-                            handleClick={() => applyFilter(record)}
-                            theme="info"
-                            size="xsmall"
+                          <Button
+                            onClick={() => applyFilter(record)}
                           >
                             Apply
-                          </OakButton>
+                          </Button>
                         )}
-                        <OakButton
-                          handleClick={() => deleteFilter(record)}
-                          theme="info"
-                          size="xsmall"
+                        <Button
+                          onClick={() => deleteFilter(record)}
                         >
                           <FontAwesomeIcon icon={faTrash} />
-                        </OakButton>
+                        </Button>
                       </div>
                     </td>
                   </tr>
@@ -197,16 +181,16 @@ const ManageFilterExpense = (props: Props) => {
               </tbody>
             </table>
           </div>
-        </div>
-        <div slot="footer">
+        </ModalBody>
+        <ModalFooter>
           <div className="manage-filter-expense-footer">
-            <OakButton handleClick={save} theme="primary" variant="regular">
+            <Button onClick={save} >
               <FontAwesomeIcon icon={faChevronRight} />
               Save
-            </OakButton>
+            </Button>
           </div>
-        </div>
-      </OakModal>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };

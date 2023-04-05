@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Button } from 'basicui';
 
 import './style.scss';
 import { newId } from '../../../events/MessageService';
 import Topbar from '../../../components/Topbar';
 import ManageCategory from './ManageCategory';
 import EditCategoryCommand from '../../../events/EditCategoryCommand';
-import OakButton from '../../../oakui/wc/OakButton';
 import ManageTag from './ManageTag';
 import EditCategory from '../../../components/EditCategory';
 import EditIncomeCategory from '../../../components/EditIncomeCategory';
@@ -52,20 +52,20 @@ const CategoryItem = (props: Props) => {
           <div className="category-page__main__category page-width content-section">
             <div className="page-title">
               <div className="">Expense categories</div>
-              <OakButton handleClick={addNewCategory}>
+              <Button onClick={addNewCategory}>
                 <FontAwesomeIcon icon={faPlus} />
                 New
-              </OakButton>
+              </Button>
             </div>
             <ManageCategory space={props.space} location={props.location} />
           </div>
           <div className="category-page__main__category page-width content-section">
             <div className="page-title">
               <div className="">Income categories</div>
-              <OakButton handleClick={addNewIncomeCategory}>
+              <Button onClick={addNewIncomeCategory}>
                 <FontAwesomeIcon icon={faPlus} />
                 New
-              </OakButton>
+              </Button>
             </div>
             <ManageIncomeCategory
               space={props.space}
@@ -75,10 +75,10 @@ const CategoryItem = (props: Props) => {
           <div className="category-page__main__tag page-width content-section">
             <div className="page-title">
               <div className="">Tags</div>
-              <OakButton handleClick={addNewTag}>
+              <Button onClick={addNewTag}>
                 <FontAwesomeIcon icon={faPlus} />
                 New
-              </OakButton>
+              </Button>
             </div>
             <ManageTag space={props.space} location={props.location} />
           </div>

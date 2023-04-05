@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as _ from 'lodash';
-import OakSelect from '../../../oakui/wc/OakSelect';
+import { Input, Select, SelectPropsConverter } from 'basicui';
 import { newId } from '../../../events/MessageService';
 import StatisticsPayloadModel from '../../../model/StatisticsPayloadModel';
-import OakInput from '../../../oakui/wc/OakInput';
 import CategoryDistribution from '../../DashboardElements/CategoryDistribution';
 import Topbar from '../../Topbar';
 import './style.scss';
@@ -45,12 +44,7 @@ const DashboardPage = (props: Props) => {
   );
   const authorization = useSelector((state: any) => state.authorization);
   const [formId, setFormId] = useState(newId());
-  const [dropdown, setDropdown] = useState([
-    {
-      id: 'custom',
-      value: 'Custom date range',
-    },
-  ]);
+  const [dropdown, setDropdown] = useState({ 'custom': 'Custom date range' });
 
   const [state, setState] = useState<StatisticsPayloadModel>({
     option: 'custom',
@@ -113,16 +107,11 @@ const DashboardPage = (props: Props) => {
   // }, [authorization]);
 
   useEffect(() => {
-    const _dropdown = filterExpenseList?.map((item: any) => {
-      return {
-        id: item._id,
-        value: item.name,
-      };
+    const _dropdown: any = {};
+    filterExpenseList?.forEach((item: any) => {
+      _dropdown[item._id] = item.name;
     });
-    _dropdown.push({
-      id: 'custom',
-      value: 'Custom date range',
-    });
+    _dropdown['custom'] = 'Custom date range';
     setDropdown(_dropdown);
   }, [filterExpenseList]);
 
@@ -136,10 +125,10 @@ const DashboardPage = (props: Props) => {
     }
   }, [categories]);
 
-  const handleChange = (detail: any) => {
+  const handleChange = (event: any) => {
     setState({
       ...state,
-      [detail.name]: detail.value,
+      [event.currentTarget.name]: event.currentTarget.value,
     });
   };
 
@@ -158,40 +147,28 @@ const DashboardPage = (props: Props) => {
 
       <div className="main-section dashboard-page__main">
         <div className="dashboard-page__main__criteria">
-          <OakSelect
+          <Select
             name="option"
-            value={state.option}
-            formGroupName={formId}
-            handleInput={handleChange}
-            size="large"
-            color="container"
+            value={[state.option]}
+            onInput={handleChange}
             placeholder="From"
-            shape="rectangle"
-            optionsAsKeyValue={dropdown}
+            options={SelectPropsConverter.optionsFromObject(dropdown)}
           />
           {state.option === 'custom' && (
             <>
-              <OakInput
+              <Input
                 name="from"
                 value={state.from}
-                formGroupName={formId}
                 type="month"
-                handleInput={handleChange}
-                size="large"
-                color="container"
+                onInput={handleChange}
                 placeholder="From"
-                shape="rectangle"
               />
-              <OakInput
+              <Input
                 name="to"
                 value={state.to}
-                formGroupName={formId}
                 type="month"
-                handleInput={handleChange}
-                size="large"
-                color="container"
+                onInput={handleChange}
                 placeholder="To"
-                shape="rectangle"
               />
             </>
           )}

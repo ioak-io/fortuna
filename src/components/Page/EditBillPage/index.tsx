@@ -4,25 +4,22 @@ import { useNavigate } from 'react-router';
 import { addDays, format } from 'date-fns';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from 'basicui';
 import './style.scss';
 import ReceiptModel from '../../../model/ReceiptModel';
 import ExpenseModel from '../../../model/ExpenseModel';
 import BillDetails from './BillDetails';
 import ExpenseItems from './ExpenseItems';
-import OakButton from '../../../oakui/wc/OakButton';
 import { newId } from '../../../events/MessageService';
-import OakForm from '../../../oakui/wc/OakForm';
 import { isEmptyAttributes, isEmptyOrSpaces } from '../../../components/Utils';
 import { saveBill, getBillById } from './service';
 import {
   FORTUNA_PREF_ADDBILL_ANOTHER,
   FORTUNA_PREF_ADDBILL_DATE,
 } from '../../../constants/SessionStorageConstants';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import Topbar from '../../../components/Topbar';
 import { updateExpenseItems } from '../../../store/actions/ExpenseActions';
 import { updateReceiptItems } from '../../../store/actions/ReceiptActions';
-import { useSearchParams } from 'react-router-dom';
 
 const EMPTY_EXPENSE: ExpenseModel = {
   amount: undefined,
@@ -127,9 +124,9 @@ const EditBillPage = (props: Props) => {
     items.forEach((item: ExpenseModel, index: number) => {
       _errorInItemList.push(
         (index !== items.length - 1 || index === 0) &&
-          (isEmptyOrSpaces(item.description) ||
-            (item.amount && item.amount < 1) ||
-            isEmptyOrSpaces(item.category))
+        (isEmptyOrSpaces(item.description) ||
+          (item.amount && item.amount < 1) ||
+          isEmptyOrSpaces(item.category))
       );
     });
     const _state = { ...state, items };
@@ -188,7 +185,6 @@ const EditBillPage = (props: Props) => {
   return (
     <div className="edit-bill-page page-animate">
       <Topbar title={queryParam.id ? 'Edit bill' : 'New bill'}>right</Topbar>
-      {/* <OakForm formGroupName={formId} handleSubmit={save}> */}
       <div className="edit-bill-page__main main-section">
         <div className="edit-bill-page__main__bill page-width content-section">
           <BillDetails
@@ -207,56 +203,36 @@ const EditBillPage = (props: Props) => {
           />
         </div>
       </div>
-      {/* </OakForm> */}
       <div className="footer">
         <div className="edit-bill-page__footer__left">
           {/* {!queryParam.id && (
-            <OakCheckbox
+            <Checkbox
               name="addAnother"
               value={addAnother}
               handleChange={toggleAddAnother}
             >
               Add another
-            </OakCheckbox>
+            </Checkbox>
           )} */}
         </div>
         <div className="footer-right">
-          {/* <OakButton
-            theme="primary"
-            variant="regular"
-            type="submit"
-            formGroupName={formId}
-            handleClick={save}
-          >
-            <FontAwesomeIcon icon={faCheck} />
-            {!addAnother || queryParam.id
-              ? 'Save and go back'
-              : 'Save and create another bill'}
-          </OakButton> */}
-          <OakButton
-            theme="primary"
-            variant="regular"
-            handleClick={saveAndClose}
+          <Button
+            onClick={saveAndClose}
           >
             <FontAwesomeIcon icon={faCheck} />
             Save and close
-          </OakButton>
+          </Button>
           {!queryParam.id && (
-            <OakButton
-              theme="primary"
-              variant="regular"
-              handleClick={saveAndAddAnother}
+            <Button
+              onClick={saveAndAddAnother}
             >
               <FontAwesomeIcon icon={faCheck} />
               Save and add another
-            </OakButton>
+            </Button>
           )}
-          {/* <OakButton theme="info" variant="regular" handleClick={save}>
-            <FontAwesomeIcon icon={faCheck} /> Save and Close
-          </OakButton> */}
-          <OakButton theme="info" variant="regular" handleClick={goBack}>
+          <Button onClick={goBack}>
             <FontAwesomeIcon icon={faTimes} />
-          </OakButton>
+          </Button>
         </div>
       </div>
     </div>

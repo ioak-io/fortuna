@@ -10,14 +10,10 @@ import {
   faFileImport,
   faSkullCrossbones,
 } from '@fortawesome/free-solid-svg-icons';
+import { Input, Button, Checkbox } from 'basicui';
 import './BackupAndRestore.scss';
 import { newId } from '../../../events/MessageService';
-import CompanyModel from '../../../model/CompanyModel';
-import OakInput from '../../../oakui/wc/OakInput';
-import OakForm from '../../../oakui/wc/OakForm';
 import * as service from './service';
-import OakButton from '../../../oakui/wc/OakButton';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import RunLog from './RunLog';
 import { isEmptyAttributes } from '../../../components/Utils';
 import {
@@ -68,8 +64,8 @@ const BackupAndRestore = (props: Props) => {
     }
   }, [authorization]);
 
-  const handleChange = (detail: any) => {
-    setState({ ...state, [detail.name]: detail.value });
+  const handleChange = (event: any) => {
+    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const handleRunLogChange = (_data: any) => {
@@ -169,30 +165,27 @@ const BackupAndRestore = (props: Props) => {
             <div className="page-title">Data export</div>
             <div>Export all expense data available in the system so far</div>
             <div className="backup-and-restore__section__action">
-              <OakButton handleClick={exportExpenseFile} theme="primary">
+              <Button onClick={exportExpenseFile}>
                 <FontAwesomeIcon icon={faFileExport} />
                 Export
-              </OakButton>
+              </Button>
             </div>
           </div>
           <div className="content-section">
             <div className="page-title">Data import</div>
             <div>
-              <OakInput
+              <Input
                 name="expenseImportFile"
                 type="file"
                 value={state.file}
-                formGroupName={formId}
-                handleInput={handleChange}
-                size="small"
-                color="container"
+                onInput={handleChange}
               />
               {state.expenseImportFile?.length > 0 && (
                 <div className="backup-and-restore__section__action">
-                  <OakButton handleClick={importExpenseFile} theme="primary">
+                  <Button onClick={importExpenseFile}>
                     <FontAwesomeIcon icon={faFileImport} />
                     Import
-                  </OakButton>
+                  </Button>
                 </div>
               )}
             </div>
@@ -213,10 +206,10 @@ const BackupAndRestore = (props: Props) => {
               of the data before performing this action.
             </div>
             <div className="backup-and-restore__section__action">
-              <OakButton handleClick={() => {}} theme="danger" variant="appear">
+              <Button onClick={() => { }}>
                 <FontAwesomeIcon icon={faSkullCrossbones} />
                 Delete all data
-              </OakButton>
+              </Button>
             </div>
           </div>
         </div>

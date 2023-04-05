@@ -77,8 +77,6 @@ const Notification = () => {
             ))}
         </div>
       )}
-      {/* {spinner && <div data-test="spinner" className="lds-dual-ring" />} */}
-      {/* {spinner && <OakSpinner data-test="spinner" />} */}
     </>
   );
 };

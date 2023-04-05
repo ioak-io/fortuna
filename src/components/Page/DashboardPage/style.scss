@@ -1,5 +1,4 @@
-.dashboard-page {
-}
+.dashboard-page {}
 
 .dashboard-page__main {
   display: grid;
@@ -42,5 +41,9 @@
 }
 
 .dashboard-page__main__chart {
-  background-color: var(--color-surface);
+  background-color: var(--theme-white-50);
+}
+
+.basicui-dark .dashboard-page__main__chart {
+  background-color: var(--theme-black-200);
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './style.scss';
 import LoginMethod from './LoginMethod';
-import OakSection from '../../oakui/wc/OakSection';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 interface Props {
@@ -45,7 +44,7 @@ const Login = (props: Props) => {
   }, [searchParams]);
 
   return (
-    <OakSection>
+    <div>
       Sign in
       <br />
       Choose the preferred authentication method to continue
@@ -70,7 +69,7 @@ const Login = (props: Props) => {
           </div>
         </div>
       </div>
-    </OakSection>
+    </div>
   );
 };
 

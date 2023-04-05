@@ -27,8 +27,8 @@ const KakeiboSelection = (props: Props) => {
     }
   }, [searchText]);
 
-  const handleChange = (detail: any) => {
-    setSearchText(detail.value);
+  const handleChange = (event: any) => {
+    setSearchText(event.currentTarget.value);
   };
 
   const handleCategoryChange = (category: any) => {

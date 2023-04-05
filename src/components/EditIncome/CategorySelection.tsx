@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import OakInput from '../../oakui/wc/OakInput';
+import { Input } from 'basicui';
 import CategoryChip from '../CategoryChip';
 
 import './CategorySelection.scss';
@@ -29,8 +29,8 @@ const CategorySelection = (props: Props) => {
     }
   }, [categories, searchText]);
 
-  const handleChange = (detail: any) => {
-    setSearchText(detail.value);
+  const handleChange = (event: any) => {
+    setSearchText(event.currentTarget.value);
   };
 
   const handleCategoryChange = (category: any) => {
@@ -42,15 +42,11 @@ const CategorySelection = (props: Props) => {
       <label>Category</label>
       {categories && categories.length > 10 && (
         <div className="category-selection__search">
-          <OakInput
+          <Input
             name="searchText"
             value={searchText}
-            gutterBottom
-            handleInput={handleChange}
-            size="large"
-            color="container"
+            onInput={handleChange}
             placeholder="Search category"
-            shape="underline"
           />
         </div>
       )}

@@ -95,16 +95,16 @@ const Content = (props: Props) => {
 
   // useEffect(() => {
   //   Chart.defaults.global.defaultFontColor =
-  //     profile.theme === 'theme_dark' ? '#e0e0e0' : '#626262';
+  //     profile.theme === 'basicui-dark' ? '#e0e0e0' : '#626262';
   // }, [profile]);
 
-  const handleClose = (detail: any) => {
-    switch (detail.name) {
+  const handleClose = (event: any) => {
+    switch (event.currentTarget.name) {
       case 'left':
-        dispatch(setProfile({ ...profile, sidebar: !detail.value }));
+        dispatch(setProfile({ ...profile, sidebar: !event.currentTarget.value }));
         break;
       case 'right':
-        dispatch(setProfile({ ...profile, rightSidebar: !detail.value }));
+        dispatch(setProfile({ ...profile, rightSidebar: !event.currentTarget.value }));
         break;
       default:
         break;
@@ -116,42 +116,7 @@ const Content = (props: Props) => {
       <HashRouter>
         <Init />
         <Spinner />
-        {/* <Notification /> */}
-        {/* <OakNotification
-            indicator="fill"
-            outlined
-            rounded
-            elevation={5}
-            displayCount={5}
-          /> */}
-
-        {/* <OakAppLayout
-            topbarVariant="auto"
-            sidebarVariant="none"
-            topbarColor="custom"
-            topbarElevation={0}
-            sidebarElevation={2}
-            sidebarToggleIconVariant="chevron"
-          > */}
-        {/* <div slot="sidebar">
-              <SidebarContainer />
-            </div> */}
-        {/* <div slot="toolbar">
-              <TopbarContainer cookies={props.cookies} />
-            </div> */}
-        {/* <div slot="main"> */}
-        {/* <TopbarContainer cookies={props.cookies} /> */}
-        {/* {!hideNav && (
-                <NavigationContainer
-                  cookies={props.cookies}
-                  space={space}
-                  transparent={transparentNav}
-                />
-              )}
-              <BodyContainer {...props} /> */}
         <MainContent space={space} />
-        {/* </div> */}
-        {/* </OakAppLayout> */}
       </HashRouter>
     </div>
   );

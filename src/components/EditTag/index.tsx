@@ -6,19 +6,15 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
-import OakModal from '../../oakui/wc/OakModal';
+import { Input, Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'basicui';
 import EditTagCommand from '../../events/EditTagCommand';
 import {
   receiveMessage,
   sendMessage,
   newId,
 } from '../../events/MessageService';
-import OakForm from '../../oakui/wc/OakForm';
-import OakInput from '../../oakui/wc/OakInput';
 
 import './style.scss';
-import OakSelect from '../../oakui/wc/OakSelect';
-import OakButton from '../../oakui/wc/OakButton';
 
 import { saveTag } from './service';
 import { updateTagItem } from '../../store/actions/TagActions';
@@ -58,8 +54,8 @@ const EditTag = (props: Props) => {
     EditTagCommand.next({ open: false });
   };
 
-  const handleChange = (detail: any) => {
-    setState({ ...state, [detail.name]: detail.value });
+  const handleChange = (event: any) => {
+    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const updatekakeibo = (kakeibo: string) => {
@@ -75,30 +71,19 @@ const EditTag = (props: Props) => {
 
   return (
     <>
-      <OakModal
+      <Modal
         isOpen={isOpen}
-        handleClose={handleClose}
-        backdropIntensity={3}
-        animationStyle="slide"
-        animationSpeed="normal"
-        height="auto"
-        width="auto"
-        heading={state._id ? 'Edit tag' : 'New tag'}
+        onClose={handleClose}
       >
-        <div slot="body">
+        <ModalHeader heading={state._id ? 'Edit tag' : 'New tag'} onClose={handleClose} />
+        <ModalBody>
           <div className="edit-tag">
             {isOpen && (
-              // <OakForm formGroupName={formId} handleSubmit={save}>
               <div className="edit-tag__form">
-                <OakInput
+                <Input
                   name="name"
                   value={state.name}
-                  formGroupName={formId}
-                  gutterBottom
-                  handleInput={handleChange}
-                  size="large"
-                  color="container"
-                  shape="rectangle"
+                  onInput={handleChange}
                   label="Tag name"
                   autofocus
                 />
@@ -106,22 +91,18 @@ const EditTag = (props: Props) => {
               // </OakForm>
             )}
           </div>
-        </div>
-        <div slot="footer">
+        </ModalBody>
+        <ModalFooter>
           <div className="edit-tag-footer">
-            <OakButton
-              // formGroupName={formId}
-              handleClick={save}
-              // type="submit"
-              theme="primary"
-              variant="regular"
+            <Button
+              onClick={save}
             >
               <FontAwesomeIcon icon={faChevronRight} />
               Save
-            </OakButton>
+            </Button>
           </div>
-        </div>
-      </OakModal>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };

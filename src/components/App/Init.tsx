@@ -86,11 +86,14 @@ const Init = () => {
   // }, [profile]);
 
   useEffect(() => {
-    console.log('profile.theme');
-    if (profile.theme === 'theme_light') {
-      document.body.style.backgroundColor = 'var(--color-global-lightmode)';
+    if (profile.theme === 'basicui-light') {
+      document.body.classList.add("basicui-light");
+      document.body.classList.remove("basicui-dark");
+      // document.body.style.backgroundColor = 'var(--theme-white-50)';
     } else {
-      document.body.style.backgroundColor = 'var(--color-global-darkmode)';
+      document.body.classList.add("basicui-dark");
+      document.body.classList.remove("basicui-light");
+      // document.body.style.backgroundColor = 'var(--theme-black-800)';
     }
   }, [profile.theme]);
 
@@ -108,7 +111,7 @@ const Init = () => {
     if (colorMode || sidebarStatus) {
       dispatch(
         setProfile({
-          theme: colorMode || 'theme_dark',
+          theme: colorMode || 'basicui-dark basicui-dark',
           sidebar: sidebarStatus === 'expanded',
         })
       );

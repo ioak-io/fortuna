@@ -4,21 +4,15 @@ import { useNavigate } from 'react-router';
 import { addDays, format } from 'date-fns';
 import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from 'basicui';
+
 import './style.scss';
-import ReceiptModel from '../../../model/ReceiptModel';
 import ExpenseModel from '../../../model/ExpenseModel';
 import ScheduleReceiptItems from './ScheduleReceiptItems';
 import ScheduleReceiptDetails from './ScheduleReceiptDetails';
-import OakButton from '../../../oakui/wc/OakButton';
 import { newId } from '../../../events/MessageService';
-import OakForm from '../../../oakui/wc/OakForm';
 import { isEmptyAttributes, isEmptyOrSpaces } from '../../../components/Utils';
 import { saveScheduleReceipt, getReceiptById } from './service';
-import {
-  FORTUNA_PREF_ADDBILL_ANOTHER,
-  FORTUNA_PREF_ADDBILL_DATE,
-} from '../../../constants/SessionStorageConstants';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import Topbar from '../../../components/Topbar';
 import ScheduleReceiptItemModel from '../../../model/ScheduleReceiptItemModel';
 import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
@@ -128,10 +122,10 @@ const EditScheduleReceiptPage = (props: Props) => {
     items.forEach((item: ExpenseModel, index: number) => {
       _errorInItemList.push(
         (index !== items.length - 1 || index === 0) &&
-          (isEmptyOrSpaces(item.description) ||
-            !item.amount ||
-            (item.amount && item.amount < 1) ||
-            isEmptyOrSpaces(item.category))
+        (isEmptyOrSpaces(item.description) ||
+          !item.amount ||
+          (item.amount && item.amount < 1) ||
+          isEmptyOrSpaces(item.category))
       );
     });
 
@@ -204,7 +198,6 @@ const EditScheduleReceiptPage = (props: Props) => {
       >
         right
       </Topbar>
-      {/* <OakForm formGroupName={formId} handleSubmit={save}> */}
       <div className="edit-schedule-receipt-page__main main-section">
         <div className="edit-schedule-receipt-page__main__receipt page-width content-section">
           <ScheduleReceiptDetails
@@ -226,13 +219,13 @@ const EditScheduleReceiptPage = (props: Props) => {
       <div className="footer">
         <div className="edit-schedule-receipt-page__footer__left" />
         <div className="footer-right">
-          <OakButton theme="primary" variant="regular" handleClick={save}>
+          <Button onClick={save}>
             <FontAwesomeIcon icon={faCheck} />
             Save and close
-          </OakButton>
-          <OakButton theme="info" variant="regular" handleClick={goBack}>
+          </Button>
+          <Button onClick={goBack}>
             <FontAwesomeIcon icon={faTimes} />
-          </OakButton>
+          </Button>
         </div>
       </div>
     </div>

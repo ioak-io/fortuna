@@ -10,11 +10,10 @@ import {
   faFileExport,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import { compose } from '@oakui/core-stage/style-composer/OakTableComposer';
-import OakInput from '../../../oakui/wc/OakInput';
+import {Button} from 'basicui';
 
 import './RunLog.scss';
-import OakButton from '../../../oakui/wc/OakButton';
+
 import { deleteTransactions, getLog } from './service';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
 
@@ -55,25 +54,18 @@ const RunLog = (props: Props) => {
       <div className="page-title">
         <div>Import log</div>
         <div className="desktop-only">
-          <OakButton
-            theme="info"
-            variant="regular"
-            handleClick={() => {
+          <Button
+           onClick={() => {
               setDenseView(!denseView);
             }}
             size="small"
           >
             <FontAwesomeIcon icon={denseView ? faExpandAlt : faCompressAlt} />
-          </OakButton>
+          </Button>
         </div>
       </div>
       <div className="backup-runlog__main">
-        <table
-          className={compose({
-            color: 'surface',
-            dense: denseView,
-          })}
-        >
+        <table className="basicui-table">
           <thead>
             <tr>
               <th>Date</th>

@@ -3,15 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { compose } from '@oakui/core-stage/style-composer/OakTableComposer';
+import { Button, Input } from 'basicui';
 
 import './Permissions.scss';
 import { newId } from '../../../events/MessageService';
-import CompanyModel from '../../../model/CompanyModel';
-import OakInput from '../../../oakui/wc/OakInput';
-import OakForm from '../../../oakui/wc/OakForm';
-import { saveCompany } from '../EditCompanyPage/service';
-import OakButton from '../../../oakui/wc/OakButton';
 import { getUserInvite, sendUserInvite } from './service';
 import Topbar from '../../../components/Topbar';
 
@@ -45,8 +40,8 @@ const Permissions = (props: Props) => {
     }
   }, [authorization]);
 
-  const handleChange = (detail: any) => {
-    setState({ ...state, [detail.name]: detail.value });
+  const handleChange = (event: any) => {
+    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const addUser = (event: any) => {
@@ -68,32 +63,23 @@ const Permissions = (props: Props) => {
       <Topbar title="User administration" />
       <div className="main-section">
         <div className="permissions page-width content-section">
-          <OakForm formGroupName={formId} handleSubmit={addUser}>
+          <form id={formId} onSubmit={addUser}>
             <div className="permissions__form">
-              <OakInput
+              <Input
                 name="email"
                 value={state.email}
-                formGroupName={formId}
-                handleInput={handleChange}
-                size="small"
-                color="container"
-                regexp={/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/}
+                onInput={handleChange}
                 placeholder="Invite an user by e-mail"
                 autofocus
                 required
               />
-              <OakButton formGroupName={formId} type="submit">
+              <Button type="submit" onClick={addUser}>
                 Invite user
-              </OakButton>
+              </Button>
             </div>
-          </OakForm>
+          </form>
           <div className="permissions__list">
-            <table
-              className={compose({
-                color: 'surface',
-                dense: true,
-              })}
-            >
+            <table className="basicui-table">
               <thead>
                 <tr>
                   <th>First name</th>

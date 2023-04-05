@@ -28,8 +28,8 @@ const CategorySelection = (props: Props) => {
     }
   }, [props.categories, searchText]);
 
-  const handleChange = (detail: any) => {
-    setSearchText(detail.value);
+  const handleChange = (event: any) => {
+    setSearchText(event.currentTarget.value);
   };
 
   const handleCategoryChange = (category: any) => {

@@ -1,18 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addDays, format } from 'date-fns';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faChevronLeft,
-  faChevronRight,
-  faExclamationTriangle,
-} from '@fortawesome/free-solid-svg-icons';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
-import OakInput from '../../../oakui/wc/OakInput';
+import {Input} from 'basicui';
 
 import './BudgetItems.scss';
-import OakSelect from '../../../oakui/wc/OakSelect';
-import ExpenseModel from '../../../model/ExpenseModel';
 import BudgetModel from '../../../model/BudgetModel';
 
 interface Props {
@@ -36,18 +26,18 @@ const BudgetItems = (props: Props) => {
     setBudgetMap(_budgetMap);
   }, [props.data]);
 
-  const handleChange = (detail: any, record: any, monthNumber: number) => {
+  const handleChange = (event: any, record: any, monthNumber: number) => {
     const _data = [...props.data];
     const index = _data.findIndex(
       (item) => item.categoryId === record._id && item.month === monthNumber
     );
     if (index > -1) {
-      _data[index] = { ..._data[index], amount: detail.value };
+      _data[index] = { ..._data[index], amount: event.currentTarget.value };
     } else {
       _data.push({
         year: props.year,
         month: monthNumber,
-        amount: detail.value,
+        amount: event.currentTarget.value,
         categoryId: record._id,
       });
     }
@@ -57,12 +47,7 @@ const BudgetItems = (props: Props) => {
   return (
     <div className="budget-items">
       <div className="budget-items__main">
-        <table
-          className={tableCompose({
-            color: 'surface',
-            dense: false,
-          })}
-        >
+        <table className="basicui-table">
           <thead>
             <tr>
               <th>Category</th>
@@ -86,20 +71,13 @@ const BudgetItems = (props: Props) => {
                 <td>{record.name}</td>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((monthNumber) => (
                   <td>
-                    <OakInput
+                    <Input
                       name="amount"
                       type="number"
                       value={budgetMap[`${monthNumber}-${record._id}`]?.amount}
-                      formGroupName={props.formId}
-                      handleInput={(detail: any) =>
-                        handleChange(detail, record, monthNumber)
+                     onInput={(event: any) =>
+                        handleChange(event, record, monthNumber)
                       }
-                      size="small"
-                      color="container"
-                      // autofocus={props.data.length - 1 === index}
-                      // minLength={
-                      //   index === 0 || index !== props.data.length - 1 ? 1 : 0
-                      // }
                     />
                   </td>
                 ))}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import OakButton from '../../oakui/wc/OakButton';
+import { Button } from 'basicui';
 
 import './ChangeAsset.scss';
 
@@ -40,13 +40,11 @@ const ChangeAsset = (props: Props) => {
     <div className="change-asset">
       {currentAsset && <div>{currentAsset.name}</div>}
       <div>
-        <OakButton
-          handleClick={goToChangeAssetPage}
-          theme="secondary"
-          variant="appear"
+        <Button
+          onClick={goToChangeAssetPage}
         >
           {currentAsset ? 'Change company' : 'Choose company'}
-        </OakButton>
+        </Button>
       </div>
     </div>
   );

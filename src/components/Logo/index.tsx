@@ -21,10 +21,10 @@ const Logo = (props: Props) => {
   return (
     <div className="logo">
       <div className="logo--image">
-        {profile.theme === 'theme_light' && (
+        {profile.theme === 'basicui-light' && (
           <img src={fortunaWhiteSmall} alt="Fortuna logo" />
         )}
-        {profile.theme !== 'theme_light' && (
+        {profile.theme !== 'basicui-light' && (
           <img src={fortunaWhiteSmall} alt="Fortuna logo" />
         )}
       </div>

@@ -12,7 +12,7 @@ import {
   faTrash,
   faWrench,
 } from '@fortawesome/free-solid-svg-icons';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
+import { Button, Input, Checkbox } from 'basicui';
 
 import './DuplicateLineItem.scss';
 import {
@@ -21,12 +21,6 @@ import {
   fixDuplicateLineItem,
   getDuplicateLineItem,
 } from './service';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
-import OakButton from '../../../oakui/wc/OakButton';
-import {
-  fetchAndAppendReceiptItems,
-  fetchAndSetReceiptItems,
-} from '../../../store/actions/ReceiptActions';
 import { formatCurrencyByCompanyDetail } from '../../../components/CurrencyUtils';
 import TableHeader from '../../../components/TableHeader';
 
@@ -178,45 +172,35 @@ const DuplicateLineItem = (props: Props) => {
         </div>
         <div className="duplicate-receipt__action__right">
           {checkedRecords.length > 0 && (
-            <OakButton
-              handleClick={fixDuplicates}
-              variant="regular"
-              // theme="danger"
-              size="small"
+            <Button
+              onClick={fixDuplicates}
             >
               <FontAwesomeIcon icon={faWrench} /> Fix ({checkedRecords.length})
-            </OakButton>
+            </Button>
           )}
           <div className="desktop-only">
-            <OakButton
-              theme="info"
-              variant="regular"
-              handleClick={() => {
+            <Button
+              onClick={() => {
                 setDenseView(!denseView);
               }}
-              size="small"
             >
               <FontAwesomeIcon icon={denseView ? faExpandAlt : faCompressAlt} />
-            </OakButton>
+            </Button>
           </div>
         </div>
       </div>
       <div className="content-section duplicate-receipt">
-        <table
-          className={tableCompose({
-            color: 'surface',
-            dense: denseView,
-          })}
-        >
+        <table className="basicui-table">
           <thead>
             <tr>
               <th className="duplicate-receipt__column duplicate-receipt__column--selection">
-                <OakCheckbox
+                <Checkbox
+                  id=""
                   name="check"
                   value={
                     checkedRecords.length === data.length && data.length > 0
                   }
-                  handleChange={toggleAll}
+                  onInput={toggleAll}
                 />
               </th>
               <th className="duplicate-receipt__column">
@@ -266,10 +250,11 @@ const DuplicateLineItem = (props: Props) => {
               <tr key={record._id}>
                 <td className="duplicate-receipt__column duplicate-receipt__column--selection">
                   <div>
-                    <OakCheckbox
+                    <Checkbox
+                      id=""
                       name="check"
                       value={checkedRecords.includes(index)}
-                      handleChange={() => toggleCheckedState(index)}
+                      onInput={() => toggleCheckedState(index)}
                     />
                   </div>
                 </td>

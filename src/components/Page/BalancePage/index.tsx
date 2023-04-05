@@ -4,31 +4,23 @@ import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheck,
-  faChevronCircleLeft,
-  faChevronCircleRight,
-  faChevronLeft,
   faChevronRight,
   faPlus,
   faTimes,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import OakButton from '../../../oakui/wc/OakButton';
+import { Button, Input, Select, Modal, ModalBody, ModalFooter, ModalHeader } from 'basicui';
 import Topbar from '../../../components/Topbar';
 import './style.scss';
 import { newId } from '../../../events/MessageService';
-import OakForm from '../../../oakui/wc/OakForm';
-import OakInput from '../../../oakui/wc/OakInput';
-import CompanyModel from '../../../model/CompanyModel';
 import {
   getAccount,
   saveAccount,
   getAccountScope,
   saveAccountScope,
 } from './service';
-import OakSelect from '../../../oakui/wc/OakSelect';
 import AccountItems from './AccountItems';
 import AccountModel from '../../../model/AccountModel';
-import OakModal from '../../../oakui/wc/OakModal';
 import AccountTypeChip from './AccountTypeChip';
 import AccountScope from './AccountScope';
 import AccountScopeModel from '../../../model/AccountScopeModel';
@@ -118,8 +110,8 @@ const BalancePage = (props: Props) => {
     setCurrentIndex(-1);
   };
 
-  const handleMetaChange = (detail: any) => {
-    setCurrentItem({ ...currentItem, [detail.name]: detail.value });
+  const handleMetaChange = (event: any) => {
+    setCurrentItem({ ...currentItem, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const handleMetaSave = () => {
@@ -152,9 +144,9 @@ const BalancePage = (props: Props) => {
         <div className="balance-page__main main-section content-section">
           <div className="page-title">
             <div className="">Accounts</div>
-            <OakButton handleClick={addAccount}>
+            <Button onClick={addAccount}>
               <FontAwesomeIcon icon={faPlus} />
-            </OakButton>
+            </Button>
           </div>
           <AccountItems
             data={state}
@@ -167,44 +159,31 @@ const BalancePage = (props: Props) => {
         <div className="footer">
           <div />
           <div className="footer-right">
-            <OakButton
-              theme="primary"
-              variant="regular"
-              handleClick={save}
-              formGroupName={formId}
+            <Button
+              onClick={save}
             >
               <FontAwesomeIcon icon={faCheck} />
               Save
-            </OakButton>
-            <OakButton theme="info" variant="regular" handleClick={goBack}>
+            </Button>
+            <Button onClick={goBack}>
               <FontAwesomeIcon icon={faTimes} />
-            </OakButton>
+            </Button>
           </div>
         </div>
       </div>
-      <OakModal
+      <Modal
         isOpen={isOpen}
-        handleClose={handleClose}
-        backdropIntensity={3}
-        animationStyle="slide"
-        animationSpeed="normal"
-        height="auto"
-        width="auto"
-        heading="New expense"
+        onClose={handleClose}
       >
-        <div slot="body">
+        <ModalHeader heading='New expense' onClose={handleClose} />
+        <ModalBody>
           <div className="add-expense">
-            {/* <OakForm formGroupName={formId} handleSubmit={save}> */}
             {isOpen && (
               <div className="form">
-                <OakInput
+                <Input
                   name="name"
                   value={currentItem.name}
-                  formGroupName={formId}
-                  handleInput={handleMetaChange}
-                  size="large"
-                  color="container"
-                  shape="rectangle"
+                  onInput={handleMetaChange}
                   label="Account name"
                   autofocus
                 />
@@ -224,30 +203,23 @@ const BalancePage = (props: Props) => {
                 </div>
               </div>
             )}
-            {/* </OakForm> */}
           </div>
-        </div>
-        <div slot="footer">
+        </ModalBody>
+        <ModalFooter>
           <div className="balance-page-footer">
-            <OakButton
-              formGroupName={formId}
-              theme="primary"
-              variant="regular"
-              handleClick={handleMetaSave}
+            <Button
+              onClick={handleMetaSave}
             >
               <FontAwesomeIcon icon={faChevronRight} /> Save
-            </OakButton>
-            <OakButton
-              formGroupName={formId}
-              theme="danger"
-              variant="regular"
-              handleClick={handleDelete}
+            </Button>
+            <Button
+              onClick={handleDelete}
             >
               <FontAwesomeIcon icon={faTrash} /> Delete
-            </OakButton>
+            </Button>
           </div>
-        </div>
-      </OakModal>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };

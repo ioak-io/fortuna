@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Input } from 'basicui';
 import { isEmptyOrSpaces } from '../../Utils';
 import { fetchSpace } from '../../Auth/AuthService';
 import SpaceItem from './SpaceItem';
 import './style.scss';
-import OakSpinner from '../../../oakui/OakSpinner';
-import OakInput from '../../../oakui/wc/OakInput';
-import OakSection from '../../../oakui/wc/OakSection';
 import { useSearchParams } from 'react-router-dom';
 
 interface Props {
@@ -48,10 +46,10 @@ const OneAuth = (props: Props) => {
     );
   };
 
-  const handleSearchCriteria = (detail: any) => {
+  const handleSearchCriteria = (event: any) => {
     setSearchCriteria({
       ...searchCriteria,
-      [detail.name]: detail.value,
+      [event.currentTarget.name]: event.currentTarget.value,
     });
   };
 
@@ -78,7 +76,7 @@ const OneAuth = (props: Props) => {
   };
 
   return (
-    <OakSection>
+    <div>
       <div className="view-asset-item">
         <div className="page-header">
           Login via Oneauth
@@ -89,12 +87,10 @@ const OneAuth = (props: Props) => {
           ))}
         </div>
 
-        {/* {loading && <OakSpinner />} */}
-
         {!loading && view && view.length > 0 && (
-          <OakInput
+          <Input
             label="Type company name to filter"
-            handleInput={handleSearchCriteria}
+            onInput={handleSearchCriteria}
             name="text"
             value={searchCriteria.text}
           />
@@ -119,7 +115,7 @@ const OneAuth = (props: Props) => {
           </div>
         </div>
       </div>
-    </OakSection>
+    </div>
   );
 };
 

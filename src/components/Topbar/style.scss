@@ -1,6 +1,6 @@
 .topbar {
-  background-color: var(--color-surface);
-  height: var(--oak-app-layout-topbar-height);
+  background-color: var(--theme-white-50);
+  height: var(--app-layout-topbar-height);
   display: grid;
   grid-template-columns: 1fr auto;
   column-gap: 10px;
@@ -8,6 +8,11 @@
   align-items: center;
   padding: 0 20px;
 }
+
+.basicui-dark .topbar {
+  background-color: var(--theme-black-200);
+}
+
 .topbar__left {
   font-size: 28px;
   display: grid;
@@ -21,6 +26,7 @@
     font-size: 24px;
   }
 }
+
 .topbar__right {
   display: grid;
   grid-auto-flow: column;

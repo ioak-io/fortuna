@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import {Input} from 'basicui';
 import './EditCompany.scss';
 import { newId } from '../../../events/MessageService';
 import CompanyModel from '../../../model/CompanyModel';
-import OakInput from '../../../oakui/wc/OakInput';
-import OakForm from '../../../oakui/wc/OakForm';
 import { saveCompany } from '../EditCompanyPage/service';
 import Topbar from '../../../components/Topbar';
 
@@ -41,8 +40,8 @@ const EditCompany = (props: Props) => {
     }
   }, [company]);
 
-  const handleChange = (detail: any) => {
-    setState({ ...state, [detail.name]: detail.value });
+  const handleChange = (event: any) => {
+    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const save = () => {
@@ -57,27 +56,21 @@ const EditCompany = (props: Props) => {
       <div className="main-section">
         <div className="edit-company page-width content-section">
           {company && (
-            <OakForm formGroupName={formId} handleSubmit={save}>
+            <form id={formId} onSubmit={save}>
               <div className="form">
                 <div className="form-two-column">
-                  <OakInput
+                  <Input
                     name="name"
                     value={state.name}
-                    formGroupName={formId}
-                    handleInput={handleChange}
-                    size="small"
-                    color="container"
+                    onInput={handleChange}
                     label="Company name"
                     autofocus
                     required
                   />
-                  <OakInput
+                  <Input
                     name="reference"
-                    value={state.reference}
-                    formGroupName={formId}
-                    handleInput={handleChange}
-                    size="small"
-                    color="container"
+                    value={state.reference || ''}
+                    onInput={handleChange}
                     label="Company ID"
                     disabled
                     tooltip={
@@ -85,39 +78,30 @@ const EditCompany = (props: Props) => {
                     }
                   />
                 </div>
-                <OakInput
+                <Input
                   name="description"
                   value={state.description}
-                  formGroupName={formId}
-                  handleInput={handleChange}
-                  size="small"
-                  color="container"
+                  onInput={handleChange}
                   label="Description"
                   type="textarea"
                   required
                 />
-                <OakInput
+                <Input
                   name="currency"
                   value={state.currency}
-                  formGroupName={formId}
-                  handleInput={handleChange}
-                  size="small"
-                  color="container"
+                  onInput={handleChange}
                   label="Currency"
                   required
                 />
-                <OakInput
+                <Input
                   name="numberFormat"
                   value={state.numberFormat}
-                  formGroupName={formId}
-                  handleInput={handleChange}
-                  size="small"
-                  color="container"
+                  onInput={handleChange}
                   label="Number format"
                   required
                 />
               </div>
-            </OakForm>
+            </form>
           )}
           {!company && (
             <div>Company details cannot be loaded at the moment</div>

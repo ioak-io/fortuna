@@ -16,7 +16,6 @@ const UnauthorizedPage = (props: Props) => {
   return (
     <div className="unauthorized-page">
       <Topbar title="Unauthorized">right</Topbar>
-      {/* <OakForm formGroupName={formId} handleSubmit={save}> */}
       <div className="unauthorized-page__main main-section page-width content-section">
         <div>
           Company file you are trying to open does not exist or you don't have

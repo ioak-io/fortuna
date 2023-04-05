@@ -2,21 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import { addDays, format } from 'date-fns';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from 'basicui';
 import './style.scss';
-import OakButton from '../../../oakui/wc/OakButton';
+
 import { newId } from '../../../events/MessageService';
-import OakForm from '../../../oakui/wc/OakForm';
 import { isEmptyAttributes, isEmptyOrSpaces } from '../../../components/Utils';
-import {
-  FORTUNA_PREF_ADDBILL_ANOTHER,
-  FORTUNA_PREF_ADDBILL_DATE,
-} from '../../../constants/SessionStorageConstants';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import Topbar from '../../../components/Topbar';
-import ScheduleReceiptItemModel from '../../../model/ScheduleReceiptItemModel';
 import ScheduleReceiptModel from '../../../model/ScheduleReceiptModel';
 import { getReceiptById } from '../EditScheduleReceiptPage/service';
 import Details from './Details';
@@ -76,7 +67,7 @@ const ScheduleReceiptRunbookPage = (props: Props) => {
   return (
     <div className="schedule-receipt-runbook-page">
       <Topbar title={data ? `${data.name} - Runbook` : ''}>
-        <OakButton handleClick={goToEditSchedule}>Edit schedule</OakButton>
+        <Button onClick={goToEditSchedule}>Edit schedule</Button>
       </Topbar>
       <div className="main-section schedule-receipt-runbook-page__main">
         <div className="schedule-receipt-runbook-page__main__section page-width content-section">

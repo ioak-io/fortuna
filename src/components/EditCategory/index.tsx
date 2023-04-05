@@ -6,19 +6,15 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
-import OakModal from '../../oakui/wc/OakModal';
+import { Modal, ModalBody, ModalFooter, ModalHeader, Select, Input, Button } from 'basicui';
 import EditCategoryCommand from '../../events/EditCategoryCommand';
 import {
   receiveMessage,
   sendMessage,
   newId,
 } from '../../events/MessageService';
-import OakForm from '../../oakui/wc/OakForm';
-import OakInput from '../../oakui/wc/OakInput';
 
 import './style.scss';
-import OakSelect from '../../oakui/wc/OakSelect';
-import OakButton from '../../oakui/wc/OakButton';
 
 import { saveCategory } from './service';
 import { updateCategoryItem } from '../../store/actions/CategoryActions';
@@ -58,8 +54,8 @@ const EditCategory = (props: Props) => {
     EditCategoryCommand.next({ open: false });
   };
 
-  const handleChange = (detail: any) => {
-    setState({ ...state, [detail.name]: detail.value });
+  const handleChange = (event: any) => {
+    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const updatekakeibo = (kakeibo: string) => {
@@ -75,71 +71,57 @@ const EditCategory = (props: Props) => {
 
   return (
     <>
-      <OakModal
+      <Modal
         isOpen={isOpen}
-        handleClose={handleClose}
-        backdropIntensity={3}
-        animationStyle="slide"
-        animationSpeed="normal"
-        height="auto"
-        width="auto"
-        heading={state._id ? 'Edit category' : 'New category'}
+        onClose={handleClose}
       >
-        <div slot="body">
+        <ModalHeader onClose={handleClose}
+          heading={state._id ? 'Edit category' : 'New category'} />
+        <ModalBody>
           <div className="edit-category">
             {isOpen && (
-              // <OakForm formGroupName={formId} handleSubmit={save}>
               <div className="edit-category__form">
-                <OakInput
+                <Input
                   name="name"
                   value={state.name}
-                  formGroupName={formId}
-                  gutterBottom
-                  handleInput={handleChange}
-                  size="large"
-                  color="container"
-                  shape="rectangle"
+                  onInput={handleChange}
                   label="Category name"
                   autofocus
                 />
                 <div>
                   <div className="edit-category__form__chips">
                     <button
-                      className={`edit-category__form__chips__chip ${
-                        state.kakeibo === 'Needs'
+                      className={`edit-category__form__chips__chip ${state.kakeibo === 'Needs'
                           ? 'edit-category__form__chips__chip--selected'
                           : ''
-                      }`}
+                        }`}
                       onClick={() => updatekakeibo('Needs')}
                     >
                       Needs
                     </button>
                     <button
-                      className={`edit-category__form__chips__chip ${
-                        state.kakeibo === 'Wants'
+                      className={`edit-category__form__chips__chip ${state.kakeibo === 'Wants'
                           ? 'edit-category__form__chips__chip--selected'
                           : ''
-                      }`}
+                        }`}
                       onClick={() => updatekakeibo('Wants')}
                     >
                       Wants
                     </button>
                     <button
-                      className={`edit-category__form__chips__chip ${
-                        state.kakeibo === 'Culture'
+                      className={`edit-category__form__chips__chip ${state.kakeibo === 'Culture'
                           ? 'edit-category__form__chips__chip--selected'
                           : ''
-                      }`}
+                        }`}
                       onClick={() => updatekakeibo('Culture')}
                     >
                       Culture
                     </button>
                     <button
-                      className={`edit-category__form__chips__chip ${
-                        state.kakeibo === 'Unexpected'
+                      className={`edit-category__form__chips__chip ${state.kakeibo === 'Unexpected'
                           ? 'edit-category__form__chips__chip--selected'
                           : ''
-                      }`}
+                        }`}
                       onClick={() => updatekakeibo('Unexpected')}
                     >
                       Unexpected
@@ -150,22 +132,18 @@ const EditCategory = (props: Props) => {
               // </OakForm>
             )}
           </div>
-        </div>
-        <div slot="footer">
+        </ModalBody>
+        <ModalFooter>
           <div className="edit-category-footer">
-            <OakButton
-              formGroupName={formId}
-              // type="submit"
-              handleClick={save}
-              theme="primary"
-              variant="regular"
+            <Button
+              onClick={save}
             >
               <FontAwesomeIcon icon={faChevronRight} />
               Save
-            </OakButton>
+            </Button>
           </div>
-        </div>
-      </OakModal>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };

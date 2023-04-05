@@ -87,11 +87,11 @@ const CategoryDistribution = (props: Props) => {
               enabled: true,
               borderWidth: 0,
               backgroundColor:
-                profile.theme === 'theme_dark'
+                profile.theme === 'basicui-dark'
                   ? CSSVARIABLES_DARK.SURFACE_DARKER
                   : CSSVARIABLES_DARK.SURFACE,
               bodyColor:
-                profile.theme === 'theme_dark'
+                profile.theme === 'basicui-dark'
                   ? CSSVARIABLES_DARK.I
                   : CSSVARIABLES_DARK.I,
             },

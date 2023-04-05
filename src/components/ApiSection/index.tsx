@@ -1,7 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import './style.scss';
-import OakTypography from '../../oakui/wc/OakTypography';
 import PropertySection from './PropertySection';
 import EventSection from './EventSection';
 
@@ -23,11 +22,11 @@ interface Props {
 const ApiSection = (props: Props) => {
   return (
     <div className="api-section">
-      <OakTypography variant="h5" gutterBottom>
+      <h5>
         Properties
-      </OakTypography>
+      </h5>
       <PropertySection properties={props.data.properties} />
-      <OakTypography variant="h5">Events</OakTypography>
+      <h5>Events</h5>
       <EventSection events={props.data.events} />
     </div>
   );
