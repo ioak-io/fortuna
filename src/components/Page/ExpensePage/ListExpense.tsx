@@ -184,7 +184,7 @@ const ListExpense = (props: Props) => {
         </div>
       </div>
       <div className="content-section list-expense">
-        <table className="basicui-table table-hover table-small">
+        <table className={`basicui-table table-hover ${denseView ? 'table-small' : ''}`}>
           <thead>
             <tr>
               <th className="list-expense__column list-expense__column--selection">

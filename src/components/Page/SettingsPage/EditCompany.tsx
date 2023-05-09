@@ -108,9 +108,10 @@ const EditCompany = (props: Props) => {
           )}
         </div>
       </div>
-      <div className='footer footer-right'>
-        <Button onClick={save}>Save</Button>
-      </div>
+      <div className='footer'>
+        <div/>
+        <div className="footer-right"><Button onClick={save}>Save</Button></div>
+        </div>
     </div>
   );
 };

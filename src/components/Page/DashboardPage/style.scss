@@ -22,6 +22,13 @@
   column-gap: 40px;
 }
 
+@media (max-width: 767px) {
+  .dashboard-page__main__two-column {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
 .dashboard-page__main__multi-column {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
