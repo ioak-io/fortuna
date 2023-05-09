@@ -60,18 +60,16 @@ const SideContent = (props: Props) => {
   ) => {
     dispatch(removeAuth());
     removeSessionValue(
-      `fortuna_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`
+      `fortuna-access_token`
+    );
+    removeSessionValue(
+      `fortuna-refresh_token`
     );
     navigate(`/`);
-    sendMessage('notification', true, {
-      type,
-      message,
-      duration: 3000,
-    });
   };
 
   const login = (type: string) => {
-    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
+    navigate('/login');
   };
 
   const chooseCompany = () => {

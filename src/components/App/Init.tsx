@@ -20,9 +20,12 @@ import ReceiptStateActions from '../../simplestates/ReceiptStateActions';
 import { fetchAllIncomeCategories } from '../../store/actions/IncomeCategoryActions';
 import IncomeStateActions from '../../simplestates/IncomeStateActions';
 import { axiosInstance, httpPost } from '../Lib/RestTemplate';
-import { setSessionValue } from 'src/utils/SessionUtils';
+import { removeSessionValue, setSessionValue } from '../../utils/SessionUtils';
+import { addAuth, removeAuth } from '../../store/actions/AuthActions';
+import { useNavigate } from 'react-router-dom';
 
 const Init = () => {
+  const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   const profile = useSelector((state: any) => state.profile);
   const [previousAuthorizationState, setPreviousAuthorizationState] =
@@ -121,54 +124,69 @@ const Init = () => {
   const initializeHttpInterceptor = () => {
     console.log('HTTP Interceptor initialization');
     // TODO
-    // axiosInstance.defaults.headers.authorization = authorization.access_token;
-    // axiosInstance.interceptors.response.use(
-    //   (response) => {
-    //     return response;
-    //   },
-    //   (error) => {
-    //     if (error.response.status !== 401) {
-    //       return new Promise((resolve, reject) => {
-    //         reject(error);
-    //       });
-    //     }
-    //     httpPost(
-    //       '/auth/token',
-    //       {
-    //         refresh_token: authorization.refresh_token,
-    //         grant_type: 'refresh_token',
-    //         realm: realm || 100,
-    //       },
-    //       null
-    //     )
-    //       .then((response) => {
-    //         if (response.status === 200) {
-    //           axiosInstance.defaults.headers.authorization =
-    //             response.data.access_token;
-    //           setSessionValue(
-    //             `fortuna-access_token`,
-    //             response.data.access_token
-    //           );
-    //           dispatch(
-    //             addAuth({
-    //               ...authorization,
-    //               access_token: response.data.access_token,
-    //             })
-    //           );
-    //           if (!error.config._retry) {
-    //             error.config._retry = true;
-    //             error.config.headers.authorization = response.data.access_token;
-    //             return axiosInstance(error.config);
-    //           }
-    //         } else {
-    //           console.log('********redirect to login');
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         Promise.reject(error);
-    //       });
-    //   }
-    // );
+    axiosInstance.defaults.headers.authorization = authorization.access_token;
+    axiosInstance.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        if (error.response.status !== 401) {
+          return new Promise((resolve, reject) => {
+            reject(error);
+          });
+        }
+        httpPost(
+          `/${space}/user/auth/token`,
+          { grant_type: 'refresh_token', refresh_token: authorization.refresh_token },
+          null,
+          process.env.REACT_APP_ONEAUTH_API_URL
+        )
+          .then((response) => {
+            if (response.status === 200) {
+              console.log(response.data.access_token);
+              axiosInstance.defaults.headers.authorization =
+                response.data.access_token;
+              setSessionValue(
+                `fortuna-access_token`,
+                response.data.access_token
+              );
+              dispatch(
+                addAuth({
+                  ...authorization,
+                  access_token: response.data.access_token,
+                })
+              );
+              if (!error.config._retry) {
+                error.config._retry = true;
+                error.config.headers.authorization = response.data.access_token;
+                return axiosInstance(error.config);
+              }
+            } else {
+              console.log('********redirect to login');
+              dispatch(removeAuth());
+              removeSessionValue(
+                `fortuna-access_token`
+              );
+              removeSessionValue(
+                `fortuna-refresh_token`
+              );
+              navigate('/login');
+            }
+          })
+          .catch((error) => {
+            console.log('********redirect to login error');
+            dispatch(removeAuth());
+            removeSessionValue(
+              `fortuna-access_token`
+            );
+            removeSessionValue(
+              `fortuna-refresh_token`
+            );
+            navigate('/login');
+            Promise.reject(error);
+          });
+      }
+    );
   };
 
   return (

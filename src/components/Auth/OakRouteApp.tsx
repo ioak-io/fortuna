@@ -74,9 +74,10 @@ const OakRouteApp = (props: Props) => {
     const refreshToken = getSessionValue(`fortuna-refresh_token`);
     if (accessToken && refreshToken) {
       httpPost(
-        `/user/${appRealm}/authorize_user`,
-        { accessToken, refreshToken },
-        null
+        `/${appRealm}/user/auth/token`,
+        { grant_type: 'refresh_token', refresh_token: refreshToken },
+        null,
+        process.env.REACT_APP_ONEAUTH_API_URL
       )
         .then((response) => {
           if (response.status === 200) {
@@ -144,8 +145,8 @@ const OakRouteApp = (props: Props) => {
           profile={profile}
           // space={appRealm}
           space={props.match.params.space}
-          // getProfile={getProfile}
-          // setProfile={props.setProfile}
+        // getProfile={getProfile}
+        // setProfile={props.setProfile}
         />
       )}
     </>
