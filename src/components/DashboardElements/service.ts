@@ -85,6 +85,7 @@ export const getTrend = (space: string, authorization: any, payload: any) => {
     },
   })
     .then((response) => {
+      console.log("=====", response)
       RemoveSpinnerCommand.next(taskId);
       if (response.status === 200) {
         return Promise.resolve(response.data);

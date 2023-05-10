@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ExpenseFilterModel from '../../model/ExpenseFilterModel';
-import {
-  ExpenseFilterPaginationState,
-  ExpenseFilterState,
-} from '../../simplestates/ExpenseFilterState';
-import ExpenseListState from '../../simplestates/ExpenseListState';
 import { fetchAllCategories } from '../../store/actions/CategoryActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
-import { searchExpense } from '../Page/ExpensePage/service';
-import PaginationModel from '../../model/PaginationModel';
 import ExpenseStateActions from '../../simplestates/ExpenseStateActions';
 import { fetchAndSetCompanyItems } from '../../store/actions/CompanyActions';
 import { fetchAndSetUserItems } from '../../store/actions/UserActions';
@@ -143,7 +135,6 @@ const Init = () => {
         )
           .then((response) => {
             if (response.status === 200) {
-              console.log(response.data.access_token);
               axiosInstance.defaults.headers.authorization =
                 response.data.access_token;
               setSessionValue(

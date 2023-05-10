@@ -72,6 +72,7 @@ const DashboardPage = (props: Props) => {
           !isEmptyOrSpaces(state.to))
       ) {
         getTrend(props.space, authorization, state).then((response: any) => {
+          console.log("===", response);
           setData(response);
         });
         getMetric(props.space, authorization, state).then((response: any) => {
