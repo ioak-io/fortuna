@@ -43,7 +43,7 @@ const ListReceipt = (props: Props) => {
     sortOrder: receiptState?.pagination?.sortOrder,
   });
 
-  const [denseView, setDenseView] = useState(true);
+  const [denseView, setDenseView] = useState(false);
   // const [data, setData] = useState<any[]>([]);
   const [categoryMap, setCategoryMap] = useState<any>({});
 

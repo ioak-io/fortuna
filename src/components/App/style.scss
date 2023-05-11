@@ -165,14 +165,14 @@
 }
 
 .chart-section {
-  background-color: var(--theme-white-50);
+  background-color: var(--theme-white-200);
   display: grid;
   grid-template-rows: auto 1fr;
   height: 100%;
 }
 
 .basicui-dark .chart-section {
-  background-color: var(--theme-black-200);
+  background-color: var(--theme-black-50);
 }
 
 .chart-section-one-column {

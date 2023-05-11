@@ -6,21 +6,22 @@
   color: var(--theme-white-300i);
   box-shadow: none;
   border: none;
+  width: 100%;
   // border-radius: 6px;
   position: relative;
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
 
   &:hover,
   &:focus {
-    background-color: var(--theme-white-400);
+    background-color: var(--theme-white-500);
   }
 }
 .basicui-dark .aggregate-tile {
-  background-color: var(--theme-black-300);
-  color: var(--theme-black-300i);
+  background-color: var(--theme-black-extended-800);
+  color: var(--theme-black-extended-800i);
   &:hover,
   &:focus {
-    background-color: var(--theme-black-400);
+    background-color: var(--theme-black-extended-600);
   }
 }
 

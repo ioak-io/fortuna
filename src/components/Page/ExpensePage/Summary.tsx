@@ -18,15 +18,14 @@ const Summary = (props: Props) => {
   return (
     <div className="expense-summary">
       {filterExpenseList?.map((filter: ExpenseFilterModel) => (
-        <>
+        <React.Fragment key={filter._id}>
           {filter.showInSummary && (
             <AggregateTile
-              key={filter._id}
               filter={filter}
               space={props.space}
             />
           )}
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

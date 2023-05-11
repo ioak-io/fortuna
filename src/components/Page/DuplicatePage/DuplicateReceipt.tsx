@@ -43,7 +43,7 @@ const DuplicateReceipt = (props: Props) => {
     sortOrder: '',
   });
 
-  const [denseView, setDenseView] = useState(true);
+  const [denseView, setDenseView] = useState(false);
   // const [data, setData] = useState<any[]>([]);
   const [categoryMap, setCategoryMap] = useState<any>({});
 

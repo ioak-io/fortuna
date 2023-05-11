@@ -11,8 +11,17 @@
 * {
   --app-layout-sidebar-width: 300px;
   --app-layout-sidebar-width-shrinked: 75px;
-  --app-layout-topbar-height: 70px;
+  --app-layout-topbar-height: 42px;
   font-family: Roboto;
+}
+
+.basicui-light {
+  --global-background-color: var(--theme-white-100);
+  --global-color: var(--theme-white-100i);
+}
+.basicui-dark {
+  --global-background-color: var(--theme-black-200);
+  --global-color: var(--theme-black-200i);
 }
 
 body {
@@ -21,13 +30,13 @@ body {
   // overflow-y: overlay;
   
   margin: 0;
-  background-color: var(--theme-white-200);
+  background-color: var(--theme-white-100);
   color: var(--theme-white-100i);
 }
 
 body.basicui-dark { 
-  background-color: var(--theme-black-600);
-  color: var(--theme-black-600i);
+  background-color: var(--theme-black-200);
+  color: var(--theme-black-200i);
 }
 
 body.oak-dialog-open {
@@ -248,4 +257,8 @@ code {
       width: 350px;
     }
   }
+}
+
+.basicui-table th, .basicui-table td {
+  border-color: var(--theme-white-400);
 }

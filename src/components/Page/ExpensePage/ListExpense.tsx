@@ -46,7 +46,7 @@ const ListExpense = (props: Props) => {
     sortOrder: expenseState?.pagination?.sortOrder,
   });
 
-  const [denseView, setDenseView] = useState(true);
+  const [denseView, setDenseView] = useState(false);
   // const [data, setData] = useState<any[]>([]);
   const [categoryMap, setCategoryMap] = useState<any>({});
 
@@ -183,7 +183,7 @@ const ListExpense = (props: Props) => {
           </div>
         </div>
       </div>
-      <div className="content-section list-expense">
+      <div className="list-expense">
         <table className={`basicui-table table-hover ${denseView ? 'table-small' : ''}`}>
           <thead>
             <tr>

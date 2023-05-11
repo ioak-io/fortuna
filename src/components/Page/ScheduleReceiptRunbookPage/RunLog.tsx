@@ -22,7 +22,7 @@ const RunLog = (props: Props) => {
   const navigate = useNavigate();
   const authorization = useSelector((state: any) => state.authorization);
   // const [data, setData] = useState<any[]>([]);
-  const [denseView, setDenseView] = useState(true);
+  const [denseView, setDenseView] = useState(false);
 
   const openRecord = (record: any) => {
     navigate(`/${props.space}/receipt/edit?id=${record.receiptId}`);

@@ -33,7 +33,7 @@ const RunLog = (props: Props) => {
     )
   );
   // const [data, setData] = useState<any[]>([]);
-  const [denseView, setDenseView] = useState(true);
+  const [denseView, setDenseView] = useState(false);
 
   const openRecord = (record: any) => {};
 
