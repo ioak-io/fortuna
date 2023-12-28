@@ -28,7 +28,7 @@ This project is developed and tested with the following versions:
 ## Prerequisites and dependencies
 - MongoDB on localhost:27017
 - Fortuna REST API service module (https://github.com/ioak-io/fortuna-service)
-- For advanced local setup using a local instance of Authlite server,
+- (Optional) For advanced local setup using a local instance of Authlite server,
     - Authlite web application module (https://github.com/ioak-io/authlite)
     - Authlite REST API service module (https://github.com/ioak-io/authlite-service)
 
