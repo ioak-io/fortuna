@@ -39,7 +39,7 @@ This project is developed and tested with the following versions:
 
 1. Run the development server: `npm start`
 2. Open your browser and go to `http://localhost:3000` to view the app.
-3. Use below user credentials to sign in to the app
+3. To simplify local development, the aplication is by default configured to connect to remote authentication server for authentication. You may use below shared user credentials to sign in to the app. You can also choose to setup your own local version of Authlite by changing the configuration in .env files (but usually an overkill and unneccesary setup, if you are not making any changes to the authentication layer)
     - username: jane.doe@ioak.org
     - password: suddenlylastsummer
 4. Create a new company to get started
