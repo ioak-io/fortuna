@@ -27,7 +27,7 @@ This project is developed and tested with the following versions:
 
 ## Prerequisites and dependencies
 - MongoDB on localhost:27017
-- fortuna-service (https://github.com/ioak-io/fortuna-service)
+- Fortuna REST API service module (https://github.com/ioak-io/fortuna-service)
 
 ## Installation
 
