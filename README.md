@@ -25,6 +25,10 @@ This project is developed and tested with the following versions:
 - Node.js: v16.0.0 or higher
 - npm: v8.0.0 or higher
 
+## Prerequisites and dependencies
+- MongoDB on localhost:27017
+- fortuna-service (https://github.com/ioak-io/fortuna-service)
+
 ## Installation
 
 1. Clone the repository: `git clone https://github.com/ioak-io/fortuna.git`
