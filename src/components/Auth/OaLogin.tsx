@@ -10,7 +10,7 @@ interface Props {
   location: any;
 }
 
-const appRealm = process.env.REACT_APP_ONEAUTH_APPSPACE_ID || '';
+const appRealm = process.env.REACT_APP_ONEAUTH_REALM_ID || '';
 
 const OaLogin = (props: Props) => {
   const navigate = useNavigate();

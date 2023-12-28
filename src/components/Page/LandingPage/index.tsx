@@ -36,6 +36,17 @@ const LandingPage = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const companyList = useSelector((state: any) => state.company.items);
 
+  const [authorizedCompanyList, setAuthorizedCompanyList] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (authorization?.isAuth) {
+      const permissionList = authorization.permissions?.COMPANY_ADMIN || [];
+      setAuthorizedCompanyList(
+        companyList.filter((item: any) => permissionList.includes(item.reference?.toString()))
+      );
+    }
+  }, [authorization, companyList]);
+
   const goToCreateCompanyPage = () => {
     navigate('/company/edit');
   };
@@ -49,7 +60,7 @@ const LandingPage = (props: Props) => {
       <Topbar title="Choose company" />
       <div className="landing-page__main__container">
         <div className="landing-page__main main-section">
-          {companyList.map((company: any) => (
+          {authorizedCompanyList.map((company: any) => (
             <button
               key={company._id}
               className="landing-page__main__company"

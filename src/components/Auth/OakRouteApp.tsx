@@ -15,7 +15,7 @@ interface Props {
   cookies: any;
 }
 
-const appRealm = process.env.REACT_APP_ONEAUTH_APPSPACE_ID || '';
+const appRealm = process.env.REACT_APP_ONEAUTH_REALM_ID || '';
 
 const OakRouteApp = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
@@ -129,7 +129,7 @@ const OakRouteApp = (props: Props) => {
   };
 
   const redirectToLogin = (space: string) => {
-    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${appRealm}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
+    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${appRealm}/login/${process.env.REACT_APP_ONEAUTH_API_KEY}`;
     // navigate(`/${space}/login/home`);
   };
 

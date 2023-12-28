@@ -10,16 +10,20 @@ import {
   AuthliteTypes,
   AuthliteAuthenticationService,
 } from 'authlite';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAndSetCompanyItems } from '../../../store/actions/CompanyActions';
 
 interface Props {
 }
 
-const appRealm = process.env.REACT_APP_ONEAUTH_APPSPACE_ID || '';
+const appRealm = process.env.REACT_APP_ONEAUTH_REALM_ID || '';
 const environment: any = process.env.REACT_APP_ENVIRONMENT || 'local';
 
 const LoginPage = (props: Props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
+  const authorization = useSelector((state: any) => state.authorization);
 
   const [view, setView] = useState<AuthliteTypes.PageView>(AuthliteTypes.PageView.signin);
   const [successPage, setSuccessPage] = useState<'signin' | 'signup' | 'resetpassword' | 'resendverifylink' | null>(null);
@@ -36,13 +40,13 @@ const LoginPage = (props: Props) => {
         setSessionValue(`fortuna-access_token`, response.data.access_token);
         setSessionValue(`fortuna-refresh_token`, response.data.refresh_token);
         navigate(searchParams.get("from") || '/home');
+        dispatch(fetchAndSetCompanyItems(authorization));
       }
     })
   }
 
   const onSignup = (data: AuthliteTypes.SignupRequest) => {
     AuthliteAuthenticationService.signup(environment, appRealm, data, "fc2076f5-bee6-4b94-974f-5e110495b048").then((response: AuthliteTypes.SignupResponse) => {
-      console.log(response);
       if (response.outcome === "SUCCESS") {
         setView(AuthliteTypes.PageView.placeholder);
         setSuccessPage("signup");

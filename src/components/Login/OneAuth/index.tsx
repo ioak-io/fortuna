@@ -23,7 +23,7 @@ const OneAuth = (props: Props) => {
 
   useEffect(() => {
     if (searchParams.has("space")) {
-      window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/space/${queryParam.space}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}&asset=${props.asset}&from=${searchParams.get("from")}`;
+      window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/space/${queryParam.space}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_API_KEY}&asset=${props.asset}&from=${searchParams.get("from")}`;
     }
     setQueryParam(queryParam);
   }, []);

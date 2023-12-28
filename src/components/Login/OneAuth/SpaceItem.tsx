@@ -12,7 +12,7 @@ const SpaceItem = (props: Props) => {
   const oaLogin = () => {
     window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${
       props.space.realm
-    }/login/${process.env.REACT_APP_ONEAUTH_APP_ID}?asset=${props.asset}${
+    }/login/${process.env.REACT_APP_ONEAUTH_API_KEY}?asset=${props.asset}${
       props.from ? `&from=${props.from}` : ''
     }`;
   };

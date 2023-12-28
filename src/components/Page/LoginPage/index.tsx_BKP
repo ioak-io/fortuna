@@ -9,7 +9,7 @@ import { setSessionValue } from '../../../utils/SessionUtils';
 interface Props {
 }
 
-const appRealm = process.env.REACT_APP_ONEAUTH_APPSPACE_ID || '';
+const appRealm = process.env.REACT_APP_ONEAUTH_REALM_ID || '';
 
 const LoginPage = (props: Props) => {
   const [searchParams] = useSearchParams();

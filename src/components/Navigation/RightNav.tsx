@@ -28,7 +28,7 @@ const RightNav = (props: Props) => {
   ) => {
     dispatch(removeAuth());
     removeSessionValue(
-      `fortuna_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`
+      `fortuna_${process.env.REACT_APP_ONEAUTH_REALM_ID}`
     );
     navigate(`/`);
     sendMessage('notification', true, {
@@ -39,7 +39,7 @@ const RightNav = (props: Props) => {
   };
 
   const login = (type: string) => {
-    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
+    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${process.env.REACT_APP_ONEAUTH_REALM_ID}/login/${process.env.REACT_APP_ONEAUTH_API_KEY}`;
   };
 
   return (

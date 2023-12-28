@@ -14,7 +14,7 @@ interface Props {
     component?: any;
 }
 
-const appRealm = process.env.REACT_APP_ONEAUTH_APPSPACE_ID || '';
+const appRealm = process.env.REACT_APP_ONEAUTH_REALM_ID || '';
 
 const ProtectedRouteApp = (props: Props) => {
     const authorization = useSelector((state: any) => state.authorization);
@@ -119,7 +119,7 @@ const ProtectedRouteApp = (props: Props) => {
     };
 
     const redirectToLogin = (space: string) => {
-        // window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${appRealm}/login/${process.env.REACT_APP_ONEAUTH_APP_ID}`;
+        // window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${appRealm}/login/${process.env.REACT_APP_ONEAUTH_API_KEY}`;
         navigate(`/login`);
     };
 

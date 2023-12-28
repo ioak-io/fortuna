@@ -108,7 +108,7 @@ const OakRouteGraph = (props: Props) => {
   };
 
   const redirectToLogin = (space: string) => {
-    // window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/space/${spaceId}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}`;
+    // window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/space/${spaceId}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_API_KEY}`;
     navigate(
       `/${space}/login/home?from=${props.history.location.pathname}${props.history.location.search}`
     );
