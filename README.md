@@ -38,3 +38,4 @@ This project is developed and tested with the following versions:
 3. Use below user credentials to sign in to the app
     - username: elizabeth.taylor@ioak.org
     - password: suddenlylastsummer
+4. Create a new company to get started
