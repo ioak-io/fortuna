@@ -35,4 +35,6 @@ This project is developed and tested with the following versions:
 
 1. Run the development server: `npm start`
 2. Open your browser and go to `http://localhost:3000` to view the app.
-
+3. Use below user credentials to sign in to the app
+    - username: elizabeth.taylor@ioak.org
+    - password: suddenlylastsummer
