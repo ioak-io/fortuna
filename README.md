@@ -37,7 +37,7 @@ This project is developed and tested with the following versions:
 
 1. Clone the repository: `git clone https://github.com/ioak-io/fortuna.git`
 2. Navigate to the project directory: `cd fortuna`
-3. Install dependencies: `npm install --legacy-peer-deps`
+3. Install dependencies: `npm install`
 
 ## Usage
 
