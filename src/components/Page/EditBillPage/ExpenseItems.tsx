@@ -46,9 +46,14 @@ const ExpenseItems = (props: Props) => {
   }, [tags]);
 
   const handleChange = (event: any, index: number) => {
-    console.log(event);
     const _data = [...props.data];
     _data[index] = { ..._data[index], [event.currentTarget.name]: event.currentTarget.value };
+    props.handleChange(_data, index === props.data.length - 1);
+  };
+
+  const handleNumberChange = (event: any, index: number) => {
+    const _data = [...props.data];
+    _data[index] = { ..._data[index], [event.currentTarget.name]: event.currentTarget.valueAsNumber };
     props.handleChange(_data, index === props.data.length - 1);
   };
 
@@ -108,7 +113,7 @@ const ExpenseItems = (props: Props) => {
                     name="amount"
                     type="number"
                     value={record.amount}
-                    onInput={(event: any) => handleChange(event, index)}
+                    onInput={(event: any) => handleNumberChange(event, index)}
                   />
                 </td>
               </tr>
