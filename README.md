@@ -48,6 +48,16 @@ This project is developed and tested with the following versions:
     - password: suddenlylastsummer
 4. Create a new company to get started
 
-## Dependencies version audit
-Package dependencies were audited and updated to latest versions as on December 2023. Below dependencies are retained to older version due to respective reasons.
-- None
+## Dependency Updates
+
+The dependencies in this project are regularly reviewed and updated. The last check for updated versions was performed on 29th Dec 2023.
+
+To check for updates and update the dependencies, run the following command: `npm outdated`
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+The MIT License is a permissive open-source license that allows you to use, modify, and distribute the code, even for commercial purposes, provided you include the original copyright notice and the disclaimer of warranty.
+
+For more information, see the [MIT License](LICENSE) file.
