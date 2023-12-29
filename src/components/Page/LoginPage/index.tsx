@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './style.scss';
-import { Button, Input, ThemeType } from 'basicui';
 import Logo from './Logo';
-import { signin } from './service';
 import { setSessionValue } from '../../../utils/SessionUtils';
 import {
   AuthliteComponents,
