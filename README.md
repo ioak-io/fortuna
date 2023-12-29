@@ -47,3 +47,6 @@ This project is developed and tested with the following versions:
     - username: jane.doe@ioak.org
     - password: suddenlylastsummer
 4. Create a new company to get started
+
+## Dependencies version audit
+Package dependencies were audited and updated to latest versions as on December 2023.
