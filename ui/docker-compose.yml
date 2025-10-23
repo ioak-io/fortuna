@@ -1,0 +1,17 @@
+services:
+  fortuna:
+    build: .
+    container_name: fortuna
+    restart: always
+    ports:
+      - "2300:2300"
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env.production
+    networks:
+      - ioak-network
+
+networks:
+  ioak-network:
+    external: true

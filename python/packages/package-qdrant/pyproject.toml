@@ -1,0 +1,20 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "package-qdrant"
+version = "0.1.0"
+description = "Thin wrapper around qdrant-client for vector operations"
+authors = ["Enterprise Team <team@company.com>"]
+readme = "README.md"
+packages = [{include = "package_qdrant", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+qdrant-client = "^1.15.1"
+pydantic = "^2.9.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.0"
+ruff = "^0.6.0"

@@ -1,0 +1,80 @@
+{
+  "hero": {
+    "headline": "The Story is Speaking. Are You Listening?",
+    "subheadline": "A writing companion that works like divination—drawing out symbols, echoes, and hidden truths from your words.",
+    "primaryCTA": {
+      "label": "Begin the Ritual →",
+      "href": "/login"
+    }
+  },
+  "howDifferent": {
+    "title": "How We’re Different",
+    "description": "Other tools give answers. Ours gives openings. It doesn’t fix or prescribe. Instead, it whispers possibilities—like drawing oracle cards from your own story."
+  },
+  "coreConcepts": [
+    {
+      "title": "Fragments",
+      "description": "The seeds of story, waiting to unfold.",
+      "icon": "fortuna"
+    },
+    {
+      "title": "Storythreads",
+      "description": "Subtle weavings between fragments, like constellations across the night sky.",
+      "icon": "link"
+    },
+    {
+      "title": "Insights",
+      "description": "Reflective sparks that show you what your story wants to become.",
+      "icon": "lightbulb"
+    }
+  ],
+  "features": [
+    {
+      "title": "Symbol Extraction",
+      "description": "Discover archetypes, myths, and dream-images hidden in your text.",
+      "example": "Your story evokes The Memoryless Ancestor. The grass feels like rebirth."
+    },
+    {
+      "title": "Dream-Prompt Generator",
+      "description": "Invite visions and dreamlike expansions into your writing.",
+      "example": "A fog-memory drifts between voices you thought were your own."
+    },
+    {
+      "title": "Divinatory Endings",
+      "description": "Receive endings that feel fated, symbolic, and alive.",
+      "example": "It ends in a still lake that remembers nothing."
+    },
+    {
+      "title": "Story Oracle Cards",
+      "description": "See your work through a symbolic spread: Origin, Current State, Emergence.",
+      "example": "Origin – What drives this? Current State – What is being lived? Emergence – What longs to be born?"
+    },
+    {
+      "title": "Spirit Voice Rewriter",
+      "description": "Let the land, river, or ancestor speak your words back to you.",
+      "example": "The river says: I carry what you’ve forgotten, and I am not done with you."
+    }
+  ],
+  "audience": {
+    "title": "Who It’s For",
+    "segments": [
+      "Writers who resonate with myth and dream",
+      "Storytellers seeking symbolic and spiritual depth",
+      "Creators exploring archetypes, ritual, and imagination"
+    ]
+  },
+  "closingCTA": {
+    "headline": "Your story is already alive. This tool helps you meet it in the space between dream and waking.",
+    "primaryCTA": {
+      "label": "Step Into the Story →",
+      "href": "/signup"
+    }
+  },
+  "footer": {
+    "links": [
+      { "label": "About", "href": "/about" },
+      { "label": "Privacy", "href": "/privacy" },
+      { "label": "Contact", "href": "/contact" }
+    ]
+  }
+}

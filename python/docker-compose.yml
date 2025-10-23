@@ -1,0 +1,22 @@
+services:
+  fortuna-content:
+    container_name: fortuna-content
+    restart: always
+    build:
+      context: .
+      dockerfile: services/service-unit/Dockerfile
+    ports:
+      - "2111:2111"
+    env_file:
+      - .env.unit.prod
+    volumes:
+      - ./services/service-unit/src:/app/services/service-unit/src
+      - ./packages:/app/packages
+    command: poetry run uvicorn service_unit.main:app --host 0.0.0.0 --port 2111 --reload
+    working_dir: /app/services/service-unit
+    networks:
+      - ioak-network
+
+networks:
+  ioak-network:
+    external: true

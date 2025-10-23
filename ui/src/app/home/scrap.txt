@@ -1,0 +1,56 @@
+<section className="relative min-h-[100dvh] overflow-hidden">
+        {/* Starfield + spotlights + grain */}
+        <div className="absolute inset-0 starfield" />
+        <div className="absolute inset-0 spotlight opacity-60" />
+        <div className="absolute inset-0 grain" />
+
+        {/* Chromatic orbs */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-primary/20 blur-3xl animate-float" />
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-secondary/20 blur-[90px] animate-float" style={{ animationDelay: '2s' }} />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 min-h-[100dvh] flex items-center">
+          <div className="max-w-6xl mx-auto text-center">
+            {/* Kicker */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-white/80 text-xs sm:text-sm mb-6 backdrop-blur">
+              <Fortuna className="w-4 h-4" />
+              Mystical AI for Story Divination
+            </div>
+
+            {/* Headline */}
+            <h1 className="gradient-text text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-tight mb-5">
+              {content.hero.headline}
+            </h1>
+
+            {/* Subheadline */}
+            <p className="text-white/80 text-lg sm:text-2xl md:text-3xl max-w-4xl mx-auto leading-relaxed mb-6">
+              {content.hero.subheadline}
+            </p>
+
+            {/* Description */}
+            <p className="text-white/70 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed mb-10">
+              {content.hero.description}
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-scale-in">
+              <NextLink href={content.hero.primaryCTA.href} passHref>
+                <Button className="group bg-white text-black hover:bg-white/90 shadow-xl py-3 sm:py-4 px-6 sm:px-8 text-base sm:text-lg">
+                  {content.hero.primaryCTA.label}
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </NextLink>
+              <NextLink href={content.hero.secondaryCTA.href} passHref>
+                <Button
+                  variant="outline"
+                  className="bg-transparent text-white ring-1 ring-white/50 hover:ring-white/70 hover:bg-white/10 backdrop-blur-sm shadow-xl py-3 sm:py-4 px-6 sm:px-8 text-base sm:text-lg"
+                >
+                  {content.hero.secondaryCTA.label}
+                </Button>
+              </NextLink>
+              </div>
+            </div>
+          </div>
+        
+      </section>

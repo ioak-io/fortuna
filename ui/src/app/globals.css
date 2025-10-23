@@ -1,0 +1,232 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+@import "tailwindcss";
+@import "../styles/index.css";
+@import "tw-animate-css";
+
+body {
+  /* background-color: var(--background); */
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%); */
+}
+
+.dark {
+  /* --sidebar: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%); */
+}
+
+@theme inline {
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Landing page utilities */
+@layer utilities {
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='table' tableValues='0 0 0 0.08 0.12 0.08 0 0'/></feComponentTransfer></filter><rect width='120' height='120' filter='url(%23n)'/></svg>");
+    opacity: 0.3;
+    mix-blend-mode: soft-light;
+  }
+
+  /* Starfield background using layered radial gradients */
+  .starfield {
+    background:
+      radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.8) 0, transparent 50%),
+      radial-gradient(1.5px 1.5px at 80% 60%, rgba(255, 255, 255, 0.7) 0, transparent 50%),
+      radial-gradient(1px 1px at 60% 20%, rgba(255, 255, 255, 0.6) 0, transparent 50%),
+      radial-gradient(1px 1px at 40% 80%, rgba(255, 255, 255, 0.5) 0, transparent 50%),
+      radial-gradient(2px 2px at 70% 40%, rgba(255, 255, 255, 0.8) 0, transparent 50%);
+    background-color: transparent;
+  }
+
+  /* Chromatic gradient spotlights as light sources */
+  .spotlight {
+    background:
+      radial-gradient(
+        60% 60% at 50% 20%,
+        color-mix(in oklab, var(--primary) 40%, transparent) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        50% 50% at 80% 10%,
+        color-mix(in oklab, var(--secondary) 35%, transparent) 0%,
+        transparent 70%
+      );
+  }
+
+  /* Gradient text mask */
+  .gradient-text {
+    background-image: linear-gradient(90deg, hsl(260 90% 70%), hsl(200 90% 70%), hsl(320 85% 70%));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Depth shadows */
+  .shadow-ambient {
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.35);
+  }
+  .shadow-key {
+    box-shadow: 0 8px 20px rgba(20, 20, 40, 0.25);
+  }
+
+  /* 3D tilt container */
+  .tilt {
+    transform-style: preserve-3d;
+    perspective: 800px;
+  }
+  .tilt-inner {
+    transform: translateZ(30px);
+  }
+
+  /* Simple float animation */
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  /* Shuttle pattern background (SVG tiles) */
+  .bg-shuttle {
+    /* Light mode: use subtle dark strokes so grid is visible on light backgrounds */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0' stop-color='rgba(0,0,0,0.08)'/><stop offset='1' stop-color='rgba(0,0,0,0.03)'/></linearGradient></defs><rect width='64' height='64' fill='transparent'/><path d='M0 32 H64 M32 0 V64' stroke='rgba(0,0,0,0.08)' stroke-width='1'/><circle cx='32' cy='32' r='10' fill='none' stroke='url(%23g)' stroke-width='1'/></svg>");
+    background-size: 64px 64px;
+    background-repeat: repeat;
+  }
+
+  /* Dark mode: keep light strokes for contrast on dark backgrounds */
+  .dark .bg-shuttle {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop offset='0' stop-color='rgba(255,255,255,0.06)'/><stop offset='1' stop-color='rgba(255,255,255,0.02)'/></linearGradient></defs><rect width='64' height='64' fill='transparent'/><path d='M0 32 H64 M32 0 V64' stroke='rgba(255,255,255,0.06)' stroke-width='1'/><circle cx='32' cy='32' r='10' fill='none' stroke='url(%23g)' stroke-width='1'/></svg>");
+  }
+
+  /* Gradient mesh backdrop */
+  .gradient-mesh {
+    background:
+      radial-gradient(
+        40% 40% at 20% 20%,
+        color-mix(in oklab, var(--primary) 25%, transparent) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        35% 35% at 80% 10%,
+        color-mix(in oklab, var(--secondary) 25%, transparent) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        50% 50% at 50% 80%,
+        color-mix(in oklab, var(--primary) 18%, transparent) 0%,
+        transparent 70%
+      );
+  }
+
+  /* Diagonal stripes overlay that lets background peek through */
+  .overlay-stripes {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(0, 0, 0, 0.35) 0px,
+      rgba(0, 0, 0, 0.35) 8px,
+      rgba(0, 0, 0, 0.15) 8px,
+      rgba(0, 0, 0, 0.15) 16px
+    );
+    mix-blend-mode: multiply;
+  }
+
+  /* Light dot pattern background (theme-aware) */
+  .bg-dots {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+  .dark .bg-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  }
+
+  /* Parallax-like fixed background */
+  .parallax-fixed {
+    background-attachment: fixed;
+    will-change: background-position;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float {
+      animation: none !important;
+    }
+    .tilt,
+    .tilt-inner {
+      transform: none !important;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--foreground) 25%,
+    var(--accent) 50%,
+    var(--foreground) 75%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 10s infinite linear;
+}

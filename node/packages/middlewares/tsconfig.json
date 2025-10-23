@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "../../dist/packages/middlewares",
+    "composite": true,
+    "tsBuildInfoFile": "../../dist/packages/middlewares/.tsbuildinfo"
+  },
+  "include": ["src"],
+  "references": [
+  ]
+}

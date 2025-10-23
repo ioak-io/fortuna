@@ -1,0 +1,43 @@
+{
+  "name": "content-service",
+  "version": "1.0.0",
+  "description": "Content service for file management",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -b",
+    "start": "node dist/main.js",
+    "dev": "tsx watch src/main.ts",
+    "lint": "echo \"Linting content-service...\"",
+    "test": "echo \"Testing content-service...\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/platform-express": "^10.0.0",
+    "@fortuna/content": "workspace:*",
+    "@fortuna/middlewares": "workspace:*",
+    "dotenv": "^16.4.5",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.1",
+    "@fortuna/database": "workspace:*",
+    "tsx": "^4.7.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.0.0",
+    "@nestjs/schematics": "^10.0.0",
+    "@nestjs/testing": "^10.0.0",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.12.7",
+    "@types/pg": "^8.15.5",
+    "source-map-support": "^0.5.21",
+    "ts-loader": "^9.4.3",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.5"
+  }
+}

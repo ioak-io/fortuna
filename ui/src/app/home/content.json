@@ -1,0 +1,274 @@
+{
+  "hero": {
+    "headline": "The Story is Speaking. Are You Listening?",
+    "subheadline": "A writing companion that works like divination—drawing out symbols, echoes, and hidden truths from your words.",
+    "description": "Transform your writing practice with mystical AI that doesn't just edit—it reveals the soul of your story through ancient wisdom and modern technology.",
+    "primaryCTA": { "label": "Begin the Ritual →", "href": "/login" },
+    "secondaryCTA": { "label": "Watch the Magic", "href": "#demo" },
+    "badges": ["✨ Mystical AI", "📖 Story Divination", "🔮 Ancient Wisdom"]
+  },
+
+  "stats": [
+    { "number": "10K+", "label": "Stories Awakened", "icon": "feather" },
+    { "number": "95%", "label": "Writers Transformed", "icon": "star" },
+    { "number": "50+", "label": "Archetypal Patterns", "icon": "crown" },
+    { "number": "∞", "label": "Possibilities Revealed", "icon": "infinity" }
+  ],
+
+  "howDifferent": {
+    "title": "How We're Different",
+    "subtitle": "Beyond Grammar, Beyond Structure",
+    "description": "Other tools give answers. Ours gives openings. It doesn't fix or prescribe. Instead, it whispers possibilities—like drawing oracle cards from your own story.",
+    "points": [
+      "Reveals hidden symbols and archetypal patterns",
+      "Connects fragments through mystical storytelling",
+      "Guides intuitive discovery rather than prescriptive editing",
+      "Channels ancient wisdom for modern narratives"
+    ]
+  },
+
+  "coreConcepts": [
+    {
+      "title": "Fragments",
+      "description": "The seeds of story, waiting to unfold into magnificent tales.",
+      "details": "Every word contains multitudes. We help you discover the universes hidden within single sentences.",
+      "icon": "fortuna",
+      "color": "primary"
+    },
+    {
+      "title": "Storythreads",
+      "description": "Subtle weavings between fragments, like constellations across the night sky.",
+      "details": "See how your ideas connect in ways you never imagined. Each thread reveals a deeper pattern.",
+      "icon": "link",
+      "color": "secondary"
+    },
+    {
+      "title": "Insights",
+      "description": "Reflective sparks that show you what your story wants to become.",
+      "details": "Your story knows its destiny. We simply help you listen to its whispered guidance.",
+      "icon": "lightbulb",
+      "color": "accent"
+    }
+  ],
+
+  "features": [
+    {
+      "title": "Symbol Extraction",
+      "description": "Discover archetypes, myths, and dream-images hidden in your text.",
+      "example": "Your story evokes The Memoryless Ancestor. The grass feels like rebirth.",
+      "icon": "eye",
+      "benefits": [
+        "Uncover hidden meanings",
+        "Connect with universal themes",
+        "Deepen symbolic resonance"
+      ]
+    },
+    {
+      "title": "Dream-Prompt Generator",
+      "description": "Invite visions and dreamlike expansions into your writing.",
+      "example": "A fog-memory drifts between voices you thought were your own.",
+      "icon": "wand2",
+      "benefits": [
+        "Spark creative breakthroughs",
+        "Access subconscious wisdom",
+        "Generate mystical inspiration"
+      ]
+    },
+    {
+      "title": "Divinatory Endings",
+      "description": "Receive endings that feel fated, symbolic, and alive.",
+      "example": "It ends in a still lake that remembers nothing.",
+      "icon": "compass",
+      "benefits": [
+        "Find satisfying conclusions",
+        "Create meaningful closure",
+        "Channel narrative destiny"
+      ]
+    },
+    {
+      "title": "Story Oracle Cards",
+      "description": "See your work through a symbolic spread: Origin, Current State, Emergence.",
+      "example": "Origin – What drives this? Current State – What is being lived? Emergence – What longs to be born?",
+      "icon": "target",
+      "benefits": [
+        "Gain perspective on your work",
+        "Understand story dynamics",
+        "Navigate creative blocks"
+      ]
+    },
+    {
+      "title": "Spirit Voice Rewriter",
+      "description": "Let the land, river, or ancestor speak your words back to you.",
+      "example": "The river says: I carry what you've forgotten, and I am not done with you.",
+      "icon": "messageCircle",
+      "benefits": [
+        "Transform narrative voice",
+        "Add mystical depth",
+        "Channel otherworldly perspective"
+      ]
+    },
+    {
+      "title": "Archetypal Alignment",
+      "description": "Align your characters and themes with timeless archetypal patterns.",
+      "example": "Your protagonist carries the Wounded Healer archetype, seeking to mend what was broken in childhood.",
+      "icon": "crown",
+      "benefits": [
+        "Create resonant characters",
+        "Tap into collective unconscious",
+        "Build universal appeal"
+      ]
+    }
+  ],
+
+  "process": {
+    "title": "How the Magic Works",
+    "subtitle": "Four Steps to Story Awakening",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Submit Your Text",
+        "description": "Share your writing—from fragments to full chapter.",
+        "icon": "bookOpen"
+      },
+      {
+        "number": "02",
+        "title": "AI Divination",
+        "description": "Our mystical AI reads between the lines, finding hidden symbols and patterns.",
+        "icon": "eye"
+      },
+      {
+        "number": "03",
+        "title": "Receive Insights",
+        "description": "Get oracle-like guidance revealing what your story wants to become.",
+        "icon": "lightbulb"
+      },
+      {
+        "number": "04",
+        "title": "Transform & Create",
+        "description": "Use the insights to deepen, expand, and mystically enhance your work.",
+        "icon": "fortuna"
+      }
+    ]
+  },
+
+  "audience": {
+    "title": "Who Walks This Path",
+    "subtitle": "Writers, Dreamers, and Story Mystics",
+    "segments": [
+      {
+        "title": "Myth & Fantasy Writers",
+        "description": "Authors crafting worlds where magic and reality intertwine",
+        "icon": "crown",
+        "features": [
+          "Archetypal character development",
+          "Symbolic world-building",
+          "Mythic narrative structures"
+        ]
+      },
+      {
+        "title": "Spiritual Storytellers",
+        "description": "Writers exploring consciousness, transformation, and meaning",
+        "icon": "heart",
+        "features": [
+          "Soul-centered narratives",
+          "Transformational journeys",
+          "Sacred storytelling techniques"
+        ]
+      },
+      {
+        "title": "Dream-Guided Creators",
+        "description": "Artists who write from intuition, vision, and inner knowing",
+        "icon": "star",
+        "features": [
+          "Intuitive writing practices",
+          "Dream-inspired narratives",
+          "Visionary storytelling"
+        ]
+      }
+    ]
+  },
+
+  "pricing": {
+    "title": "Choose Your Path",
+    "subtitle": "Accessible magic for every storyteller",
+    "plans": [
+      {
+        "name": "Apprentice",
+        "price": "$9",
+        "period": "month",
+        "description": "Perfect for beginning your mystical writing journey",
+        "features": [
+          "5 story analyses per month",
+          "Basic symbol extraction",
+          "Dream prompts",
+          "Community access"
+        ],
+        "cta": "Start Your Journey",
+        "popular": false
+      },
+      {
+        "name": "Adept",
+        "price": "$29",
+        "period": "month",
+        "description": "For serious practitioners ready to go deeper",
+        "features": [
+          "Unlimited story analyses",
+          "Full oracle card spreads",
+          "Archetypal alignment",
+          "Priority support",
+          "Advanced insights"
+        ],
+        "cta": "Embrace the Magic",
+        "popular": true
+      },
+      {
+        "name": "Master",
+        "price": "$99",
+        "period": "month",
+        "description": "Complete access to all mystical writing tools",
+        "features": [
+          "Everything in Adept",
+          "Spirit voice rewriting",
+          "Custom archetypal patterns",
+          "1-on-1 guidance sessions",
+          "Beta feature access"
+        ],
+        "cta": "Become a Master",
+        "popular": false
+      }
+    ]
+  },
+
+  "closingCTA": {
+    "headline": "Your story is already alive. This tool helps you meet it in the space between dream and waking.",
+    "subheadline": "Join thousands of writers who've discovered the deeper magic of their words.",
+    "primaryCTA": { "label": "Step Into the Story →", "href": "/signup" },
+    "secondaryCTA": { "label": "Start Free Trial", "href": "/trial" }
+  },
+
+  "footer": {
+    "brand": "Echo",
+    "tagline": "Where stories come alive through ancient wisdom",
+    "links": {
+      "product": [
+        { "label": "Features", "href": "#features" },
+        { "label": "Pricing", "href": "#pricing" },
+        { "label": "Demo", "href": "#demo" }
+      ],
+      "company": [
+        { "label": "About", "href": "/about" },
+        { "label": "Blog", "href": "/blog" },
+        { "label": "Careers", "href": "/careers" }
+      ],
+      "support": [
+        { "label": "Help Center", "href": "/help" },
+        { "label": "Contact", "href": "/contact" },
+        { "label": "Community", "href": "/community" }
+      ],
+      "legal": [
+        { "label": "Privacy", "href": "/privacy" },
+        { "label": "Terms", "href": "/terms" }
+      ]
+    }
+  }
+}

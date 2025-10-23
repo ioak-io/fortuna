@@ -1,23 +1,89 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+.report/
+
+# Runtime data
+*.cjs
+*.mjs
+*.o
+*.tmp
+
+# Dependencies
+/node/node_modules
+/node/.pnpm-store
+
+# Recursive exclusions
+**/node_modules/
+**/dist/
+**/build/
+**/.next/
+
+# IDEs and editors
+.vscode/
+.idea/
+.DS_Store
+
+# Environment variables
+.env
+.env.*.prod
+
+# Test coverage
+coverage/
+
+# node-gyp
+.node_gyp/
+
+# others
+*.tgz
+
+help.md
+
+# Python virtual environments
+/python/.venv
+/python/venv
+
+# Python/Poetry artifacts (workspace under python/)
+# Byte-compiled / cache
+/python/**/__pycache__/
+/python/**/*.py[cod]
+/python/**/*.pyo
+/python/.pytest_cache/
+/python/**/.pytest_cache/
+/python/.mypy_cache/
+/python/**/.mypy_cache/
+/python/.ruff_cache/
+/python/**/.ruff_cache/
+
+# Virtual environments inside packages/services
+/python/**/.venv/
+/python/**/venv/
+
+# Coverage and test reports
+/python/.coverage
+/python/.coverage.*
+/python/coverage.xml
+/python/htmlcov/
+
+# Type checker and tooling caches
+/python/.pytype/
+/python/.dmypy.json
+/python/dmypy.json
+
+# Jupyter and misc
+/python/.ipynb_checkpoints
+/python/**/.ipynb_checkpoints/
+/python/.python-version
+
+# TypeScript build info
+**/.tsbuildinfo/
+*.tsbuildinfo
+
+# Poetry build output is already covered by **/dist/ above

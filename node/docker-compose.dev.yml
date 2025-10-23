@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  fortuna-migration:
+    container_name: fortuna-migration
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: services/migration/Dockerfile
+    ports:
+      - "2110:2110"
+    env_file:
+      - .env.migration.prod
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./migrations:/app/migrations
+      - ./packages:/app/packages
+      - ./services/migration:/app/services/migration
+      - /app/services/migration/node_modules
+      - /app/node_modules
+    networks:
+      - ioak-network
+    command: pnpm --filter migration-service dev
+    restart: unless-stopped
+
+networks:
+  ioak-network:
+    external: true
