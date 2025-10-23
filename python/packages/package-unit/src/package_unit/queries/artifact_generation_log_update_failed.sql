@@ -1,3 +1,0 @@
-UPDATE {schema}.artifact_generation_log
-SET status='failed', started_at=NOW(), error_message=$5
-WHERE team_id=$1 AND unit_id=$2 AND file_id=$3 AND artifact_type=$4;

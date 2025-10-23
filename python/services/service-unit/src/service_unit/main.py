@@ -5,7 +5,6 @@ import logging
 from package_middlewares.jwt import verify_and_get_claims
 from package_middlewares.tenantDb import tenant_db
 from package_middlewares.auth import tenant_access
-from package_unit import health_check as package_unit_health
 from package_database import DBSettings as DBSettingsDB, init_pool as db_init_pool, fetch_val as db_fetch_val
 from .middlewares.team import team_context
 
@@ -47,27 +46,6 @@ async def root() -> dict[str, str]:
         "message": f"Welcome to {settings.app_name}",
         "version": settings.version,
         "docs": "/docs",
-    }
-
-
-@app.get("/health")
-async def health() -> dict[str, object]:
-    """Health check endpoint including package-unit health info."""
-    pkg = package_unit_health()
-    # Database connectivity check
-    db = {"status": "unknown"}
-    try:
-        await db_init_pool(DBSettingsDB())
-        v = await db_fetch_val("select 1")
-        db["status"] = "ok" if v in (1, "1") else "ok"
-    except Exception as e:
-        db = {"status": "error", "error": str(e)}
-    return {
-        "status": "healthy",
-        "service": settings.app_name,
-        "keycloak_url": settings.keycloak_url,
-        "package_unit": pkg,
-        "database": db,
     }
 
 

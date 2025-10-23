@@ -41,16 +41,21 @@ export function StatementService(httpFetch: HttpFetch, teamId?: string) {
 
     async createFromFile(file: File): Promise<StatementRecord> {
       ensureTeamId();
-      const text = await file.text();
-      const payload = {
-        file_name: file.name,
-        raw_text: text,
-      } as Partial<StatementRecord>;
+      const formData = new FormData();
+      formData.append('file', file);
 
-      const res = await httpFetch(baseUrl, {
+      // For file uploads with FormData, we should only pass non-content-type headers
+      // The browser will automatically set the correct Content-Type with boundary
+      const customHeaders: Record<string, string> = {};
+      if (teamId) {
+        customHeaders['x-team'] = teamId;
+      }
+
+
+      const res = await httpFetch(`${env.NEXT_PUBLIC_API_URL}/fortuna/content/statement`, {
         method: "POST",
-        headers: getHeaders("application/json"),
-        body: JSON.stringify(payload),
+        body: formData,
+        headers: customHeaders, // Only pass custom headers, let browser handle Content-Type
       });
       return res.json();
     },
