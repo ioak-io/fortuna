@@ -47,8 +47,6 @@ class StatementService:
         team_id: str,
         file_data: Dict[str, Any],
         file_bytes: bytes,
-        chunk_size: int = 1000,
-        chunk_overlap: int = 250,
         auth_headers: Dict[str, str] | None = None,
         mime_type: str | None = None,
     ) -> Dict[str, Any]:

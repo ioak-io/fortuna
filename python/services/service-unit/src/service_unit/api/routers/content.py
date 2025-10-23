@@ -62,8 +62,6 @@ async def upload_statement(
             team,
             file_data,
             file_bytes,
-            chunk_size=int(request.headers.get("x-chunk-size", "1000")),
-            chunk_overlap=int(request.headers.get("x-chunk-overlap", "250")),
             auth_headers=_auth_headers(request),
             mime_type=file.content_type,
         )
