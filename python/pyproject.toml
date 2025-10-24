@@ -18,6 +18,7 @@ middlewares = { path = "packages/middlewares", develop = true }
 service-unit = { path = "services/service-unit", develop = true }
 database = { path = "packages/database", develop = true }
 package-qdrant = { path = "packages/package-qdrant", develop = true }
+package-categorization = { path = "packages/package-categorization", develop = true }
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.6.0"

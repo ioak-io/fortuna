@@ -8,7 +8,6 @@ from package_statement.services import (
     StatementService
 )
 
-
 from ...db_adapter import SyncDB
 
 router = APIRouter(prefix="/statement", tags=["content"])
@@ -71,4 +70,3 @@ async def upload_statement(
     except Exception as e:  # noqa: BLE001
         raise HTTPException(
             status_code=500, detail=f"Failed to process file: {e}") from e
-    

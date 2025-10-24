@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from fastapi import APIRouter
 
-from .routers import content
+from .routers import categorization, statement
 
 router = APIRouter()
-router.include_router(content.router)
+router.include_router(statement.router)
+router.include_router(categorization.router)
