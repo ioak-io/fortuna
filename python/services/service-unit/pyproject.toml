@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "service-unit"
 version = "0.1.0"
-description = "FastAPI service using package-unit"
+description = "FastAPI service using package-statement"
 authors = ["Enterprise Team <team@company.com>"]
 readme = "README.md"
 packages = [{include = "service_unit", from = "src"}]
@@ -16,7 +16,7 @@ fastapi = "^0.115.0"
 uvicorn = {extras = ["standard"], version = "^0.31.0"}
 pydantic = "^2.9.0"
 pydantic-settings = "^2.6.0"
-package-unit = {path = "../../packages/package-unit", develop = true}
+package-statement = {path = "../../packages/package-statement", develop = true}
 database = {path = "../../packages/database", develop = true}
 middlewares = {path = "../../packages/middlewares", develop = true}
 psycopg = {version = "^3.2.1", extras = ["binary"]}

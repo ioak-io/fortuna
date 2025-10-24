@@ -16,7 +16,8 @@ class LlmService:
         kwargs = {
             "model": self.model,
             "messages": messages,
-            "reasoning_effort": "minimal"
+            "reasoning_effort": "minimal",
+            "response_format": {"type": "json_object"}
         }
         if max_completion_tokens is not None:
             kwargs["max_completion_tokens"] = max_completion_tokens

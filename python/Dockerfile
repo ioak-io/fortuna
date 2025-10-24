@@ -32,7 +32,7 @@ COPY services/ ./services/
 
 # Install packages and services with editable installs
 RUN cd packages/package-example && poetry install && rm -rf $POETRY_CACHE_DIR
-RUN cd packages/package-unit && poetry install && rm -rf $POETRY_CACHE_DIR
+RUN cd packages/package-statement && poetry install && rm -rf $POETRY_CACHE_DIR
 RUN cd services/service-example && poetry install && rm -rf $POETRY_CACHE_DIR
 RUN cd services/service-unit && poetry install && rm -rf $POETRY_CACHE_DIR
 RUN cd services/service-agent && poetry install && rm -rf $POETRY_CACHE_DIR

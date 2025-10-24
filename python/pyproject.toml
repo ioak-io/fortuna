@@ -13,7 +13,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.13"
-package-unit = { path = "packages/package-unit", develop = true }
+package-statement = { path = "packages/package-statement", develop = true }
 middlewares = { path = "packages/middlewares", develop = true }
 service-unit = { path = "services/service-unit", develop = true }
 database = { path = "packages/database", develop = true }
@@ -76,7 +76,7 @@ addopts = [
     "--strict-config",
     "--cov=packages/package-example/src",
     "--cov=services/service-example/src",
-    "--cov=packages/package-unit/src",
+    "--cov=packages/package-statement/src",
     "--cov=packages/database/src",
     "--cov=services/service-unit/src",
     "--cov=services/service-agent/src",
@@ -89,7 +89,7 @@ addopts = [
 source = [
     "packages/package-example/src",
     "services/service-example/src",
-    "packages/package-unit/src",
+    "packages/package-statement/src",
     "packages/database/src",
     "services/service-unit/src",
     "services/service-agent/src"

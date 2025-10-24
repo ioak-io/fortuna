@@ -1,6 +1,6 @@
 # service-unit
 
-FastAPI service depending on `package-unit`.
+FastAPI service depending on `package-statement`.
 
 ## Run locally
 ```

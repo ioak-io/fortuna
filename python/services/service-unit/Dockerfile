@@ -18,7 +18,7 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock* /app/
 COPY packages/database /app/packages/database
 COPY packages/middlewares /app/packages/middlewares
-COPY packages/package-unit /app/packages/package-unit
+COPY packages/package-statement /app/packages/package-statement
 COPY services/service-unit /app/services/service-unit
 
 # Install deps for the service

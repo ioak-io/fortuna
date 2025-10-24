@@ -44,9 +44,9 @@ jobs:
         cd packages/package-example
         poetry install --no-interaction
 
-    - name: Install package-unit
+    - name: Install package-statement
       run: |
-        cd packages/package-unit
+        cd packages/package-statement
         poetry install --no-interaction
 
     - name: Install service-example
@@ -73,10 +73,10 @@ jobs:
         cd packages/package-example
         poetry run pytest --cov=src/package_example --cov-report=xml
 
-    - name: Test package-unit
+    - name: Test package-statement
       run: |
-        cd packages/package-unit
-        poetry run pytest --cov=src/package_unit --cov-report=xml
+        cd packages/package-statement
+        poetry run pytest --cov=src/package_statement --cov-report=xml
 
     - name: Test service-example
       run: |
@@ -91,7 +91,7 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
-        files: ./packages/package-example/coverage.xml,./packages/package-unit/coverage.xml,./services/service-example/coverage.xml,./services/service-unit/coverage.xml
+        files: ./packages/package-example/coverage.xml,./packages/package-statement/coverage.xml,./services/service-example/coverage.xml,./services/service-unit/coverage.xml
         fail_ci_if_error: true
 
   docker:

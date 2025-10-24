@@ -3,12 +3,12 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "package-unit"
+name = "package-statement"
 version = "0.1.0"
 description = "LLM utilities package"
 authors = ["Enterprise Team <team@company.com>"]
 readme = "README.md"
-packages = [{include = "package_unit", from = "src"}]
+packages = [{include = "package_statement", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.13"
@@ -23,6 +23,8 @@ langchain-openai = "^0.3.35"
 openai = "^2.2.0"
 pdfplumber = "^0.11.7"
 pandas = "^2.3.3"
+openpyxl = "^3.1.5"
+xlrd = "^2.0.2"
 package-qdrant = { path = "../package-qdrant", develop = true }
 
 [tool.poetry.group.dev.dependencies]
@@ -52,7 +54,7 @@ warn_unreachable = true
 strict_equality = true
 
 [[tool.mypy.overrides]]
-module = "package_unit.*"
+module = "package_statement.*"
 disallow_untyped_defs = true
 
 [tool.pytest.ini_options]
@@ -63,6 +65,6 @@ python_functions = ["test_*"]
 addopts = [
     "--strict-markers",
     "--strict-config",
-    "--cov=src/package_unit",
+    "--cov=src/package_statement",
     "--cov-report=term-missing",
 ]

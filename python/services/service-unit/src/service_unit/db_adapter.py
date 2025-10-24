@@ -15,7 +15,7 @@ from package_database import DBSettings
 class SyncDB:
     """Minimal synchronous DB adapter exposing a query(sql, params) method.
 
-    This is used to interoperate with package_unit services that expect
+    This is used to interoperate with package_statement services that expect
     a .query method similar to the Node pg client.
     """
 

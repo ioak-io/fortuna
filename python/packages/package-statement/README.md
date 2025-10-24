@@ -1,10 +1,10 @@
-# package-unit
+# package-statement
 
 Small LLM utilities package used by service-unit.
 
 ## Example
 ```python
-from package_unit.core import generate
+from package_statement.core import generate
 
 print(generate("hello"))
 ```

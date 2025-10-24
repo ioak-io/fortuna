@@ -25,9 +25,9 @@ monorepo/
 │   │   │   ├── types.py
 │   │   │   └── introspect.py
 │   │   └── tests/
-│   └── package-unit/            # LLM utilities + LLMClient
+│   └── package-statement/            # LLM utilities + LLMClient
 │       ├── pyproject.toml
-│       ├── src/package_unit/
+│       ├── src/package_statement/
 │       │   ├── __init__.py
 │       │   ├── core.py
 │       │   ├── client.py
@@ -87,7 +87,7 @@ monorepo/
    # Install root dependencies and dev tools
    poetry install
 
-   # Note: The root install sets up all workspace packages (package-example, package-unit, service-example, service-unit)
+   # Note: The root install sets up all workspace packages (package-example, package-statement, service-example, service-unit)
    # via path dependencies in editable mode. No need to install per subproject.
    ```
 
@@ -102,7 +102,7 @@ monorepo/
    ./scripts/test-all.sh
 
    # Or test individually
-   cd packages/package-unit && poetry run pytest && cd ../..
+   cd packages/package-statement && poetry run pytest && cd ../..
    cd services/service-unit && poetry run pytest && cd ../..
    ```
 
@@ -196,9 +196,9 @@ poetry run pre-commit run --all-files
 ## Package Dependencies
 
 - **package-example**: Core example logic (no internal deps)
-- **package-unit**: LLM utilities (no internal deps)
+- **package-statement**: LLM utilities (no internal deps)
 - **service-example**: Uses `package-example` via DI (`ExampleClient`)
-- **service-unit**: Uses `package-unit` via DI (`LLMClient`)
+- **service-unit**: Uses `package-statement` via DI (`LLMClient`)
 
 ## API Endpoints
 

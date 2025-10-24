@@ -183,7 +183,7 @@ export function StatementFileManager() {
               <input
                 type="file"
                 multiple
-                accept=".txt,.pdf,.doc,.docx"
+                accept=".txt,.pdf,.doc,.docx,.xls,.xlsx,.csv"
                 onChange={(e) => {
                   const selected = Array.from(e.target.files || []);
                   if (selected.length > 0) handleFileUpload(selected);

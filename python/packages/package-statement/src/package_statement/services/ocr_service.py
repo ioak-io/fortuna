@@ -4,7 +4,7 @@ from typing import Dict, Optional
 
 import requests
 
-from package_unit.utils.http import API_URL
+from package_statement.utils.http import API_URL
 
 
 class OcrService:

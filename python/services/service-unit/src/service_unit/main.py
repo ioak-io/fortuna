@@ -11,7 +11,7 @@ from .middlewares.team import team_context
 from .api.routes import router
 from .config import settings
 
-# Ensure INFO-level logs from package_unit.* appear in console
+# Ensure INFO-level logs from package_statement.* appear in console
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(name)s %(message)s",
@@ -20,7 +20,7 @@ logging.basicConfig(
 app = FastAPI(
     title="service-unit",
     version="1.0.0",
-    description="FastAPI service using package-unit",
+    description="FastAPI service using package-statement",
     docs_url="/docs",
     redoc_url="/redoc",
     dependencies=[Depends(verify_and_get_claims), Depends(tenant_db), Depends(team_context)]
