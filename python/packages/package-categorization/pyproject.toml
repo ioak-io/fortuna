@@ -13,6 +13,12 @@ packages = [{include = "package_categorization", from = "src"}]
 [tool.poetry.dependencies]
 python = "^3.13"
 pydantic = "^2.9.0"
+langchain-openai = "^0.3.35"
+numpy = "^2.3.3"
+scikit-learn = "^1.7.2"
+hdbscan = "^0.8.38"
+qdrant-client = "^1.15.1"
+package-qdrant = { path = "../package-qdrant", develop = true }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.0"
