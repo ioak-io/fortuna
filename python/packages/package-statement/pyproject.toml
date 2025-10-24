@@ -26,6 +26,7 @@ pandas = "^2.3.3"
 openpyxl = "^3.1.5"
 xlrd = "^2.0.2"
 package-qdrant = { path = "../package-qdrant", develop = true }
+package-categorization = { path = "../package-categorization", develop = true }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.0"

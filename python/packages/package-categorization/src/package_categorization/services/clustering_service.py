@@ -45,58 +45,59 @@ class ClusteringService:
     # -----------------------------
     # Embedding helpers
     # -----------------------------
-    def _get_or_create_embeddings(
-        self, schema: str, txns: List[Dict[str, Any]]
+    def _get_embeddings(
+        self, schema: str, team_id: str, txns: List[Dict[str, Any]]
     ) -> List[List[float]]:
         """
-        For each transaction, fetch embedding from Qdrant if it exists.
-        If not, compute and upsert it.
+        For each transaction, fetch embedding from Qdrant by payload keys:
+        team_id AND transaction_id (with `IN` filter).
+        Returns vectors in the SAME ORDER as `txns`.
         """
         texts = [_txn_text(t) for t in txns]
-        ids = [int(t["id"]) for t in txns]
+        tx_ids = [int(t["id"]) for t in txns]
 
-        vectors: List[List[float]] = []
-
-        # Pull existing vectors from Qdrant
-        existing = self.qdrant.raw.retrieve(
-            collection_name=schema, ids=ids, with_payload=False
-        )
-        existing_map = {int(r.id): r.vector for r in existing or []}
-
-        to_compute = []
-        to_compute_ids = []
-
-        for tx, txt in zip(txns, texts):
-            tx_id = int(tx["id"])
-            if tx_id in existing_map and existing_map[tx_id] is not None:
-                vectors.append(existing_map[tx_id])
-            else:
-                to_compute.append(txt)
-                to_compute_ids.append(tx_id)
-
-        # Embed missing ones
-        if to_compute:
-            logger.info(f"Embedding {len(to_compute)} new transactions...")
-            new_vecs = self.embeddings.embed_documents(to_compute)
-
-            # Upsert into Qdrant for caching
-            self.qdrant.raw.upsert(
-                collection_name=schema,
-                points=[
-                    qmodels.PointStruct(
-                        id=tx_id, vector=vec, payload={"transaction_id": tx_id}
-                    )
-                    for tx_id, vec in zip(to_compute_ids, new_vecs)
-                ],
+        # Build filter
+        must_filters = [
+            qmodels.FieldCondition(
+                key="team_id",
+                match=qmodels.MatchValue(value=team_id)
+            ),
+            qmodels.FieldCondition(
+                key="transaction_id",
+                match=qmodels.MatchAny(any=tx_ids)
             )
+        ]
 
-            vectors.extend(new_vecs)
+        # Fetch all matching records with vectors
+        vectors_by_txid: Dict[int, List[float]] = {}
 
-        return vectors
+        for rec in self.qdrant.scroll(
+            collection=schema,
+            batch_size=100,
+            must_filters=must_filters,
+            with_payload=True,
+            with_vectors=True,
+        ):
+            txn_id = rec.payload.get("transaction_id")
+            if txn_id is not None:
+                vectors_by_txid[int(txn_id)] = rec.vector
+
+        # Reorder to match input txns
+        ordered_vectors: List[List[float]] = []
+        for t in txns:
+            txn_id = int(t["id"])
+            vec = vectors_by_txid.get(txn_id)
+            if vec is None:
+                raise ValueError(
+                    f"Vector not found in Qdrant for transaction {txn_id}")
+            ordered_vectors.append(vec)
+
+        return ordered_vectors
 
     # -----------------------------
     # Category updates
     # -----------------------------
+
     def update_transaction_category(
         self,
         realm: str,
@@ -139,16 +140,14 @@ class ClusteringService:
         realm: str,
         tenant: str,
         team_id: str,
-        suggested_category_id: Optional[int] | None = None,
-        confidence: Optional[float] | None = None,
+        confidence: str = "high"
     ) -> int:
         schema = make_schema(realm, tenant)
         sql = (
-            f"INSERT INTO {schema}.category_cluster "
-            f"(team_id, suggested_category_id, confidence) "
-            f"VALUES ($1, $2, $3) RETURNING id"
+            f"INSERT INTO {schema}.transaction_uncategorized_cluster (team_id, confidence) "
+            f"VALUES ($1, $2) RETURNING id"
         )
-        res = self.db.query(sql, [team_id, suggested_category_id, confidence])
+        res = self.db.query(sql, [team_id, confidence])
         rows = res.rows if getattr(res, "rows", None) is not None else res
         return int(rows[0]["id"]) if rows else 0
 
@@ -164,7 +163,7 @@ class ClusteringService:
             return
         schema = make_schema(realm, tenant)
         sql = (
-            f"INSERT INTO {schema}.category_cluster_transaction (cluster_id, transaction_id) "
+            f"INSERT INTO {schema}.transaction_uncategorized_cluster_member (cluster_id, transaction_id) "
             f"VALUES ($1, $2) ON CONFLICT DO NOTHING"
         )
         for tx_id in transaction_ids:
@@ -179,12 +178,12 @@ class ClusteringService:
     ) -> None:
         schema = make_schema(realm, tenant)
         self.db.query(
-            f"DELETE FROM {schema}.category_cluster_transaction WHERE cluster_id = $1",
+            f"DELETE FROM {schema}.transaction_uncategorized_cluster_member WHERE cluster_id = $1",
             [cluster_id],
         )
         self.db.query(
-            f"DELETE FROM {schema}.category_cluster WHERE id = $1", [
-                cluster_id]
+            f"DELETE FROM {schema}.transaction_uncategorized_cluster WHERE id = $1",
+            [cluster_id],
         )
 
     # -----------------------------
@@ -195,34 +194,57 @@ class ClusteringService:
         realm: str,
         tenant: str,
         team_id: str,
-        min_cluster_size: int = 2,
+        min_cluster_size: int = 5,
     ) -> List[Dict[str, Any]]:
         """
-        Fetch uncategorized transactions, embed (cached), cluster with HDBSCAN.
+        Two-pass clustering:
+        - Pass 1: High-confidence HDBSCAN clusters.
+        - Pass 2: Looser HDBSCAN on noise for low-confidence clusters.
+        - Remaining noise = ignored.
         """
+        schema = make_schema(realm, tenant)
+
+        # --- cleanup previous staging clusters for this team ---
+        self.db.query(
+            f"""
+            DELETE FROM {schema}.transaction_uncategorized_cluster_member
+            WHERE cluster_id IN (
+                SELECT id FROM {schema}.transaction_uncategorized_cluster WHERE team_id = $1
+            )
+            """,
+            [team_id],
+        )
+        self.db.query(
+            f"DELETE FROM {schema}.transaction_uncategorized_cluster WHERE team_id = $1",
+            [team_id],
+        )
+
+        # --- fetch uncategorized transactions ---
         txns = self.fetch_uncategorized_transactions(realm, tenant, team_id)
         if not txns:
             return []
 
-        schema = make_schema(realm, tenant)
-
-        vectors = self._get_or_create_embeddings(schema, txns)
+        vectors = self._get_embeddings(schema, team_id, txns)
         if not vectors:
             return []
 
         # Normalize embeddings
         X = normalize(np.array(vectors))
 
-        # Density-based clustering
+        results: List[Dict[str, Any]] = []
+
+        # --- First pass: high confidence clustering ---
         clusterer = hdbscan.HDBSCAN(
-            min_cluster_size=min_cluster_size, metric="euclidean")
+            min_cluster_size=min_cluster_size, metric="euclidean"
+        )
         labels = clusterer.fit_predict(X)
 
-        results: List[Dict[str, Any]] = []
         clustered_txns: Dict[int, List[int]] = {}
+        noise_indices: List[int] = []
 
         for idx, label in enumerate(labels):
-            if label == -1:  # noise
+            if label == -1:
+                noise_indices.append(idx)
                 continue
             clustered_txns.setdefault(label, []).append(int(txns[idx]["id"]))
 
@@ -231,7 +253,8 @@ class ClusteringService:
                               for i, l in enumerate(labels) if l == label]
             centroid = _average_vector(member_vectors)
 
-            cluster_id = self.create_cluster(realm, tenant, team_id)
+            cluster_id = self.create_cluster(
+                realm, tenant, team_id, confidence="high")
             self.add_transactions_to_cluster(
                 realm, tenant, team_id, cluster_id, member_tx_ids
             )
@@ -241,8 +264,48 @@ class ClusteringService:
                     "cluster_id": cluster_id,
                     "transaction_ids": member_tx_ids,
                     "centroid_vector": centroid,
+                    "confidence": "high",
                 }
             )
+
+        # --- Second pass: looser clustering on noise ---
+        if noise_indices:
+            noise_vectors = [vectors[i] for i in noise_indices]
+            noise_txns = [txns[i] for i in noise_indices]
+
+            loose_clusterer = hdbscan.HDBSCAN(
+                min_cluster_size=2,  # looser threshold
+                min_samples=1,
+                metric="euclidean"
+            )
+            loose_labels = loose_clusterer.fit_predict(noise_vectors)
+
+            loose_txns: Dict[int, List[int]] = {}
+            for idx, label in enumerate(loose_labels):
+                if label == -1:
+                    continue  # still unclustered
+                loose_txns.setdefault(label, []).append(
+                    int(noise_txns[idx]["id"]))
+
+            for label, member_tx_ids in loose_txns.items():
+                member_vectors = [noise_vectors[i]
+                                  for i, l in enumerate(loose_labels) if l == label]
+                centroid = _average_vector(member_vectors)
+
+                cluster_id = self.create_cluster(
+                    realm, tenant, team_id, confidence="low")
+                self.add_transactions_to_cluster(
+                    realm, tenant, team_id, cluster_id, member_tx_ids
+                )
+
+                results.append(
+                    {
+                        "cluster_id": cluster_id,
+                        "transaction_ids": member_tx_ids,
+                        "centroid_vector": centroid,
+                        "confidence": "low",
+                    }
+                )
 
         return results
 
@@ -322,14 +385,7 @@ class ClusteringService:
         confidence = best_count / float(total)
         suggested = best_cat if confidence >= min_confidence else None
 
-        # Persist suggestion
-        try:
-            self.db.query(
-                f"UPDATE {schema}.category_cluster SET suggested_category_id = $2, confidence = $3 WHERE id = $1",
-                [int(cluster.get("cluster_id", 0)), suggested, confidence],
-            )
-        except Exception as e:
-            logger.warning(f"Failed to update suggestion: {e}")
+        # Note: No persistence of suggestion as cluster table does not store it
 
         return {
             "cluster_id": int(cluster.get("cluster_id", 0)),
@@ -355,7 +411,7 @@ class ClusteringService:
         """
         schema = make_schema(realm, tenant)
         res = self.db.query(
-            f"SELECT transaction_id FROM {schema}.category_cluster_transaction WHERE cluster_id = $1",
+            f"SELECT transaction_id FROM {schema}.transaction_uncategorized_cluster_member WHERE cluster_id = $1",
             [cluster_id],
         )
         rows = res.rows if getattr(res, "rows", None) is not None else res

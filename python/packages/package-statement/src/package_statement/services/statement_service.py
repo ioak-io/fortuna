@@ -8,6 +8,7 @@ from package_statement.utils.schema import make_schema
 from package_statement.utils.sql import load_sql
 from package_statement.services.llm_service import LlmService
 from package_statement.services.vector_service import VectorService
+from package_categorization.services.clustering_service import ClusteringService
 from package_statement.services.statement_parsers import extract_transactions
 
 
@@ -98,6 +99,18 @@ class StatementService:
             "realm": realm, "tenant": tenant, "team_id": team_id, "statement_id": created.get("id"),
             "count": len(transactions),
         })
+
+        # Trigger clustering on uncategorized transactions for this team
+        try:
+            ClusteringService(self.db).cluster_uncategorized_transactions(
+                realm=realm,
+                tenant=tenant,
+                team_id=team_id,
+            )
+        except Exception:
+            logging.exception("clustering_failed", extra={
+                "realm": realm, "tenant": tenant, "team_id": team_id, "statement_id": created.get("id"),
+            })
 
         return created
 

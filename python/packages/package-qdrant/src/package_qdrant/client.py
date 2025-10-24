@@ -123,3 +123,45 @@ class QdrantClientWrapper:
             query_filter=qfilter,
         )
         return results
+
+    def scroll(
+        self,
+        collection: str,
+        batch_size: int = 100,
+        must_filters: Optional[List[qmodels.FieldCondition]] = None,
+        with_payload: bool = True,
+        with_vectors: bool = False,
+        offset: Optional[str] = None,
+    ) -> Iterable[qmodels.Record]:
+        """
+        Scroll through all points in a collection (paginated).
+
+        Args:
+            collection: name of the collection
+            batch_size: number of points per batch
+            must_filters: optional list of filters
+            with_payload: whether to return payloads
+            with_vectors: whether to return vectors
+            offset: optional starting offset (point id)
+
+        Yields:
+            qmodels.Record objects
+        """
+        qfilter = None
+        if must_filters:
+            qfilter = qmodels.Filter(must=must_filters)
+
+        next_offset = offset
+        while True:
+            points, next_offset = self._client.scroll(
+                collection_name=collection,
+                scroll_filter=qfilter,
+                with_payload=with_payload,
+                with_vectors=with_vectors,
+                limit=batch_size,
+                offset=next_offset,
+            )
+            for p in points:
+                yield p
+            if next_offset is None:
+                break

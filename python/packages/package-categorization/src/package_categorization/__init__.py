@@ -1,3 +1,3 @@
-from .services import CategorizationService
+from .services import ClusteringService
 
-__all__ = ["CategorizationService"]
+__all__ = ["ClusteringService"]
