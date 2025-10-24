@@ -7,7 +7,7 @@ class LlmService:
     def __init__(self, model: str = "gpt-5-nano"):
         self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         self.model = model
-        
+
     def complete(
         self,
         messages: List[Dict[str, str]],
@@ -24,5 +24,3 @@ class LlmService:
         response = self.client.chat.completions.create(**kwargs)
         print(response)
         return response.choices[0].message.content.strip()
-
-
