@@ -1,17 +1,16 @@
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
+import hdbscan
 import logging
 
 import numpy as np
 from sklearn.preprocessing import normalize
-import hdbscan
 
 from package_categorization.utils.schema import make_schema
 from package_categorization.embeddings import get_openai_embeddings
 from package_qdrant import QdrantClientWrapper
 from qdrant_client.http import models as qmodels
-
 
 logger = logging.getLogger(__name__)
 
@@ -22,15 +21,9 @@ class ClusteringService:
         self.embeddings = get_openai_embeddings()
         self.qdrant = QdrantClientWrapper()
 
-    # -----------------------------
-    # Fetch uncategorized transactions
-    # -----------------------------
-    def fetch_uncategorized_transactions(
+    def _fetch_transactions_to_cluster(
         self, realm: str, tenant: str, team_id: str
     ) -> List[Dict[str, Any]]:
-        """
-        Fetch transactions with NULL category_id for a given team.
-        """
         schema = make_schema(realm, tenant)
         sql = (
             f"SELECT id, description, type, amount, transaction_date "
@@ -42,17 +35,9 @@ class ClusteringService:
         rows = res.rows if getattr(res, "rows", None) is not None else res
         return [dict(r) for r in rows]
 
-    # -----------------------------
-    # Embedding helpers
-    # -----------------------------
     def _get_embeddings(
         self, schema: str, team_id: str, txns: List[Dict[str, Any]]
     ) -> List[List[float]]:
-        """
-        For each transaction, fetch embedding from Qdrant by payload keys:
-        team_id AND transaction_id (with `IN` filter).
-        Returns vectors in the SAME ORDER as `txns`.
-        """
         texts = [_txn_text(t) for t in txns]
         tx_ids = [int(t["id"]) for t in txns]
 
@@ -94,48 +79,7 @@ class ClusteringService:
 
         return ordered_vectors
 
-    # -----------------------------
-    # Category updates
-    # -----------------------------
-
-    def update_transaction_category(
-        self,
-        realm: str,
-        tenant: str,
-        team_id: str,
-        transaction_ids: List[int],
-        category_id: int,
-    ) -> None:
-        """
-        Update category_id in Postgres and Qdrant payloads.
-        """
-        if not transaction_ids:
-            return
-
-        schema = make_schema(realm, tenant)
-
-        # Update Postgres
-        sql = (
-            f"UPDATE {schema}.transaction "
-            f"SET category_id = $3 "
-            f"WHERE team_id = $1 AND id = ANY($2)"
-        )
-        self.db.query(sql, [team_id, transaction_ids, category_id])
-
-        # Update Qdrant
-        try:
-            self.qdrant.raw.set_payload(
-                collection_name=schema,
-                payload={"category_id": category_id},
-                points=transaction_ids,
-            )
-        except Exception as e:
-            logger.warning(f"Qdrant update failed: {e}")
-
-    # -----------------------------
-    # Cluster management
-    # -----------------------------
-    def create_cluster(
+    def _create_cluster(
         self,
         realm: str,
         tenant: str,
@@ -151,7 +95,7 @@ class ClusteringService:
         rows = res.rows if getattr(res, "rows", None) is not None else res
         return int(rows[0]["id"]) if rows else 0
 
-    def add_transactions_to_cluster(
+    def _add_transactions_to_cluster(
         self,
         realm: str,
         tenant: str,
@@ -169,26 +113,6 @@ class ClusteringService:
         for tx_id in transaction_ids:
             self.db.query(sql, [cluster_id, tx_id])
 
-    def delete_cluster(
-        self,
-        realm: str,
-        tenant: str,
-        team_id: str,
-        cluster_id: int,
-    ) -> None:
-        schema = make_schema(realm, tenant)
-        self.db.query(
-            f"DELETE FROM {schema}.transaction_uncategorized_cluster_member WHERE cluster_id = $1",
-            [cluster_id],
-        )
-        self.db.query(
-            f"DELETE FROM {schema}.transaction_uncategorized_cluster WHERE id = $1",
-            [cluster_id],
-        )
-
-    # -----------------------------
-    # Main clustering flow
-    # -----------------------------
     def cluster_uncategorized_transactions(
         self,
         realm: str,
@@ -196,12 +120,6 @@ class ClusteringService:
         team_id: str,
         min_cluster_size: int = 5,
     ) -> List[Dict[str, Any]]:
-        """
-        Two-pass clustering:
-        - Pass 1: High-confidence HDBSCAN clusters.
-        - Pass 2: Looser HDBSCAN on noise for low-confidence clusters.
-        - Remaining noise = ignored.
-        """
         schema = make_schema(realm, tenant)
 
         # --- cleanup previous staging clusters for this team ---
@@ -220,7 +138,7 @@ class ClusteringService:
         )
 
         # --- fetch uncategorized transactions ---
-        txns = self.fetch_uncategorized_transactions(realm, tenant, team_id)
+        txns = self._fetch_transactions_to_cluster(realm, tenant, team_id)
         if not txns:
             return []
 
@@ -253,9 +171,9 @@ class ClusteringService:
                               for i, l in enumerate(labels) if l == label]
             centroid = _average_vector(member_vectors)
 
-            cluster_id = self.create_cluster(
+            cluster_id = self._create_cluster(
                 realm, tenant, team_id, confidence="high")
-            self.add_transactions_to_cluster(
+            self._add_transactions_to_cluster(
                 realm, tenant, team_id, cluster_id, member_tx_ids
             )
 
@@ -292,9 +210,9 @@ class ClusteringService:
                                   for i, l in enumerate(loose_labels) if l == label]
                 centroid = _average_vector(member_vectors)
 
-                cluster_id = self.create_cluster(
+                cluster_id = self._create_cluster(
                     realm, tenant, team_id, confidence="low")
-                self.add_transactions_to_cluster(
+                self._add_transactions_to_cluster(
                     realm, tenant, team_id, cluster_id, member_tx_ids
                 )
 
@@ -309,9 +227,6 @@ class ClusteringService:
 
         return results
 
-    # -----------------------------
-    # Assign suggestion to a cluster
-    # -----------------------------
     def assign_cluster_suggestions(
         self,
         realm: str,
@@ -321,9 +236,6 @@ class ClusteringService:
         top_k: int = 50,
         min_confidence: float = 0.6,
     ) -> Dict[str, Any]:
-        """
-        Suggest category for a cluster via nearest neighbors in Qdrant.
-        """
         schema = make_schema(realm, tenant)
         centroid: List[float] = list(cluster.get("centroid_vector") or [])
         if not centroid:
@@ -393,55 +305,7 @@ class ClusteringService:
             "confidence_score": confidence,
         }
 
-    # -----------------------------
-    # Final categorization
-    # -----------------------------
-    def categorize_cluster(
-        self,
-        realm: str,
-        tenant: str,
-        team_id: str,
-        cluster_id: int,
-        category_id: int,
-    ) -> None:
-        """
-        - Update all transactions in cluster
-        - Update embeddings in Qdrant
-        - Delete the cluster
-        """
-        schema = make_schema(realm, tenant)
-        res = self.db.query(
-            f"SELECT transaction_id FROM {schema}.transaction_uncategorized_cluster_member WHERE cluster_id = $1",
-            [cluster_id],
-        )
-        rows = res.rows if getattr(res, "rows", None) is not None else res
-        tx_ids = [int(r.get("transaction_id"))
-                  for r in rows if r.get("transaction_id")]
 
-        if not tx_ids:
-            self.delete_cluster(realm, tenant, team_id, cluster_id)
-            return
-
-        self.update_transaction_category(
-            realm, tenant, team_id, tx_ids, category_id
-        )
-        self.delete_cluster(realm, tenant, team_id, cluster_id)
-
-    def handle_user_category_decision(
-        self,
-        realm: str,
-        tenant: str,
-        team_id: str,
-        cluster_id: int,
-        category_id: int,
-    ) -> None:
-        self.categorize_cluster(realm, tenant, team_id,
-                                cluster_id, category_id)
-
-
-# -----------------------------
-# Internal helpers
-# -----------------------------
 def _txn_text(tx: Dict[str, Any]) -> str:
     description = str(tx.get("description", "") or "").strip()
     txn_type = str(tx.get("type", "") or "").strip()
