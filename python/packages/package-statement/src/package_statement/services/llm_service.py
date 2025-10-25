@@ -23,5 +23,4 @@ class LlmService:
             kwargs["max_completion_tokens"] = max_completion_tokens
 
         response = self.client.chat.completions.create(**kwargs)
-        print(response)
         return response.choices[0].message.content.strip()

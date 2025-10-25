@@ -16,7 +16,7 @@ pydantic = "^2.9.0"
 langchain-openai = "^0.3.35"
 numpy = "^2.3.3"
 scikit-learn = "^1.7.2"
-hdbscan = "^0.8.38"
+hdbscan = "^0.8.40"
 qdrant-client = "^1.15.1"
 package-qdrant = { path = "../package-qdrant", develop = true }
 

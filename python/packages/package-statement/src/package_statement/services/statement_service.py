@@ -75,11 +75,9 @@ class StatementService:
         })
 
         mapping = self._get_header_mapping(parsed_rows)
-        print("parsed_rows=", len(parsed_rows))
         print(mapping)
         mapped_rows = self._apply_header_mapping(parsed_rows, mapping)
         transactions = self._normalize_transactions(mapped_rows)
-        print("transactions=", len(transactions))
         inserted_transactions = self._insert_transactions(
             realm=realm,
             tenant=tenant,
@@ -165,62 +163,84 @@ class StatementService:
 
     def _get_header_mapping(self, rows: List[Dict[str, Any]]) -> Dict[str, str]:
         """
-        Ask LLM to map raw PDF/Excel headers to our DB schema fields:
-        transaction_date, description, debit, credit, amount, type.
+        Use an LLM to map DB schema fields to the most appropriate raw header
+        from a bank statement file. Supports two schema shapes:
+
+        Shape A: transaction_date, description, debit, credit
+        Shape B: transaction_date, description, amount, type
         """
         if not rows:
             return {}
 
-        # Extract raw headers from the first row
+        # Sample data
         sample_headers = list(rows[0].keys())
-        print(sample_headers)
         sample_data = rows[:5]
 
-        prompt = (
-            "You are given a list of column headers from a bank statement file, "
-            "and a few example rows of data. Your task is to map each raw column header "
-            "to one of the following standard keys:\n"
-            " - transaction_date\n"
-            " - description\n"
-            " - debit\n"
-            " - credit\n"
-            " - amount\n"
-            " - type\n"
-            " - balance (optional, if present)\n\n"
-            "Respond ONLY with a JSON object where each key is a raw header and "
-            "each value is the mapped standard key.\n\n"
-            f"RAW HEADERS:\n{json.dumps(sample_headers, ensure_ascii=False)}\n\n"
-            f"EXAMPLE ROWS:\n{json.dumps(sample_data, ensure_ascii=False)}"
-        )
-
-        llm = LlmService()
+        # Construct LLM prompt
         messages = [
-            {"role": "system", "content": "You are a strict JSON data transformer."},
-            {"role": "user", "content": prompt},
+            {
+                "role": "system",
+                "content": (
+                    "You are a data extraction assistant. "
+                    "Your job is to map raw bank statement headers "
+                    "to one of two possible schema shapes (Shape A or Shape B). "
+                    "You must inspect both header names and the sample row values "
+                    "to ensure the mapping is correct."
+                )
+            },
+            {
+                "role": "user",
+                "content": (
+                    f"Here are the raw headers: {sample_headers}\n\n"
+                    f"Here are the first 5 rows of data:\n{json.dumps(sample_data, indent=2)}\n\n"
+                    "Schema shapes:\n"
+                    "Shape A: transaction_date, description, debit, credit\n"
+                    "Shape B: transaction_date, description, amount, type\n\n"
+                    "Rules:\n"
+                    "- transaction_date → column with date-like values.\n"
+                    "- description → column with long free-text details.\n"
+                    "- debit/credit → must map only to numeric columns that represent money.\n"
+                    "- If there is a single numeric column + a categorical 'Debit/Credit' column, use Shape B.\n"
+                    "- If there are two numeric columns (debit & credit separately), use Shape A.\n"
+                    "- Do not assign non-numeric columns to debit/credit/amount.\n\n"
+                    "Return ONLY a valid JSON mapping object. Example:\n"
+                    "{\n"
+                    '  "transaction_date": "Date",\n'
+                    '  "description": "Transaction Details",\n'
+                    '  "amount": "Amount (INR)",\n'
+                    '  "type": "Debit/Credit"\n'
+                    "}"
+                )
+            }
         ]
 
-        try:
-            raw_json = llm.complete(messages)
-            mapping = json.loads(raw_json)
-            if isinstance(mapping, dict):
-                return mapping
-            else:
-                logging.warning(
-                    "Unexpected mapping format from LLM: %s", raw_json)
-                return {}
-        except Exception:
-            logging.exception("header_mapping_failed")
-            return {}
 
-    def _apply_header_mapping(self, rows: List[Dict[str, Any]], mapping: Dict[str, str]) -> List[Dict[str, Any]]:
+        # Call your LLM
+        llm = LlmService()
+        raw_json = llm.complete(messages)
+
+        try:
+            mapping = json.loads(raw_json)
+        except json.JSONDecodeError:
+            raise ValueError(f"Invalid JSON returned by LLM: {raw_json}")
+
+        return mapping
+
+
+    def _apply_header_mapping(
+        self, rows: List[Dict[str, Any]], mapping: Dict[str, str]
+    ) -> List[Dict[str, Any]]:
         normalized = []
+
         for row in rows:
             mapped_row = {}
-            for pdf_key, value in row.items():
-                db_key = mapping.get(pdf_key)
-                if db_key:
-                    mapped_row[db_key] = value
+            for db_key, raw_header in mapping.items():
+                if raw_header and raw_header in row:
+                    mapped_row[db_key] = row[raw_header]
+                else:
+                    mapped_row[db_key] = None
             normalized.append(mapped_row)
+
         return normalized
 
     def _normalize_transactions(self, rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
