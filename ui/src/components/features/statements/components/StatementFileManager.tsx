@@ -9,6 +9,7 @@ import {
   Plus,
   Loader2,
   AlertCircle,
+  Trash2,
 } from "lucide-react";
 import { useHttp } from "@/lib/shared/http";
 import { useTeamStore } from "@/stores/useTeamStore";
@@ -32,6 +33,7 @@ export function StatementFileManager() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     if (currentTeam?.id) loadStatements();
@@ -102,6 +104,26 @@ export function StatementFileManager() {
       setError("Failed to upload files");
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!currentTeam?.id) {
+      setError("Team ID not available. Please wait for team data to load.");
+      return;
+    }
+    const confirmed = window.confirm("Delete this statement? This action cannot be undone.");
+    if (!confirmed) return;
+    try {
+      setError(null);
+      setDeletingId(id);
+      await statementService.remove(id);
+      setStatements((p) => p.filter((s) => s.id !== id));
+    } catch (err) {
+      console.error("Error deleting statement:", err);
+      setError("Failed to delete statement");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -219,7 +241,7 @@ export function StatementFileManager() {
                     {new Date(s.uploadedAt).toLocaleDateString()}
                   </div>
                   {s.rawTextPreview && (
-                    <div className="mt-1 text-xs text-muted-foreground truncate">
+                    <div className="mt-1 text-xs text-muted-foreground truncate text-wrap">
                       {s.rawTextPreview}
                     </div>
                   )}
@@ -233,6 +255,21 @@ export function StatementFileManager() {
                     <div className="mt-1 text-xs text-destructive">Upload failed</div>
                   )}
                 </div>
+              </div>
+              <div className="ml-3">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Delete statement"
+                  onClick={() => handleDelete(s.id)}
+                  disabled={deletingId === s.id}
+                >
+                  {deletingId === s.id ? (
+                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                  ) : (
+                    <Trash2 className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </Button>
               </div>
             </div>
           ))}

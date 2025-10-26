@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional
 
-from fastapi import APIRouter, File, HTTPException, Request, UploadFile
+from fastapi import APIRouter, File, Path, HTTPException, Request, UploadFile
 
 from package_statement.services import (
     StatementService
@@ -65,6 +65,28 @@ async def upload_statement(
             mime_type=file.content_type,
         )
         return resp
+    except HTTPException:
+        raise
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(
+            status_code=500, detail=f"Failed to process file: {e}") from e
+
+
+@router.delete("/{statement_id}")
+async def delete_statement(
+    request: Request, statement_id: int = Path(...)
+):
+    realm, tenant, team = _get_ids(request)
+    db = SyncDB(user_id=_get_user_id(request))
+
+    try:
+        svc = StatementService(db)
+        svc.delete_statement(
+            realm,
+            tenant,
+            team,
+            statement_id
+        )
     except HTTPException:
         raise
     except Exception as e:  # noqa: BLE001

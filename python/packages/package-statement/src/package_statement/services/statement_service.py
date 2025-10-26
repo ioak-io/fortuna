@@ -43,7 +43,13 @@ class StatementService:
         sql = f"DELETE FROM {schema}.statement WHERE team_id = $1 AND id = $2"
         res = self.db.query(sql, [team_id, statement_id])
         count = getattr(res, "rowCount", None)
-        return count > 0 if count is not None else True
+        deleted = count > 0 if count is not None else True
+        if deleted:
+            VectorService().delete_vectors_by_statement_id(
+                schema=schema,
+                statement_id=statement_id,
+            )
+        return deleted
 
     def create_statement_with_background_processing(
         self,
@@ -98,17 +104,16 @@ class StatementService:
             "count": len(transactions),
         })
 
-        # Trigger clustering on uncategorized transactions for this team
-        try:
-            ClusteringService(self.db).cluster_uncategorized_transactions(
-                realm=realm,
-                tenant=tenant,
-                team_id=team_id,
-            )
-        except Exception:
-            logging.exception("clustering_failed", extra={
-                "realm": realm, "tenant": tenant, "team_id": team_id, "statement_id": created.get("id"),
-            })
+        # try:
+        #     ClusteringService(self.db).cluster_new_transactions(
+        #         realm=realm,
+        #         tenant=tenant,
+        #         team_id=team_id,
+        #     )
+        # except Exception:
+        #     logging.exception("clustering_failed", extra={
+        #         "realm": realm, "tenant": tenant, "team_id": team_id, "statement_id": created.get("id"),
+        #     })
 
         return created
 
@@ -214,7 +219,6 @@ class StatementService:
             }
         ]
 
-
         # Call your LLM
         llm = LlmService()
         raw_json = llm.complete(messages)
@@ -225,7 +229,6 @@ class StatementService:
             raise ValueError(f"Invalid JSON returned by LLM: {raw_json}")
 
         return mapping
-
 
     def _apply_header_mapping(
         self, rows: List[Dict[str, Any]], mapping: Dict[str, str]

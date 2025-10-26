@@ -61,7 +61,7 @@ export default function TeamSelectionPage() {
 
     const handleSelectTeam = (teamSlug: string) => {
         setCurrentTeam(teamSlug);
-        router.push(`/${teamSlug}/units`);
+        router.push(`/${teamSlug}/statements`);
     };
 
     if (isLoading) {

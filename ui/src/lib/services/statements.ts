@@ -59,6 +59,22 @@ export function StatementService(httpFetch: HttpFetch, teamId?: string) {
       });
       return res.json();
     },
+
+    async remove(statementId: string | number): Promise<void> {
+      const customHeaders: Record<string, string> = {};
+      if (teamId) {
+        customHeaders['x-team'] = teamId;
+      }
+
+      const res = await httpFetch(`${env.NEXT_PUBLIC_API_URL}/fortuna/content/statement/${statementId}`, {
+        method: "DELETE",
+        headers: customHeaders,
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || 'Failed to delete statement');
+      }
+    },
   };
 }
 

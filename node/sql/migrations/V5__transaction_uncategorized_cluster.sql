@@ -1,13 +1,13 @@
-CREATE TABLE
-    transaction_uncategorized_cluster (
-        id BIGSERIAL PRIMARY KEY,
-        team_id uuid NOT NULL REFERENCES team (id) ON DELETE CASCADE,
-        confidence text DEFAULT 'high'::text NULL,
-        centroid_vector _float8 NULL,
-        "size" int4 DEFAULT 0 NULL,
-        created_at timestamptz NOT NULL DEFAULT now (),
-        updated_at timestamptz NOT NULL DEFAULT now ()
-    );
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE transaction_uncategorized_cluster (
+    id BIGSERIAL PRIMARY KEY,
+    team_id uuid NOT NULL REFERENCES team (id) ON DELETE CASCADE,
+    centroid_vector vector(1536),  -- dimension must match embedding size
+    size int DEFAULT 0,
+    created_at timestamptz NOT NULL DEFAULT now(),
+    updated_at timestamptz NOT NULL DEFAULT now()
+);
 
 CREATE TABLE
     transaction_uncategorized_cluster_member (
